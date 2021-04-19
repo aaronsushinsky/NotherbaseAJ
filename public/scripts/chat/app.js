@@ -6,7 +6,7 @@ const updateMessages = function() {
         messages = data.chats;
         for (let i = messages.length - 1; i >= 0; i--) {
             let time = new Date(messages[i].date);
-            $(".chat-log").append(`<p>[${time.toLocaleTimeString('en-US')}] ${messages[i].name} : ${messages[i].text}</p>`);
+            $(".chat-log").append(`<p>[${time.toLocaleTimeString('en-US')}] ${messages[i].name}: ${messages[i].text}</p>`);
         };
     });
 }
@@ -15,7 +15,7 @@ const sendMessage = function() {
     let entry = $(".chat-entry");
     if (entry.val() !== ""){
         $.post("/chat", {
-            name: "NOT",
+            name: $(".name-entry").val(),
             text: entry.val()
         }, function() {
             entry.val("");

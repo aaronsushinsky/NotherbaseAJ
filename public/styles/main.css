@@ -5,7 +5,7 @@
 * {
     box-sizing: border-box;
     font-family: 'Courier New', Courier, monospace;
-    color: rgb(26, 71, 100);
+    color: rgb(49, 49, 49);
 }
 
 body {
@@ -98,7 +98,7 @@ a {
 .chat-box {
     position: relative;
     width: 100%;
-    height: 930px;
+    height: 955px;
     box-shadow: 5px 5px 10px 5px var(--shadow);
 }
 
