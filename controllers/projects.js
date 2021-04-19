@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // Import my Data
-const Projects = require("../models/projects/projects")
+const Projects = require("../models/").projects;
 
 // GET Routes
 router.get("/", function(req, res) {
@@ -33,7 +33,7 @@ router.post("/", function(req, res) {
         name: req.body.name, 
         url: req.body.url
     })
-    res.redirect("/");
+    res.redirect("/projects");
 });
 
 // PUT Routes

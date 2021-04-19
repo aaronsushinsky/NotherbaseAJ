@@ -2,11 +2,23 @@ const express = require("express");
 const router = express.Router();
 
 // Import my Data
-const Chat = require("../models/chat/chat.js")
+const Chat = require("../models").chat;
 
-// GET Routes
 router.get("/", function(req, res) {
-    res.render("chat/index");
+    Chat.find({}).sort('-date').limit(50).exec(function(err, chats){
+        res.render("chat/index", { chats: chats });
+    });
+});
+
+router.post("/", function(req, res) {
+    Chat.create({
+        text: req.body.text,
+        date: Date.now()
+    }, function() {
+        Chat.find({}).sort('-date').limit(50).exec(function(err, chats){
+            res.render("chat/index", { chats: chats });
+        });
+    });
 });
 
 module.exports = router;
