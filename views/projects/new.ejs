@@ -1,0 +1,15 @@
+<%- include("../parts/head.ejs"); %>
+<%- include("../parts/projects/header.ejs"); %>
+
+<main>
+    <h2>New Project</h2>
+    <form action="/" method="POST">
+        <div class="new-project">
+            <input type="text" name="name" placeholder="name">
+            <input type="url" name="url" placeholder="url">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</main>
+
+<%- include("../parts/footer.ejs"); %>

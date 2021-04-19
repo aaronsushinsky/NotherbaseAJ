@@ -1,0 +1,15 @@
+<%- include("../parts/head.ejs"); %>
+<%- include("../parts/projects/header.ejs"); %>
+
+<main>
+    <h2>Edit <%= project.name %></h2>
+    <form action="/projects/<%= project._id %>?_method=PUT" method="POST">
+        <div class="edit-project">
+            <input type="text" name="name" placeholder="name" value="<%= project.name %>">
+            <input type="url" name="url" placeholder="url" value="<%= project.url %>">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</main>
+
+<%- include("../parts/footer.ejs"); %>

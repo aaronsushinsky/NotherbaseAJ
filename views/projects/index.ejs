@@ -1,0 +1,13 @@
+<%- include("../parts/head.ejs"); %>
+<%- include("../parts/projects/header.ejs"); %>
+
+<main class="project-grid">
+    <% for (let i = 0; i < projects.length; i++) { %>
+    <article>
+        <a href="/projects/<%= projects[i]._id %>"><h2><%= projects[i].name %></h2></a>
+        <a href="<%= projects[i].url %>">Link to Repository</a>
+    </article>
+    <% }; %>
+</main>
+
+<%- include("../parts/footer.ejs"); %>
