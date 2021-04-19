@@ -49,7 +49,6 @@ li {
 main {
     box-shadow: 5px 5px 10px 5px var(--shadow);
     width: 100%;
-    text-align: center;
     padding: 10px;
 }
 
@@ -99,7 +98,7 @@ a {
 .chat-box {
     position: relative;
     width: 100%;
-    height: 1000px;
+    height: 930px;
     box-shadow: 5px 5px 10px 5px var(--shadow);
 }
 
@@ -107,6 +106,7 @@ a {
     width: 100%;
     height: calc(100% - 25px);
     background-color: rgba(0, 0, 0, 0.534);
+    overflow: auto;
 }
 
 .chat-send {
@@ -123,8 +123,11 @@ a {
     bottom: 0;
     height: 25px;
     width: 95%;
+    outline: none;
 }
 
 .chat-log > p {
     color: white;
+    margin: 0;
+    padding: 0;
 }

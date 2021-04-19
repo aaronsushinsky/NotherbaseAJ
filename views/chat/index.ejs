@@ -4,19 +4,14 @@
 
     <div class="chat-box">
         <div class="chat-log">
-            <% for (let i = chats.length - 1; i >= 0; i--) { %>
-                <% let time = new Date(chats[i].date) %>
-                <p>(<%= time.toLocaleTimeString('en-US') %>) : <%= chats[i].text %></p>
-            <% }; %>
+            
         </div>
-        <form action="/chat" method="post">
-            <input type="text" name="text" class="chat-entry">
-            <input type="submit" value="Send" class="chat-send">
-        </form>
+        <input autocomplete="off" type="text" name="text" class="chat-entry">
+        <input type="submit" value="Send" class="chat-send">
     </div>
 
 </main>
 
-<script src="scripts/app.js"></script>
+<script src="scripts/chat/app.js"></script>
 
 <%- include("../parts/footer.ejs"); %>
