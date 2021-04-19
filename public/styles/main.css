@@ -98,13 +98,13 @@ a {
 .chat-box {
     position: relative;
     width: 100%;
-    height: 955px;
+    height: 800px;
     box-shadow: 5px 5px 10px 5px var(--shadow);
 }
 
 .chat-log {
     width: 100%;
-    height: calc(100% - 25px);
+    height: calc(100% - 45px);
     background-color: rgba(0, 0, 0, 0.534);
     overflow: auto;
 }
@@ -114,7 +114,11 @@ a {
     right: 0;
     bottom: 0;
     height: 25px;
-    width: 5%;
+    width: 5em;
+}
+
+input {
+    outline: none;
 }
 
 .chat-entry {
@@ -122,12 +126,39 @@ a {
     left: 0;
     bottom: 0;
     height: 25px;
-    width: 95%;
-    outline: none;
+    width: calc(100% - 5em);
 }
 
 .chat-log > p {
     color: white;
     margin: 0;
     padding: 0;
+    line-height: 1em;
+}
+
+@media screen and (max-width: 900px) {
+    body {
+        width: 100%;
+    }
+
+    main {
+        padding: 0;
+        box-shadow: none;
+    }
+
+    .chat-box {
+        height: 500px;
+        box-shadow: none;
+        position: absolute;
+        width: 100%;
+    }
+
+    .chat-log {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.534);
+    }
+
+    footer {
+        display: none;
+    }
 }

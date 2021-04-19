@@ -1,7 +1,8 @@
 let messages = [];
 
 const updateMessages = function() {
-    $.get("/chat/new-messages", { lastMessage: messages[messages.length - 1] }, function(data) {
+    let maxMessages = 50;
+    $.get(`/chat/new-messages/${maxMessages}`, function(data) {
         $(".chat-log").empty();
         messages = data.chats;
         for (let i = messages.length - 1; i >= 0; i--) {

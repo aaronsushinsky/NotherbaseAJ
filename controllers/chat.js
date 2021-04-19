@@ -8,8 +8,8 @@ router.get("/", function(req, res) {
     res.render("chat/index");
 });
 
-router.get("/new-messages", function(req, res) {
-    Chat.find({}).sort('-date').limit(50).exec(function(err, chats){
+router.get("/new-messages/:amount", function(req, res) {
+    Chat.find({}).sort('-date').limit(parseInt(req.params.amount)).exec(function(err, chats){
         res.status(200).send({ chats: chats });
     });
 });
