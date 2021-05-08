@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
-//connect to mongo
-const connectionString = 'mongodb://localhost:27017/nother_base';
 
 //connect mongoose and mongo
-mongoose.connect(connectionString, { 
+mongoose.connect(process.env.MONGODB_URI, { 
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useCreateIndex: true,
@@ -12,7 +10,7 @@ mongoose.connect(connectionString, {
 
 //handlers
 mongoose.connection.on('connected', () => {
-  console.log(`Mongoose connected to ${connectionString}`);
+  console.log(`Mongoose connected to ${process.env.MONGODB_URI}`);
 });
 
 mongoose.connection.on('error', (err) => {

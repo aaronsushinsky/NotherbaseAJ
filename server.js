@@ -6,6 +6,7 @@ app.set("view engine", "ejs");
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
 // allows us to use post body data
+require("dotenv").config();
 app.use(express.urlencoded({ extended: false }));
 // allows us to get static files like css
 app.use(express.static('public'));
@@ -27,4 +28,4 @@ app.use("/cottage", controllers.cottage);
 
 
 // Go Off (On)
-app.listen(4337);
+app.listen(process.env.PORT);
