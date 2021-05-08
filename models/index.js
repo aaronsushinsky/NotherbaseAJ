@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-//connec to mongo
+//connect to mongo
 const connectionString = 'mongodb://localhost:27017/nother_base';
 
 //connect mongoose and mongo

@@ -1,0 +1,23 @@
+body {
+    background-color: green;
+    position: relative;
+}
+
+.cottage {
+    background-color: rgb(105, 63, 38);
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    left: 25%;
+    top: 50px;
+}
+
+.door {
+    background-color: beige;
+    position: absolute;
+    width: 50px;
+    height: 75px;
+    left: 225px;
+    bottom: 0;
+    border-radius: 5px;
+}

@@ -12,15 +12,17 @@ app.use(express.static('public'));
 
 
 // Import my Controller
-const controllers = require("./controllers")
+const controllers = require("./controllers");
 
 app.get("/", function(req, res) {
-    res.render("./index.ejs");
+    res.render("./index.ejs", { style: "main" });
 });
 
 app.use("/chat", controllers.chat);
 
 app.use("/projects", controllers.projects);
+
+app.use("/cottage", controllers.cottage);
 
 
 

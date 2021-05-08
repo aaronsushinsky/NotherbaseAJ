@@ -5,7 +5,7 @@ const router = express.Router();
 const Chat = require("../models").chat;
 
 router.get("/", function(req, res) {
-    res.render("chat/index");
+    res.render("chat/index", { style: "main" });
 });
 
 router.get("/new-messages/:amount", function(req, res) {

@@ -7,22 +7,22 @@ const Projects = require("../models/").projects;
 // GET Routes
 router.get("/", function(req, res) {
     Projects.find({},  function(err, p) {
-        const context = { projects: p };
+        const context = { style: "main", projects: p };
         res.render("projects/index", context);
     });
 });
 router.get("/new", function(req, res) {
-    res.render("projects/new");
+    res.render("projects/new", { style: "main" });
 });
 router.get("/:id", function(req, res) {
     Projects.findById(req.params.id,  function(err, p) {
-        const context = { project: p };
+        const context = { style: "main", project: p };
         res.render("projects/show", context);
     });
 });
 router.get("/:id/edit", function(req, res) {
     Projects.findById(req.params.id, function(err, p) {
-        const context = { project: p };
+        const context = { style: "main", project: p };
         res.render("projects/edit", context);
     });
 });
@@ -53,7 +53,7 @@ router.delete("/:id", function(req, res) {
     Projects.findByIdAndDelete(
         req.params.id,
         (err, deletedArticle)=>{
-            res.render("projects/delete");
+            res.render("projects/delete", { style: "main" });
         }
     );
 });
