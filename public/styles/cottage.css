@@ -1,5 +1,6 @@
 body {
-    background-color: green;
+    background-image: url("https://www.arts.gov/sites/default/files/styles/nea_media_large_16x9/public/CottageTomMarks.jpeg?h=52605a11&itok=0gO-wCVA");
+    background-size: cover;
     position: relative;
 }
 
