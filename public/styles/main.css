@@ -98,7 +98,7 @@ a {
 .chat-box {
     position: relative;
     width: 100%;
-    height: 800px;
+    height: 850px;
     box-shadow: 5px 5px 10px 5px var(--shadow);
 }
 

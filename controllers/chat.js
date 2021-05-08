@@ -8,10 +8,30 @@ router.get("/", function(req, res) {
     res.render("chat/index", { style: "main" });
 });
 
-router.get("/new-messages/:amount", function(req, res) {
-    Chat.find({}).sort('-date').limit(parseInt(req.params.amount)).exec(function(err, chats){
-        res.status(200).send({ chats: chats });
-    });
+router.get("/new-messages/:lastMessage", async function(req, res) {
+    try {
+        let newChats = await Chat.find({ date: { $gt: req.params.lastMessage } }).sort('date').limit(50);
+
+        //console.log(`Found ${newChats.length} new chats!`);
+
+        res.status(200).send({ chats: newChats });
+    }
+    catch(err) {
+        console.log(err);
+    }
+});
+
+router.get("/new-messages/", async function(req, res) {
+    try {
+        let newChats = await Chat.find({}).sort('date').limit(100);
+
+        //console.log(`Found ${newChats.length} new chats!`);
+
+        res.status(200).send({ chats: newChats });
+    }
+    catch(err) {
+        console.log(err);
+    }
 });
 
 router.post("/", function(req, res) {
