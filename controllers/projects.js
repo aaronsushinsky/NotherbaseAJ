@@ -5,7 +5,7 @@ const router = express.Router();
 const Projects = require("../models/").projects;
 
 // GET Routes
-router.get("/", function(req, res) {
+router.get("/", async function(req, res) {
     Projects.find({},  function(err, p) {
         const context = { style: "main", projects: p };
         res.render("projects/index", context);
