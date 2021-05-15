@@ -39,6 +39,7 @@ router.post("/register", async function(req, res) {
         else {
             res.render("user/register",
             {
+                style: "main",
                 siteTitle: "Won Ventures | Register",
                 info: "Registration Failed: Username taken!",
                 color: "red"
@@ -50,6 +51,7 @@ router.post("/register", async function(req, res) {
 
         res.render("user/register",
         {
+            style: "main",
             siteTitle: "Won Ventures | Register",
             info: "Registration Failed: Database error!",
             color: "red"
