@@ -30,19 +30,14 @@ app.use(session({
     saveUninitialized: false
 }));
 
-app.get("/", authCheck, function(req, res) {
-    res.render("./index.ejs", { style: "main" });
-});
-
 app.use("/user", controllers.user);
 
-app.use("/chat", authCheck, controllers.chat);
+app.use("/chat", controllers.chat);
 
-app.use("/projects", authCheck, controllers.projects);
+app.use("/", authCheck, controllers.explorer);
 
-app.use("/cottage", authCheck, controllers.cottage);
-
-
+// notherbase.com/:region/:subregion/:point-of-interest/:section-of-poi
+// notherbase.com/forest/eye-of-the-forest/square/clothing-stall
 
 // Go Off (On)
 app.listen(process.env.PORT);

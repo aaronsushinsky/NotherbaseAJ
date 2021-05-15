@@ -5,25 +5,25 @@ const router = express.Router();
 const Chat = require("../models").chat;
 const User = require("../models").user;
 
-router.get("/", async function(req, res) {
-    try {
-        const foundAccount = await User.findOne({ _id: req.session.currentUser });
+// router.get("/", async function(req, res) {
+//     try {
+//         const foundAccount = await User.findOne({ _id: req.session.currentUser });
 
-        if (foundAccount) {
-            res.render("chat/index", { 
-                style: "main",
-                username: foundAccount.username
-            });
-        }
-        else {
-            res.redirect("user/login");
-            console.log("Couldn't find chatter account!");
-        }
-    }
-    catch(err) {
-        console.log(err);
-    }
-});
+//         if (foundAccount) {
+//             res.render("chat/index", { 
+//                 style: "main",
+//                 username: foundAccount.username
+//             });
+//         }
+//         else {
+//             res.redirect("user/login");
+//             console.log("Couldn't find chatter account!");
+//         }
+//     }
+//     catch(err) {
+//         console.log(err);
+//     }
+// });
 
 router.get("/new-messages/:lastMessage", async function(req, res) {
     try {

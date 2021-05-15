@@ -8,7 +8,8 @@ const user = mongoose.model('users',
         email: String,
         coin: Number,
         home: String,
-        authLevels: [ String ]
+        authLevels: [ String ],
+        location: String
     })
 );
 
