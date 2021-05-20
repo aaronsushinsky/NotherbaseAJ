@@ -6,6 +6,8 @@
     box-sizing: border-box;
     font-family: 'Courier New', Courier, monospace;
     color: rgb(49, 49, 49);
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -32,11 +34,6 @@ nav {
     margin-bottom: 20px;
     padding: 10px;
     text-align: center;
-}
-
-ul {
-    margin: 0;
-    padding: 0;
 }
 
 li {
@@ -95,46 +92,7 @@ a {
     padding: 20px;
 }
 
-.chat-box {
-    position: relative;
-    width: 100%;
-    height: 850px;
-    box-shadow: 5px 5px 10px 5px var(--shadow);
-}
 
-.chat-log {
-    width: 100%;
-    height: calc(100% - 45px);
-    background-color: rgba(0, 0, 0, 0.534);
-    overflow: auto;
-}
-
-.chat-send {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    height: 25px;
-    width: 5em;
-}
-
-input {
-    outline: none;
-}
-
-.chat-entry {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 25px;
-    width: calc(100% - 5em);
-}
-
-.chat-log > p {
-    color: white;
-    margin: 0;
-    padding: 0;
-    line-height: 1em;
-}
 
 @media screen and (max-width: 900px) {
     body {
@@ -144,18 +102,6 @@ input {
     main {
         padding: 0;
         box-shadow: none;
-    }
-
-    .chat-box {
-        height: 500px;
-        box-shadow: none;
-        position: absolute;
-        width: 100%;
-    }
-
-    .chat-log {
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.534);
     }
 
     footer {
