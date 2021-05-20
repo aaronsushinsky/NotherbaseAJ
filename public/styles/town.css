@@ -13,3 +13,7 @@
     font-family: 'Courier New', Courier, monospace;
     color: rgb(49, 49, 49);
 }
+
+.town-square {
+    background-color: var(--grassColor);
+}
