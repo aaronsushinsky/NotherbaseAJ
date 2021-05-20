@@ -14,6 +14,10 @@
     color: rgb(49, 49, 49);
 }
 
-.town-square {
+body {
     background-color: var(--grassColor);
+}
+
+.town-square {
+    background-color: var(--gravelColor);
 }

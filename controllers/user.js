@@ -10,7 +10,6 @@ const authCheck = require("./authCheck.js");
 router.get("/register", function(req, res) {
     res.render("user/register",
     {
-        style: "main",
         siteTitle: "Won Ventures | Register",
         info: "",
         color: "green"
@@ -39,7 +38,6 @@ router.post("/register", async function(req, res) {
         else {
             res.render("user/register",
             {
-                style: "main",
                 siteTitle: "Won Ventures | Register",
                 info: "Registration Failed: Username taken!",
                 color: "red"
@@ -51,7 +49,6 @@ router.post("/register", async function(req, res) {
 
         res.render("user/register",
         {
-            style: "main",
             siteTitle: "Won Ventures | Register",
             info: "Registration Failed: Database error!",
             color: "red"
@@ -62,7 +59,6 @@ router.post("/register", async function(req, res) {
 router.get("/login", function(req, res) {
     res.render("user/login", 
     { 
-        style: "main",
         siteTitle: "Won Ventures | Login",
         info: "",
         color: "green" 
@@ -82,7 +78,6 @@ router.post("/login", async function(req, res) {
             else {
                 res.render("user/login.ejs",
                 {
-                    style: "main",
                     siteTitle: "Won Ventures | Login",
                     info: "Login Failed: Password incorrect!",
                     color: "red"
@@ -92,7 +87,6 @@ router.post("/login", async function(req, res) {
         else {
             res.render("user/login.ejs",
             {
-                style: "main",
                 siteTitle: "Won Ventures | Login",
                 info: "Login Failed: Account does not exist!",
                 color: "red"
@@ -128,7 +122,6 @@ router.get("/", authCheck, async function(req, res) {
 
         if (foundAccount) {
             res.render("user/show", {
-                style: "main",
                 siteTitle: "Won Ventures | Account",
                 cash: foundAccount.cash,
                 color: "green",
