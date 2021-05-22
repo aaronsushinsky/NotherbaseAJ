@@ -18,7 +18,6 @@ router.get("/:region/:subregion/:poi/:spoi", async function(req, res) {
             let subPoi = req.params.spoi;
 
             res.render(`${region}/${subregion}/${poi}/${subPoi}`, {
-                style: "main",
                 siteTitle: "NotherBase",
                 user: foundAccount
             });
@@ -43,7 +42,6 @@ router.get("/:region/:subregion/:poi/", async function(req, res) {
             let subPoi = req.params.spoi;
 
             res.render(`${region}/${subregion}/${poi}/index`, {
-                style: "main",
                 siteTitle: "NotherBase",
                 user: foundAccount
             });

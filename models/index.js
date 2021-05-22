@@ -10,7 +10,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 //handlers
 mongoose.connection.on('connected', () => {
-  console.log(`Mongoose connected to ${process.env.MONGODB_URI}`);
+  console.log(`Mongoose connected to db`);
 });
 
 mongoose.connection.on('error', (err) => {

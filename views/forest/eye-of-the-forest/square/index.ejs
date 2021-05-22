@@ -1,7 +1,16 @@
 <%- include("../../../parts/poiHead.ejs"); %>
 
-<main>
+<!-- Load Styles Here -->
+<link rel="stylesheet" href="/styles/chat.css">
+<link rel="stylesheet" href="/styles/town.css">
+
+<!-- Your HTML Here -->
+<main class="town-square">
     <h1>Town Square</h1>
+
+    <h2>Market</h2>
+
+    <a href="./clothing-stall">Clothing Stall</a>
 
     <div class="chat-box">
         Name: <%= user.username %>
@@ -12,12 +21,9 @@
         <input autocomplete="off" type="text" name="text" class="chat-entry">
         <input type="submit" value="Send" class="chat-send">
     </div>
-    
-    <h2>Market</h2>
-
-    <a href="./clothing-stall">Clothing Stall</a>
-
-    <script src="/scripts/chat/app.js"></script>
 </main>
+
+<!-- Load Scripts Here -->
+<script src="/scripts/chat/app.js"></script>
 
 <%- include("../../../parts/footer.ejs"); %>
