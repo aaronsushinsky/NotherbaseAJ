@@ -21,3 +21,9 @@ body {
 h1 {
     width: 100%;
 }
+
+.ground {
+    background-color: var(--woodColor);
+    width: 100%;
+    
+}
