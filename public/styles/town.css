@@ -20,4 +20,14 @@ body {
 
 .town-square {
     background-color: var(--gravelColor);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chat-box {
+    width: 400px;
+}
+
+h1 {
+    width: 100%;
 }
