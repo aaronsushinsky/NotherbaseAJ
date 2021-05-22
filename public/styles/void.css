@@ -1,0 +1,23 @@
+:root {
+    --shadow: rgb(71, 71, 71);
+    --textColor: rgb(49, 49, 49);
+    --woodColor: rgb(170, 117, 68);
+    --metalColor: rgb(104, 101, 100);
+    --brickColor: rgb(139, 67, 38);
+    --gravelColor: rgb(160, 158, 154);
+    --grassColor: rgb(50, 93, 61);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--gravelColor);
+}
+
+body {
+    background-color: var(--shadow);
+}
+
+h1 {
+    width: 100%;
+}

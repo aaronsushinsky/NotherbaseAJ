@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const fs = require('fs');
 
 const User = require("../models").user;
 
@@ -17,10 +18,18 @@ router.get("/:region/:subregion/:poi/:spoi", async function(req, res) {
             let poi = req.params.poi;
             let subPoi = req.params.spoi;
 
-            res.render(`${region}/${subregion}/${poi}/${subPoi}`, {
-                siteTitle: "NotherBase",
-                user: foundAccount
-            });
+            if (await fs.existsSync(`./views/${region}/${subregion}/${poi}/${subPoi}.ejs`)) {
+                res.render(`${region}/${subregion}/${poi}/${subPoi}`, {
+                    siteTitle: "NotherBase",
+                    user: foundAccount
+                });
+            }
+            else {
+                res.render(`void/void/void/index`, {
+                    siteTitle: "NotherBase",
+                    user: foundAccount
+                });
+            }
         }
         else {
             res.redirect("/user/login");
@@ -39,12 +48,19 @@ router.get("/:region/:subregion/:poi/", async function(req, res) {
             let region = req.params.region;
             let subregion = req.params.subregion;
             let poi = req.params.poi;
-            let subPoi = req.params.spoi;
 
-            res.render(`${region}/${subregion}/${poi}/index`, {
-                siteTitle: "NotherBase",
-                user: foundAccount
-            });
+            if (await fs.existsSync(`./views/${region}/${subregion}/${poi}/index.ejs`)) {
+                res.render(`${region}/${subregion}/${poi}/index`, {
+                    siteTitle: "NotherBase",
+                    user: foundAccount
+                });
+            }
+            else {
+                res.render(`void/void/void/index`, {
+                    siteTitle: "NotherBase",
+                    user: foundAccount
+                });
+            }
         }
         else {
             res.redirect("/user/login");
