@@ -1,0 +1,22 @@
+:root {
+    --shadow: rgb(71, 71, 71);
+    --textColor: rgb(255, 255, 255);
+    --pinkPastel: rgb(219, 148, 198);
+    --yellowPastel: rgb(214, 219, 148);
+    --bluePastel: rgb(148, 191, 219);
+    --greenPastel: rgb(148, 219, 192);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--textColor);
+}
+
+body {
+    background-color: var(--pinkPastel);
+}
+
+h1 {
+    width: 100%;
+}
