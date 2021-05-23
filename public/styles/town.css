@@ -1,6 +1,6 @@
 :root {
     --shadow: rgb(71, 71, 71);
-    --textColor: rgb(49, 49, 49);
+    --textColor: rgb(230, 230, 230);
     --woodColor: rgb(170, 117, 68);
     --metalColor: rgb(104, 101, 100);
     --brickColor: rgb(139, 67, 38);
@@ -11,7 +11,7 @@
 * {
     box-sizing: border-box;
     font-family: 'Courier New', Courier, monospace;
-    color: rgb(49, 49, 49);
+    color: var(--textColor);
 }
 
 body {
@@ -25,9 +25,16 @@ body {
 }
 
 .chat-box {
-    width: 400px;
+    width: 60%;
 }
 
 h1 {
     width: 100%;
+}
+
+.market {
+    width: 40%;
+    border: 2px dashed var(--woodColor);
+    background-color: var(--metalColor);
+    padding: 10px;
 }
