@@ -1,6 +1,6 @@
 :root {
     --shadow: rgb(71, 71, 71);
-    --textColor: rgb(195, 195, 195);
+    --textColor: rgb(49, 49, 49);
     --woodColor: rgb(170, 117, 68);
     --metalColor: rgb(104, 101, 100);
     --brickColor: rgb(139, 67, 38);
@@ -10,23 +10,14 @@
 
 * {
     box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace;
-    color: var(--textColor);
+    font-family: 'Chela One', cursive;
+    color: var(--gravelColor);
 }
 
 body {
-    background-color: var(--grassColor);
+    background-color: var(--shadow);
 }
 
 h1 {
     width: 100%;
-}
-
-.ground {
-    background-color: var(--woodColor);
-    width: 100%;
-}
-
-a {
-    text-decoration: none;
 }
