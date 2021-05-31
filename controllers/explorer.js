@@ -18,7 +18,13 @@ router.get("/:region/:subregion/:poi/:spoi", async function(req, res) {
             let poi = req.params.poi;
             let subPoi = req.params.spoi;
 
-            if (await fs.existsSync(`./views/${region}/${subregion}/${poi}/${subPoi}.ejs`)) {
+            if (region === "parts") {
+                res.render(`void/void/void/index`, {
+                    siteTitle: "NotherBase",
+                    user: foundAccount
+                });
+            }
+            else if (await fs.existsSync(`./views/${region}/${subregion}/${poi}/${subPoi}.ejs`)) {
                 res.render(`${region}/${subregion}/${poi}/${subPoi}`, {
                     siteTitle: "NotherBase",
                     user: foundAccount

@@ -86,15 +86,6 @@ a {
     bottom: 20%;
 }
 
-.garden {
-    background-color: var(--woodColor);
-    position: absolute;
-    width: 30%;
-    height: 50px;
-    right: 5%;
-    bottom: 20%;
-}
-
 .door-to-layla {
     background-color: var(--textColor);
     position: absolute;
@@ -111,4 +102,36 @@ a {
     height: 50px;
     left: 40%;
     bottom: 0;
+}
+
+.tree {
+    background-color: var(--woodColor);
+    position: absolute;
+    width: 100px;
+    height: 500px;
+}
+
+#t0 {
+    left: 5%;
+    bottom: 50%;
+}
+
+#t1 {
+    left: 10%;
+    bottom: 70%;
+}
+
+#t2 {
+    left: 30%;
+    bottom: 70%;
+}
+
+#t3 {
+    right: 20%;
+    bottom: 75%;
+}
+
+#t4 {
+    right: 10%;
+    bottom: 50%;
 }
