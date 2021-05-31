@@ -82,16 +82,16 @@ a {
     position: absolute;
     width: 50px;
     height: 75px;
-    right: 10%;
+    left: 10%;
     bottom: 20%;
 }
 
 .garden {
     background-color: var(--woodColor);
     position: absolute;
-    width: 300px;
+    width: 30%;
     height: 50px;
-    right: 15%;
+    right: 5%;
     bottom: 20%;
 }
 
