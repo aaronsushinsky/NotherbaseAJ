@@ -21,6 +21,6 @@
 .book {
     background-color: rgb(73, 118, 202);
     width: 25px;
-    height: 100%;
+    height: auto;
     margin: 5px;
 }
