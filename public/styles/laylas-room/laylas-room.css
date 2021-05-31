@@ -39,3 +39,12 @@ article {
     padding: 15px;
     margin: 15px;
 }
+
+.return-door {
+    background-color: var(--shadow);
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    left: 40%;
+    bottom: 0;
+}
