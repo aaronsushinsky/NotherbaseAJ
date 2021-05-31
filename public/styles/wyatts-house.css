@@ -1,6 +1,6 @@
 :root {
     --shadow: rgb(71, 71, 71);
-    --textColor: rgb(49, 49, 49);
+    --textColor: rgb(195, 195, 195);
     --woodColor: rgb(170, 117, 68);
     --metalColor: rgb(104, 101, 100);
     --brickColor: rgb(139, 67, 38);
@@ -11,7 +11,7 @@
 * {
     box-sizing: border-box;
     font-family: 'Courier New', Courier, monospace;
-    color: rgb(49, 49, 49);
+    color: var(--textColor);
 }
 
 body {
@@ -25,5 +25,8 @@ h1 {
 .ground {
     background-color: var(--woodColor);
     width: 100%;
-    
+}
+
+a {
+    text-decoration: none;
 }
