@@ -24,5 +24,6 @@ mongoose.connection.on('disconnected', () => {
 module.exports = {
     chat: require("./chat/chat"),
     projects: require("./projects/projects"),
-    user: require("./user")
+    user: require("./user"),
+    books: require("./books/books")
 }

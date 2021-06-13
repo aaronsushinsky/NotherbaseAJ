@@ -29,15 +29,14 @@ const sendMessage = function() {
     let entry = $(".chat-entry");
     if (entry.val() !== ""){
         $.post("/chat", {
-                name: $(".name-entry").val(),
-                text: entry.val()
-            }, function() {
-                entry.val("");
-                //updateMessages();
-            });
+            name: $(".name-entry").val(),
+            text: entry.val()
+        }, function() {
+            entry.val("");
+            //updateMessages();
+        });
     }
 }
-
 
 setInterval(() => { updateMessages(); }, 250);
 

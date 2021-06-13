@@ -1,4 +1,6 @@
 <div class="bookshelf">
+    <button class="new-book">+</button>
+
     <div class="shelf">
         <div class="book"></div>
         <div class="book"></div>
@@ -14,4 +16,10 @@
         <div class="book"></div>
         <div class="book"></div>
     </div>
+
+    <form action="/books/new" method="post">
+        <input type="text" name="name" placeholder="Book Name">
+        <input type="text" name="content" placeholder="Content">
+        <input type="submit" value="Submit">
+    </form>
 </div>

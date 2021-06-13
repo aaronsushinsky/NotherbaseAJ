@@ -1,5 +1,11 @@
+:root {
+    --borderColor: rgb(110, 63, 0);
+    --darkBorderColor: rgb(78, 44, 0);
+    --bookColor: rgb(73, 118, 202);
+}
+
 .bookshelf {
-    background-color: rgb(110, 63, 0);
+    background-color: var(--woodColor);
     position: absolute;
     width: 200px;
     height: 400px;
@@ -10,17 +16,35 @@
     padding: 5px;
 }
 
-.shelf {
-    background-color: rgb(78, 44, 0);
+.bookshelf .shelf {
+    background-color: var(--darkWoodColor);
     display: flex;
     width: 100%;
     height: 30%;
     margin: 5px;
 }
 
-.book {
-    background-color: rgb(73, 118, 202);
+.bookshelf .book {
+    background-color: var(--bookColor);
     width: 25px;
     height: auto;
     margin: 5px;
+}
+
+.bookshelf .new-book {
+    color: green;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 20px;
+}
+
+.bookshelf form {
+    background-color: var(--woodColor);
+    position: fixed;
+    display: none;
+    width: 50%;
+    height: 50%;
+    left: 25%;
+    top: 25%;
 }
