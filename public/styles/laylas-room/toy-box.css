@@ -1,0 +1,37 @@
+:root {
+    --toySize: 128px;
+}
+
+.toy-box {
+    display: flex;
+}
+
+.toy {
+    width: var(--toySize);
+    height: var(--toySize);
+    border: 2px solid grey;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+}
+
+.toy > img {
+    width: 100%;
+    height: 100%;
+}
+
+.pocket {
+    position: absolute;
+    width: 100%;
+    height: 75%;
+    bottom: -10%;
+    background-color: rgb(170, 170, 170);
+    border-radius: 5px;
+    margin: 0;
+    transition: .5s ease-in;
+}
+
+.pocket-down {
+    bottom: -30%;
+    transition: .5s ease-in;
+}

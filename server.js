@@ -11,6 +11,7 @@ app.use(methodOverride('_method'));
 
 //auth
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const authCheck = require('./controllers/authCheck.js');
 
 // allows us to use post body data
@@ -25,6 +26,7 @@ const controllers = require("./controllers");
 
 //enable cookies
 app.use(session({
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
     secret: process.env.SECRET || "won",
     resave: false,
     saveUninitialized: false

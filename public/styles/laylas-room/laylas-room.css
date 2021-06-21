@@ -1,0 +1,50 @@
+:root {
+    --shadow: rgba(71, 71, 71, 0.527);
+    --textColor: rgb(255, 255, 255);
+    --pinkPastel: rgb(219, 148, 198);
+    --yellowPastel: rgb(214, 219, 148);
+    --bluePastel: rgb(148, 191, 219);
+    --greenPastel: rgb(130, 226, 189);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--textColor);
+}
+
+body {
+    background-color: var(--pinkPastel);
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+h1 {
+    width: 100%;
+}
+
+hr {
+    width: 100%;
+}
+
+article {
+    width: 400px;
+    border: 2px dotted var(--textColor);
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px 5px var(--shadow);
+    background-color: var(--bluePastel);
+    padding: 15px;
+    margin: 15px;
+}
+
+.return-door {
+    background-color: var(--shadow);
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    left: 40%;
+    bottom: 0;
+}
