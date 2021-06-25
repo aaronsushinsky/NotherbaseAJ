@@ -20,6 +20,12 @@ app.use(express.urlencoded({ extended: false }));
 // allows us to get static files like css
 app.use(express.static('public'));
 
+// sets the favicon image
+const favicon = require('serve-favicon');
+app.use(favicon(__dirname + '/public/img/logo.png'));
+
+//start connection to db
+require("./global/models/start-mongoose");
 
 // Import my Controller
 const controllers = require("./controllers");
@@ -33,6 +39,8 @@ app.use(session({
 }));
 
 app.use("/user", controllers.user);
+
+app.use("/portfolio", controllers.portfolio);
 
 app.use("/chat", controllers.chat);
 

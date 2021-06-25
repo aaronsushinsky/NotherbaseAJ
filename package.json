@@ -29,6 +29,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "method-override": "^3.0.0",
-    "mongoose": "^5.12.4"
+    "mongoose": "^5.12.4",
+    "serve-favicon": "^2.5.0"
   }
 }
