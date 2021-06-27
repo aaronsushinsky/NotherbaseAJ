@@ -1,9 +1,21 @@
 <%- include("../../../global/parts/head.ejs"); %>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles/portfolio.css">
 
+<nav class="nav-closed">
+    <h1>Wyatt Sushinsky</h1>
+</nav>
+
+
 <header>
-    <h1>My Projects</h1>
+    <div class="portrait">
+        <div class="portrait-fade"></div>
+    </div>
+    <h2>Wyatt Sushinsky</h2>
+    <h3>Software Engineer</h3>
 </header>
 
 <main>
@@ -23,5 +35,17 @@
         <img src="/img/0.jpg" />
     </section>
 </main>
+
+<script>
+    $(window).scroll(function() {
+        if (window.scrollY > (3 / 4) * parseInt($("header").css("height"))) {
+            $("nav").removeClass("nav-closed");
+        }
+        else {
+            $("nav").addClass("nav-closed");
+        }
+    });
+</script>
+
 
 <%- include("../../../global/parts/footer.ejs"); %>
