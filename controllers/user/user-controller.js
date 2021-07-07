@@ -10,7 +10,7 @@ const authCheck = require("../authCheck");
 router.get("/register", function(req, res) {
     res.render(`${__dirname}/views/register`,
     {
-        siteTitle: "Won Ventures | Register",
+        siteTitle: "NotherBase | Register",
         info: "",
         color: "green"
     });
@@ -38,7 +38,7 @@ router.post("/register", async function(req, res) {
         else {
             res.render(`${__dirname}/views/register`,
             {
-                siteTitle: "Won Ventures | Register",
+                siteTitle: "NotherBase | Register",
                 info: "Registration Failed: Username taken!",
                 color: "red"
             });
@@ -49,7 +49,7 @@ router.post("/register", async function(req, res) {
 
         res.render(`${__dirname}/views/register`,
         {
-            siteTitle: "Won Ventures | Register",
+            siteTitle: "NotherBase | Register",
             info: "Registration Failed: Database error!",
             color: "red"
         });
@@ -59,7 +59,7 @@ router.post("/register", async function(req, res) {
 router.get("/login", function(req, res) {
     res.render(`${__dirname}/views/login`, 
     { 
-        siteTitle: "Won Ventures | Login",
+        siteTitle: "NotherBase | Login",
         info: "",
         color: "green" 
     });
@@ -78,7 +78,7 @@ router.post("/login", async function(req, res) {
             else {
                 res.render(`${__dirname}/views/login`,
                 {
-                    siteTitle: "Won Ventures | Login",
+                    siteTitle: "NotherBase | Login",
                     info: "Login Failed: Password incorrect!",
                     color: "red"
                 });
@@ -87,7 +87,7 @@ router.post("/login", async function(req, res) {
         else {
             res.render(`${__dirname}/views/login`,
             {
-                siteTitle: "Won Ventures | Login",
+                siteTitle: "NotherBase | Login",
                 info: "Login Failed: Account does not exist!",
                 color: "red"
             });
@@ -98,7 +98,7 @@ router.post("/login", async function(req, res) {
 
         res.render(`${__dirname}/views/login`,
         {
-            siteTitle: "Won Ventures | Login",
+            siteTitle: "NotherBase | Login",
             info: "Login Failed: Database error!",
             color: "red"
         });
@@ -122,7 +122,7 @@ router.get("/", authCheck, async function(req, res) {
 
         if (foundAccount) {
             res.render(`${__dirname}/views/show`, {
-                siteTitle: "Won Ventures | Account",
+                siteTitle: "NotherBase | Account",
                 cash: foundAccount.cash,
                 color: "green",
                 info: ""

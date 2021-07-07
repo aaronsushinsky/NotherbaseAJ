@@ -1,43 +1,43 @@
-class Plant {
-    constructor(div, type, age) {
-        this.div = div;
-        this.div.on("click", this.pluck);
-        this.type = type;
-        this.age = age;
-    }
+// class Plant {
+//     constructor(div, type, age) {
+//         this.div = div;
+//         this.div.on("click", this.pluck);
+//         this.type = type;
+//         this.age = age;
+//     }
 
-    pluck = () => {
-        this.age = 0;
+//     pluck = () => {
+//         this.age = 0;
 
-        this.div.css("height", `${this.age}px`);
-    }
+//         this.div.css("height", `${this.age}px`);
+//     }
 
-    update = (delta) => {
-        this.age += delta / (5000 + 10000 * Math.random());
-        if (this.age > 100) this.age = 100;
+//     update = (delta) => {
+//         this.age += delta / (5000 + 10000 * Math.random());
+//         if (this.age > 100) this.age = 100;
 
-        this.div.css("height", `${this.age}px`);
-    }
-}
+//         this.div.css("height", `${this.age}px`);
+//     }
+// }
 
-class Gardener {
-    constructor() {
-        this.gardenElements = $(".garden");
-        this.plotElements = $(".plot");
-        this.plots = [];
-        for (let i = 0; i < this.plotElements.length; i++) {
-            this.plots.push(new Plant(this.plotElements.eq(i), "Dandelion", 0));
-        }
-    }
+// class Gardener {
+//     constructor() {
+//         this.gardenElements = $(".garden");
+//         this.plotElements = $(".plot");
+//         this.plots = [];
+//         for (let i = 0; i < this.plotElements.length; i++) {
+//             this.plots.push(new Plant(this.plotElements.eq(i), "Dandelion", 0));
+//         }
+//     }
 
-    update = () => {
-        timing.update();
+//     update = () => {
+//         timing.update();
         
-        for (let i = 0; i < this.plots.length; i++) {
-            this.plots[i].update(timing.deltaTime);
-        }
-    }
-}
+//         for (let i = 0; i < this.plots.length; i++) {
+//             this.plots[i].update(timing.deltaTime);
+//         }
+//     }
+// }
 
-const gardener = new Gardener();
-setInterval(gardener.update, 5000);
+// const gardener = new Gardener();
+// setInterval(gardener.update, 5000);

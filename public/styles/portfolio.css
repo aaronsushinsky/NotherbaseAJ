@@ -1,8 +1,9 @@
 :root {
-    --textColor: white;
-    --bgColor: rgb(17, 17, 17);
+    --textColor: rgb(252, 252, 252);
+    --altTextColor: rgb(20, 20, 20);
+    --bgColor: rgb(31, 31, 31);
     --bgColorLight: rgb(78, 78, 78);
-    --focusColor: rgb(51, 51, 51);
+    --focusColor: rgb(230, 156, 39);
     --shadowColor: rgb(0, 0, 0);
 }
 
@@ -27,8 +28,7 @@ header {
     height: 100vh;
     width: 100%;
     position: relative;
-    box-shadow: 0 10px 25px var(--bgColor);
-    margin-bottom: 50px;
+    box-shadow: 0 10px 25px var(--shadowColor);
     background-color: var(--bgColor);
 }
 
@@ -69,6 +69,32 @@ header h3 {
     border-radius: 5px;
 }
 
+.external-links {
+    position: absolute;
+    left: 100px;
+    top: calc(35% + 125px);
+    font-size: 50px;
+    background-color: var(--bgColor);
+    width: 110px;
+    height: 65px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+header a {
+    width: 50px;
+    height: 100%;
+    margin: 5px;
+}
+
+header i:hover {
+    cursor: pointer;
+    color: var(--focusColor);
+}
+
 nav {
     height: 50px;
     width: 100%;
@@ -82,6 +108,15 @@ nav {
     top: 0;
     transition: all .2s ease;
     z-index: 99;
+    border-bottom: 1px solid var(--bgColorLight);
+}
+
+nav * {
+    color: var(--altTextColor);
+}
+
+nav i {
+    font-size: 30px;
 }
 
 .nav-closed {
@@ -90,8 +125,7 @@ nav {
 }
 
 main {
-    width: 900px;
-    margin: 0 auto;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -102,7 +136,11 @@ main img {
 }
 
 section {
-    padding: 20px;
+    width: 100%;
+    padding: 100px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 section h3 {
@@ -113,13 +151,80 @@ section p {
     margin: 20px;
 }
 
+section img {
+    width: 650px;
+    height: auto;
+}
+
+.text {
+    width: 400px;
+    height: 100%;
+    padding: 5px;
+}
+
+#cpd {
+    background-color: var(--focusColor);
+    flex-direction: row-reverse;
+}
+
+#cpd * {
+    color: var(--altTextColor);
+}
+
+#tamago-watch {
+    background-color: var(--bgColor);
+}
+
+#won-ventures {
+    background-color: var(--focusColor);
+    flex-direction: row-reverse;
+}
+
+#won-ventures * {
+    color: var(--altTextColor);
+}
+
+#wayfarer {
+    background-color: var(--bgColor);
+}
+
 @media only screen and (max-width: 900px) {
     .portrait {
         width: 100%;
         height: 100vh;
     }
 
-    header h2, header h3 {
-        left: 25px;
+    header h2 {
+        left: 35px;
+        font-size: 30px;
+        top: 65%;
+    }
+
+    header h3 {
+        left: 35px;
+        font-size: 25px;
+        top: calc(65% + 50px);
+    }
+
+    .external-links {
+        left: 35px;
+        font-size: 30px;
+        top: calc(65% + 95px);
+        height: 45px;
+        width: 75px;
+    }
+
+    section {
+        flex-wrap: wrap;
+        padding: 40px 10px;
+    }
+
+    #cpd, #won-ventures {
+        flex-direction: row;
+    }
+
+    .text, section img {
+        width: 100%;
+        padding: 5px;
     }
 }
