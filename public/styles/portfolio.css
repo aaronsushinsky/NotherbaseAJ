@@ -164,6 +164,7 @@ section img {
 
 #cpd {
     background-color: var(--focusColor);
+    flex-direction: row-reverse;
 }
 
 #cpd * {
@@ -176,6 +177,7 @@ section img {
 
 #won-ventures {
     background-color: var(--focusColor);
+    flex-direction: row-reverse;
 }
 
 #won-ventures * {
@@ -217,7 +219,12 @@ section img {
         padding: 40px 10px;
     }
 
+    #cpd, #won-ventures {
+        flex-direction: row;
+    }
+
     .text, section img {
         width: 100%;
+        padding: 5px;
     }
 }
