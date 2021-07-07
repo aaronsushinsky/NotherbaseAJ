@@ -1,7 +1,7 @@
 const router = require("express").Router();
-// const gardenModel = require("../../models/wyatts-house/garden");
-// const gardenScript = require("./server-scripts/wyatts-house/garden");
 
+const houseDB = require("./models.js").house;
+const gardenScript = require("./server-scripts/garden.js");
 
 router.get("/", function(req, res) {
     res.render(`${__dirname}/views/index`, 
