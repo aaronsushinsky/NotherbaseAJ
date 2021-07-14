@@ -1,8 +1,10 @@
 require("dotenv").config();
+const fs = require('fs');
 
 // Setup for Express
 const express = require("express");
 const app = express();
+const https = require('https')
 app.set("view engine", "ejs");
 
 // allows us to delete
@@ -50,4 +52,8 @@ app.use("/", authCheck, controllers.explorer);
 // notherbase.com/forest/eye-of-the-forest/square/clothing-stall
 
 // Go Off (On)
-app.listen(process.env.PORT);
+https.createServer({
+    key: fs.readFileSync('https/server.key'),
+    cert: fs.readFileSync('https/server.cert')
+}, app)
+.listen(process.env.PORT);
