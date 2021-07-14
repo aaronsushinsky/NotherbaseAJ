@@ -1,11 +1,9 @@
 <%- include("../../../global/parts/head.ejs"); %>
 
-<link rel="stylesheet" href="/styles/main.css">
+<link rel="stylesheet" href="/styles/auth.css">
 
-<body class="auth-grid">
-    <section class="heartwarming">
-    </section>
-    <section class="auth-container">
+<body>
+    <section>
         <h1>NotherBase</h1>
         <h3>Login to Your Account</h3>
         <form action="/user/login" method="POST" class="auth-form">
@@ -16,7 +14,7 @@
                 <%= info %>
             </p>
         </form>
-        Need an account? <a href="/user/register">Sign Up Here</a>
+        <p>Need an account? <a href="/user/register">Sign Up Here</a></p>
     </section>
 </body>
 
