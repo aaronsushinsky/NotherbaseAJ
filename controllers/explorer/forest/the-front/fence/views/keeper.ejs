@@ -1,0 +1,36 @@
+<!-- Includes the head html for all pois -->
+<%- include("../../../../../../global/parts/head.ejs"); %>
+
+<!-- Load Styles Here -->
+<link rel="stylesheet" href="/styles/main.css">
+
+<!-- Your HTML Here -->
+<main>
+    <% if (pov === "look-in") { %>
+        <p>
+            The shack looks inside the same as out.
+        </p>
+        <hr>
+        <a href="/forest/the-front/fence/keeper">
+            Back Away
+        </a>
+    <% } else { %>
+        <p>
+            A small shack, just large enough for a door,
+            a window and a person. At this time, it is empty.
+        </p>
+        <hr>
+        <a href="/forest/the-front/fence/keeper?pov=look-in">
+            Look into the Shack
+        </a>
+        <a href="/forest/the-front/fence/gate">
+            Go to the Fence Gate
+        </a>
+        <a href="/forest/the-front/fence">
+            Back Away
+        </a>
+    <% } %>
+</main>
+
+<!-- Includes the foot html for all pages -->
+<%- include("../../../../../../global/parts/footer.ejs"); %>
