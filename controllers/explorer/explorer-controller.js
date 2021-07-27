@@ -2,7 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const explore = (location) => {
-    router.use(`/${location}`, require(`./${location}/${location}-controller.js`));
+    router.use(`/${location}`, 
+        function (req, res, next) {
+            if (!req.query.pov) req.query.pov = "none";
+            next();
+        },
+        require(`./${location}/${location}-controller.js`));
 }
 
 // explorer regions

@@ -9,8 +9,6 @@ router.get("/", function(req, res) {
 });
 
 router.get("/keeper", function(req, res) {
-    if (!req.query.pov) req.query.pov = "none";
-
     res.render(`${__dirname}/views/keeper`, 
     {
         siteTitle: "NotherBase",
