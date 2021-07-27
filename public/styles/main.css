@@ -1,110 +1,68 @@
 :root {
-    --shadow: rgb(71, 71, 71);
+    --bgColor: rgb(37, 37, 37);
+    --shadowColor: rgb(26, 26, 26);
+    --textColor: rgb(185, 135, 69);
+    --textColorBright: rgb(221, 181, 130);
 }
 
 * {
     box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace;
-    color: rgb(49, 49, 49);
     margin: 0;
     padding: 0;
 }
 
 body {
+    background-color: var(--bgColor);
     height: 100vh;
-    width: 900px;
-    background-color: grey;
-    overflow: visible;
-    margin: 0 auto;
-    position: relative;
-}
-
-header {
-    box-shadow: 5px -5px 10px 5px var(--shadow);
-    height: 150px;
-    width: 100%;
-    padding: 20px;
-    text-align: center;
-}
-
-nav {
-    box-shadow: 5px 5px 10px 5px var(--shadow);
-    height: 40px;
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 10px;
-    text-align: center;
-}
-
-li {
-    display: inline;
-    margin: 10px;
-    padding: 0;
-    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 main {
-    box-shadow: 5px 5px 10px 5px var(--shadow);
+    width: 500px;
+    min-height: 500px;
+    box-shadow: 5px 5px 5px 5px var(--shadowColor);
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+hr {
+    border: none;
+    border-bottom: 1px solid var(--textColor);
+    margin: 20px;
     width: 100%;
-    padding: 10px;
 }
 
-.project-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 10px;
-}
-
-footer {
-    box-shadow: 5px 5px 10px 5px var(--shadow);
-    height: 40px;
+p {
+    color: var(--textColor);
+    margin-bottom: 10px;
     width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    padding: 10px;
-    text-align: center;
-}
-
-h1 {
-    font-size: 40px;
-}
-
-main > article {
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    box-shadow: inset 0px 0px 5px 2px var(--shadow);
 }
 
 a {
-    color: rgb(159, 176, 184);
+    background-color: var(--bgColor);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--textColor);
+    color: var(--textColor);
+    margin: 5px;
+    margin-top: 20px;
     text-decoration: none;
 }
 
-.show-readme {
-    box-shadow: inset 0px 0px 5px 2px var(--shadow);
-    padding: 20px;
+a:hover {
+    border: 1px solid var(--textColorBright);
+    color: var(--textColorBright);
+    cursor: pointer;
 }
 
-.new-project, .edit-project {
-    padding: 20px;
-}
-
-
-
-@media screen and (max-width: 900px) {
-    body {
-        width: 100%;
-    }
-
-    main {
-        padding: 0;
-        box-shadow: none;
-    }
-
-    footer {
-        display: none;
-    }
+h2, h3 {
+    color: var(--textColor);
+    width: 100%;
 }
