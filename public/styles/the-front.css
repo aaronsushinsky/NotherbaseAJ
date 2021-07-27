@@ -1,0 +1,63 @@
+:root {
+    --bgColor: rgb(37, 37, 37);
+    --shadowColor: rgb(26, 26, 26);
+    --textColor: rgb(185, 135, 69);
+    --textColorBright: rgb(221, 181, 130);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bgColor);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+main {
+    width: 500px;
+    min-height: 500px;
+    box-shadow: 5px 5px 5px 5px var(--shadowColor);
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+hr {
+    border: none;
+    border-bottom: 1px solid var(--textColor);
+    margin: 20px;
+    width: 100%;
+}
+
+p {
+    color: var(--textColor);
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+a {
+    background-color: var(--bgColor);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--textColor);
+    color: var(--textColor);
+    margin: 5px;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+a:hover {
+    border: 1px solid var(--textColorBright);
+    color: var(--textColorBright);
+    cursor: pointer;
+}
