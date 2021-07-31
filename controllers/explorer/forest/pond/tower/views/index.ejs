@@ -11,8 +11,13 @@
     </p>
     <hr>
     <a href="/forest/pond/tower">
-        Enter the Tower
+        Knock on the Tower's Door
     </a>
+    <% if (hasKey) { %>
+        <a href="/forest/pond/tower">
+            Enter the Tower
+        </a>
+    <% } %>
     <a href="/forest/road/side">
         Return to the Road
     </a>
