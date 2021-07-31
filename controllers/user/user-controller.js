@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 
 // Import my Data
 const User = require("./models.js").user;
+const inventory = require("../../global/models/inventory").inventory;
 
 const authCheck = require("../authCheck");
 
@@ -72,6 +73,14 @@ router.post("/login", async function(req, res) {
         if (foundAccount) {
             if (await bcrypt.compare(req.body.password, foundAccount.password)) {
                 req.session.currentUser = { _id: foundAccount._id };
+
+                const foundInventory = await inventory.findOne({ user: req.session.currentUser });
+                if (!foundInventory) {
+                    await inventory.create({
+                        user: req.session.currentUser,
+                        items: []
+                    });
+                }
 
                 res.redirect("/");
             }
