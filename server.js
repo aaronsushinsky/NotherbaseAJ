@@ -44,6 +44,8 @@ app.use("/portfolio", controllers.portfolio);
 
 app.use("/chat", controllers.chat);
 
+app.use("/item", controllers.item);
+
 app.use("/", authCheck, controllers.explorer);
 
 // notherbase.com/:region/:subregion/:point-of-interest/:section-of-poi
