@@ -3,5 +3,6 @@ module.exports = {
     explorer: require("./explorer/explorer-controller"),
     chat: require("./chat/chat-controller"),
     portfolio: require("./portfolio/portfolio-controller"),
-    authCheck: require("./authCheck.js")
+    authCheck: require("./authCheck"),
+    item: require("./item/item-controller")
 }

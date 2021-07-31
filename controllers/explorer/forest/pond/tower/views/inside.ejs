@@ -1,0 +1,43 @@
+<!-- Includes the head html for all pois -->
+<%- include("../../../../../../global/parts/head.ejs"); %>
+
+<!-- Load Styles Here -->
+<link rel="stylesheet" href="/styles/wizard-tower.css">
+
+<!-- Your HTML Here -->
+<main>
+    <section class="floor" id="4">
+        <h2>Floor 4</h2>
+    </section>
+    <section class="floor" id="3">
+        <h2>Items</h2>
+        <div id="item-editor">
+
+        </div>
+    </section>
+    <section class="floor" id="2">
+        <h2>Floor 2</h2>
+    </section>
+    <section class="floor" id="1">
+        <h2>Floor 1</h2>
+    </section>
+</main>
+
+<script>
+    let updateItems = async function updateItems() {
+        $.get(`/item/all`, function(data) {
+            $("#item-editor").empty();
+
+            console.log(data);
+
+            for (let i = 0; i < data.foundItems.length; i++) {
+                $("#item-editor").append(`<p>[${data.foundItems[i].name}] ${data.foundItems[i].shortDescription}</p>`);
+            };
+        });
+    };
+
+    updateItems();
+</script>
+
+<!-- Includes the foot html for all pages -->
+<%- include("../../../../../../global/parts/footer.ejs"); %>

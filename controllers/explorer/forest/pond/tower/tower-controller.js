@@ -30,5 +30,39 @@ router.get("/", async function(req, res) {
     }
 });
 
+router.get("/inside", async function(req, res) {
+    try {
+        const foundInventory = await inventory.findOne({ user: req.session.currentUser });
+        
+        let hasKey = false;
+
+        if (foundInventory) {
+            const foundItem = await item.findOne({ name: "Wizard Tower Key" });
+            
+            for (let i = 0; i < foundInventory.items.length; i++) {
+                if (foundItem._id.equals(foundInventory.items[i].item)) hasKey = true;
+            }
+
+            if (hasKey) {
+                res.render(`${__dirname}/views/inside`, 
+                {
+                    siteTitle: "NotherBase",
+                    hasKey: hasKey
+                });
+            }
+            else {
+                res.redirect("/forest/pond/tower");
+            }
+            
+        }
+        else {
+            res.redirect("/forest/pond/tower");
+        }
+    }
+    catch(err) {
+        console.log(err);
+    }
+});
+
 // This exports the router
 module.exports = router;
