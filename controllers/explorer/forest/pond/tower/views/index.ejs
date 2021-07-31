@@ -9,12 +9,13 @@
     <p>
         The tower stands before you, door locked.
     </p>
+    <p id="extra"></p>
     <hr>
-    <a href="/forest/pond/tower">
+    <button id="knock">
         Knock on the Tower's Door
-    </a>
+    </button>
     <% if (hasKey) { %>
-        <a href="/forest/pond/tower">
+        <a href="/forest/pond/tower/inside#1">
             Enter the Tower
         </a>
     <% } %>
@@ -22,6 +23,13 @@
         Return to the Road
     </a>
 </main>
+
+<script>
+    $("#knock").on("click", function knock() {
+        $("#extra").text("You knocked on the tower's door. Surely you've been heard.");
+        $("#knock").toggleClass("invisible");
+    });
+</script>
 
 <!-- Includes the foot html for all pages -->
 <%- include("../../../../../../global/parts/footer.ejs"); %>
