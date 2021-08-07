@@ -17,7 +17,7 @@
 
 body {
     background-color: var(--bgColor);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,6 +30,8 @@ main {
     box-shadow: 5px 5px 5px 5px var(--shadowColor);
     padding: 20px;
     border-radius: 5px;
+    margin-top: 15px;
+    margin-bottom: 100px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -69,4 +71,8 @@ button:hover, a:hover {
 h2, h3 {
     color: var(--textColor);
     width: 100%;
+}
+
+ul {
+    margin: 10px;
 }

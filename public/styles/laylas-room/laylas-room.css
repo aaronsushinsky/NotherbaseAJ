@@ -8,26 +8,11 @@
 }
 
 * {
-    box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace;
     color: var(--textColor);
 }
 
 body {
     background-color: var(--pinkPastel);
-}
-
-main {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-h1 {
-    width: 100%;
-}
-
-hr {
-    width: 100%;
 }
 
 article {
@@ -42,9 +27,8 @@ article {
 
 .return-door {
     background-color: var(--shadow);
-    position: absolute;
-    width: 200px;
-    height: 50px;
-    left: 40%;
-    bottom: 0;
+}
+
+hr {
+    margin: 20px 0px;
 }

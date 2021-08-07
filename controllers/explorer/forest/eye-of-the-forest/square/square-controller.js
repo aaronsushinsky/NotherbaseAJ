@@ -8,7 +8,7 @@ router.get("/", function(req, res) {
     });
 });
 
-router.get("/clothing-stall", async function(req, res) {
+router.get("/clothing-stall", function(req, res) {
     res.render(`${__dirname}/views/clothing-stall`, 
     {
         siteTitle: "NotherBase",
