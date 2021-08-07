@@ -30,6 +30,7 @@ main {
     box-shadow: 5px 5px 5px 5px var(--shadowColor);
     padding: 20px;
     border-radius: 5px;
+    margin-top: -10%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
