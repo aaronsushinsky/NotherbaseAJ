@@ -1,33 +1,31 @@
 <%- include("../../../../../../global/parts/head.ejs"); %>
 
 <!-- Load Styles Here -->
-<link rel="stylesheet" href="/styles/wyatts-house/wyatts-house.css">
-<link rel="stylesheet" href="/styles/wyatts-house/garden.css">
+<link rel="stylesheet" href="/styles/main.css">
+<!-- <link rel="stylesheet" href="/styles/wyatts-house/wyatts-house.css">
+<link rel="stylesheet" href="/styles/wyatts-house/garden.css"> -->
 
 <!-- Your HTML Here -->
 <main>
-    <section class="sky">
-        <a href="/forest/eye-of-the-forest/square">Back to The Eye of the Forest</a>
-    </section>
+    <p>
+        The small forest path brings you to a clearing
+        where you are immediately met by a modest cottage.
+    </p>
 
-    <section class="ground">
-        <div class="tree" id="t0"></div>
-        <div class="tree" id="t1"></div>
-        <div class="tree" id="t2"></div>
-        <div class="tree" id="t3"></div>
-        <div class="tree" id="t4"></div>
-        <div class="house">
-            <a href="/forest/clearing/wyatts-house/livingroom">
-                <div class="door">
-    
-                </div>
-            </a>
-        </div>
-        <div class="trash-can">
-            
-        </div>
-        <%- include("parts/garden.ejs"); %>
-    </section>
+    <p>
+        A sign on the mailbox indicates a Sushinsky lives
+        here.
+    </p>
+
+    <hr>
+
+    <a href="/forest/clearing/wyatts-house/livingroom">
+        Enter Wyatt's House
+    </a>
+
+    <a href="/forest/eye-of-the-forest/square">
+        Back to The Eye of the Forest
+    </a>
 </main>
 
 <!-- Load Scripts Here -->

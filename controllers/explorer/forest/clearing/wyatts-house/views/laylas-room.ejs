@@ -1,15 +1,18 @@
 <%- include("../../../../../../global/parts/head.ejs"); %>
 
 <!-- Load Styles Here -->
+<link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/styles/laylas-room/laylas-room.css">
 <link rel="stylesheet" href="/styles/laylas-room/toy-box.css">
 
 <!-- Your HTML Here -->
 <main>
-    <h1>Layla's Room</h1><hr>
+    <h2>Layla's Room</h2>
+    
+    <hr>
 
     <article>
-        <h2>My Skills</h2><hr>
+        <h3>My Skills</h3><hr>
         <ul>
             <li>***** Mongering</li>
             <li>Bad *****</li>
@@ -17,7 +20,7 @@
     </article>
 
     <article>
-        <h2>To Do</h2><hr>
+        <h3>To Do</h3><hr>
         <ul>
             <li>Go to Work</li>
             <li>Kiss Wyatt</li>
@@ -25,7 +28,7 @@
     </article>
 
     <article>
-        <h2>Recipes</h2><hr>
+        <h3>Recipes</h3><hr>
         <ul>
             <li>Guratan</li>
             <li>Goulash</li>
@@ -33,14 +36,14 @@
     </article>
 
     <article>
-        <h2>Toy Box</h2><hr>
+        <h3>Toy Box</h3><hr>
         <%- include("parts/toy-box.ejs"); %>
     </article>
 
-    <a href="/forest/clearing/wyatts-house/livingroom">
-        <div class="return-door">
+    <hr>
 
-        </div>
+    <a href="/forest/clearing/wyatts-house/livingroom" class="return-door">
+        Exit Layla's Room
     </a>
 </main>
 
