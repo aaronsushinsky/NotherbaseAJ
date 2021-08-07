@@ -16,4 +16,12 @@ router.get("/clothing-stall", function(req, res) {
     });
 });
 
+router.get("/well", function(req, res) {
+    res.render(`${__dirname}/views/well`, 
+    {
+        siteTitle: "NotherBase",
+        user: req.session.currentUserFull
+    });
+});
+
 module.exports = router;
