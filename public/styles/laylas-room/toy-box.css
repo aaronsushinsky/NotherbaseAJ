@@ -98,6 +98,11 @@ img {
     border-radius: 50%;
 }
 
+
 .red-bg {
     background-color: rgb(160, 76, 76);
+}
+
+.beautiful-background:hover {
+    background-color: rgb(144, 42, 165);
 }
