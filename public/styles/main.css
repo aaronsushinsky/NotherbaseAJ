@@ -77,6 +77,41 @@ ul {
     margin: 10px;
 }
 
+.inventory {
+    width: 100%;
+    border: 1px solid var(--textColor);
+    color: var(--textColor);
+    position: fixed;
+    width: 90%;
+    height: 40%;
+    left: 5%;
+    bottom: 80px;
+    background-color: var(--bgColor);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#inventory-button {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    width: 64px;
+    height: 64px;
+}
+
+.item-card {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    border: 1px solid var(--textColor);
+    padding: 10px;
+}
+
+.item-card hr {
+    margin:  5px -10px;
+    width: calc(100% + 20px);
+}
+
 @media only screen and (max-width: 800px) {
     main {
         width: 100%;

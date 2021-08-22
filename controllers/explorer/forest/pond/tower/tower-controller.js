@@ -7,22 +7,21 @@ const item = require("../../../../../global/models/inventory").item;
 // This is where all the routes for sub-pois go.
 router.get("/", async function(req, res) {
     try {
-        const foundInventory = await inventory.findOne({ user: req.session.currentUser });
+        const foundInventory = await inventory.findOne({ user: req.session.currentUser }).populate("items.item");
         
         let hasKey = false;
 
         if (foundInventory) {
-            const foundItem = await item.findOne({ name: "Wizard Tower Key" });
-            
             for (let i = 0; i < foundInventory.items.length; i++) {
-                if (foundItem._id.equals(foundInventory.items[i].item)) hasKey = true;
+                if (foundInventory.items[i].item.name === "Wizard Tower Key") hasKey = true;
             }
         }
     
         res.render(`${__dirname}/views/index`, 
         {
             siteTitle: "NotherBase",
-            hasKey: hasKey
+            hasKey: hasKey,
+            inventory: foundInventory
         });
     }
     catch(err) {
