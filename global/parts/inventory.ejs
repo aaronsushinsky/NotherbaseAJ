@@ -1,0 +1,21 @@
+<% if (inventory) { %>
+    <div class="inventory invisible">
+        <% for (let i = 0; i < inventory.items.length; i++) { %>
+            <div class="item-card">
+                <h5><%= inventory.items[i].item.name %></h5>
+                <hr>
+                <p><%= inventory.items[i].amount %></p>
+            </div>
+        <% } %>
+    </div>
+
+    <button id="inventory-button">
+        <i class="fas fa-database"></i>
+    </button>
+<% } %>
+
+<script>
+    $("#inventory-button").on("click", function () {
+        $(".inventory").toggleClass("invisible");
+    });
+</script>
