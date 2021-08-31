@@ -3,6 +3,8 @@
     --shadowColor: rgb(26, 26, 26);
     --textColor: rgb(185, 135, 69);
     --textColorBright: rgb(221, 181, 130);
+    --woodColor: rgb(95, 68, 43);
+    --darkWoodColor: rgb(70, 50, 32);
 }
 
 * {
@@ -36,6 +38,7 @@ main {
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
+    align-items: flex-start;
 }
 
 hr {
@@ -60,6 +63,7 @@ button, a {
     margin: 5px;
     margin-top: 20px;
     text-decoration: none;
+    text-align: center;
 }
 
 button:hover, a:hover {
@@ -110,6 +114,24 @@ ul {
 .item-card hr {
     margin:  5px -10px;
     width: calc(100% + 20px);
+}
+
+.door {
+    border: 1px solid var(--darkWoodColor);
+    width: 150px;
+    height: 250px;
+    background-color: var(--woodColor);
+    position: relative;
+}
+
+.knob {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    right: 5px;
+    top: 50%;
+    background-color: var(--darkWoodColor);
 }
 
 @media only screen and (max-width: 800px) {
