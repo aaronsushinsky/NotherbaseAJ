@@ -1,0 +1,7 @@
+:root {
+    --gate: rgba(128, 128, 128, 0.678);
+}
+
+#gate {
+    background-color: var(--gate);
+}

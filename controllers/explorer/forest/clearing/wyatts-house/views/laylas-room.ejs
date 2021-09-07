@@ -1,50 +1,38 @@
-<%- include("../../../../../../global/parts/head.ejs"); %>
+<h2>Layla's Room</h2>
 
-<!-- Load Styles Here -->
-<link rel="stylesheet" href="/styles/main.css">
-<link rel="stylesheet" href="/styles/laylas-room/laylas-room.css">
-<link rel="stylesheet" href="/styles/laylas-room/toy-box.css">
+<hr>
 
-<!-- Your HTML Here -->
-<main>
-    <h2>Layla's Room</h2>
-    
-    <hr>
+<article>
+    <h3>My Skills</h3><hr>
+    <ul>
+        <li>***** Mongering</li>
+        <li>Bad *****</li>
+    </ul>
+</article>
 
-    <article>
-        <h3>My Skills</h3><hr>
-        <ul>
-            <li>***** Mongering</li>
-            <li>Bad *****</li>
-        </ul>
-    </article>
+<article>
+    <h3>To Do</h3><hr>
+    <ul>
+        <li>Go to Work</li>
+        <li>Kiss Wyatt</li>
+    </ul>
+</article>
 
-    <article>
-        <h3>To Do</h3><hr>
-        <ul>
-            <li>Go to Work</li>
-            <li>Kiss Wyatt</li>
-        </ul>
-    </article>
+<article>
+    <h3>Recipes</h3><hr>
+    <ul>
+        <li>Guratan</li>
+        <li>Goulash</li>
+    </ul>
+</article>
 
-    <article>
-        <h3>Recipes</h3><hr>
-        <ul>
-            <li>Guratan</li>
-            <li>Goulash</li>
-        </ul>
-    </article>
+<article>
+    <h3>Toy Box</h3><hr>
+    <%- include("parts/toy-box.ejs"); %>
+</article>
 
-    <article>
-        <h3>Toy Box</h3><hr>
-        <%- include("parts/toy-box.ejs"); %>
-    </article>
+<hr>
 
-    <hr>
-
-    <a href="/forest/clearing/wyatts-house/livingroom" class="return-door">
-        Exit Layla's Room
-    </a>
-</main>
-
-<%- include("../../../../../../global/parts/footer.ejs"); %>
+<a href="/forest/clearing/wyatts-house/livingroom" class="return-door">
+    Exit Layla's Room
+</a>

@@ -1,0 +1,21 @@
+<%- include("./head.ejs"); %>
+
+<style>
+    <% for (let i = 0; i < styles.length; i++) { %>
+        <%- include(`${styles[i]}.css`); %>
+    <% } %>
+</style>
+
+<main>
+    <%- include(`${main}.ejs`); %>
+    
+    <%- include(process.cwd() + "/views/inventory.ejs"); %>
+</main>
+
+<script>
+    <% for (let i = 0; i < scripts.length; i++) { %>
+        <%- include(`${scripts[i]}.js`); %>
+    <% } %>
+</script>
+
+<%- include("./footer.ejs"); %>

@@ -1,41 +1,31 @@
-<%- include("../../../../../../global/parts/head.ejs"); %>
-
-<!-- Load Styles Here -->
-<link rel="stylesheet" href="/styles/main.css">
-
-<!-- Your HTML Here -->
-<main>
-    <% if (pov === "behind-bar") { %>
-        <p>
-            Nothing's here. Anymore.
-        </p>
-        <hr>
-        <a href="/forest/eye-of-the-forest/inn/kitchen">
-            Head into the Kitchen
-        </a>
-        <a href="/forest/eye-of-the-forest/inn/lobby">
-            Back Away
-        </a>
-    <% } else { %>
-        <p>
-            The creaking stops when you enter the lobby.
-            A few tables and chairs are scattered throughout,
-            a futile blockade between you and the bar in the back.
-        </p>
-        <hr>
-        <a href="/forest/eye-of-the-forest/inn/lobby?pov=behind-bar">
-            Look Behind the Bar
-        </a>
-        <a href="/forest/eye-of-the-forest/inn/kitchen">
-            Head into the Kitchen
-        </a>
-        <a href="/forest/eye-of-the-forest/inn/upstairs">
-            Go Upstairs
-        </a>
-        <a href="/forest/eye-of-the-forest/square">
-            Exit the Inn
-        </a>
-    <% } %>
-</main>
-
-<%- include("../../../../../../global/parts/footer.ejs"); %>
+<% if (pov === "behind-bar") { %>
+    <p>
+        Nothing's here. Anymore.
+    </p>
+    <hr>
+    <a href="/forest/eye-of-the-forest/inn/kitchen">
+        Head into the Kitchen
+    </a>
+    <a href="/forest/eye-of-the-forest/inn/lobby">
+        Back Away
+    </a>
+<% } else { %>
+    <p>
+        The creaking stops when you enter the lobby.
+        A few tables and chairs are scattered throughout,
+        a futile blockade between you and the bar in the back.
+    </p>
+    <hr>
+    <a href="/forest/eye-of-the-forest/inn/lobby?pov=behind-bar">
+        Look Behind the Bar
+    </a>
+    <a href="/forest/eye-of-the-forest/inn/kitchen">
+        Head into the Kitchen
+    </a>
+    <a href="/forest/eye-of-the-forest/inn/upstairs">
+        Go Upstairs
+    </a>
+    <a href="/forest/eye-of-the-forest/square">
+        Exit the Inn
+    </a>
+<% } %>
