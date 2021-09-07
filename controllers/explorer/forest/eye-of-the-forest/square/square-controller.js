@@ -1,27 +1,9 @@
-const router = require("express").Router();
+const { explore, router } = require("notherbase-fs").from(__dirname);
 
-router.get("/", function(req, res) {
-    res.render(`${__dirname}/views/index`, 
-    {
-        siteTitle: "NotherBase",
-        user: req.session.currentUserFull
-    });
-});
+explore("");
 
-router.get("/clothing-stall", function(req, res) {
-    res.render(`${__dirname}/views/clothing-stall`, 
-    {
-        siteTitle: "NotherBase",
-        user: req.session.currentUserFull
-    });
-});
+explore("clothing-stall", [ "clothing-stall" ], [ "clothing-stall" ]);
 
-router.get("/well", function(req, res) {
-    res.render(`${__dirname}/views/well`, 
-    {
-        siteTitle: "NotherBase",
-        user: req.session.currentUserFull
-    });
-});
+explore("well");
 
 module.exports = router;

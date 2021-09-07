@@ -1,45 +1,38 @@
-<%- include("../../../../../../global/parts/head.ejs"); %>
+<p>
+    The livingroom is mostly bare, containing nothing
+    more than a dusty bookshelf. A pink door leads to
+    a room.
+</p>
 
-<!-- Load Styles Here -->
-<link rel="stylesheet" href="/styles/main.css">
-<link rel="stylesheet" href="/styles/wyatts-house/livingroom.css">
-<!-- <link rel="stylesheet" href="/styles/wyatts-house/bookshelf.css"> -->
+<hr>
 
-<!-- Your HTML Here -->
-<main>
-    <p>
-        The livingroom is mostly bare, containing nothing
-        more than a dusty bookshelf. A pink door leads to
-        a room.
-    </p>
+<div class="bookshelf">
+    <div class="shelf">
 
-    <hr>
-
-    <div class="bookshelf">
-        <div class="shelf">
-
-        </div>
-        <hr>
-        <div class="shelf">
-            
-        </div>
-        <hr>
-        <div class="shelf">
-            
-        </div>
     </div>
+    <hr>
+    <div class="shelf">
+        
+    </div>
+    <hr>
+    <div class="shelf">
+        
+    </div>
+</div>
 
-    <a href="/forest/clearing/wyatts-house/laylas-room" class="door" id="layla">
-        Layla's Room
-        <div class="knob"></div>
-    </a>
+<hr>
 
-    <a href="/forest/clearing/wyatts-house" class="door">
-        Exit
-        <div class="knob"></div>
-    </a>
-</main>
+<a href="/forest/clearing/wyatts-house/laylas-room" class="door" id="layla">
+    Enter Layla's Room
+    <div class="knob"></div>
+</a>
 
-<!-- Load Scripts Here -->
+<a href="/forest/clearing/wyatts-house/upstairs" class="door" id="up">
+    Go Upstairs
+    <div class="knob"></div>
+</a>
 
-<%- include("../../../../../../global/parts/footer.ejs"); %>
+<a href="/forest/clearing/wyatts-house" class="door">
+    Exit
+    <div class="knob"></div>
+</a>

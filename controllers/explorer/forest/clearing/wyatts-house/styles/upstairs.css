@@ -1,0 +1,178 @@
+:root {
+    --woodColor: rgb(95, 68, 43);
+    --darkWoodColor: rgb(70, 50, 32);
+    --veryDarkWoodColor: rgb(22, 14, 7);
+    --metalColor: rgb(104, 101, 100);
+    --darkMetalColor: rgb(75, 71, 70);
+    --brickColor: rgb(139, 67, 38);
+    --gravelColor: rgb(160, 158, 154);
+    --grassColor: rgb(50, 93, 61);
+    --skyColor: rgb(94, 131, 179);
+    --laylaPink: rgb(236, 169, 236);
+    --white: rgb(236, 236, 236);
+    --light: rgb(255, 255, 221);
+    --shadow: rgba(0, 0, 0, 0.479);
+}
+
+body {
+    background-color: var(--veryDarkWoodColor);
+    z-index: -3;
+}
+
+.window {
+    position: absolute;
+    left: 10%;
+    top: 15%;
+    width: 400px;
+    height: 400px;
+    background-color: var(--white);
+    z-index: 0;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: -2;
+    border-radius: 5px;
+    overflow: hidden;
+    filter: blur(5px);
+}
+
+.pane {
+    width: 50%;
+    height: 50%;
+    border: 5px solid var(--woodColor);
+}
+
+.lightdow {
+    position: absolute;
+    left: calc(10% + 900);
+    top: calc(15% + 1100);
+    width: 1200px;
+    height: 1600px;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: -1;
+    filter: blur(5px);
+}
+
+.lightdow .pane {
+    width: calc(50% - 30px);
+    height: calc(50% - 30px);
+    box-shadow: 0px 0px 10px 10px var(--light);
+    background-color: var(--light);
+    border: none;
+    margin: 15px;
+}
+
+main {
+    width: 100%;
+    border: 5px solid var(--woodColor);
+    z-index: 0;
+}
+
+.today {
+    width: 100%;
+    min-height: 100px;
+    border: 5px solid var(--woodColor);
+    background-color: var(--darkWoodColor);
+    margin: 20px;
+    border-radius: 5px;
+    padding: 50px;
+    box-shadow: 2px 2px 5px 5px var(--shadow);
+    overflow: auto;
+}
+
+.today h3 {
+    width: 100%;
+    text-align: center;
+    font-size: 35px;
+}
+
+.today ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.today li {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    border-radius: 5px;
+    border: 2px solid var(--veryDarkWoodColor);
+    padding: 20px;
+    margin: 10px;
+    background-color: var(--gravelColor);
+}
+
+.today p {
+    width: calc(100% - 30px);
+    color: var(--veryDarkWoodColor);
+    margin: 0;
+    font-size: 20px;
+}
+
+.today input {
+    width: 30px;
+    height: 30px;
+}
+
+.whiteboard {
+    background-color: var(--darkWoodColor);
+    border: 1px solid var(--brickColor);
+    padding: 10px;
+    width: 600px;
+    height: 300px;
+    position: relative;
+    border-radius: 3px;
+    margin: 10px;
+}
+
+.to-do {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    width: 150px;
+}
+
+.to-do ul {
+    margin: 0;
+}
+
+.to-do h3 {
+    color: var(--gravelColor);
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+}
+
+.to-do li {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.to-do p {
+    color: var(--gravelColor);
+    margin: 0;
+    width: 50%;
+    border: 1px solid var(--gravelColor);
+    font-size: 10px;
+    padding: 2px;
+}
+
+#destiny {
+    margin: 10px;
+}
+
+#bigscreen {
+    width: 700px;
+    height: calc(700px * 9 / 16);
+    border-radius: 5px 5px 0px 0px;
+    display: block;
+}
+
+#dgg-chat {
+    width: 700px;
+    height: 1000px;
+    border-radius: 0px 0px 5px 5px;
+}

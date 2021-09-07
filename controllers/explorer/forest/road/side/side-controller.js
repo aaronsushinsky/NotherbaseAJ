@@ -1,14 +1,5 @@
-// This allows us to use routers
-const router = require("express").Router();
+const { explore, router } = require("notherbase-fs").from(__dirname);
 
-// This is where all the routes for sub-pois go.
-router.get("/", function(req, res) {
-    res.render(`${__dirname}/views/index`, 
-    {
-        siteTitle: "NotherBase",
-        user: null
-    });
-});
+explore("");
 
-// This exports the router
 module.exports = router;
