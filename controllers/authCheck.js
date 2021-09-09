@@ -10,12 +10,10 @@ const authCheck = async function authCheck(req, res, next){
                 next();
             }
             else {
-                console.log("User not found in db! Redirecting!");
                 res.redirect("/user/login");
             }
         }
         else{
-            console.log("User not logged in! Redirecting!");
             res.redirect("/user/login");
         }
     }

@@ -1,48 +1,26 @@
-<%- include("../../../../../../global/parts/head.ejs"); %>
+<p>
+    A good size pile of rotting wood and ripped rags.
+    Maybe clothes used to be sold here?
+</p>
+<p>
+    Along the right side of the pile a small dirt path
+    runs off into the forest, quickly lost.
+</p>
 
-<link rel="stylesheet" href="/styles/main.css">
-<link rel="stylesheet" href="/styles/clothing-stall.css">
+<hr>
 
-<main>
-    <p>
-        A good size pile of rotting wood and ripped rags.
-        Maybe clothes used to be sold here?
-    </p>
-    <p>
-        Along the right side of the pile a small dirt path
-        runs off into the forest, quickly lost.
-    </p>
+<h3>Clean Up the Debris?</h3>
+<div id="pile">
+    <div id="debris">
 
-    <hr>
-
-    <h3>Clean Up the Debris?</h3>
-    <div id="pile">
-        <div id="debris">
-
-        </div>
     </div>
+</div>
 
-    <hr>
+<hr>
 
-    <a href="/forest/clearing/wyatts-house">
-        Path to Forest Clearing
-    </a>
-    <a href="/forest/eye-of-the-forest/square">
-        Back to Square
-    </a>
-</main>
-
-<script>
-    let height = 100;
-
-    $("#debris").on("click", function (event) {
-        height -= 10;
-        $("#debris").css("top", `${100 - height}%`);
-
-        if (height <= 0) {
-            $("h3").text("Thanks");
-        }
-    });
-</script>
-
-<%- include("../../../../../../global/parts/footer.ejs"); %>
+<a href="/forest/clearing/wyatts-house">
+    Path to Forest Clearing
+</a>
+<a href="/forest/eye-of-the-forest/square">
+    Back to Square
+</a>

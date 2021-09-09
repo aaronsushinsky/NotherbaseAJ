@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 // Import my Data
 const User = require("./models.js").user;
-const inventory = require("../../global/models/inventory").inventory;
+const inventory = require("../../models/inventory").inventory;
 
 const authCheck = require("../authCheck");
 

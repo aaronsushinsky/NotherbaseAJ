@@ -5,6 +5,15 @@
     --bgColorLight: rgb(78, 78, 78);
     --focusColor: rgb(222, 139, 37);
     --shadowColor: rgb(0, 0, 0);
+    --extreme-dark: #2e2e2e;
+    --very-dark: #3e3e3e;
+    --dark: #505050;
+    --light: #F7FFE0;
+    --yellow: #D59C00;
+    --brown: #704E2E;
+    --green: #709176;
+    --blue: #00487C;
+    --game-size: 500px;
 }
 
 * {
@@ -180,6 +189,12 @@ section img {
     height: auto;
 }
 
+section iframe {
+    width: 50%;
+    height: 700px;
+    border: none;
+}
+
 .text {
     width: 600px;
     height: 100%;
@@ -210,6 +225,186 @@ section img {
 
 #wayfarer {
     background-color: var(--bgColor);
+}
+
+/* tamago watch styles */
+.watch {
+    width: var(--game-size);
+    min-height: 100;
+    image-rendering: pixelated;
+    position: relative;
+}
+
+.watch * {
+    image-rendering: pixelated;
+}
+
+.cartridge {
+    position: absolute;
+    left: 5%;
+    top: 30%;
+    background-image: url("/img/cartridge.png");
+    background-size: cover;
+    transition: ease-out .15s;
+    z-index: 0;
+    width: 90%;
+    height: 90%;
+}
+
+.cartridge:hover {
+    top: 40%;
+}
+
+.name {
+    background-color: #70917600;
+    position: absolute;
+    top: 73%;
+    left: 32%;
+    width: 280px;
+    height: 80px;
+    transform: rotate(29deg);
+    text-align: center;
+    font-size: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+.console {
+    width: 100%;
+}
+
+.screen {
+    position: absolute;
+    top: 6%;
+    left: 6.25%;
+    width: 87.5%;
+    height: 55%;
+    display: initial;
+}
+
+.bloom {
+    box-shadow: 0px 0px 10px #fff6d759, inset 0px 0px 10px #fff6d759;
+}
+
+.pet {
+    position: absolute;
+    top: 0%;
+    left: 10%;
+    width: 25%;
+    display: none;
+}
+
+#p1 {
+    top: auto;
+    bottom: 10%;
+    left: 40%;
+}
+
+#p2 {
+    top: 0%;
+    left: auto;
+    right: 10%;
+}
+
+.food {
+    position: absolute;
+    right: 0;
+    bottom: 20%;
+    width: 25%;
+    display: none;
+}
+
+.music {
+    position: absolute;
+    bottom: 20%;
+    left: 2%;
+    width: 25%;
+    display: none;
+}
+
+.detached-right {
+    float: right;
+}
+
+.dark {
+    filter: brightness(.5);
+}
+
+.hud {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    width: 90%;
+    height: 32%;
+}
+
+.clock-hand {
+    position: absolute;
+    top: 12.5%;
+    left: 4.10%;
+    height: 80%;
+    width: 25%;
+}
+
+.status {
+    position: absolute;
+    top: 10%;
+    right: 27.75%;
+    height: 16%;
+    width: 29%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+#s1 {
+    top: 45%;
+}
+
+#s2 {
+    top: 78%;
+}
+
+.point {
+    border: 1px solid var(--dark);
+    background-color: var(--yellow);
+    display: none;
+}
+
+.button {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("../img/button_brown.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    top: 6%;
+    right: 5%;
+    height: 25%;
+    width: 20%;
+}
+
+.button:active {
+    background-image: url("../img/button_brown_down.png");
+}
+
+#b1 {
+    background-image: url("../img/button_blue.png");
+    top: 40%;
+}
+
+#b1:active {
+    background-image: url("../img/button_blue_down.png");
+}
+
+#b2 {
+    background-image: url("../img/button_green.png");
+    top: 75%;
+}
+
+#b2:active {
+    background-image: url("../img/button_green_down.png");
 }
 
 @media only screen and (max-width: 900px) {
@@ -247,8 +442,12 @@ section img {
         flex-direction: row;
     }
 
-    .text, section img {
+    .text, section img, section iframe {
         width: 100%;
         padding: 5px;
+    }
+
+    .watch {
+        width: 100%;
     }
 }

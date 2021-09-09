@@ -25,7 +25,7 @@ const favicon = require('serve-favicon');
 app.use(favicon(__dirname + '/public/img/logo.png'));
 
 //start connection to db
-require("./global/models/start-mongoose");
+require("./models/start-mongoose");
 
 // Import my Controller
 const controllers = require("./controllers");

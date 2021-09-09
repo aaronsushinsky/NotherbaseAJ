@@ -1,36 +1,11 @@
-const router = require("express").Router();
+const { explore, router } = require("notherbase-fs").from(__dirname);
 
-router.get("/", function(req, res) {
-    res.render(`${__dirname}/views/index`, 
-    {
-        siteTitle: "NotherBase",
-        user: req.session.currentUserFull
-    });
-});
+explore("");
 
-router.get("/lobby", async function(req, res) {
-    res.render(`${__dirname}/views/lobby`, 
-    {
-        siteTitle: "NotherBase",
-        user: req.session.currentUserFull,
-        pov: req.query.pov
-    });
-});
+explore("lobby");
 
-router.get("/kitchen", async function(req, res) {
-    res.render(`${__dirname}/views/kitchen`, 
-    {
-        siteTitle: "NotherBase",
-        user: req.session.currentUserFull
-    });
-});
+explore("kitchen");
 
-router.get("/upstairs", async function(req, res) {
-    res.render(`${__dirname}/views/upstairs`, 
-    {
-        siteTitle: "NotherBase",
-        user: req.session.currentUserFull
-    });
-});
+explore("upstairs");
 
 module.exports = router;
