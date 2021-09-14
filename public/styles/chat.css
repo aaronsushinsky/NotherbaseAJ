@@ -56,11 +56,3 @@
     padding: 0;
     line-height: 1em;
 }
-
-@media screen and (max-width: 900px) {
-    .chat-box {
-        height: 500px;
-        box-shadow: none;
-        width: 100%;
-    }
-}
