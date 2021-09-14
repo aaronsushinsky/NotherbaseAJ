@@ -24,11 +24,12 @@
 
     const sendMessage = function() {
         if ($entry.val() !== ""){
+            let val = $entry.val();
+            $entry.val("");
+
             $.post("/chat", {
-                name: $(".name-entry").val(),
-                text: $entry.val()
+                text: val
             }, function () {
-                $entry.val("");
                 $chatLog.scrollTop($chatLog[0].scrollHeight);
             });
         }
