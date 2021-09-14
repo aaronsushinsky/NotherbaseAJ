@@ -61,12 +61,6 @@
     .chat-box {
         height: 500px;
         box-shadow: none;
-        position: absolute;
         width: 100%;
-    }
-
-    .chat-log {
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.534);
     }
 }
