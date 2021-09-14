@@ -18,14 +18,13 @@ router.get("/", function(req, res) {
     res.redirect("/forest/the-front/fence");
 });
 
-
 // for requests to pages that don't exist
-router.get("/*", function(req, res) {
-    res.render(`${__dirname}/void/index`, 
-    {
-        siteTitle: "NotherBase",
-        user: null
-    });
-});
+// router.get("/*", function(req, res) {
+//     res.render(`${__dirname}/void/index`, 
+//     {
+//         siteTitle: "NotherBase",
+//         user: null
+//     });
+// });
 
 module.exports = router;

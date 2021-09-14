@@ -1,17 +1,19 @@
-:root {
-    --shadow: rgb(71, 71, 71);
-}
-
 .chat-box {
     position: relative;
     width: 100%;
-    height: 850px;
-    box-shadow: 5px 5px 10px 5px var(--shadow);
+    height: 250px;
+    box-shadow: 5px 5px 10px 5px var(--shadowColor);
+    margin-top: 20px;
+}
+
+.chat-name {
+    color: var(--textColor);
+    padding: 10px;
 }
 
 .chat-log {
     width: 100%;
-    height: calc(100% - 45px);
+    height: calc(100% - 65px);
     background-color: rgba(0, 0, 0, 0.534);
     overflow: auto;
 }
@@ -22,10 +24,18 @@
     bottom: 0;
     height: 25px;
     width: 5em;
+    outline: none;
+    background-color: var(--bgColor);
+    border: 1px solid var(--textColor);
+    color: var(--textColor);
+    text-align: center;
+    padding: 2px;
 }
 
-input {
-    outline: none;
+.chat-send:hover {
+    border: 1px solid var(--textColorBright);
+    color: var(--textColorBright);
+    cursor: pointer;
 }
 
 .chat-entry {
@@ -34,10 +44,14 @@ input {
     bottom: 0;
     height: 25px;
     width: calc(100% - 5em);
+    outline: none;
+    background-color: var(--bgColor);
+    border: 1px solid var(--textColor);
+    color: var(--textColor);
 }
 
 .chat-log > p {
-    color: white;
+    color: var(--textColor);
     margin: 0;
     padding: 0;
     line-height: 1em;

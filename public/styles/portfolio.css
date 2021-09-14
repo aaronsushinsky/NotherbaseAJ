@@ -373,7 +373,7 @@ section iframe {
 
 .button {
     background-color: rgba(0, 0, 0, 0);
-    background-image: url("../img/button_brown.png");
+    background-image: url("/img/button_brown.png");
     background-size: 100%;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -386,25 +386,25 @@ section iframe {
 }
 
 .button:active {
-    background-image: url("../img/button_brown_down.png");
+    background-image: url("/img/button_brown_down.png");
 }
 
 #b1 {
-    background-image: url("../img/button_blue.png");
+    background-image: url("/img/button_blue.png");
     top: 40%;
 }
 
 #b1:active {
-    background-image: url("../img/button_blue_down.png");
+    background-image: url("/img/button_blue_down.png");
 }
 
 #b2 {
-    background-image: url("../img/button_green.png");
+    background-image: url("/img/button_green.png");
     top: 75%;
 }
 
 #b2:active {
-    background-image: url("../img/button_green_down.png");
+    background-image: url("/img/button_green_down.png");
 }
 
 @media only screen and (max-width: 900px) {
