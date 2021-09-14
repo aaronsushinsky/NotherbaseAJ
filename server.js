@@ -5,6 +5,12 @@ const express = require("express");
 const app = express();
 app.set("view engine", "ejs");
 
+//setup for sockets
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
 // allows us to delete
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
@@ -38,15 +44,23 @@ app.use(session({
     saveUninitialized: false
 }));
 
+io.on('connection', (socket) => {
+    console.log('a user connected');
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
+
 app.use("/user", controllers.user);
 
 app.use("/portfolio", controllers.portfolio);
 
-app.use("/chat", controllers.chat);
+app.use("/chat", controllers.chat(io));
 
 app.use("/item", controllers.item);
 
 app.use("/", authCheck, controllers.explorer);
 
 // Go Off (On)
-app.listen(process.env.PORT);
+server.listen(process.env.PORT);
