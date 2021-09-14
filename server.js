@@ -48,8 +48,5 @@ app.use("/item", controllers.item);
 
 app.use("/", authCheck, controllers.explorer);
 
-// notherbase.com/:region/:subregion/:point-of-interest/:section-of-poi
-// notherbase.com/forest/eye-of-the-forest/square/clothing-stall
-
 // Go Off (On)
 app.listen(process.env.PORT);
