@@ -1,0 +1,106 @@
+:root {
+    --cabinColor: rgb(109, 71, 41);
+    --cabinColorLight: rgb(161, 122, 92);
+    --cabinColorDark: rgb(90, 60, 36);
+    --cabinColorVeryDark: rgb(37, 26, 17);
+    --outsideColor: rgb(62, 62, 83);
+    --couchColor: rgb(114, 35, 35);
+    --couchSeamColor: rgb(70, 3, 3);
+    --shadow: black;
+    --tableColor: rgb(136, 103, 60);
+}
+
+body {
+    background-color: var(--cabinColorVeryDark);
+}
+
+main {
+    background-color: var(--cabinColorDark);
+    width: 800px;
+}
+
+.column {
+    width: 30%;
+}
+
+a {
+    background-color: var(--outsideColor);
+}
+
+#exit {
+    width: 25%;
+    height: 100px;
+}
+
+.couch {
+    width: 100%;
+    height: 100px;
+    position: relative;
+}
+
+.couch-part{ 
+    position: absolute;
+    background-color: var(--couchColor);
+    border-radius: 10px;
+    border: 1px solid var(--couchSeamColor);
+    box-shadow: 2px 2px 2px var(--shadow);
+}
+
+.arm-rest {
+    width: 15%;
+    height: 50%;
+    left: 0;
+    bottom: 0;
+}
+
+.arm-rest:nth-of-type(even) {
+    left: 85%;
+}
+
+.base {
+    border-radius: 0px 0px 10px 10px;
+    width: 35%;
+    height: 20%;
+    left: 15%;
+    bottom: 0;
+}
+
+.base:nth-of-type(even) {
+    left: 50%;
+}
+
+.pillow {
+    border-radius: 0;
+    width: 35%;
+    height: 15%;
+    left: 15%;
+    bottom: 20%;
+}
+
+.pillow:nth-of-type(even) {
+    left: 50%;
+}
+
+.back-rest {
+    border-radius: 10px 10px 0px 0px;
+    width: 45%;
+    height: 50%;
+    left: 5%;
+    bottom: 35%;
+}
+
+.back-rest:nth-of-type(even) {
+    left: 50%;
+}
+
+.table {
+    margin-top: 40px;
+    background-color: var(--tableColor);
+    background-image: url("/img/wood.jpg");
+    background-size: 80px 80px;
+    image-rendering: pixelated;
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px var(--shadow);
+}
