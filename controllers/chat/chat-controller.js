@@ -7,7 +7,7 @@ const getRouterWithIO = function getRouterWithIO(io) {
             //const foundAccount = await User.findOne({ _id: req.session.currentUser });
             
             if (req.session.currentUserFull) {
-                io.emit('chat message', {
+                io.to(req.body.room).emit('chat message', {
                     name: req.session.currentUserFull.username,
                     time: Date.now(),
                     text: req.body.text

@@ -45,11 +45,10 @@ app.use(session({
 }));
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
+    socket.join(socket.handshake.query.room);
+    
 
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    });
+    socket.on('disconnect', () => {});
 });
 
 app.use("/user", controllers.user);

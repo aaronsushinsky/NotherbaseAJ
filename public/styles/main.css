@@ -11,6 +11,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    color: var(--textColor);
 }
 
 .invisible {
@@ -52,7 +53,7 @@ hr {
 p {
     color: var(--textColor);
     margin-bottom: 10px;
-    width: 100%;
+    width: 70%;
 }
 
 button, a {
@@ -137,6 +138,24 @@ ul {
 
 iframe {
     border: none;
+}
+
+.auth-form {
+    height: 300px;
+}
+
+.auth-form input {
+    padding: 10px;
+    width: 100%;
+    background-color: var(--shadowColor);
+    border-radius: 5px;
+    border: 1px solid var(--textColor);
+}
+
+.auth-form h1, h3, p {
+    width: 100%;
+    text-align: center;
+    margin: 10px;
 }
 
 @media only screen and (max-width: 500px) {
