@@ -4,10 +4,14 @@
     --cabinColorDark: rgb(90, 60, 36);
     --cabinColorVeryDark: rgb(37, 26, 17);
     --outsideColor: rgb(62, 62, 83);
-    --couchColor: rgb(114, 35, 35);
-    --couchSeamColor: rgb(70, 3, 3);
+    --couchColor: rgb(128, 52, 2);
+    --couchSeamColor: rgb(17, 27, 37);
     --shadow: black;
     --tableColor: rgb(136, 103, 60);
+    --dominoShadow: rgba(0, 0, 0, 0.226);
+    --dominoSelection: rgb(184, 18, 129);
+    --dominoOption: rgb(31, 155, 31);
+    --dominoColor: rgb(224, 224, 224);
 }
 
 body {
@@ -21,6 +25,9 @@ main {
 
 .column {
     width: 30%;
+    padding: 5px;
+    height: 500px;
+    margin-bottom: 40px;
 }
 
 a {
@@ -38,12 +45,34 @@ a {
     position: relative;
 }
 
+@keyframes colorRange {
+    from {
+        background-color: rgb(172, 47, 47);
+    }
+    25% {
+        background-color: rgb(177, 175, 58);
+    }
+    50% {
+        background-color: rgb(49, 139, 56);
+    }
+    75% {
+        background-color: rgb(35, 104, 161);
+    }
+    to {
+        background-color: rgb(125, 26, 145)(0, 132, 255);
+    }
+}
+
 .couch-part{ 
     position: absolute;
     background-color: var(--couchColor);
-    border-radius: 10px;
+    border-radius: 5px;
     border: 1px solid var(--couchSeamColor);
     box-shadow: 2px 2px 2px var(--shadow);
+    animation-duration: 7s;
+    animation-name: colorRange;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 .arm-rest {
@@ -58,7 +87,7 @@ a {
 }
 
 .base {
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 5px 5px;
     width: 35%;
     height: 20%;
     left: 15%;
@@ -82,7 +111,7 @@ a {
 }
 
 .back-rest {
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
     width: 45%;
     height: 50%;
     left: 5%;
@@ -100,7 +129,123 @@ a {
     background-size: 80px 80px;
     image-rendering: pixelated;
     width: 100%;
-    height: 200px;
+    height: 250px;
     border-radius: 5px;
     box-shadow: 2px 2px 2px var(--shadow);
+    position: relative;
+}
+
+.table * {
+    color: var(--dominoColor);
+}
+
+.opponent-hand {
+    position: absolute;
+    background-color: var(--dominoShadow);
+    width: 100%;
+    height: 50px;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.bone {
+    width: 50px;
+    height: 25px;
+    background-color: var(--dominoColor);
+    border: 1px solid var(--dominoShadow);
+    border-radius: 5px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bone.in-yard {
+    position: absolute;
+    left: calc(50% - 25px);
+    top: calc(50% - 12.5px);
+}
+
+.bone.on-board {
+    position: absolute;
+}
+
+.option {
+    border: 1px solid var(--dominoOption);
+}
+
+.selected {
+    border: 1px solid var(--dominoSelection);
+}
+
+.board {
+    position: absolute;
+    background-color: var(--dominoShadow);
+    width: 70%;
+    height: calc(100% - 110px);
+    left: 5px;
+    top: 55px;
+}
+
+.bone-yard {
+    position: absolute;
+    background-color: var(--dominoShadow);
+    width: calc(30% - 15px);
+    height: 25%;
+    right: 5px;
+    top: 37.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#score1 {
+    position: absolute;
+    background-color: var(--dominoShadow);
+    width: 20%;
+    height: 15%;
+    right: 5px;
+    top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#score2 {
+    position: absolute;
+    background-color: var(--dominoShadow);
+    width: 20%;
+    height: 15%;
+    right: 5px;
+    top: calc(40% + 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.your-hand {
+    position: absolute;
+    background-color: var(--dominoShadow);
+    width: 100%;
+    height: 50px;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#play {
+    margin: 5px;
+    width: 100%;
+    height: 50px;
+}
+
+.chat-box {
+    height: 100%;
 }
