@@ -60,11 +60,19 @@
 </div>
 
 <div id="destiny">
-    <iframe id="bigscreen" src="https://www.youtube.com/embed/JLJBtJ77N0w?&autoplay=1" 
-    title="YouTube video player" frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen></iframe>
+    
 
+    <% if (query.embed) { %>
+        <iframe id="bigscreen" src="https://www.youtube.com/embed/<%= query.embed %>" 
+            title="YouTube video player" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen></iframe>
+    <% } else { %>
+        <iframe id="bigscreen" src="https://www.youtube.com/embed/JLJBtJ77N0w?&autoplay=1" 
+            title="YouTube video player" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen></iframe>
+        <% } %>
     <iframe id="dgg-chat" src="https://www.destiny.gg/embed/chat?follow=%2Fbigscreen"></iframe>
 </div>
 

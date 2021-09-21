@@ -13,7 +13,11 @@
 <script>
     <%- include("../node_modules/socket.io/client-dist/socket.io.js"); %>
 
-    let socket = io();
+    let socket = io({
+        query: {
+            room: "<%= room %>"
+        }
+    });
     let $chatLog = $(".chat-log");
     let $entry = $(".chat-entry");
 
@@ -28,6 +32,7 @@
             $entry.val("");
 
             $.post("/chat", {
+                room: "<%= room %>",
                 text: val
             }, function () {
                 $chatLog.scrollTop($chatLog[0].scrollHeight);

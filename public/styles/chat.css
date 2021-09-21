@@ -1,9 +1,9 @@
 .chat-box {
     position: relative;
-    width: 100%;
-    height: 250px;
     box-shadow: 5px 5px 10px 5px var(--shadowColor);
     margin-top: 20px;
+    width: 100%;
+    min-height: 200px;
 }
 
 .chat-name {
@@ -55,12 +55,4 @@
     margin: 0;
     padding: 0;
     line-height: 1em;
-}
-
-@media screen and (max-width: 900px) {
-    .chat-box {
-        height: 500px;
-        box-shadow: none;
-        width: 100%;
-    }
 }
