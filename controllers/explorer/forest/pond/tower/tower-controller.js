@@ -1,7 +1,12 @@
 const { explore, router } = require("notherbase-fs").from(__dirname);
 
-explore("", [], [ "door" ]);
+explore("", { scripts: [ "door" ] });
 
-explore("inside", [ "wizard-tower" ], [ "inside" ], "Wizard Tower Key", "/forest/pond/tower");
+explore("inside", {
+    styles: [ "wizard-tower" ], 
+    scripts: [ "inside" ], 
+    needsKey: "Wizard Tower Key", 
+    dropOff: "/forest/pond/tower"
+});
 
 module.exports = router;
