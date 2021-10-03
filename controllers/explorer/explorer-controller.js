@@ -12,6 +12,7 @@ const explore = (location) => {
 
 // explorer regions
 explore("forest");
+explore("desert");
 
 // start location
 router.get("/", function(req, res) {
