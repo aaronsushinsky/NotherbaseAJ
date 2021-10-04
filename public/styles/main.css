@@ -41,6 +41,7 @@ main {
     justify-content: center;
     align-content: center;
     align-items: flex-start;
+    background-color: var(--bgColor);
 }
 
 hr {
