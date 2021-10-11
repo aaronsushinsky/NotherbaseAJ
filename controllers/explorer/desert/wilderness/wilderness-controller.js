@@ -7,6 +7,7 @@ router.use("/north", require("./north/north-controller.js"));
 router.use("/east", require("./east/east-controller.js"));
 router.use("/south", require("./south/south-controller.js"));
 router.use("/west", require("./west/west-controller.js"));
+router.use("/whale-carcass", require("./whale-carcass/whale-carcass-controller.js"));
 
 // This exports the router.
 module.exports = router;

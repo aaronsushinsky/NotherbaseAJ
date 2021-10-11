@@ -4,41 +4,35 @@
 
 <hr>
 
-<div class="column">
-    <div class="fireplace">
-        <div class="fire"></div>
-    </div>
+<div class="fireplace">
+    <div class="fire"></div>
 </div>
 
-<div class="column">
-    <div class="couch">
-        <div class="couch-part back-rest" id="1"></div>
-        <div class="couch-part back-rest" id="2"></div>
-        <div class="couch-part base" id="1"></div>
-        <div class="couch-part base" id="2"></div>
-        <div class="couch-part pillow" id="1"></div>
-        <div class="couch-part pillow" id="2"></div>
-        <div class="couch-part arm-rest" id="1"></div>
-        <div class="couch-part arm-rest" id="2"></div>
-    </div>
-
-    <div class="table">
-        <div class="opponent-hand">0 Bones</div>
-        <div class="board"></div>
-        <div id="score1">0</div>
-        <div class="bone-yard"></div>
-        <div id="score2">0</div>
-        <div class="your-hand"></div>
-    </div>
-
-    <button id="play">
-        Play Dominoes
-    </button>
+<div class="couch">
+    <div class="couch-part back-rest" id="1"></div>
+    <div class="couch-part back-rest" id="2"></div>
+    <div class="couch-part base" id="1"></div>
+    <div class="couch-part base" id="2"></div>
+    <div class="couch-part pillow" id="1"></div>
+    <div class="couch-part pillow" id="2"></div>
+    <div class="couch-part arm-rest" id="1"></div>
+    <div class="couch-part arm-rest" id="2"></div>
 </div>
 
-<div class="column">
-    <%- include("../../../../../../views/chat-box.ejs", { room: "tree-house" }); %> 
+<div class="table">
+    <div class="opponent-hand"></div>
+    <div class="board"></div>
+    <div id="score1"></div>
+    <div class="bone-yard"></div>
+    <div id="score2"></div>
+    <div class="your-hand"></div>
 </div>
+
+<button id="play">
+    Play Dominoes
+</button>
+
+<%- include("../../../../../../views/chat-box.ejs", { room: "tree-house" }); %> 
 
 <hr>
 
@@ -48,7 +42,7 @@
 
 <script>
     class Bone {
-        constructor(values) {
+        constructor(values, onClick) {
             this.positon = [0, 0];
             this.rotation = 0;
             this.faceUp = false;
@@ -57,6 +51,10 @@
             this.player = null;
             $(".bone-yard").append(`<div class="bone in-yard" id="${values[0]}-${values[1]}"></div>`);
             this.$div = $(".bone-yard").children().last();
+            this.width = parseInt(this.$div.css("width"), 10);
+            this.height = parseInt(this.$div.css("height"), 10);
+
+            this.$div.on("click", {bone: this}, onClick);
         }
 
         flipUp() {
@@ -72,6 +70,14 @@
             this.player.selectBone(this);
         }
 
+        unHighlight() {
+            this.$div.removeClass("highlighted");
+        }
+
+        highlight() {
+            this.$div.addClass("highlighted");
+        }
+
         unOption() {
             this.$div.removeClass("option");
         }
@@ -80,13 +86,14 @@
             this.$div.addClass("option");
         }
 
-        moveTo(position, rotation) {
+        moveTo(position, rotation, board) {
             this.positon = position;
             this.rotation = rotation;
 
-            this.$div.addClass("on-board");
-            this.$div.css("top", position[0]);
-            this.$div.css("left", position[1]);
+            board.$board.append(this.$div);
+            this.$div.css("position", "absolute");
+            this.$div.css("top", (board.height / 2) + (position[0] * this.height));
+            this.$div.css("left", (board.width / 2) + (position[0] * this.width));
             this.$div.css("transform", `rotation(${rotation}deg)`);
         }
 
@@ -106,7 +113,7 @@
             return compatible;
         }
 
-        attach(bone, pole) {
+        attach(bone, pole, board) {
             this.touching[pole] = bone;
 
             let offset = [0, 0];
@@ -127,51 +134,78 @@
             }
             let position = [this.positon[0] + offset[0], this.positon[1] + offset[1]];
 
-            bone.moveTo(position, rotation);
+            bone.moveTo(position, rotation, board);
         }
     }
 
     class Board {
-        constructor() {
-            $(".board").empty();
+        constructor(onBoneClick) {
             $(".bone-yard").empty();
             this.boneyard = [];
             this.bonesOnBoard = [];
             this.points = 0;
             this.ends = [];
+            this.$board = $(".board");
+            this.$board.empty();
+            this.heldBone = null;
+            this.width = parseInt(this.$board.css("height"), 10);
+            this.height = parseInt(this.$board.css("width"), 10);
 
             for (let i = 0; i < 7; i++) {
                 for (let j = 0; j < 7; j++) {
-                    this.boneyard.push(new Bone([i, j]));
+                    this.boneyard.push(new Bone([i, j], onBoneClick));
                 }
             }
         }
 
-        place(choice) {
+        place(choice, bigBone = false) {
             console.log(`Placing ${choice.bone.values} at ${choice.target.values} ${choice.pole}`);
-            
-            if (choice.target === "auto") {
-                for (let i = 0; i < this.ends.length; i++) {
-                    if (choice.bone.fits(this.ends[i])) {
+
+            if (!bigBone) {
+                if (choice.target === "auto") {
+                    for (let i = 0; i < this.ends.length; i++) {
+                        if (choice.bone.fits(this.ends[i])) {
+                            this.bonesOnBoard.push(choice.bone);
+                            this.ends[i].attach(choice.bone, choice.pole);
+                            this.ends.splice(i, 1, choice.bone);
+
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+                else {
+                    if (choice.bone.fits(choice.target)) {
                         this.bonesOnBoard.push(choice.bone);
-                        this.ends[i].attach(choice.bone, choice.pole);
+                        choice.target.attach(choice.bone, choice.pole);
+                        this.ends.splice(i, 1, choice.bone);
 
                         return true;
                     }
                 }
-
-                return false;
             }
             else {
-                if (choice.bone.fits(choice.target)) {
-                    this.bonesOnBoard.push(choice.bone);
-                    choice.target.attach(choice.bone, choice.pole);
+                this.bonesOnBoard.push(choice.bone);
+                choice.bone.moveTo([0, 0], 0, this);
+                this.ends.push(choice.bone);
 
-                    return true;
-                }
+                return true;
             }
 
+            this.updateEnds();
+
             return false;
+        }
+
+        beginPlacement(bone) {
+            console.log(`attempting to place ${bone.values}`);
+            this.heldBone = bone;
+            this.$board.append(bone.$div);
+        }
+
+        finishPlacement(bone) {
+            this.heldBone = null;
         }
 
         grabPoints() {
@@ -284,16 +318,40 @@
 
                 this.options = [chosen];
             }
+
+            this.updateOptionsVisuals();
         }
 
-        autoTurn() {
-            let chosen = Math.floor(Math.random() * this.options.length);
+        updateOptionsVisuals() {
+            for (let i = 0; i < this.hand.length; i++) {
+                this.hand[i].unHighlight();
+
+                for (let j = 0; j < this.options.length; j++) {
+                    if (this.options[j] === i) this.hand[i].highlight();
+                }
+            }
+        }
+
+        autoTurn(bigbone = false) {
+            let chosen = -1;
+            if (bigbone) chosen = this.options[0];
+            else chosen = this.options[Math.floor(Math.random() * this.options.length)];
 
             return {
                 bone: this.hand.splice(chosen, 1)[0],
                 target: "auto",
                 pole: "auto"
             }
+        }
+
+        grabBone(bone) {
+            console.log(`Grabbing ${bone.values} from player hand`);
+
+            for (let i = 0; i < this.hand.length; i++) {
+                if (this.hand[i] == bone) return this.hand.splice(i, 1)[0];
+            }
+
+            return null;
         }
 
         checkForDomino() {
@@ -315,11 +373,20 @@
             this.score += points;
             this.$scoreDiv.text(this.score);
         }
+
+        startTurn() {
+            this.$handDiv.addClass("turn-to-play");
+        }
+
+        endTurn() {
+            this.$handDiv.removeClass("turn-to-play");
+        }
     }
 
     class DominoGame {
         constructor() {
             this.turn = -1;
+            this.waiting = false;
             this.board = null;
             this.players = null;
             this.scoreToWin = 100;
@@ -346,7 +413,7 @@
 
             this.turn = -1;
             while (this.turn === -1) {
-                this.board = new Board();
+                this.board = new Board(this.clickBone);
                 for (let i = 0; i < this.players.length; i++) {
                     this.players[i].board = this.board;
                     this.players[i].clear();
@@ -360,12 +427,15 @@
 
                         if (check[0] === check[1]) {
                             if (check[0] > max) {
-                                max = check;
+                                max = check[0];
                                 this.turn = j;
                             }
                         }
                     }
                 }
+
+                if (this.turn === -1) console.log("No doubles found in players' hands. Restarting");
+                else console.log(`Player ${this.turn} has biggest double: [${max}, ${max}]`);
             }
 
             this.startTurn(true);
@@ -375,15 +445,20 @@
             console.log("Starting Turn");
             
             if (this.turn === 0) {
+                this.players[0].startTurn();
                 this.players[0].checkForDraw(bigBone);
-                this.board.place(this.players[0].autoTurn());
+                this.board.place(this.players[0].autoTurn(), bigBone);
                 this.players[0].addPoints(this.board.grabPoints());
                 if (this.players[0].checkForDomino()) this.resolveDomino(0);
+                this.players[0].endTurn();
 
                 this.turn = 1;
+                this.startTurn();
             }
             else if (this.turn === 1) {
+                this.players[1].startTurn();
                 this.players[1].checkForDraw(bigBone);
+                this.waiting = true;
             }
         }
 
@@ -417,6 +492,14 @@
 
                     $("#play").toggleClass("invisible");
                 }
+            }
+        }
+
+        clickBone = (e) => {
+            console.log(`clicked ${e.data.bone.values}`);
+
+            if (this.waiting && this.turn === 1) {
+                this.board.beginPlacement(this.players[1].grabBone(e.data.bone));
             }
         }
     }
