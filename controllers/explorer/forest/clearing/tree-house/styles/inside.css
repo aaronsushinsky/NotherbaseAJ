@@ -13,6 +13,7 @@
     --dominoOption: rgb(31, 155, 31);
     --dominoColor: rgb(224, 224, 224);
     --dominoHighlightedColor: rgb(255, 253, 130);
+    --dominoHeldColor: rgb(130, 255, 249);
 }
 
 body {
@@ -129,8 +130,8 @@ a {
     background-image: url("/img/wood.jpg");
     background-size: 80px 80px;
     image-rendering: pixelated;
-    width: 400px;
-    height: 400px;
+    width: 600px;
+    height: 600px;
     border-radius: 5px;
     border: outset 5px var(--tableColor);
     box-shadow: 2px 2px 2px var(--shadow);
@@ -178,6 +179,10 @@ a {
     background-color: var(--dominoHighlightedColor);
 }
 
+.bone.held {
+    background-color: var(--dominoHeldColor);
+}
+
 .bone.in-yard {
     position: absolute;
     left: calc(50% - 25px);
@@ -204,6 +209,14 @@ a {
     left: 5px;
     top: 55px;
     border: outset 2px rgba(54, 54, 54, 0.651);
+}
+
+.board .bone:hover {
+    cursor: pointer;
+}
+
+.board.big-bone-time {
+    border: outset 2px var(--dominoHighlightedColor);
 }
 
 .bone-yard {
