@@ -54,10 +54,10 @@ hr {
 p {
     color: var(--textColor);
     margin-bottom: 10px;
-    width: 70%;
+    width: 80%;
 }
 
-button, a {
+main button, main a {
     background-color: var(--bgColor);
     padding: 10px;
     border-radius: 5px;
@@ -69,7 +69,7 @@ button, a {
     text-align: center;
 }
 
-button:hover, a:hover {
+main button:hover, main a:hover {
     border: 1px solid var(--textColorBright);
     color: var(--textColorBright);
     cursor: pointer;
@@ -92,7 +92,7 @@ ul {
     width: 90%;
     height: 40%;
     left: 5%;
-    bottom: 80px;
+    bottom: 105px;
     background-color: var(--bgColor);
     padding: 10px;
     border-radius: 5px;
@@ -100,7 +100,7 @@ ul {
 
 #inventory-button {
     position: fixed;
-    bottom: 5px;
+    bottom: 30px;
     right: 5px;
     width: 64px;
     height: 64px;
@@ -121,8 +121,8 @@ ul {
 
 .door {
     border: 1px solid var(--darkWoodColor);
-    width: 150px;
-    height: 250px;
+    width: 100px;
+    height: 150px;
     background-color: var(--woodColor);
     position: relative;
 }
@@ -142,7 +142,7 @@ iframe {
 }
 
 .auth-form {
-    height: 300px;
+    height: 250px;
 }
 
 .auth-form input {
@@ -151,12 +151,27 @@ iframe {
     background-color: var(--shadowColor);
     border-radius: 5px;
     border: 1px solid var(--textColor);
+    margin: 5px 0;
 }
 
-.auth-form h1, h3, p {
+.auth-form h1, .auth-form h3, .auth-form p {
     width: 100%;
     text-align: center;
     margin: 10px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 25px;
+    width: 100%;
+    background-color: var(--shadowColor);
+}
+
+footer a {
+    text-decoration: none;
+    height: 100%;
 }
 
 @media only screen and (max-width: 500px) {

@@ -118,7 +118,7 @@ router.get("/logout", authCheck, async function(req, res) {
     try {
         await req.session.destroy();
 
-        res.redirect(`${__dirname}/views/login`);
+        res.redirect(`/user/login`);
     }
     catch {
         console.log(err);
