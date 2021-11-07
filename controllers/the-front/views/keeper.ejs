@@ -1,0 +1,78 @@
+<%- include("../../../views/head.ejs"); %>
+
+<style>
+    <%- include("../styles/keeper.css"); %>
+</style>
+
+<main>
+    <% if (pov === "look-in") { %>
+        <p>
+            The shack looks inside the same as out.
+        </p>
+
+        <p>
+            You see something on a clipboard sitting on the window sill.
+        </p>
+
+        <hr>
+
+        <div class="shack">
+            <div class="counter">
+                <div class="clipboard on-counter">
+                    <button class="close">X</button>
+                    <div class="clamp"></div>
+                    <div class="application"></div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <a href="/the-front/keeper">
+            Back Away
+        </a>
+    <% } else { %>
+        <p>
+            A small shack, just large enough for a door,
+            a window and a person. At this time, it is empty.
+        </p>
+
+        <hr>
+
+        <a href="/the-front/keeper?pov=look-in">
+            Look into the Shack
+        </a>
+
+        <a href="/the-front/gate">
+            Go to the Fence Gate
+        </a>
+
+        <a href="/the-front">
+            Back Away
+        </a>
+    <% } %>
+</main>
+
+<% if (pov === "look-in") { %>
+    <script>
+        let clipboardState = "on-counter";
+
+        $(".clipboard").on("click", function clickClipboard() {
+            if (clipboardState === "on-counter") {
+                clipboardState = "picked-up";
+                $(".clipboard").removeClass("on-counter");
+            }
+        });
+
+        $(".close").on("click", function clickClipboard(e) {
+            e.stopPropagation();
+
+            if (clipboardState === "picked-up") {
+                clipboardState = "on-counter";
+                $(".clipboard").addClass("on-counter");
+            }
+        });
+    </script>
+<% } %>
+
+<%- include("../../../views/basic-footer.ejs"); %>

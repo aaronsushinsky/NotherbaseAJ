@@ -1,0 +1,77 @@
+:root {
+    --gate: rgba(128, 128, 128, 0.678);
+}
+
+.shack {
+    background-color: rgb(20, 15, 11);
+    border: 3px solid rgb(110, 76, 37);
+    width: 100%;
+    height: 400px;
+    position: relative;
+}
+
+.counter {
+    width: 100%;
+    height: 25%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: rgb(110, 76, 37);
+    border-bottom: 50px solid rgb(70, 48, 23);
+}
+
+.clipboard {
+    background-color: rgb(73, 47, 28);
+    width: 200px;
+    height: 300px;
+    position: absolute;
+    left: calc(50% -  100px);
+    top: -260px;
+    padding: 5px;
+    cursor: initial;
+    transition: all .5s ease;
+}
+
+.clipboard.on-counter {
+    width: 75px;
+    height: 110px;
+    position: absolute;
+    left: 15%;
+    top: -50%;
+    padding: 5px;
+    transform: rotate3d(1, 1, 1, -70deg);
+    cursor: pointer;
+}
+
+.close {
+    display: initial;
+    color: black;
+    border-radius: 50%;
+    background-color: rgba(255, 0, 0, 0.63);
+    border: 1px solid black;
+    position: absolute;
+    right: -35px;
+    top: -15px;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+}
+
+.clipboard.on-counter .close {
+    display: none;
+}
+
+.application {
+    background-color: rgb(231, 231, 231);
+    width: 100%;
+    height: 100%;
+}
+
+.clamp {
+    background-color: rgb(155, 155, 155);
+    width: 30%;
+    height: 10%;
+    position: absolute;
+    left: 35%;
+    top: 0;
+}

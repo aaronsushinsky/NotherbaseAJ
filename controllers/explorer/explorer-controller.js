@@ -16,7 +16,7 @@ explore("desert");
 
 // start location
 router.get("/", function(req, res) {
-    res.redirect("/forest/the-front/fence");
+    res.redirect("/the-front");
 });
 
 //for requests to pages that don't exist

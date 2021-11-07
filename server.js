@@ -59,7 +59,9 @@ app.use("/chat", controllers.chat(io));
 
 app.use("/item", controllers.item);
 
-app.use("/", authCheck, controllers.explorer);
+app.use("/the-front", controllers.theFront);
+
+app.use("/*", authCheck, controllers.explorer);
 
 // Go Off (On)
 server.listen(process.env.PORT);
