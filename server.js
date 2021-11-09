@@ -46,7 +46,6 @@ app.use(session({
 
 io.on('connection', (socket) => {
     socket.join(socket.handshake.query.room);
-    
 
     socket.on('disconnect', () => {});
 });
@@ -61,7 +60,7 @@ app.use("/item", controllers.item);
 
 app.use("/the-front", controllers.theFront);
 
-app.use("/*", authCheck, controllers.explorer);
+app.use("/", authCheck, controllers.explorer);
 
 // Go Off (On)
 server.listen(process.env.PORT);

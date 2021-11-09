@@ -7,7 +7,8 @@ const explore = (location) => {
             if (!req.query.pov) req.query.pov = "none";
             next();
         },
-        require(`./${location}/${location}-controller.js`));
+        require(`./${location}/${location}-controller.js`)
+    );
 }
 
 // explorer regions
@@ -19,8 +20,7 @@ router.get("/", function(req, res) {
     res.redirect("/the-front");
 });
 
-//for requests to pages that don't exist
-router.get("/*", function(req, res) {
+router.use(function(req, res, next){
     res.render(`${__dirname}/void/index`, 
     {
         siteTitle: "NotherBase",

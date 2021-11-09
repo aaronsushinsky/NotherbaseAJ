@@ -26,7 +26,7 @@ router.get("/gate", function(req, res) {
         siteTitle: "NotherBase | The Front",
         info: "",
         color: "green",
-        loggedIn: req.query.pov ? true : false
+        loggedIn: req.session.currentUserFull
     });
 });
 

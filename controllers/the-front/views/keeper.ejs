@@ -20,8 +20,20 @@
             <div class="counter">
                 <div class="clipboard on-counter">
                     <button class="close">X</button>
+                    <div class="application">
+                        <form action="/user/login" method="POST" class="auth-form">
+                            <h1>NotherBase</h1>
+                            <h3>Login to Your Account</h3>
+                            <input type="text" name="username" placeholder="username" class="input-text">
+                            <input type="password" name="password" placeholder="password" class="input-text">
+                            <input type="submit" value="Login" class="submit-button">
+                            <p style="color: <%= color %>;">
+                                <%= info %>
+                            </p>
+                            <p>Need an account? <a href="/user/register">Sign Up Here</a></p>
+                        </form>
+                    </div>
                     <div class="clamp"></div>
-                    <div class="application"></div>
                 </div>
             </div>
         </div>
@@ -29,6 +41,25 @@
         <hr>
 
         <a href="/the-front/keeper">
+            Back Away
+        </a>
+    <% } else if (pov === "logged-in") { %>
+        <p>
+            To your right you hear the sound of a bang against a
+            chain-link fence. You've logged in.
+        </p>
+
+        <hr>
+
+        <a href="/the-front/keeper?pov=look-in">
+            Look into the Shack
+        </a>
+
+        <a href="/the-front/gate">
+            Go to the Fence Gate
+        </a>
+
+        <a href="/the-front">
             Back Away
         </a>
     <% } else { %>

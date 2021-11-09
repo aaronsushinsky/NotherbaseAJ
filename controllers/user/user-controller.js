@@ -73,6 +73,7 @@ router.post("/login", async function(req, res) {
         if (foundAccount) {
             if (await bcrypt.compare(req.body.password, foundAccount.password)) {
                 req.session.currentUser = { _id: foundAccount._id };
+                req.session.currentUserFull = foundAccount;
 
                 const foundInventory = await inventory.findOne({ user: req.session.currentUser });
                 if (!foundInventory) {
@@ -82,7 +83,7 @@ router.post("/login", async function(req, res) {
                     });
                 }
 
-                res.redirect("/");
+                res.redirect("/the-front/keeper?pov=logged-in");
             }
             else {
                 res.render(`${__dirname}/views/login`,
@@ -118,7 +119,7 @@ router.get("/logout", authCheck, async function(req, res) {
     try {
         await req.session.destroy();
 
-        res.redirect(`/user/login`);
+        res.redirect(`/`);
     }
     catch {
         console.log(err);

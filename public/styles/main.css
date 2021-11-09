@@ -142,22 +142,26 @@ iframe {
 }
 
 .auth-form {
-    height: 250px;
+    height: 100%;
+    width: 100%;
+    padding: 40px 5px;
 }
 
 .auth-form input {
     padding: 10px;
     width: 100%;
     background-color: var(--shadowColor);
-    border-radius: 5px;
+    border-radius: 5%;
     border: 1px solid var(--textColor);
-    margin: 5px 0;
+    margin: 5% 0;
+    font-size: 10px;
 }
 
 .auth-form h1, .auth-form h3, .auth-form p {
     width: 100%;
     text-align: center;
-    margin: 10px;
+    margin: 0;
+    font-size: 10px;
 }
 
 footer {

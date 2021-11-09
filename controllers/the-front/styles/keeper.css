@@ -6,7 +6,7 @@
     background-color: rgb(20, 15, 11);
     border: 3px solid rgb(110, 76, 37);
     width: 100%;
-    height: 400px;
+    height: 600px;
     position: relative;
 }
 
@@ -22,11 +22,11 @@
 
 .clipboard {
     background-color: rgb(73, 47, 28);
-    width: 200px;
-    height: 300px;
+    width: 300px;
+    height: 400px;
     position: absolute;
-    left: calc(50% -  100px);
-    top: -260px;
+    left: calc(50% -  150px);
+    top: -350px;
     padding: 5px;
     cursor: initial;
     transition: all .5s ease;
@@ -63,8 +63,15 @@
 
 .application {
     background-color: rgb(231, 231, 231);
-    width: 100%;
-    height: 100%;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+
+.clipboard.on-counter .auth-form {
+    display: none;
 }
 
 .clamp {
