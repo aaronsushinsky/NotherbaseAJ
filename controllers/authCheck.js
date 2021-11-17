@@ -11,12 +11,10 @@ const authCheck = async function authCheck(req, res, next){
             }
             else {
                 req.session.currentUserFull = null;
-                console.log("user account not found");
                 res.redirect("/the-front");
             }
         }
         else{
-            console.log("user not logged in");
             res.redirect("/the-front");
         }
     }

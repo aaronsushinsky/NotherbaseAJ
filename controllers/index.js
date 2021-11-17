@@ -5,5 +5,6 @@ module.exports = {
     portfolio: require("./portfolio/portfolio-controller"),
     authCheck: require("./authCheck"),
     item: require("./item/item-controller"),
+    inventory: require("./item/inventory-controller"),
     theFront: require("./the-front/the-front-controller")
 }

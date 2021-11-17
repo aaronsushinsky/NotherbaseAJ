@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 // Import my Data
 const User = require("./models.js").user;
-const inventory = require("../../models/inventory").inventory;
+const inventory = require("../../models/inventory");
 
 const authCheck = require("../authCheck");
 
@@ -32,6 +32,11 @@ router.post("/register", async function(req, res) {
                 coin: 0,
                 home: "/",
                 authLevels: [ "Basic" ]
+            });
+
+            await inventory.create({
+                user: qAuth._id,
+                items: []
             });
     
             res.redirect("/");
@@ -74,14 +79,6 @@ router.post("/login", async function(req, res) {
             if (await bcrypt.compare(req.body.password, foundAccount.password)) {
                 req.session.currentUser = { _id: foundAccount._id };
                 req.session.currentUserFull = foundAccount;
-
-                const foundInventory = await inventory.findOne({ user: req.session.currentUser });
-                if (!foundInventory) {
-                    await inventory.create({
-                        user: req.session.currentUser,
-                        items: []
-                    });
-                }
 
                 res.redirect("/the-front/keeper?pov=logged-in");
             }

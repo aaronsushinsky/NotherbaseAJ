@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // Import my Data
-const items = require(process.cwd() + "/models/inventory").item;
+const items = require(process.cwd() + "/models/item");
 
 router.get("/all", async function(req, res) {
     try {

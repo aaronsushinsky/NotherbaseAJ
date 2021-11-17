@@ -1,0 +1,131 @@
+:root {
+
+}
+
+.yard {
+    width: 100%;
+    height: 400px;
+}
+
+.sky {
+    background-color: rgb(87, 87, 170);
+    width: 100%;
+    height: 70%;
+    position: relative;
+    overflow: hidden;
+}
+
+.sun {
+    background-color: rgb(189, 129, 19);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -75px;
+    right: 10px;
+    z-index: 3;
+}
+
+.ray {
+    background-color: rgb(189, 129, 19);
+    background-image: linear-gradient(to bottom, rgb(228, 100, 40) , rgb(189, 129, 19));
+    width: 80px;
+    height: 600px;
+    position: absolute;
+    z-index: 2;
+    right: 250px;
+    bottom: 0;
+}
+
+.ray:nth-of-type(1) {
+    transform: rotate(15deg);
+    right: -75px;
+    bottom: -25px;
+}
+
+.ray:nth-of-type(2) {
+    transform: rotate(-5deg);
+    right: 50px;
+}
+
+.ray:nth-of-type(3) {
+    transform: rotate(-35deg);
+}
+
+.ray:nth-of-type(4) {
+    transform: rotate(-65deg);
+    right: 300px;
+    bottom: -175px;
+}
+
+.ray:nth-of-type(5) {
+    transform: rotate(-85deg);
+    right: 300px;
+    bottom: -285px;
+}
+
+.ground {
+    background-color: rgb(83, 57, 73);
+    width: 100%;
+    height: 30%;
+    position: relative;
+    z-index: 5;
+}
+
+.tree {
+    position: absolute;
+    width: 200px;
+    height: 300px;
+    bottom: 50px;
+    left: 50px;
+}
+
+.leaves {
+    background-color: rgb(30, 49, 30);
+    position: absolute;
+    width: 100%;
+    height: 60%;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+}
+
+.trunk {
+    background-color: rgb(61, 44, 19);
+    position: absolute;
+    width: 25%;
+    height: 75%;
+    bottom: 0;
+    left: 37.5%;
+    border-radius: -10%;
+    z-index: -1;
+}
+
+.weed {
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    bottom: 50px;
+    right: 50px;
+}
+
+.flower {
+    background-color: rgb(30, 49, 30);
+    position: absolute;
+    width: 100%;
+    height: 60%;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+}
+
+.stem {
+    background-color: rgb(38, 51, 38);
+    position: absolute;
+    width: 25%;
+    height: 75%;
+    bottom: 0;
+    left: 37.5%;
+    border-radius: -10%;
+    z-index: -1;
+}

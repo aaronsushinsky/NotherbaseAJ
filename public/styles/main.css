@@ -57,7 +57,17 @@ p {
     width: 80%;
 }
 
-main button, main a {
+main input {
+    padding: 10px;
+    width: calc(100% - 10px);
+    background-color: var(--bgColor);
+    border-radius: 5%;
+    border: 1px solid var(--textColor);
+    margin: 5px;
+    font-size: 10px;
+}
+
+main input[type=submit], main button, main a {
     background-color: var(--bgColor);
     padding: 10px;
     border-radius: 5px;
@@ -69,7 +79,7 @@ main button, main a {
     text-align: center;
 }
 
-main button:hover, main a:hover {
+main input[type=submit]:hover, main button:hover, main a:hover {
     border: 1px solid var(--textColorBright);
     color: var(--textColorBright);
     cursor: pointer;
@@ -147,20 +157,25 @@ iframe {
     padding: 40px 5px;
 }
 
-.auth-form input {
-    padding: 10px;
-    width: 100%;
-    background-color: var(--shadowColor);
-    border-radius: 5%;
-    border: 1px solid var(--textColor);
-    margin: 5% 0;
-    font-size: 10px;
+
+.auth-form h3 {
+    width: calc(100% - 20px);
+    text-align: center;
+    margin: 10px;
+    font-size: 15px;
 }
 
-.auth-form h1, .auth-form h3, .auth-form p {
-    width: 100%;
+.auth-form h1 {
+    width: calc(100% - 20px);
     text-align: center;
-    margin: 0;
+    margin: 10px;
+    font-size: 20px;
+}
+
+.auth-form p {
+    width: calc(100% - 20px);
+    text-align: center;
+    margin: 10px;
     font-size: 10px;
 }
 
