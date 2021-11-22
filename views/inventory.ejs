@@ -1,4 +1,4 @@
-<% if (inventory) { %>
+<% if (inventory.items) { %>
     <div class="inventory invisible">
         <% for (let i = 0; i < inventory.items.length; i++) { %>
             <div class="item-card">
@@ -12,10 +12,67 @@
     <button id="inventory-button">
         <i class="fas fa-database"></i>
     </button>
+<% } else { %>
+    <button id="inventory-button">
+        ERR
+    </button>
 <% } %>
 
 <script>
-    $("#inventory-button").on("click", function () {
-        $(".inventory").toggleClass("invisible");
-    });
+    class Inventory {
+        constructor() {
+            this.changes = [];
+            this.updateCooldown = 500;
+            this.$div = $(".inventory");
+            this.$button = $("#inventory-button");
+            this.items = [];
+
+            this.$button.on("click", () => {
+                this.$div.toggleClass("invisible");
+            });
+
+            setInterval(this.update, this.updateCooldown);
+        }
+
+        addChanges(changes) {
+            for (let i = 0; i < changes.length; i++) {
+                let found = false;
+                
+                for (let j = 0; j < this.changes.length; j++) {
+                    if (changes[i].item == this.changes[j].item) {
+                        found = true;
+                        this.changes[j].amount += Math.floor(changes[i].amount);
+                    }
+                }
+
+                if (!found) {
+                    this.changes.push(changes[i]);
+                }
+            }
+        }
+
+        update = () => {
+            if (this.changes.length > 0) {
+                $.post("/inventory", { changes: this.changes }, () => {
+                    this.changes = [];
+
+                    $.get("/inventory", (data) => {
+                        this.items = data.foundInventory[0].items;
+
+                        this.render();
+                    });
+                });
+            }
+        }
+
+        render() {
+            this.$div.empty();
+
+            for (let i = 0; i < this.items.length; i++) {
+                this.$div.append(`<div class="item-card"><h5>${this.items[i].item.name}</h5><hr><p>${this.items[i].amount}</p></div>`);
+            }
+        }
+    }
+
+    let playerInventory = new Inventory();
 </script>

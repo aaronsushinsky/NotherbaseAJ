@@ -5,6 +5,8 @@
 .yard {
     width: 100%;
     height: 400px;
+    overflow: hidden;
+    border: 2px solid rgb(37, 19, 4);
 }
 
 .sky {
@@ -17,24 +19,24 @@
 
 .sun {
     background-color: rgb(189, 129, 19);
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     position: absolute;
-    bottom: -75px;
+    bottom: -100px;
     right: 10px;
     z-index: 3;
 }
 
 .ray {
     background-color: rgb(189, 129, 19);
-    background-image: linear-gradient(to bottom, rgb(228, 100, 40) , rgb(189, 129, 19));
+    background-image: linear-gradient(to bottom, rgb(184, 80, 32) , rgb(189, 129, 19));
     width: 80px;
     height: 600px;
     position: absolute;
     z-index: 2;
-    right: 250px;
-    bottom: 0;
+    right: 225px;
+    bottom: -35px;
 }
 
 .ray:nth-of-type(1) {
@@ -45,7 +47,7 @@
 
 .ray:nth-of-type(2) {
     transform: rotate(-5deg);
-    right: 50px;
+    right: 60px;
 }
 
 .ray:nth-of-type(3) {
@@ -74,58 +76,98 @@
 
 .tree {
     position: absolute;
-    width: 200px;
-    height: 300px;
+    width: 0px;
+    height: 0px;
     bottom: 50px;
     left: 50px;
+    pointer-events: none;
+    transition: all .05s ease-out;
 }
 
-.leaves {
+.tree .leaves {
     background-color: rgb(30, 49, 30);
     position: absolute;
     width: 100%;
     height: 60%;
     top: 0;
     left: 0;
-    border-radius: 50%;
+    border-radius: 50% 50% 25% 25%;
+    border: 1px dotted rgb(17, 29, 17);
 }
 
-.trunk {
+@keyframes leavesShake {
+    from {
+        top: -1.5%;
+    }
+  
+    to {
+        top: 1.5%;
+    }
+}
+
+.tree .leaves.shake {
+    animation: leavesShake .1s linear 3 alternate;
+}
+
+.tree .trunk {
     background-color: rgb(61, 44, 19);
     position: absolute;
     width: 25%;
     height: 75%;
     bottom: 0;
     left: 37.5%;
-    border-radius: -10%;
     z-index: -1;
+    border: 1px dotted rgb(49, 10, 10);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+@keyframes trunkShake {
+    from {
+        transform: rotate(-2.5deg);
+    }
+  
+    to {
+        transform: rotate(2.5deg);
+    }
+}
+
+.tree .trunk.shake {
+    animation: trunkShake .1s linear 3 alternate;
 }
 
 .weed {
     position: absolute;
-    width: 20px;
-    height: 30px;
+    width: 0px;
+    height: 0px;
     bottom: 50px;
     right: 50px;
 }
 
-.flower {
-    background-color: rgb(30, 49, 30);
-    position: absolute;
-    width: 100%;
-    height: 60%;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-}
-
-.stem {
+.weed .leaf {
     background-color: rgb(38, 51, 38);
     position: absolute;
     width: 25%;
     height: 75%;
     bottom: 0;
     left: 37.5%;
-    border-radius: -10%;
+    border-radius: 50%;
     z-index: -1;
+    border: 1px dotted rgb(17, 29, 17);
+    cursor: pointer;
+}
+
+.leaf:nth-of-type(1) {
+    transform: rotate(-45deg);
+    left: 0;
+}
+
+.leaf:nth-of-type(2) {
+    transform: rotate(0deg);
+    z-index: 0;
+}
+
+.leaf:nth-of-type(3) {
+    transform: rotate(45deg);
+    left: 80%;
 }

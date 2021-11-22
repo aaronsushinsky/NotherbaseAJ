@@ -21,7 +21,7 @@ const MongoStore = require('connect-mongo');
 const authCheck = require('./controllers/authCheck.js');
 
 // allows us to use post body data
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 // allows us to get static files like css
 app.use(express.static('public'));
