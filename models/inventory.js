@@ -17,15 +17,6 @@ const inventory = new mongoose.Schema({
 	}]
 });
 
-const item = new mongoose.Schema({
-	name: String,
-	shortDescription: String,
-	fullDescription: String
-});
-
 // This tells Mongoose to use the exampleSchema to access the examples collection
 // in our db and then exports the model so we can use it.
-module.exports = {
-	inventory: mongoose.model('inventories', inventory),
-	item: mongoose.model('items', item)
-};
+module.exports = mongoose.model('inventories', inventory);

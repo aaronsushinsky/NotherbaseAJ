@@ -19,49 +19,6 @@ body {
     z-index: -3;
 }
 
-.window {
-    position: absolute;
-    left: 10%;
-    top: 15%;
-    width: 400px;
-    height: 400px;
-    background-color: var(--white);
-    z-index: 0;
-    display: flex;
-    flex-wrap: wrap;
-    z-index: -2;
-    border-radius: 5px;
-    overflow: hidden;
-    filter: blur(5px);
-}
-
-.pane {
-    width: 50%;
-    height: 50%;
-    border: 5px solid var(--woodColor);
-}
-
-.lightdow {
-    position: absolute;
-    left: calc(10% + 900);
-    top: calc(15% + 1100);
-    width: 1200px;
-    height: 1600px;
-    display: flex;
-    flex-wrap: wrap;
-    z-index: -1;
-    filter: blur(5px);
-}
-
-.lightdow .pane {
-    width: calc(50% - 30px);
-    height: calc(50% - 30px);
-    box-shadow: 0px 0px 10px 10px var(--light);
-    background-color: var(--light);
-    border: none;
-    margin: 15px;
-}
-
 main {
     width: 100%;
     border: 5px solid var(--woodColor);
@@ -69,13 +26,13 @@ main {
 }
 
 .today {
-    width: 100%;
+    width: 200px;
     min-height: 100px;
     border: 5px solid var(--woodColor);
     background-color: var(--darkWoodColor);
     margin: 20px;
     border-radius: 5px;
-    padding: 50px;
+    padding: 5px;
     box-shadow: 2px 2px 5px 5px var(--shadow);
     overflow: auto;
 }
@@ -84,6 +41,7 @@ main {
     width: 100%;
     text-align: center;
     font-size: 35px;
+    margin: 0;
 }
 
 .today ul {
@@ -99,7 +57,7 @@ main {
     border-radius: 5px;
     border: 2px solid var(--veryDarkWoodColor);
     padding: 20px;
-    margin: 10px;
+    margin: 0px;
     background-color: var(--gravelColor);
 }
 
@@ -161,7 +119,12 @@ main {
 }
 
 #destiny {
+    width: 700px;
     margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid var(--gravelColor);
 }
 
 #bigscreen {
@@ -171,8 +134,17 @@ main {
     display: block;
 }
 
+button.folder {
+    width: 100%;
+    margin: 0;
+}
+
 #dgg-chat {
     width: 700px;
     height: 1000px;
     border-radius: 0px 0px 5px 5px;
+}
+
+.folded {
+    height: 0 !important;
 }

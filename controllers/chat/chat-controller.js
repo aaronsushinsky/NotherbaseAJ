@@ -16,7 +16,7 @@ const getRouterWithIO = function getRouterWithIO(io) {
                 res.status(200).end();
             }
             else {
-                res.redirect("user/login");
+                res.status(401).end();
             }
         }
         catch(err) {

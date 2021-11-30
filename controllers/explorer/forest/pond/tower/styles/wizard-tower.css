@@ -1,5 +1,6 @@
 :root {
     --bgColor: rgb(37, 37, 37);
+    --bgColorBright: rgb(66, 66, 66);
     --shadowColor: rgb(26, 26, 26);
     --textColor: rgb(185, 135, 69);
     --textColorBright: rgb(221, 181, 130);
@@ -45,7 +46,6 @@ hr {
 
 p {
     color: var(--textColor);
-    margin-bottom: 10px;
     width: 100%;
 }
 
@@ -73,12 +73,44 @@ h2, h3 {
 
 .floor {
     width: 100%;
-    height: 500px;
+    min-height: 500px;
     border: 1px solid var(--shadowColor);
     background-color: var(--bgColor);
     padding: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 #item-editor {
     padding: 5px;
+    border: 1px solid var(--textColor);
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.tab {
+    background-color: var(--textColor);
+    border-radius: 5px 5px 0 0;
+    color: var(--bgColor);
+    margin-bottom: -5px;
+    width: 85%;
+    padding: 2px;
+}
+
+#item-editor p {
+    border: 1px solid var(--textColor);
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+#item-editor p:hover {
+    background-color: var(--bgColorBright);
+}
+
+#item-editor p.selected {
+    border: 1px solid var(--textColorBright);
 }

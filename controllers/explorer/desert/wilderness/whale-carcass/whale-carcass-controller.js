@@ -4,4 +4,8 @@ explore("", {
     externalStyles: [ "../styles/wilderness" ]
 });
 
+explore("hole", {
+    externalStyles: [ "../styles/wilderness" ]
+});
+
 module.exports = router;

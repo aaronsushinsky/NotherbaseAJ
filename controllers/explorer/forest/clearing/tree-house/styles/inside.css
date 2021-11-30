@@ -9,9 +9,11 @@
     --shadow: black;
     --tableColor: rgb(136, 103, 60);
     --dominoShadow: rgba(0, 0, 0, 0.226);
-    --dominoSelection: rgb(184, 18, 129);
+    --dominoSelection: rgb(212, 36, 154);
     --dominoOption: rgb(31, 155, 31);
     --dominoColor: rgb(224, 224, 224);
+    --dominoHighlightedColor: rgb(255, 253, 130);
+    --dominoHeldColor: rgb(130, 255, 249);
 }
 
 body {
@@ -40,8 +42,8 @@ a {
 }
 
 .couch {
-    width: 100%;
-    height: 100px;
+    width: 400px;
+    height: 200px;
     position: relative;
 }
 
@@ -128,9 +130,10 @@ a {
     background-image: url("/img/wood.jpg");
     background-size: 80px 80px;
     image-rendering: pixelated;
-    width: 100%;
-    height: 250px;
+    width: 600px;
+    height: 600px;
     border-radius: 5px;
+    border: outset 5px var(--tableColor);
     box-shadow: 2px 2px 2px var(--shadow);
     position: relative;
 }
@@ -150,6 +153,7 @@ a {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    border: outset 2px rgba(255, 0, 0, 0.651);
 }
 
 .bone {
@@ -162,6 +166,21 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all .25s ease;
+    user-select: none;
+}
+
+.your-hand .bone:hover {
+    cursor: pointer;
+    border: 2px solid var(--dominoSelection);
+}
+
+.bone.highlighted {
+    background-color: var(--dominoHighlightedColor);
+}
+
+.bone.held {
+    background-color: var(--dominoHeldColor);
 }
 
 .bone.in-yard {
@@ -189,6 +208,15 @@ a {
     height: calc(100% - 110px);
     left: 5px;
     top: 55px;
+    border: outset 2px rgba(54, 54, 54, 0.651);
+}
+
+.board .bone:hover {
+    cursor: pointer;
+}
+
+.board.big-bone-time {
+    border: outset 2px var(--dominoHighlightedColor);
 }
 
 .bone-yard {
@@ -201,6 +229,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    border: outset 2px rgba(255, 255, 255, 0.651);
 }
 
 #score1 {
@@ -208,11 +237,12 @@ a {
     background-color: var(--dominoShadow);
     width: 20%;
     height: 15%;
-    right: 5px;
-    top: 50px;
+    right: 15px;
+    top: 65px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: outset 2px rgba(255, 0, 0, 0.651);
 }
 
 #score2 {
@@ -220,11 +250,12 @@ a {
     background-color: var(--dominoShadow);
     width: 20%;
     height: 15%;
-    right: 5px;
-    top: calc(40% + 60px);
+    right: 15px;
+    top: calc(50% + 65px);
     display: flex;
     align-items: center;
     justify-content: center;
+    border: outset 2px rgba(0, 0, 255, 0.527);
 }
 
 .your-hand {
@@ -238,6 +269,11 @@ a {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    border: outset 2px rgba(0, 0, 255, 0.527);
+}
+
+.turn-to-play {
+    background-color: rgba(238, 170, 69, 0.548);
 }
 
 #play {
@@ -247,5 +283,5 @@ a {
 }
 
 .chat-box {
-    height: 100%;
+    height: 400px;
 }

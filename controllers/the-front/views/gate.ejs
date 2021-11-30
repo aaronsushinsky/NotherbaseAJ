@@ -1,0 +1,36 @@
+<%- include("../../../views/head.ejs"); %>
+
+<link rel="stylesheet" href="../styles/gate.css">
+
+<main>
+    <% if (loggedIn) { %> 
+        <p>
+            A gate for travelers to pass through the fences.
+            It is has been left open.
+        </p>
+    <% } else { %> 
+        <p>
+            There is a fence gate, but unfortunately it 
+            is locked shut.
+        </p>
+    <% } %> 
+
+    <hr>
+
+    <% if (loggedIn) { %> 
+        <a href="/forest/eye-of-the-forest/square" class="door" id="gate">
+            Enter NotherBase
+        </a>
+    <% } %> 
+
+    <a href="/the-front/keeper">
+        Approach the Shack
+    </a>
+
+    <a href="/the-front">
+        Back Away
+    </a>
+
+</main>
+
+<%- include("../../../views/basic-footer.ejs"); %>
