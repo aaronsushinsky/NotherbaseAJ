@@ -1,12 +1,23 @@
 <% if (inventory.items) { %>
     <div class="inventory invisible">
-        <% for (let i = 0; i < inventory.items.length; i++) { %>
-            <div class="item-card">
-                <h5><%= inventory.items[i].item.name %></h5>
-                <hr>
-                <p><%= inventory.items[i].amount %></p>
-            </div>
-        <% } %>
+        <% if (user.authLevels.length > 0) { 
+            for (let i = 0; i < user.authLevels.length; i++) {
+                if (user.authLevels[i] === "Creator") { %>
+
+                    <div class="item-spawner">
+                        <input type="text" class="search">
+                        <div class="search-results">
+                            
+                        </div>
+                    </div>
+
+                    <% break;
+                }
+            }
+        } %>
+
+        <div class="item-list">
+        </div>
     </div>
 
     <button id="inventory-button">
@@ -24,11 +35,29 @@
             this.changes = [];
             this.updateCooldown = 500;
             this.$div = $(".inventory");
+            this.$list = $(".item-list");
+            this.$search = $(".search");
+            this.$searchResults = $(".search-results");
+            this.searchResults = [];
             this.$button = $("#inventory-button");
             this.items = [];
 
             this.$button.on("click", () => {
                 this.$div.toggleClass("invisible");
+            });
+
+            this.$search.on("keyup", () => {
+                let searchString = this.$search.val();
+
+                $.get(`/item`, { name: searchString }, (data) => {
+                    this.renderSearchResults(data.foundItems);
+                });
+            });
+
+            $.get("/inventory", (data) => {
+                this.items = data.foundInventory[0].items;
+
+                this.render();
             });
 
             setInterval(this.update, this.updateCooldown);
@@ -42,6 +71,7 @@
                     if (changes[i].item == this.changes[j].item) {
                         found = true;
                         this.changes[j].amount += Math.floor(changes[i].amount);
+                        if (this.changes[j].amount < 0) this.changes.splice(j, 1);
                     }
                 }
 
@@ -66,10 +96,44 @@
         }
 
         render() {
-            this.$div.empty();
+            this.$list.empty();
 
             for (let i = 0; i < this.items.length; i++) {
-                this.$div.append(`<div class="item-card"><h5>${this.items[i].item.name}</h5><hr><p>${this.items[i].amount}</p></div>`);
+                let $new = this.$list.append(
+                                `<div class="item-card">
+                                    <h5>${this.items[i].item.name}</h5>
+                                    <button id="${i}">X</button>
+                                    <hr>
+                                    <p>${this.items[i].amount}</p>
+                                </div>`
+                            ).children().last();
+
+                $new.find("button").on("click", (e) => {
+                    let which = parseInt(e.currentTarget.id);
+
+                    this.addChanges([{
+                        item: this.items[which]._id,
+                        amount: -1
+                    }]);
+                });
+            }
+        }
+
+        renderSearchResults(results) {
+            this.$searchResults.empty();
+            this.searchResults = results;
+
+            for (let i = 0; i < this.searchResults.length; i++) {
+                let $new = this.$searchResults.append(`<p id="${i}">${this.searchResults[i].name}</p>`).children().last();
+
+                $new.on("click", (e) => {
+                    let which = parseInt(e.currentTarget.id);
+
+                    this.addChanges([{
+                        item: this.searchResults[which]._id,
+                        amount: 1
+                    }]);
+                });
             }
         }
     }

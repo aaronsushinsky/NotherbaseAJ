@@ -1,5 +1,7 @@
 :root {
     --bgColor: rgb(37, 37, 37);
+    --darkBgColor: rgb(27, 27, 27);
+    --lightBgColor: rgb(57, 57, 57);
     --shadowColor: rgb(26, 26, 26);
     --textColor: rgb(185, 135, 69);
     --textColorBright: rgb(221, 181, 130);
@@ -19,7 +21,7 @@
 }
 
 body {
-    background-color: var(--bgColor);
+    background-color: var(--darkBgColor);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -64,7 +66,7 @@ main input, main textarea {
     border-radius: 5px;
     border: 1px solid var(--textColor);
     margin: 5px;
-    font-size: 10px;
+    font-size: 15px;
 }
 
 main input[type=submit], main button, main a {
@@ -100,7 +102,7 @@ ul {
     color: var(--textColor);
     position: fixed;
     width: 90%;
-    height: 20%;
+    height: 30%;
     left: 5%;
     bottom: 105px;
     background-color: var(--bgColor);
@@ -110,6 +112,34 @@ ul {
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
+}
+
+.inventory .item-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    border: 1px solid var(--textColor);
+}
+
+.inventory .item-spawner {
+    width: 100%;
+    border: 1px solid var(--textColor);
+}
+
+.item-spawner .search-results {
+    width: 100%;
+    border: 1px solid var(--textColor);
+    overflow: auto;
+}
+
+.search-results p {
+    width: 100%;
+    cursor: pointer;
+}
+
+.search-results p:hover {
+    background-color: var(--woodColor);
 }
 
 #inventory-button {
@@ -127,6 +157,15 @@ ul {
     border: 1px solid var(--textColor);
     padding: 10px;
     margin: 5px;
+    position: relative;
+}
+
+.item-card button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .item-card hr {
@@ -160,6 +199,10 @@ iframe {
     height: 100%;
     width: 100%;
     padding: 40px 5px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 
@@ -181,7 +224,7 @@ iframe {
     width: calc(100% - 20px);
     text-align: center;
     margin: 10px;
-    font-size: 10px;
+    font-size: 12px;
 }
 
 footer {

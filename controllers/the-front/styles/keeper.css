@@ -1,5 +1,7 @@
 :root {
     --gate: rgba(128, 128, 128, 0.678);
+    --paperWhite: rgb(231, 231, 231);
+    --inkBlack: rgb(22, 22, 22);
 }
 
 .shack {
@@ -30,17 +32,30 @@
     padding: 5px;
     cursor: initial;
     transition: all .5s ease;
+    z-index: 10;
+}
+
+.clipboard.for-register {
+    left: initial;
+    right: calc(50% -  150px);
 }
 
 .clipboard.on-counter {
     width: 75px;
     height: 110px;
     position: absolute;
-    left: 15%;
+    left: 10%;
     top: -50%;
     padding: 5px;
     transform: rotate3d(1, 1, 1, -70deg);
     cursor: pointer;
+    z-index: 5;
+}
+
+.clipboard.on-counter.for-register {
+    left: initial;
+    right: 10%;
+    transform: rotate3d(1, -1, -1, -70deg);
 }
 
 .close {
@@ -61,6 +76,10 @@
     display: none;
 }
 
+.clipboard.on-counter .auth-form {
+    display: none;
+}
+
 .application {
     background-color: rgb(231, 231, 231);
     width: calc(100% - 10px);
@@ -70,10 +89,6 @@
     top: 5px;
 }
 
-.clipboard.on-counter .auth-form {
-    display: none;
-}
-
 .clamp {
     background-color: rgb(155, 155, 155);
     width: 30%;
@@ -81,4 +96,20 @@
     position: absolute;
     left: 35%;
     top: 0;
+}
+
+.application * {
+    color: var(--inkBlack);
+}
+
+.auth-form input, .auth-form button {
+    background-color: var(--paperWhite);
+}
+
+.auth-form button {
+    width: 40%;
+}
+
+.auth-form p.error {
+    color: rgb(160, 19, 19);
 }

@@ -1,6 +1,8 @@
 
 <footer>
-    <a href="/user/logout">Logout</a>
+    <% if (user) { %> 
+        <a href="/user/logout">Logout</a>
+    <% } %> 
 </footer>
 
 </body>

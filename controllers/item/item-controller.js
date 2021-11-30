@@ -29,6 +29,18 @@ router.get("/findOne", async function(req, res) {
     }
 });
 
+router.get("/", async function(req, res) {
+    try {
+        let foundItems = await items.find({ name: { $regex: req.query.name } });
+
+        res.status(200).send({ foundItems: foundItems });
+    }
+    catch(err) {
+        res.status(500).end();
+        console.log(err);
+    }
+});
+
 router.post("/", async function(req, res) {
     try {
         await items.create({

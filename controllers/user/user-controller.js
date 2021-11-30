@@ -8,14 +8,14 @@ const inventory = require("../../models/inventory");
 
 const authCheck = require("../authCheck");
 
-router.get("/register", function(req, res) {
-    res.render(`${__dirname}/views/register`,
-    {
-        siteTitle: "NotherBase | Register",
-        info: "",
-        color: "green"
-    });
-});
+// router.get("/register", function(req, res) {
+//     res.render(`${__dirname}/views/register`,
+//     {
+//         siteTitle: "NotherBase | Register",
+//         info: "",
+//         color: "green"
+//     });
+// });
 
 router.post("/register", async function(req, res) {
     try {
@@ -39,37 +39,27 @@ router.post("/register", async function(req, res) {
                 items: []
             });
     
-            res.redirect("/");
+            res.status(200).send("Registration Successful!");
         }
         else {
-            res.render(`${__dirname}/views/register`,
-            {
-                siteTitle: "NotherBase | Register",
-                info: "Registration Failed: Username taken!",
-                color: "red"
-            });
+            res.status(400).send("Registration Failed: Username taken!");
         }
     }
     catch(err) {
         console.log(err);
 
-        res.render(`${__dirname}/views/register`,
-        {
-            siteTitle: "NotherBase | Register",
-            info: "Registration Failed: Database error!",
-            color: "red"
-        });
+        res.status(500).send("Registration Failed: Database error!");
     }
 });
 
-router.get("/login", function(req, res) {
-    res.render(`${__dirname}/views/login`, 
-    { 
-        siteTitle: "NotherBase | Login",
-        info: "",
-        color: "green" 
-    });
-});
+// router.get("/login", function(req, res) {
+//     res.render(`${__dirname}/views/login`, 
+//     { 
+//         siteTitle: "NotherBase | Login",
+//         info: "",
+//         color: "green" 
+//     });
+// });
 
 router.post("/login", async function(req, res) {
     try {
@@ -80,35 +70,20 @@ router.post("/login", async function(req, res) {
                 req.session.currentUser = { _id: foundAccount._id };
                 req.session.currentUserFull = foundAccount;
 
-                res.redirect("/the-front/keeper?pov=logged-in");
+                res.status(200).send("Login successful!");
             }
             else {
-                res.render(`${__dirname}/views/login`,
-                {
-                    siteTitle: "NotherBase | Login",
-                    info: "Login Failed: Password incorrect!",
-                    color: "red"
-                });
+                res.status(401).send("Login Failed: Password incorrect!");
             }
         }
         else {
-            res.render(`${__dirname}/views/login`,
-            {
-                siteTitle: "NotherBase | Login",
-                info: "Login Failed: Account does not exist!",
-                color: "red"
-            });
+            res.status(401).send("Login Failed: Username not found!");
         }
     }
     catch(err) {
         console.log(err);
 
-        res.render(`${__dirname}/views/login`,
-        {
-            siteTitle: "NotherBase | Login",
-            info: "Login Failed: Database error!",
-            color: "red"
-        });
+        res.status(500).send("Login Failed: Database error!");
     }
 });
 
@@ -123,27 +98,27 @@ router.get("/logout", authCheck, async function(req, res) {
     }
 });
 
-router.get("/", authCheck, async function(req, res) {
-    try {
-        const foundAccount = await User.findOne({ _id: req.session.currentUser });
+// router.get("/", authCheck, async function(req, res) {
+//     try {
+//         const foundAccount = await User.findOne({ _id: req.session.currentUser });
 
-        if (foundAccount) {
-            res.render(`${__dirname}/views/show`, {
-                siteTitle: "NotherBase | Account",
-                cash: foundAccount.cash,
-                color: "green",
-                info: ""
-            });
-        }
-        else {
-            console.log("User not found! Can't show!");
-            res.redirect("/user/login");
-        }
-    }
-    catch {
-        console.log(err);
-    }
-});
+//         if (foundAccount) {
+//             res.render(`${__dirname}/views/show`, {
+//                 siteTitle: "NotherBase | Account",
+//                 cash: foundAccount.cash,
+//                 color: "green",
+//                 info: ""
+//             });
+//         }
+//         else {
+//             console.log("User not found! Can't show!");
+//             res.redirect("/user/login");
+//         }
+//     }
+//     catch {
+//         console.log(err);
+//     }
+// });
 
 router.delete("/", authCheck, async function(req, res) {
     try {
@@ -153,7 +128,7 @@ router.delete("/", authCheck, async function(req, res) {
 
         await req.session.destroy();
 
-        res.redirect("/user/login");
+        res.redirect("/");
     }
     catch {
         console.log(err);

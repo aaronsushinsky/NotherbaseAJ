@@ -5,8 +5,7 @@ router.get("/", function(req, res) {
     res.render(`${__dirname}/views/index`, 
     { 
         siteTitle: "NotherBase | The Front",
-        info: "",
-        color: "green" 
+        user: req.session.currentUserFull
     });
 });
 
@@ -14,9 +13,8 @@ router.get("/keeper", function(req, res) {
     res.render(`${__dirname}/views/keeper`, 
     { 
         siteTitle: "NotherBase | The Front",
-        info: "",
-        color: "green",
-        pov: req.query.pov
+        pov: req.query.pov,
+        user: req.session.currentUserFull
     });
 });
 
@@ -24,9 +22,8 @@ router.get("/gate", function(req, res) {
     res.render(`${__dirname}/views/gate`, 
     { 
         siteTitle: "NotherBase | The Front",
-        info: "",
-        color: "green",
-        loggedIn: req.session.currentUserFull
+        loggedIn: req.session.currentUserFull,
+        user: req.session.currentUserFull
     });
 });
 
