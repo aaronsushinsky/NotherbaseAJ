@@ -4,6 +4,9 @@
     <% for (let i = 0; i < styles.length; i++) { %>
         <%- include(`${styles[i]}.css`); %>
     <% } %>
+    <% for (let i = 0; i < externalStyles.length; i++) { %>
+        <%- include(`${externalStyles[i]}.css`); %>
+    <% } %>
 </style>
 
 <main>

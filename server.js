@@ -21,7 +21,7 @@ const MongoStore = require('connect-mongo');
 const authCheck = require('./controllers/authCheck.js');
 
 // allows us to use post body data
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 // allows us to get static files like css
 app.use(express.static('public'));
@@ -46,7 +46,6 @@ app.use(session({
 
 io.on('connection', (socket) => {
     socket.join(socket.handshake.query.room);
-    
 
     socket.on('disconnect', () => {});
 });
@@ -57,7 +56,11 @@ app.use("/portfolio", controllers.portfolio);
 
 app.use("/chat", controllers.chat(io));
 
+app.use("/inventory", controllers.inventory);
+
 app.use("/item", controllers.item);
+
+app.use("/the-front", controllers.theFront);
 
 app.use("/", authCheck, controllers.explorer);
 

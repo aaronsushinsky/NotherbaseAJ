@@ -1,17 +1,3 @@
-<div class="window">
-    <div class="pane"></div>
-    <div class="pane"></div>
-    <div class="pane"></div>
-    <div class="pane"></div>
-</div>
-
-<div class="lightdow">
-    <div class="pane"></div>
-    <div class="pane"></div>
-    <div class="pane"></div>
-    <div class="pane"></div>
-</div>
-
 <p>
     Reaching the top of the stairs, you bolt to the window and open
     the wooden blinds to let light and fresh air spill around you.
@@ -23,16 +9,16 @@
     <h3>To Do Today</h3>
     <ul>
         <li>
-            <p>Read a Chapter from the Bible</p>
+            <p>Praised my Lord</p>
             <input type="checkbox" name="bible" id="dishes">
+        </li>
+        <li>
+            <p>Went to Work</p>
+            <input type="checkbox" name="job" id="dishes">
         </li>
         <li>
             <p>Cleaned Dishes</p>
             <input type="checkbox" name="dishes" id="dishes">
-        </li>
-        <li>
-            <p>Applied for a Job</p>
-            <input type="checkbox" name="job" id="dishes">
         </li>
         <li>
             <p>Took Out the Trash</p>
@@ -43,37 +29,27 @@
             <input type="checkbox" name="excersize" id="dishes">
         </li>
         <li>
-            <p>Vacuumed/Extra Chores</p>
+            <p>Vacuumed and Extra Chores</p>
             <input type="checkbox" name="extra" id="dishes">
         </li>
     </ul>
 </div>
 
-<div class="whiteboard">
-    <div class="to-do">
-        <h3>To Do:</h3>
-        <ul>
-            <li><p>Laundry</p><p>Mid-week</p></li>
-            <li><p>Trash to Street</p><p>9/15/21</p></li>
-        </ul>
-    </div>
-</div>
-
 <div id="destiny">
-    
-
+    <button class="folder" id="bigscreen-folder">Big Screen</button>
     <% if (query.embed) { %>
-        <iframe id="bigscreen" src="https://www.youtube.com/embed/<%= query.embed %>" 
+        <iframe class="folded" id="bigscreen" src="https://www.youtube.com/embed/<%= query.embed %>" 
             title="YouTube video player" frameborder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowfullscreen></iframe>
     <% } else { %>
-        <iframe id="bigscreen" src="https://www.youtube.com/embed/JLJBtJ77N0w?&autoplay=1" 
+        <iframe class="folded" id="bigscreen" src="https://www.youtube.com/embed/JLJBtJ77N0w?&autoplay=1" 
             title="YouTube video player" frameborder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowfullscreen></iframe>
-        <% } %>
-    <iframe id="dgg-chat" src="https://www.destiny.gg/embed/chat?follow=%2Fbigscreen"></iframe>
+    <% } %>
+    <iframe class="folded" id="dgg-chat" src="https://www.destiny.gg/embed/chat?follow=%2Fbigscreen"></iframe>
+    <button class="folder" id="chat-folder">Chat</button>
 </div>
 
 <hr>
@@ -81,3 +57,13 @@
 <a href="/forest/clearing/wyatts-house/livingroom" class="return-door">
     Go Downstairs
 </a>
+
+<script>
+    $("#bigscreen-folder").on("click", function () {
+        $("#bigscreen").toggleClass("folded");
+    });
+
+    $("#chat-folder").on("click", function () {
+        $("#dgg-chat").toggleClass("folded");
+    });
+</script>

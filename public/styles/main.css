@@ -1,5 +1,7 @@
 :root {
     --bgColor: rgb(37, 37, 37);
+    --darkBgColor: rgb(27, 27, 27);
+    --lightBgColor: rgb(57, 57, 57);
     --shadowColor: rgb(26, 26, 26);
     --textColor: rgb(185, 135, 69);
     --textColorBright: rgb(221, 181, 130);
@@ -15,11 +17,11 @@
 }
 
 .invisible {
-    display: none;
+    display: none !important;
 }
 
 body {
-    background-color: var(--bgColor);
+    background-color: var(--darkBgColor);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -41,6 +43,7 @@ main {
     justify-content: center;
     align-content: center;
     align-items: flex-start;
+    background-color: var(--bgColor);
 }
 
 hr {
@@ -53,10 +56,20 @@ hr {
 p {
     color: var(--textColor);
     margin-bottom: 10px;
-    width: 70%;
+    width: 80%;
 }
 
-button, a {
+main input, main textarea {
+    padding: 10px;
+    width: calc(100% - 10px);
+    background-color: var(--bgColor);
+    border-radius: 5px;
+    border: 1px solid var(--textColor);
+    margin: 5px;
+    font-size: 15px;
+}
+
+main input[type=submit], main button, main a {
     background-color: var(--bgColor);
     padding: 10px;
     border-radius: 5px;
@@ -68,7 +81,7 @@ button, a {
     text-align: center;
 }
 
-button:hover, a:hover {
+main input[type=submit]:hover, main button:hover, main a:hover {
     border: 1px solid var(--textColorBright);
     color: var(--textColorBright);
     cursor: pointer;
@@ -89,17 +102,49 @@ ul {
     color: var(--textColor);
     position: fixed;
     width: 90%;
-    height: 40%;
+    height: 30%;
     left: 5%;
-    bottom: 80px;
+    bottom: 105px;
     background-color: var(--bgColor);
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
+    z-index: 500;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+
+.inventory .item-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    border: 1px solid var(--textColor);
+}
+
+.inventory .item-spawner {
+    width: 100%;
+    border: 1px solid var(--textColor);
+}
+
+.item-spawner .search-results {
+    width: 100%;
+    border: 1px solid var(--textColor);
+    overflow: auto;
+}
+
+.search-results p {
+    width: 100%;
+    cursor: pointer;
+}
+
+.search-results p:hover {
+    background-color: var(--woodColor);
 }
 
 #inventory-button {
     position: fixed;
-    bottom: 5px;
+    bottom: 30px;
     right: 5px;
     width: 64px;
     height: 64px;
@@ -111,6 +156,16 @@ ul {
     border-radius: 5px;
     border: 1px solid var(--textColor);
     padding: 10px;
+    margin: 5px;
+    position: relative;
+}
+
+.item-card button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .item-card hr {
@@ -120,8 +175,8 @@ ul {
 
 .door {
     border: 1px solid var(--darkWoodColor);
-    width: 150px;
-    height: 250px;
+    width: 100px;
+    height: 150px;
     background-color: var(--woodColor);
     position: relative;
 }
@@ -141,21 +196,49 @@ iframe {
 }
 
 .auth-form {
-    height: 300px;
+    height: 100%;
+    width: 100%;
+    padding: 40px 5px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.auth-form input {
-    padding: 10px;
-    width: 100%;
-    background-color: var(--shadowColor);
-    border-radius: 5px;
-    border: 1px solid var(--textColor);
-}
 
-.auth-form h1, h3, p {
-    width: 100%;
+.auth-form h3 {
+    width: calc(100% - 20px);
     text-align: center;
     margin: 10px;
+    font-size: 15px;
+}
+
+.auth-form h1 {
+    width: calc(100% - 20px);
+    text-align: center;
+    margin: 10px;
+    font-size: 20px;
+}
+
+.auth-form p {
+    width: calc(100% - 20px);
+    text-align: center;
+    margin: 10px;
+    font-size: 12px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 25px;
+    width: 100%;
+    background-color: var(--shadowColor);
+}
+
+footer a {
+    text-decoration: none;
+    height: 100%;
 }
 
 @media only screen and (max-width: 500px) {

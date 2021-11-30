@@ -16,6 +16,7 @@
     height: calc(100% - 65px);
     background-color: rgba(0, 0, 0, 0.534);
     overflow: auto;
+    padding: 5px;
 }
 
 .chat-send {
@@ -55,4 +56,5 @@
     margin: 0;
     padding: 0;
     line-height: 1em;
+    text-align: left;
 }

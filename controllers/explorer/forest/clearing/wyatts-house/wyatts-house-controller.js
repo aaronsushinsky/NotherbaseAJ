@@ -2,6 +2,10 @@ const { explore, router } = require("notherbase-fs").from(__dirname);
 
 explore("");
 
+explore("backyard", { 
+    styles: [ "backyard" ] 
+});
+
 explore("livingroom", { 
     styles: [ "livingroom" ] 
 });

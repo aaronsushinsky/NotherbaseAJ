@@ -10,14 +10,16 @@ const authCheck = async function authCheck(req, res, next){
                 next();
             }
             else {
-                res.redirect("/user/login");
+                req.session.currentUserFull = null;
+                res.redirect("/the-front");
             }
         }
         else{
-            res.redirect("/user/login");
+            res.redirect("/the-front");
         }
     }
     catch(err) {
+        console.log("database error");
         console.log(err);
     }
 }
