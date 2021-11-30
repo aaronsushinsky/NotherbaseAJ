@@ -1,0 +1,67 @@
+:root {
+    --nonoColor: rgb(87, 61, 53);
+    --nonoColorBright: rgb(187, 130, 113);
+    --nonoBG: rgb(61, 61, 61);
+}
+
+#nono-board {
+    border: 2px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.nono {
+    background-color: var(--nonoBG);
+}
+
+.hints {
+    background-color: var(--nonoBG);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.column {
+    border: 1px solid var(--nonoColor);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.row {
+    border: 1px solid var(--nonoColor);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.nono-field {
+    border: 2px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.nono-tile {
+    border: 1px solid var(--nonoColor);
+    cursor: pointer;
+}
+
+.nono-tile:hover {
+    border: 1px solid var(--nonoColorBright);
+}
+
+.blank {
+    background-color: white;
+}
+
+.marked {
+    background-color: rgb(73, 80, 182);
+}
+
+.punched {
+    background-color: rgb(0, 0, 0);
+}
