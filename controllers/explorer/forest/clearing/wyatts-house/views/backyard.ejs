@@ -33,6 +33,7 @@
 </a>
 
 <script>
+    let fps = 5;
     let harvestGame = null;
     let weedItem, woodItem = null;
     $.get("/item/findOne", { name: "Weed" }, function (data) {
@@ -89,7 +90,7 @@
         }
 
         update() {
-            this.age += 50;
+            this.age += 1000 / fps;
             if (this.age >= this.timeToGrow) this.age = this.timeToGrow;
 
             this.updateCSS();
@@ -137,7 +138,7 @@
         }
 
         update() {
-            this.age += 50;
+            this.age += 1000 / fps;
 
             this.updateCSS();
         }
@@ -156,7 +157,7 @@
             this.maxTrees = 10;
             this.weeds = [];
             this.maxWeeds = 100;
-            setInterval(this.update, 50);
+            setInterval(this.update, 1000 / fps);
         }
 
         update = () => {
