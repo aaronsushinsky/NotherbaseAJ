@@ -13,6 +13,7 @@
 
 .nono {
     background-color: var(--nonoBG);
+    user-select: none;
 }
 
 .hints {
@@ -38,8 +39,16 @@
     justify-content: flex-end;
 }
 
+.hint {
+    width: 25px;
+    height: 25px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .nono-field {
-    border: 2px solid black;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;

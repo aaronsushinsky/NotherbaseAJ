@@ -16,6 +16,7 @@
 
 <script>
     let tileSize = 30;
+    let level = 1;
 
     class NonoTile {
         constructor (game, $field, position) {
@@ -29,7 +30,7 @@
             this.solved = this.checkIfSolved();
             this.game = game;
 
-            this.$div.on("click", this.clicked)
+            this.$div.on("click", this.clicked);
         }
 
         getRandomState() {
@@ -64,10 +65,10 @@
     }
 
     class NonoGame {
-        constructor (width, height) {
+        constructor (level) {
             this.$board = $("#nono-board");
             this.$field = null;
-            this.dimensions = [width, height];
+            this.dimensions = [level, level];
             this.hints = [[], []];
             this.tiles = [];
             this.nonoSize = 100;
@@ -81,16 +82,18 @@
         }
 
         startNew() {
+            this.dimensions = [level, level];
+
             this.$board.empty();
-            this.$board.css("width", this.dimensions[0] * (tileSize + 1) + this.nonoSize + 5);
-            this.$board.css("height", this.dimensions[1] * (tileSize + 1) + this.nonoSize + 5);
+            this.$board.css("width", this.dimensions[0] * (tileSize) + this.nonoSize + 5);
+            this.$board.css("height", this.dimensions[1] * (tileSize) + this.nonoSize + 5);
 
             let $nono = this.$board.append(`<img class="nono" src="/img/nono-${Math.floor(Math.random() * (this.maxNonoId + 1))}.png">`).children().last();
             $nono.css("width", this.nonoSize);
             $nono.css("height", this.nonoSize);
 
             let $topHints = this.$board.append(`<div class="top hints"></div>`).children().last();
-            $topHints.css("width", this.dimensions[0] * (tileSize + 1));
+            $topHints.css("width", this.dimensions[0] * tileSize);
             $topHints.css("height", this.nonoSize);
 
             let $columns = [];
@@ -102,7 +105,7 @@
 
             let $sideHints = this.$board.append(`<div class="side hints"></div>`).children().last();
             $sideHints.css("width", this.nonoSize);
-            $sideHints.css("height", this.dimensions[1] * (tileSize + 1));
+            $sideHints.css("height", this.dimensions[1] * tileSize);
 
             let $rows = [];
             for (let i = 0; i < this.dimensions[1]; i++) {
@@ -112,8 +115,8 @@
             }
 
             this.$field = this.$board.append(`<div class="nono-field"></div>`).children().last();
-            this.$field.css("width", this.dimensions[0] * (tileSize + 1));
-            this.$field.css("height", this.dimensions[1] * (tileSize + 1));
+            this.$field.css("width", this.dimensions[0] * tileSize);
+            this.$field.css("height", this.dimensions[1] * tileSize);
 
             this.tiles = this.generateTiles();
             this.hints = this.generateHints();
@@ -164,7 +167,7 @@
                     }
                 }
 
-                if (current > 0) {
+                if (current > 0 || hints[0][i].length < 1) {
                     hints[0][i].push(current);
                     console.log(`extra: 0, ${i}: ${current}`);
                 }
@@ -182,7 +185,7 @@
                     }
                 }
 
-                if (current > 0) hints[1][i].push(current);
+                if (current > 0 || hints[1][i].length < 1) hints[1][i].push(current);
             }
 
             return hints;
@@ -208,10 +211,11 @@
                     amount: 5 
                 }]);
 
+                level++;
                 this.startNew();
             }
         }
     }
 
-    let nonoGame = new NonoGame(10, 10);
+    let nonoGame = new NonoGame(level);
 </script>
