@@ -10,38 +10,32 @@
 
 <hr>
 
-<a href="/forest/pond/tower">
+<a class="return" href="/forest/pond/tower">
     Back to the Wizard's Tower
 </a>
 
 <script>
     let tileSize = 30;
-    let level = 1;
 
     class NonoTile {
-        constructor (game, $field, position) {
+        constructor (game, $field, position, modifier) {
             this.$div = $field.append(`<div class="nono-tile" id="${position[0]},${position[1]}"></div>`).children().last();
             this.$div.css("width", tileSize);
             this.$div.css("height", tileSize);
             this.position = position;
             this.state = "blank";
             this.$div.addClass(this.state);
-            this.correctState = this.getRandomState();
+            this.correctState = this.getRandomState(modifier);
             this.solved = this.checkIfSolved();
             this.game = game;
 
             this.$div.on("click", this.clicked);
         }
 
-        getRandomState() {
-            switch (Math.floor(Math.random() * 2)) {
-                case 0:
-                    return "blank";
-                    break;
-                case 1:
-                    return "punched";
-                    break;
-            }
+        getRandomState(modifier) {
+            let roll = Math.floor(Math.random() * (2 + modifier));
+            if (roll < 1) return "blank";
+            else return "punched";
         }
 
         checkIfSolved() {
@@ -65,10 +59,12 @@
     }
 
     class NonoGame {
-        constructor (level) {
+        constructor () {
+            this.difficulty = 0;
+            this.level = 2;
             this.$board = $("#nono-board");
             this.$field = null;
-            this.dimensions = [level, level];
+            this.dimensions = [this.level, this.level];
             this.hints = [[], []];
             this.tiles = [];
             this.nonoSize = 100;
@@ -82,7 +78,7 @@
         }
 
         startNew() {
-            this.dimensions = [level, level];
+            this.dimensions = [this.level, this.level];
 
             this.$board.empty();
             this.$board.css("width", this.dimensions[0] * (tileSize) + this.nonoSize + 5);
@@ -144,7 +140,12 @@
 
             for (let i = 0; i < this.dimensions[0]; i++) {
                 for (let j = 0; j < this.dimensions[1]; j++) {
-                    tiles.push(new NonoTile(this, this.$field, [i, j]));
+                    tiles.push(new NonoTile(
+                        this, 
+                        this.$field, 
+                        [i, j],
+                        1 - (this.difficulty / 10)
+                    ));
                 }
             }
 
@@ -162,14 +163,12 @@
                     if (this.tiles[j * this.dimensions[0] + i].correctState === "punched") current++;
                     else if (current > 0) {
                         hints[0][i].push(current);
-                        console.log(`normal: 0, ${i}: ${current}`);
                         current = 0;
                     }
                 }
 
                 if (current > 0 || hints[0][i].length < 1) {
                     hints[0][i].push(current);
-                    console.log(`extra: 0, ${i}: ${current}`);
                 }
             }
 
@@ -208,14 +207,26 @@
             if (this.checkForSolve()) {
                 playerInventory.addChanges([{ 
                     item: this.goldItem._id, 
-                    amount: 5 
+                    amount: this.level + this.difficulty
                 }]);
 
-                level++;
-                this.startNew();
+                let $tiles = $(".nono-tile");
+                $tiles.off("click");
+                $tiles.addClass("borderless");
+                $tiles = $(".nono-tile.marked");
+                $tiles.addClass("blank");
+                $tiles.removeClass("marked");
+
+                this.level++;
+                if (this.level > 10) {
+                    this.difficulty += this.level - 10;
+                    if (this.difficulty > 10) this.difficulty = 10;
+                    this.level -= 10;
+                }
+                setTimeout(() => {this.startNew();}, 2000);
             }
         }
     }
 
-    let nonoGame = new NonoGame(level);
+    let nonoGame = new NonoGame();
 </script>

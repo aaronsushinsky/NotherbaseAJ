@@ -14,6 +14,7 @@
 .nono {
     background-color: var(--nonoBG);
     user-select: none;
+    image-rendering: pixelated;
 }
 
 .hints {
@@ -63,18 +64,26 @@
     cursor: pointer;
 }
 
+.borderless {
+    border: none !important;
+    cursor: initial !important;
+}
+
 .nono-tile:hover {
     border: 1px solid var(--nonoColorBright);
 }
 
 .blank {
     background-color: white;
+    transition: all .1s ease;
 }
 
 .marked {
     background-color: rgb(73, 80, 182);
+    transition: all .1s ease;
 }
 
 .punched {
     background-color: rgb(0, 0, 0);
+    transition: all .1s ease;
 }
