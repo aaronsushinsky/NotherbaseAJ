@@ -27,5 +27,15 @@ router.get("/gate", function(req, res) {
     });
 });
 
+router.get("/around", function(req, res) {
+    res.render(`${__dirname}/views/around`, 
+    { 
+        siteTitle: "NotherBase | The Front",
+        loggedIn: req.session.currentUserFull,
+        user: req.session.currentUserFull,
+        query: req.query
+    });
+});
+
 // This exports the router
 module.exports = router;

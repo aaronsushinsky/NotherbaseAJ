@@ -32,6 +32,10 @@ a {
     font-weight: bold;
 }
 
+h4 a {
+    margin-right: 20px;
+}
+
 hr {
     border: none;
     border-bottom: 2px solid var(--shadowColor);
@@ -204,6 +208,8 @@ section iframe {
 #notherbase-fs {
     background-color: var(--extreme-dark);
     padding: 10px;
+    border: 5% solid var(--bgColor);
+    border-radius: 0% 0% 50px 50px;
 }
 
 #notherbase-fs img {

@@ -1,0 +1,26 @@
+<%- include("../../../views/head.ejs"); %>
+
+<style>
+    <%- include("../styles/borders.css"); %>
+</style>
+
+<main>
+    <p>
+        You walk along the length of the fence for a few minutes.
+        No other entrance is in sight.
+    </p>
+
+    <hr>
+
+    <% if (!query.steps) query.steps = 0 %>
+    <a class="to gate" href="/the-front/around?steps=<%= parseInt(query.steps) + 1 %>">
+        Walk Further from the Gate
+    </a>
+
+    <a class="return" href="/the-front/gate">
+        Return to the Gate
+    </a>
+
+</main>
+
+<%- include("../../../views/footer.ejs"); %>

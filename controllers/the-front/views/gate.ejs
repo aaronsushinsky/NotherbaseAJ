@@ -1,6 +1,9 @@
 <%- include("../../../views/head.ejs"); %>
 
-<link rel="stylesheet" href="../styles/gate.css">
+<style>
+    <%- include("../styles/gate.css"); %>
+    <%- include("../styles/borders.css"); %>
+</style>
 
 <main>
     <% if (loggedIn) { %> 
@@ -18,19 +21,27 @@
     <hr>
 
     <% if (loggedIn) { %> 
-        <a href="/forest/eye-of-the-forest/square" class="door" id="gate">
+        <a class="to nother-base" href="/forest/eye-of-the-forest/square">
             Enter NotherBase
         </a>
-    <% } %> 
+    <% } else { %> 
+        <div class="locked to nother-base">
+            Enter NotherBase
+        </div>
+    <% } %>
 
-    <a href="/the-front/keeper">
+    <a class="to gate" href="/the-front/around">
+        Try to go Around
+    </a>
+
+    <a class="to shack" href="/the-front/keeper">
         Approach the Shack
     </a>
 
-    <a href="/the-front">
+    <a class="return" href="/the-front">
         Back Away
     </a>
 
 </main>
 
-<%- include("../../../views/basic-footer.ejs"); %>
+<%- include("../../../views/footer.ejs"); %>
