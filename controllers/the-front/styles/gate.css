@@ -7,11 +7,3 @@
 .nother-base {
     background-color: var(--gate);
 }
-
-.shack {
-    border-bottom: 10px solid var(--woodColor);
-}
-
-.shack:hover {
-    border-bottom: 10px solid var(--woodColorBright);
-}

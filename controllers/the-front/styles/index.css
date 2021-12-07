@@ -7,22 +7,6 @@
     --woodColorBright: rgb(150, 103, 50);
 }
 
-.shack {
-    border-bottom: 10px solid var(--woodColor);
-}
-
-.shack:hover {
-    border-bottom: 10px solid var(--woodColorBright);
-}
-
-.gate {
-    border-bottom: 10px solid var(--gateColor);
-}
-
-.gate:hover {
-    border-bottom: 10px solid var(--gateColorBright);
-}
-
 .logo {
     border-radius: 50%;
     box-shadow: 15px 15px 5px var(--shadowColor);
