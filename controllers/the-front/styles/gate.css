@@ -1,7 +1,17 @@
 :root {
     --gate: rgba(128, 128, 128, 0.678);
+    --woodColor: rgb(110, 76, 37);
+    --woodColorBright: rgb(150, 103, 50);
 }
 
-#gate {
+.nother-base {
     background-color: var(--gate);
+}
+
+.shack {
+    border-bottom: 10px solid var(--woodColor);
+}
+
+.shack:hover {
+    border-bottom: 10px solid var(--woodColorBright);
 }

@@ -2,11 +2,15 @@
     --gate: rgba(128, 128, 128, 0.678);
     --paperWhite: rgb(231, 231, 231);
     --inkBlack: rgb(22, 22, 22);
+    --woodColor: rgb(110, 76, 37);
+    --darkWoodColor: rgb(70, 48, 23);
+    --gateColor: rgba(128, 128, 128, 0.678);
+    --gateColorBright: rgba(187, 187, 187, 0.678);
 }
 
 .shack {
     background-color: rgb(20, 15, 11);
-    border: 3px solid rgb(110, 76, 37);
+    border: 3px solid var(--woodColor);
     width: 100%;
     height: 600px;
     position: relative;
@@ -18,8 +22,8 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    background-color: rgb(110, 76, 37);
-    border-bottom: 50px solid rgb(70, 48, 23);
+    background-color: var(--woodColor);
+    border-bottom: 50px solid var(--darkWoodColor);
 }
 
 .clipboard {
@@ -112,4 +116,12 @@
 
 .auth-form p.error {
     color: rgb(160, 19, 19);
+}
+
+.gate {
+    border-bottom: 10px solid var(--gateColor);
+}
+
+.gate:hover {
+    border-bottom: 10px solid var(--gateColorBright);
 }
