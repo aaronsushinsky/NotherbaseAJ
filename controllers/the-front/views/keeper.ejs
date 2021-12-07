@@ -29,6 +29,7 @@
                 </div>
                 <div ></div>
                 <div class="clamp"></div>
+                <div class="scribbles" id="login-scribbles">Login<br><br>If you can read this you're a nerd.</div>
             </div>
 
             <div class="clipboard on-counter for-register">
@@ -44,6 +45,7 @@
                     </div>
                 </div>
                 <div class="clamp"></div>
+                <div class="scribbles" id="register-scribbles">Register<br><br>If you can read this you're a nerd.</div>
             </div>
         </div>
     </div>
@@ -71,8 +73,10 @@
         let $currentClipboard = $(e.currentTarget);
 
         if ($currentClipboard.hasClass("on-counter")) {
-            $clipboard.addClass("on-counter")
+            $clipboard.addClass("on-counter");
+            $clipboard.find(".scribbles").removeClass("invisible");
             $currentClipboard.removeClass("on-counter");
+            $currentClipboard.find(".scribbles").addClass("invisible");
         }
     });
 
@@ -81,7 +85,10 @@
         e.stopPropagation();
         let $currentClipboard = $(e.currentTarget).parent();
 
-        if (!$currentClipboard.hasClass("on-counter")) $currentClipboard.addClass("on-counter");
+        if (!$currentClipboard.hasClass("on-counter")) {
+            $currentClipboard.addClass("on-counter");
+            $currentClipboard.find(".scribbles").removeClass("invisible");
+        }
     });
 
     //try to login

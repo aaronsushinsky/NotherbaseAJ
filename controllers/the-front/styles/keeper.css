@@ -49,7 +49,7 @@
     height: 110px;
     position: absolute;
     left: 10%;
-    top: -50%;
+    top: -25%;
     padding: 5px;
     transform: rotate3d(1, 1, 1, -70deg);
     cursor: pointer;
@@ -116,4 +116,17 @@
 
 .auth-form p.error {
     color: rgb(160, 19, 19);
+}
+
+.scribbles {
+    color: var(--inkBlack);
+    font-size: 10px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: 'Redacted Script', cursive;
+    padding: 10px;
+    line-height: normal;
 }
