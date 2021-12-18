@@ -1,0 +1,36 @@
+:root {
+    --shadowColor: rgb(26, 26, 26);
+    --notherColor: rgb(65, 65, 65);
+}
+
+.to.inn {
+    border-bottom: 10px solid rgb(126, 75, 45);
+}
+
+.to.inn:hover {
+    border-bottom: 10px solid rgb(161, 96, 59);
+}
+
+.to.pile {
+    border-bottom: 10px solid rgb(110, 110, 110);
+}
+
+.to.pile:hover {
+    border-bottom: 10px solid rgb(165, 165, 165);
+}
+
+.to.bricks {
+    border-bottom: 10px solid rgb(145, 0, 0);
+}
+
+.to.bricks:hover {
+    border-bottom: 10px solid rgb(216, 0, 0);
+}
+
+.to.road {
+    border-bottom: 10px solid rgb(48, 58, 63);
+}
+
+.to.road:hover {
+    border-bottom: 10px solid rgb(94, 109, 122);
+}
