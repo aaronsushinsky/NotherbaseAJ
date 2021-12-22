@@ -32,8 +32,6 @@
 <script>
     class Inventory {
         constructor() {
-            this.changes = [];
-            this.updateCooldown = 500;
             this.$div = $(".inventory");
             this.$list = $(".item-list");
             this.$search = $(".search");
@@ -55,7 +53,7 @@
             });
 
             $.get("/inventory", (data) => {
-                this.items = data.foundInventory[0].items;
+                this.items = data.foundInventory.items;
 
                 this.render();
             });
@@ -63,36 +61,28 @@
             setInterval(this.update, this.updateCooldown);
         }
 
-        addChanges(changes) {
-            for (let i = 0; i < changes.length; i++) {
-                let found = false;
-                
-                for (let j = 0; j < this.changes.length; j++) {
-                    if (changes[i].item == this.changes[j].item) {
-                        found = true;
-                        this.changes[j].amount += Math.floor(changes[i].amount);
-                        if (this.changes[j].amount < 0) this.changes.splice(j, 1);
+        change(change) {
+            $.post("/inventory", { change: change }, (data, status) => {
+                if (status == "success") {
+                    let holding = false;
+
+                    for (let i = 0; i < this.items.length; i++) {
+                        if (this.items[i].item._id === data.item._id) {
+                            this.items[i].amount = data.amount;
+                            holding = true;
+
+                            if (this.items[i].amount === 0) this.items.splice(i, 1);
+                        }
                     }
+                    
+                    if (!holding) {
+                        this.items.push(data);
+                    }
+
+                    this.render();
                 }
-
-                if (!found) {
-                    this.changes.push(changes[i]);
-                }
-            }
-        }
-
-        update = () => {
-            if (this.changes.length > 0) {
-                $.post("/inventory", { changes: this.changes }, () => {
-                    this.changes = [];
-
-                    $.get("/inventory", (data) => {
-                        this.items = data.foundInventory[0].items;
-
-                        this.render();
-                    });
-                });
-            }
+                else console.log(status);
+            });
         }
 
         render() {
@@ -100,21 +90,21 @@
 
             for (let i = 0; i < this.items.length; i++) {
                 let $new = this.$list.append(
-                                `<div class="item-card">
-                                    <h5>${this.items[i].item.name}</h5>
-                                    <button id="${i}">X</button>
-                                    <hr>
-                                    <p>${this.items[i].amount}</p>
-                                </div>`
-                            ).children().last();
+                                                `<div class="item-card">
+                                                    <h5>${this.items[i].item.name}</h5>
+                                                    <button id="${i}">X</button>
+                                                    <hr>
+                                                    <p>${this.items[i].amount}</p>
+                                                </div>`
+                                            ).children().last();
 
                 $new.find("button").on("click", (e) => {
                     let which = parseInt(e.currentTarget.id);
 
-                    this.addChanges([{
-                        item: this.items[which]._id,
+                    this.change({
+                        item: this.items[which].item._id,
                         amount: -1
-                    }]);
+                    });
                 });
             }
         }
@@ -124,15 +114,17 @@
             this.searchResults = results;
 
             for (let i = 0; i < this.searchResults.length; i++) {
-                let $new = this.$searchResults.append(`<p id="${i}">${this.searchResults[i].name}</p>`).children().last();
+                let $new = this.$searchResults.append(
+                                                        `<p id="${i}">${this.searchResults[i].name}</p>`
+                                                    ).children().last();
 
                 $new.on("click", (e) => {
                     let which = parseInt(e.currentTarget.id);
 
-                    this.addChanges([{
+                    this.change({
                         item: this.searchResults[which]._id,
                         amount: 1
-                    }]);
+                    });
                 });
             }
         }

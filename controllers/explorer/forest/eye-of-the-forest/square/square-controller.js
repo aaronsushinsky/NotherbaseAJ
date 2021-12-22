@@ -9,7 +9,7 @@ explore("clothing-stall", {
     scripts: [ "clothing-stall" ]
 });
 
-explore("well", {
+explore("church", {
     styles: [ "borders" ]
 });
 

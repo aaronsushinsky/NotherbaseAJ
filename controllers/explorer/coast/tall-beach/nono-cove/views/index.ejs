@@ -205,10 +205,10 @@
 
         tryFinishGame() {
             if (this.checkForSolve()) {
-                playerInventory.addChanges([{ 
+                playerInventory.change({ 
                     item: this.goldItem._id, 
                     amount: this.level + this.difficulty
-                }]);
+                });
 
                 let $tiles = $(".nono-tile");
                 $tiles.off("click");

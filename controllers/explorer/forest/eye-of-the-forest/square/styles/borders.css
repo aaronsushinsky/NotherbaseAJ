@@ -34,3 +34,11 @@
 .to.road:hover {
     border-bottom: 10px solid rgb(94, 109, 122);
 }
+
+.to.church {
+    border-bottom: 10px solid rgb(230, 213, 118);
+}
+
+.to.church:hover {
+    border-bottom: 10px solid rgb(221, 214, 190);
+}
