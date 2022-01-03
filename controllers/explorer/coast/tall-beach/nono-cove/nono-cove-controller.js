@@ -1,7 +1,8 @@
 const { explore, router } = require("notherbase-fs").from(__dirname);
 
 explore("", {
-    styles: ["nono"]
+    styles: ["index", "nono"],
+    scripts: ["nono"]
 });
 
 module.exports = router;

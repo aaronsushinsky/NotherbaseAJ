@@ -63,7 +63,7 @@
 
         change(change) {
             $.post("/inventory", { change: change }, (data, status) => {
-                if (status == "success") {
+                if (status === "success") {
                     let holding = false;
 
                     for (let i = 0; i < this.items.length; i++) {
