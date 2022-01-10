@@ -26,7 +26,7 @@ body {
 }
 
 main {
-    width: 500px;
+    width: 100%;
     min-height: 500px;
     box-shadow: 5px 5px 5px 5px var(--shadowColor);
     padding: 20px;
@@ -44,12 +44,17 @@ hr {
     width: 100%;
 }
 
-p {
+main p {
     color: var(--textColor);
     width: 100%;
+    border: 1px solid var(--textColor);
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 0;
+    cursor: pointer;
 }
 
-button, a {
+main button, main a {
     background-color: var(--bgColor);
     padding: 10px;
     border-radius: 5px;
@@ -60,7 +65,7 @@ button, a {
     text-decoration: none;
 }
 
-button:hover, a:hover {
+main button:hover, main a:hover {
     border: 1px solid var(--textColorBright);
     color: var(--textColorBright);
     cursor: pointer;
@@ -83,11 +88,26 @@ h2, h3 {
     flex-wrap: wrap;
 }
 
-#item-editor {
+#item-list {
     padding: 5px;
     border: 1px solid var(--textColor);
     border-radius: 5px;
     margin: 20px 0;
+    margin: 5px;
+}
+
+.editor {
+    margin: 5px;
+    border: 1px solid var(--textColor);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.buttons {
+    margin: 5px;
+    border: 1px solid var(--textColor);
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .tab {
@@ -99,18 +119,44 @@ h2, h3 {
     padding: 2px;
 }
 
-#item-editor p {
-    border: 1px solid var(--textColor);
-    border-radius: 5px;
-    padding: 5px;
-    margin-bottom: 0;
-    cursor: pointer;
-}
-
-#item-editor p:hover {
+p:hover {
     background-color: var(--bgColorBright);
 }
 
-#item-editor p.selected {
+p.selected {
     border: 1px solid var(--textColorBright);
+}
+
+#user-list {
+    height: 500px;
+    width: 500px;
+    border: 1px solid var(--textColor);
+    overflow: auto;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.info {
+    width: 300px;
+    height: 300px;
+    border: 1px solid var(--textColor);
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.user-info {
+    width: 300px;
+    height: 300px;
+    border: 1px solid var(--textColor);
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 5px;
+}
+
+.user-info h4, .user-info h5, .user-info input, .user-info .auth-list {
+    width: 45%;
 }
