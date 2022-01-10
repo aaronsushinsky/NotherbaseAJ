@@ -8,15 +8,6 @@ const inventory = require("../../models/inventory");
 
 const authCheck = require("../authCheck");
 
-// router.get("/register", function(req, res) {
-//     res.render(`${__dirname}/views/register`,
-//     {
-//         siteTitle: "NotherBase | Register",
-//         info: "",
-//         color: "green"
-//     });
-// });
-
 router.post("/register", async function(req, res) {
     try {
         const foundAccount = await User.findOne({ username: req.body.username });
@@ -51,15 +42,6 @@ router.post("/register", async function(req, res) {
         res.status(500).send("Registration Failed: Database error!");
     }
 });
-
-// router.get("/login", function(req, res) {
-//     res.render(`${__dirname}/views/login`, 
-//     { 
-//         siteTitle: "NotherBase | Login",
-//         info: "",
-//         color: "green" 
-//     });
-// });
 
 router.post("/login", async function(req, res) {
     try {
@@ -98,27 +80,17 @@ router.get("/logout", authCheck, async function(req, res) {
     }
 });
 
-// router.get("/", authCheck, async function(req, res) {
-//     try {
-//         const foundAccount = await User.findOne({ _id: req.session.currentUser });
+router.get("/all", authCheck, async function(req, res) {
+    try {
+        let foundUsers = await User.find({}, 'username coin home authLevels location');
 
-//         if (foundAccount) {
-//             res.render(`${__dirname}/views/show`, {
-//                 siteTitle: "NotherBase | Account",
-//                 cash: foundAccount.cash,
-//                 color: "green",
-//                 info: ""
-//             });
-//         }
-//         else {
-//             console.log("User not found! Can't show!");
-//             res.redirect("/user/login");
-//         }
-//     }
-//     catch {
-//         console.log(err);
-//     }
-// });
+        res.status(200).send({ foundUsers: foundUsers });
+    }
+    catch(err) {
+        res.status(500).end();
+        console.log(err);
+    }
+});
 
 router.delete("/", authCheck, async function(req, res) {
     try {

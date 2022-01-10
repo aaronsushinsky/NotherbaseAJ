@@ -83,8 +83,8 @@
 
             if (this.clicksToDie <= 0) {
                 this.$div.remove();
-                playerInventory.addChanges([{ item: woodItem._id, 
-                    amount: Math.floor(this.maxYield * (this.age / this.timeToGrow)) }]);
+                playerInventory.change({ item: woodItem._id, 
+                    amount: Math.floor(this.maxYield * (this.age / this.timeToGrow)) });
                 this.cut = true;
             }
         }
@@ -132,7 +132,7 @@
         click = () => {
             this.$div.remove();
 
-            playerInventory.addChanges([{ item: weedItem._id, amount: 1 }]);
+            playerInventory.change({ item: weedItem._id, amount: 1 });
 
             this.cut = true;
         }
