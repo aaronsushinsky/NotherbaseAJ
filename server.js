@@ -56,6 +56,8 @@ app.use("/portfolio", controllers.portfolio);
 
 app.use("/chat", controllers.chat(io));
 
+app.use("/contact", controllers.contact);
+
 app.use("/inventory", controllers.inventory);
 
 app.use("/item", controllers.item);

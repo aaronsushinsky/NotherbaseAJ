@@ -6,5 +6,6 @@ module.exports = {
     authCheck: require("./authCheck"),
     item: require("./item/item-controller"),
     inventory: require("./item/inventory-controller"),
-    theFront: require("./the-front/the-front-controller")
+    theFront: require("./the-front/the-front-controller"),
+    contact: require("./contact-controller"),
 }

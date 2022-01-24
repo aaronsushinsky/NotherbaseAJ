@@ -53,17 +53,22 @@ footer {
     justify-content: center;
     align-content: center;
     align-items: flex-start;
-    height: 25px;
+    min-height: 25px;
     width: 500px;
     background-color: var(--veryDarkBgColor);
-    margin-bottom: 100px;
     border-radius: 0px 0px 5px 5px;
     box-shadow: 5px 5px 5px 5px var(--shadowColor);
     padding: 5px;
+    border: none;
+    margin-bottom: 100px;
 }
 
 footer a {
     text-decoration: none;
+    height: 100%;
+    margin: 0;
+    padding: 5px;
+    width: 50%;
     height: 100%;
 }
 
@@ -80,7 +85,7 @@ p {
     width: 80%;
 }
 
-main input, main textarea {
+input, textarea {
     padding: 10px;
     width: calc(100% - 10px);
     background-color: var(--bgColor);
@@ -90,7 +95,7 @@ main input, main textarea {
     font-size: 15px;
 }
 
-main input[type=submit], main button, main a {
+input[type=submit], button, a {
     background-color: var(--bgColor);
     padding: 10px;
     border-radius: 5px;
@@ -102,7 +107,7 @@ main input[type=submit], main button, main a {
     text-align: center;
 }
 
-main input[type=submit]:hover, main button:hover, main a:hover {
+input[type=submit]:hover, button:hover, a:hover {
     border: 1px solid var(--textColorBright);
     color: var(--textColorBright);
     cursor: pointer;
@@ -156,6 +161,33 @@ h2, h3 {
 
 ul {
     margin: 10px;
+}
+
+
+#contact {
+    position: fixed;
+    bottom: 30px;
+    left: 5px;
+    width: 64px;
+    height: 64px;
+}
+
+#contact-form {
+    width: 100%;
+    border: 1px solid var(--textColor);
+    color: var(--textColor);
+    position: fixed;
+    width: 90%;
+    height: 30%;
+    left: 5%;
+    bottom: 105px;
+    background-color: var(--bgColor);
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 500;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
 }
 
 .inventory {
