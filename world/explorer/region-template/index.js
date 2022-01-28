@@ -3,6 +3,6 @@ module.exports = {
     dirname: __dirname, //always include
     options: {},
     areas: [
-        require("./tall-beach") // one of these for every area
+        require("./area") // one of these for every area
     ]
 };
