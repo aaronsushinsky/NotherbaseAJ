@@ -1,0 +1,20 @@
+h3 {
+    margin: 20px;
+    text-align: center;
+}
+
+.book {
+    width: 100%;
+    margin: 10px;
+    background-color: rgb(26, 26, 26);
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.book p {
+    width: 100%;
+}
+
+.book hr {
+    margin: 20px 0;
+}
