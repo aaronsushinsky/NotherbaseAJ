@@ -1,0 +1,35 @@
+<% if (user) { %> 
+    <p>
+        A gate for travelers to pass through the fences.
+        It is has been left open.
+    </p>
+<% } else { %> 
+    <p>
+        There is a fence gate, but unfortunately it 
+        is locked shut.
+    </p>
+<% } %> 
+
+<hr>
+
+<% if (user) { %> 
+    <a class="to nother-base" href="/forest/eye-of-the-forest/square">
+        Enter NotherBase
+    </a>
+<% } else { %> 
+    <div class="locked to nother-base">
+        Enter NotherBase
+    </div>
+<% } %>
+
+<a class="to gate" href="/the-front/around">
+    Try to go Around
+</a>
+
+<a class="to shack" href="/the-front/keeper">
+    Approach the Shack
+</a>
+
+<a class="return" href="/the-front">
+    Back Away
+</a>
