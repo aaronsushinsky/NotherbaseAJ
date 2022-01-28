@@ -9,7 +9,10 @@ module.exports = {
         },
         {
             name: "hole",
-            options: { externalStyles: [ "../styles/wilderness" ] }
+            options: { 
+                styles: ["hole"],
+                externalStyles: [ "../styles/wilderness" ] 
+            }
         }
     ]
 };
