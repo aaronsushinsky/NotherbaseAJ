@@ -18,6 +18,10 @@ module.exports = {
         {
             name: "upstairs",
             options: {}
+        },
+        {
+            name: "expiditon-signup",
+            options: {}
         }
     ]
 };
