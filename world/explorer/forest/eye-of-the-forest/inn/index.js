@@ -5,7 +5,9 @@ module.exports = {
     details: [
         {
             name: "",
-            options: {}
+            options: {
+                styles: ["signup"]
+            }
         },
         {
             name: "lobby",
@@ -17,10 +19,6 @@ module.exports = {
         },
         {
             name: "upstairs",
-            options: {}
-        },
-        {
-            name: "expiditon-signup",
             options: {}
         }
     ]
