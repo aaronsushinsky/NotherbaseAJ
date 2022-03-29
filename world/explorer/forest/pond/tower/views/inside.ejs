@@ -1,15 +1,26 @@
 <section class="floor" id="4">
     <h2>Frog Game</h2>
 
+    <button id="new">Create New Game</button>
+
     <div class="mafia">
         <div class="game-selector">
-            <div class="game">Game Name: Winner</div>
         </div>
-        <div class="game-info invisible">
-            <h3>Game Name: Winner</h3>
+
+        <div class="game-info">
+            <h3>Winner: None</h3>
+
+            <h4>Date Started: 0/0/0</h4>
+
+            <button>Increment Turn</button>
+            <label for="auto-turn">Automatic Turns: </label><input type="checkbox" name="auto-turn" id="auto-turn">
+            <label for="hour">Hour to Increment Turns: </label><input type="range" name="hour" id="hour" min=0 max=23>
+
             <div class="turn-list">
                 <p>Turn 0: X killed Y</p>
             </div>
+
+            <button>Delete Game</button>
         </div>
     </div>
 </section>

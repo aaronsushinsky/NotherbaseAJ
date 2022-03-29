@@ -6,7 +6,8 @@ module.exports = {
         {
             name: "",
             options: {
-                styles: ["signup"]
+                styles: ["signup"],
+                serverScripts: ["chooseGameAndName"]
             }
         },
         {

@@ -5,13 +5,15 @@ module.exports = {
     details: [
         {
             name: "",
-            options: { scripts: [ "door" ] }
+            options: { 
+                localScripts: [ "door" ] 
+            }
         },
         {
             name: "inside",
             options: {
                 styles: [ "wizard-tower" ], 
-                scripts: [ "inside" ], 
+                localScripts: [ "inside" ], 
                 needsKey: "Wizard Tower Key", 
                 dropOff: "/forest/pond/tower"
             }
