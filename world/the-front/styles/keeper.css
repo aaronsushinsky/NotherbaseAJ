@@ -29,10 +29,10 @@
 .clipboard {
     background-color: rgb(73, 47, 28);
     width: 300px;
-    height: 400px;
+    height: 500px;
     position: absolute;
     left: calc(50% -  150px);
-    top: -350px;
+    top: -400px;
     padding: 5px;
     cursor: initial;
     transition: all .5s ease;
@@ -111,7 +111,7 @@
 }
 
 .auth-form button {
-    width: 40%;
+    width: 60%;
 }
 
 .auth-form p.error {
@@ -129,4 +129,10 @@
     font-family: 'Redacted Script', cursive;
     padding: 10px;
     line-height: normal;
+}
+
+.subtle, .subtle:hover {
+    border: none !important;
+    width: 100% !important;
+    height: 25px !important;
 }

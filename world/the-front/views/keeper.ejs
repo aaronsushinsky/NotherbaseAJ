@@ -13,10 +13,30 @@
                 <div class="auth-form" id="login-form">
                     <h1>NotherBase</h1>
                     <h3>Login to Your Account</h3>
-                    <input type="text" name="username" placeholder="username" id="login-user">
+                    <input type="email" name="email" placeholder="e@mail.com" id="login-email">
                     <input type="password" name="password" placeholder="password" id="login-pass">
                     <button id="login-button">Login</button>
+                    <button class="subtle" id="change-button">Change Your Password</button>
                     <p id="login-info"></p>
+                </div>
+                <div class="auth-form invisible" id="reset-form">
+                    <h1>NotherBase</h1>
+                    <h3>Reset Your Password</h3>
+                    <input type="email" name="email" placeholder="e@mail.com" id="reset-email">
+                    <button id="reset-button">Send Reset Code to Your Email</button>
+                    <button class="subtle return-button">Return to Login</button>
+                    <p id="reset-info"></p>
+                </div>
+                <div class="auth-form invisible" id="set-form">
+                    <h1>NotherBase</h1>
+                    <h3>Change Your Password</h3>
+                    <p>A reset code was sent to your email. Submit that with your new password below.</p>
+                    <input type="number" name="token" placeholder="0000" id="change-token">
+                    <input type="password" name="password" placeholder="new password" id="change-password">
+                    <input type="password" name="confirmation" placeholder="new password again" id="change-confirmation">
+                    <button id="set-button">Set New Password</button>
+                    <button class="subtle return-button">Return to Login</button>
+                    <p id="set-info"></p>
                 </div>
             </div>
             <div ></div>
@@ -30,8 +50,10 @@
                 <div class="auth-form" id="register-form">
                     <h1>NotherBase</h1>
                     <h3>Register a New Account</h3>
+                    <input type="email" name="email" placeholder="e@mail.com" id="register-email">
                     <input type="text" name="username" placeholder="username" id="register-user">
                     <input type="password" name="password" placeholder="password" id="register-pass">
+                    <input type="password" name="confirmation" placeholder="password again" id="register-confirmation">
                     <button id="register-button">Register</button>
                     <p id="register-info"></p>
                 </div>
@@ -56,8 +78,17 @@
     let $clipboard = $(".clipboard");
     let $loginButton = $("#login-button");
     let $loginInfo = $("#login-info");
+    let $resetInfo = $("#reset-info");
+    let $setInfo = $("#set-info");
     let $registerButton = $("#register-button");
     let $registerInfo = $("#register-info");
+    let $resetForm = $("#reset-form");
+    let $setForm = $("#set-form");
+    let $loginForm = $("#login-form");
+    let $changeButton = $("#change-button");
+    let $resetButton = $("#reset-button");
+    let $setButton = $("#set-button");
+    let $returnButtons = $(".return-button")
 
     //pick up a clipboard
     $clipboard.on("click", function clickClipboard(e) {
@@ -86,7 +117,7 @@
     $loginButton.on("click", async function () {
         try {
             await $.post("/user/login", {
-                username: $("#login-user").val(),
+                email: $("#login-email").val(),
                 password: $("#login-pass").val()
             }, (data) => {
                 $loginInfo.text("To your right you hear the sound of a bang against a chain-link fence. You've logged in.");
@@ -106,8 +137,10 @@
     $registerButton.on("click", async function () {
         try {
             await $.post("/user/register", {
+                email: $("#register-email").val(),
                 username: $("#register-user").val(),
-                password: $("#register-pass").val()
+                password: $("#register-pass").val(),
+                confirmation: $("#register-confirmation").val()
             }, (data) => {
                 $registerInfo.text("You hear a nod from deep within the shack. Your new account has been registered.");
             });
@@ -121,4 +154,76 @@
             }
         }
     });
+
+    $changeButton.on("click", function () {
+        goToReset("");
+    });
+
+    $resetButton.on("click", async function () {
+        try {
+            await $.get("/user/password-reset", { email: $("#reset-email").val() });
+            goToSet("");
+        } 
+        catch(err) {
+            if (error.status === 401) {
+                goToReset("Reset Error: Account with specified email not found!");
+            }
+            else if (error.status === 500) {
+                goToReset("Server Error: Try again later!");
+            }
+        }
+    });
+
+    $setButton.on("click", async function () {
+        try {
+            let token = $("#change-token").val();
+
+            await $.post(`/user/password-reset`, {
+                token: token,
+                password: $("#change-password").val(),
+                confirmation: $("#change-confirmation").val()
+            }, (data) => {
+                goToLogin("Password changed successfully.");
+            });
+        } 
+        catch(err) {
+            if (err.status === 498) {
+                goToReset("Change Error: Your reset code expired! Please request a new one.");
+            }
+            else if (err.status === 400) {
+                goToSet("Change Error: Passwords must match!");
+            }
+            else if (err.status === 404) {
+                goToSet("Change Error: Reset code not valid!");
+            }
+            else if (err.status === 500) {
+                goToSet("Server Error: Try again later!");
+            }
+        }
+    });
+
+    $returnButtons.on("click", function () {
+        goToLogin("");
+    });
+
+    let goToLogin = function goToLogin(info) {
+        $loginInfo.text(info);
+        $resetForm.addClass("invisible");
+        $setForm.addClass("invisible");
+        $loginForm.removeClass("invisible");
+    }
+
+    let goToReset = function goToReset(info) {
+        $resetInfo.text(info);
+        $setForm.addClass("invisible");
+        $loginForm.addClass("invisible");
+        $resetForm.removeClass("invisible");
+    }
+
+    let goToSet = function goToSet(info) {
+        $setInfo.text(info);
+        $resetForm.addClass("invisible");
+        $loginForm.addClass("invisible");
+        $setForm.removeClass("invisible");
+    }
 </script>
