@@ -1,0 +1,38 @@
+<p>
+    Here is the campground in the barrens. 
+    So much for being barren.
+</p>
+
+<hr>
+
+<div class="other-people">
+    <h3>Other People at the Campground:</h3>
+    <div class="player-list">
+
+    </div>
+</div>
+
+<div class="campfire">
+    <div class="log" id="1"></div>
+    <div class="log" id="2"></div>
+    <div class="log" id="3"></div>
+    <% if (onExpidition) { %> 
+        <div class="fire"></div>
+    <% } %> 
+</div>
+
+<hr>
+
+<a href="/tundra/barrens/campground/toilet">
+    Go to the Toilet
+</a>
+
+<% if (onExpidition) { %> 
+    <a href="/tundra/white/cave">
+        Head out on the Expidition
+    </a>
+<% } %> 
+
+<a href="/forest/road/side">
+    Travel Back to the Forest
+</a>
