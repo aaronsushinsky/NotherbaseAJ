@@ -5,7 +5,10 @@ module.exports = {
     details: [
         {
             name: "",
-            options: {}
+            options: {
+                styles: ["signup"],
+                serverScripts: ["chooseGameAndName"]
+            }
         },
         {
             name: "lobby",
