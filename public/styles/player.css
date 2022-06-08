@@ -1,0 +1,12 @@
+.content#player {
+    padding: 10px;
+}
+
+.content#player h3 {
+    width: 100%;
+    text-transform: capitalize;
+}
+
+.content#player h3 button {
+    width: 40px;
+}

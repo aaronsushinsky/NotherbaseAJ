@@ -1,0 +1,41 @@
+.content#account {
+    padding: 10px;
+}
+
+.content#account hr {
+    margin: 10px 0;
+}
+
+.content#account #info {
+    text-align: center;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.content#account .setting {
+    background: var(--darkBgColor);
+    padding: 25px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.content#account p {
+    width: 100%;
+}
+
+.content#account button {
+    width: 40%;
+}
+
+.content#account .edit {
+    background: var(--darkWoodColor);
+    padding: 25px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+}

@@ -1,0 +1,63 @@
+.inventory {
+    border: 1px solid var(--textColor);
+    color: var(--textColor);
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    z-index: 500;
+    overflow: auto;
+}
+
+.inventory .item-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    border: 1px solid var(--textColor);
+    align-content: flex-start;
+}
+
+.inventory .item-spawner {
+    width: 100%;
+    border: 1px solid var(--textColor);
+}
+
+.item-spawner .search-results {
+    width: 100%;
+    border: 1px solid var(--textColor);
+    overflow: auto;
+}
+
+.search-results p {
+    width: 100%;
+    cursor: pointer;
+}
+
+.search-results p:hover {
+    background-color: var(--woodColor);
+}
+
+.item-card {
+    width: 150px;
+    height: 45px;
+    border-radius: 3px;
+    border: 1px solid var(--textColor);
+    padding: 5px;
+    margin: 2.5px;
+    position: relative;
+    background-color: var(--bgColor);
+}
+
+.item-card button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+}
+
+.item-card hr {
+    width: 100%;
+    margin: 0;
+}
