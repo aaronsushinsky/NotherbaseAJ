@@ -12,7 +12,9 @@ module.exports = {
             options: {
                 styles: ["detail", "style"],
                 externalStyles: [],
-                scripts: ["example"],
+                localScripts: ["example"],
+                serverScripts: [],
+                requiredItems: [],
                 needsKey: "",
                 dropOff: ""
             }

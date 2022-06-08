@@ -52,10 +52,7 @@ class NonoGame {
         this.tiles = [];
         this.nonoSize = 100;
         this.maxNonoId = 4;
-        this.goldItem = null;
-        $.get("/item/findOne", { name: "Gold Coin" }, (data) => {
-            this.goldItem = data.foundItem;
-        });
+        this.goldItem = itemIDs[0];
 
         this.startNew();
     }
@@ -189,7 +186,7 @@ class NonoGame {
     tryFinishGame() {
         if (this.checkForSolve()) {
             playerInventory.change({ 
-                item: this.goldItem._id, 
+                item: this.goldItem, 
                 amount: this.level + this.difficulty
             });
 
