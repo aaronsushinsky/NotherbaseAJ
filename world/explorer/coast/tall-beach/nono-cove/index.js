@@ -7,7 +7,8 @@ module.exports = {
             name: "",
             options: {
                 styles: ["index", "nono"],
-                scripts: ["nono"]
+                localScripts: ["nono"],
+                requiredItems: ["Gold Coin"]
             }
         }
     ]

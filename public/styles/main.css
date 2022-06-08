@@ -1,0 +1,235 @@
+:root {
+    --bgColor: rgb(37, 37, 37);
+    --bgColorTransparent: rgba(37, 37, 37, 0.404);
+    --darkBgColor: rgb(27, 27, 27);
+    --veryDarkBgColorTransparent: rgba(15, 15, 15, 0.404);
+    --veryDarkBgColor: rgb(15, 15, 15);
+    --lightBgColor: rgb(57, 57, 57);
+    --shadowColor: rgb(26, 26, 26);
+    --textColor: rgb(185, 135, 69);
+    --textColorBright: rgb(221, 181, 130);
+    --woodColor: rgb(95, 68, 43);
+    --darkWoodColor: rgb(70, 50, 32);
+    --standardBorder: 1px solid var(--textColor);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: var(--textColor);
+}
+
+.invisible {
+    display: none !important;
+}
+
+.camo {
+    transition: all .15s;
+    opacity: 0;
+}
+
+body {
+    background-color: var(--darkBgColor);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+main {
+    width: 1000px;
+    min-height: 500px;
+    box-shadow: 5px 5px 5px 5px var(--shadowColor);
+    padding: 20px;
+    border-radius: 5px 5px 0px 0px;
+    margin-top: 15px;
+    margin-bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: flex-start;
+    background-color: var(--bgColor);
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: flex-start;
+    min-height: 25px;
+    width: 1000px;
+    background-color: var(--veryDarkBgColor);
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: 5px 5px 5px 5px var(--shadowColor);
+    padding: 5px;
+    border: none;
+    margin-bottom: 100px;
+}
+
+footer a {
+    text-decoration: none;
+    height: 100%;
+    margin: 0;
+    padding: 5px;
+    width: 50%;
+    height: 100%;
+}
+
+hr {
+    border: none;
+    border-bottom: 1px solid var(--textColor);
+    margin: 20px;
+    width: 100%;
+}
+
+p {
+    color: var(--textColor);
+    margin-bottom: 10px;
+    width: 80%;
+}
+
+input, textarea {
+    padding: 10px;
+    width: calc(100% - 10px);
+    background-color: var(--bgColor);
+    border-radius: 5px;
+    border: 1px solid var(--textColor);
+    margin: 5px;
+    font-size: 15px;
+}
+
+input[type=submit], button, a {
+    background-color: var(--bgColor);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--textColor);
+    color: var(--textColor);
+    margin: 5px;
+    margin-top: 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+input[type=submit]:hover, button:hover, a:hover {
+    border: 1px solid var(--textColorBright);
+    color: var(--textColorBright);
+    cursor: pointer;
+}
+
+.locked {
+    background-color: var(--bgColor);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--textColor);
+    color: var(--textColor);
+    margin: 5px;
+    margin-top: 20px;
+    text-decoration: none;
+    text-align: center;
+    filter: brightness(.5);
+    user-select: none;
+}
+
+.to {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 20px;
+}
+
+.return {
+    width: 100%;
+    height: 75px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 20px;
+}
+
+.do {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 20px;
+}
+
+h2, h3 {
+    color: var(--textColor);
+    width: 100%;
+}
+
+ul {
+    margin: 10px;
+}
+
+.door {
+    border: 1px solid var(--darkWoodColor);
+    width: 100px;
+    height: 150px;
+    background-color: var(--woodColor);
+    position: relative;
+}
+
+.knob {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    right: 5px;
+    top: 50%;
+    background-color: var(--darkWoodColor);
+}
+
+iframe {
+    border: none;
+}
+
+.auth-form {
+    height: 100%;
+    width: 100%;
+    padding: 40px 5px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.auth-form h3 {
+    width: calc(100% - 20px);
+    text-align: center;
+    margin: 10px;
+    font-size: 15px;
+}
+
+.auth-form h1 {
+    width: calc(100% - 20px);
+    text-align: center;
+    margin: 10px;
+    font-size: 20px;
+}
+
+.auth-form p {
+    width: calc(100% - 20px);
+    text-align: center;
+    margin: 10px;
+    font-size: 12px;
+}
+
+@media only screen and (max-width: 1000px) {
+    main {
+        width: 100%;
+    }
+
+    footer {
+        width: 100%;
+    }
+}
