@@ -38,7 +38,7 @@ h4 a {
 
 hr {
     border: none;
-    border-bottom: 2px solid var(--shadowColor);
+    border-bottom: 2px solid var(--altTextColor);
     margin: 5px 20px;
 }
 
@@ -191,7 +191,7 @@ section p {
     margin: 20px;
 }
 
-section img {
+section>img {
     width: 40%;
     height: 400px;
     object-fit: contain;
@@ -219,28 +219,30 @@ section iframe {
     border: 5% solid var(--bgColor);
     border-radius: 0% 0% 50px 50px;
     width: 50%;
+    flex-direction: row-reverse;
 }
 
 #notherbase-fs img {
     width: 20%;
-}
-
-#cpd {
-    background-color: var(--focusColor);
-    flex-direction: row-reverse;
-}
-
-#cpd * {
-    color: var(--altTextColor);
+    height: 200px;
 }
 
 #tamago-watch {
+    background-color: var(--focusColor);
+    color: var(--altTextColor);
+}
+
+#tamago-watch * {
+    color: var(--bgColor);
+}
+
+#cpd {
     background-color: var(--bgColor);
+    flex-direction: row-reverse;
 }
 
 #won-ventures {
     background-color: var(--focusColor);
-    flex-direction: row-reverse;
 }
 
 #won-ventures * {
@@ -248,6 +250,7 @@ section iframe {
 }
 
 #wayfarer {
+    flex-direction: row-reverse;
     background-color: var(--bgColor);
 }
 
