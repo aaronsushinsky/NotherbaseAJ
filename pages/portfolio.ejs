@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wyatt Sushinsky's Portfolio</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/styles/portfolio.css">
+</head>
+
+<body>
+    <nav class="nav-closed">
+        <h1>Wyatt Sushinsky</h1>
+
+        <div>
+            <a href="https://www.linkedin.com/in/wyatt-sushinsky/"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/Mosshide"><i class="fab fa-github-square"></i></a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="portrait">
+            <div class="portrait-fade"></div>
+        </div>
+
+        <h2>Wyatt Sushinsky</h2>
+
+        <h3>Software Engineer</h3>
+
+        <div class="external-links">
+            <a href="https://www.linkedin.com/in/wyatt-sushinsky/"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/Mosshide"><i class="fab fa-github-square"></i></a>
+        </div>
+    </header>
+
+    <main>
+        <section class="showcase" id="notherbase">
+            <img src="/img/logo.png" />
+
+            <div class="text">
+                <h3>NotherBase</h3>
+
+                <h4>
+                    <a target="_blank" href="https://github.com/Mosshide/NotherBase">
+                        <i class="fab fa-github-square"></i>Repository
+                    </a>
+
+                    <a target="_blank" href="https://www.notherbase.com/">
+                        <i class="fas fa-external-link-square-alt"></i>Live App
+                    </a>
+                </h4>
+
+                <hr>
+
+                <p>
+                    Welcome to NotherBase! This is my web app playground. 
+                    Explore the world of NotherBase and unlock its secrets.
+                </p>
+
+                <p>
+                    This app is currently in development.
+                </p>
+            </div>
+        </section>
+
+        <section class="showcase" id="notherbase-fs">
+            <img src="/img/logo.png" />
+
+            <div class="text">
+                <h3>notherbase-fs</h3>
+
+                <h4>
+                    <a target="_blank" href="https://github.com/Mosshide/notherbase-fs">
+                        <i class="fab fa-github-square"></i>Repository
+                    </a>
+
+                    <a target="_blank" href="https://www.npmjs.com/package/notherbase-fs">
+                        <i class="fas fa-external-link-square-alt"></i>Latest Release
+                    </a>
+                </h4>
+
+                <hr>
+
+                <p>
+                    This Node.js package is the engine for NotherBase.
+                    It adapts Express.js so I can produce content quicker.
+                </p>
+            </div>
+        </section>
+
+        <section class="showcase" id="cpd">
+            <img src="/img/cpd_ss.jpg" />
+
+            <div class="text">
+                <h3>Cannabis Product Diary</h3>
+
+                <h4>
+                    <a target="_blank" href="https://github.com/Mosshide/cannabis-product-diary">
+                        <i class="fab fa-github-square"></i>Repository
+                    </a>
+
+                    <a target="_blank" href="https://cpd.notherbase.com/">
+                        <i class="fas fa-external-link-square-alt"></i>Live App
+                    </a>
+                </h4>
+
+                <hr>
+
+                <p>
+                    Cannabis Product Diary helps you keep track of your purchased cannabis products and
+                    the experiences garnered from these products. I find that large sites like Leafly
+                    fail to provide any accurate information about the products at local dispensaries,
+                    so this app is useful for anyone wanting to keep track of details about the local
+                    products they've purchased.
+                </p>
+
+                <p>
+                    This app is currently in development.
+                </p>
+            </div>
+        </section>
+
+        <section class="showcase" id="tamago-watch">
+            <!-- The Tamago Watch itself. -->
+            <div class="watch">
+                <img src="img/console.png" class="console">
+                <div class="screen">
+                    <img src="img/mon_base.png" class="pet" id="p0">
+                    <img src="img/mon_base.png" class="pet" id="p1">
+                    <img src="img/mon_base.png" class="pet" id="p2">
+                    <img src="img/music.png" class="music">
+                    <img src="img/food.png" class="food">
+                </div>
+                <!-- Clock, status bars and buttons. -->
+                <div class="hud">
+                    <img src="img/hand.png" class="clock-hand">
+                    <div class="status" id="s0">
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                    </div>
+                    <div class="status" id="s1">
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                    </div>
+                    <div class="status" id="s2">
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                        <div class="point bloom"></div>
+                    </div>
+                    <div class="button" id="b0"></div>
+                    <div class="button" id="b1"></div>
+                    <div class="button" id="b2"></div>
+                </div>
+            </div>
+
+            <script>
+                /**
+                 * @description Cut-down timing class just for easily getting time since last frame.
+                 */
+                class Timing {
+                    constructor() {
+                        this.deltaTime = 0;
+                        this.lastTime = Date.now();
+                    }
+
+                    /**
+                     * @description Evoke this somewhere every frame to get accurate delta times.
+                     */
+                    update() {
+                        this.deltaTime = Date.now() - this.lastTime;
+                        this.lastTime = Date.now();
+                    }
+                }
+
+                let timing = new Timing();
+
+                class Pet {
+                    /**
+                     * @description Initializes your pets values and grabs relevant DOM elements
+                     */
+                    constructor() {
+                        this.food = 10;
+                        this.sleep = 10;
+                        this.fun = 10;
+                        this.secondsPerFill = 1;
+                        this.tilNextFill = this.secondsPerFill * 1000;
+                        this.secondsPerDrain = 10;
+                        this.tilNextDrain = this.secondsPerDrain * 1000;
+                        this.stage = 0;
+                        this.tilNextStage = [3, 5];
+                        this.state = "idle";
+                        this.$pets = [$("#p0"), $("#p1"), $("#p2")];
+                        this.spot = 0;
+                        this.pics = {
+                            egg: "/img/egg.png",
+                            idle: "/img/mon_base.png",
+                            stand: "/img/mon_stand.png",
+                            sleep: "/img/mon_sleep.png",
+                            eat: "/img/mon_eat.png",
+                            dead: "/img/mon_dead.png"
+                        };
+                        this.bigPics = {
+                            idle: "/img/big_idle.png",
+                            stand: "/img/big_stand.png",
+                            sleep: "/img/big_sleep.png",
+                            eat: "/img/big_eat.png",
+                            dead: "/img/big_dead.png"
+                        };
+                        this.currentPicSet = this.pics;
+                        this.currentPic = this.pics.egg;
+                    }
+
+                    /**
+                     * @description Must be called on every frame for your pet to be alive.
+                     */
+                    update() {
+                        if (this.state !== "dead") {
+                            if (this.stage > 0) {
+                                this.changePic();
+                                
+                                if (this.state !== "sleeping") {
+                                    if (this.state === "idle") this.moveRandomly();
+                                    if (this.state === "feeding") {
+                                        this.moveFeeding();
+                        
+                                        this.food = this.increaseStat(this.food);
+                                    }
+                                    if (this.state === "dancing") {
+                                        this.moveDancing();
+                        
+                                        this.fun = this.increaseStat(this.fun);
+                                    }
+                        
+                                    this.tilNextDrain -= timing.deltaTime;
+                                    if (this.tilNextDrain <= 0) {
+                                        switch (Math.floor(Math.random() * 3)) {
+                                            case 0:
+                                                this.food = this.decreaseStat(this.food);
+                                                this.tryToEvolve();
+                                                break;
+                                            case 1:
+                                                this.sleep = this.decreaseStat(this.sleep);
+                                                break;
+                                            case 2:
+                                                this.fun = this.decreaseStat(this.fun);
+                                                break;
+                                        }
+                        
+                                        this.tilNextDrain = this.secondsPerDrain * 1000;
+                                    }
+                                }
+                                else {
+                                    this.sleep = this.increaseStat(this.sleep);
+                                }
+                            }
+                            else this.moveEgg();
+                        }
+                    }
+
+                    /**
+                     * @description An egg will hatch when this function is invoked a sufficient number of times.
+                     */
+                    crackEgg() {
+                        this.tilNextStage[0]--;
+                        if (this.tilNextStage[0] <= 0) {
+                            this.tilNextStage[0] = 0;
+                            this.birth();
+                        }
+                    }
+                    
+                    /**
+                     * @description A mon will grow when this function is invoked a sufficient number of times.
+                     */
+                    tryToEvolve() {
+                        if (this.stage === 1){
+                            this.tilNextStage[1]--;
+                            if (this.tilNextStage[1] <= 0) {
+                                this.tilNextStage[1] = 0;
+                                this.stage++;
+                                this.currentPicSet = this.bigPics;
+                            }
+                        }
+                    }
+
+                    /**
+                     * @description Transform egg into mon.
+                     */
+                    birth() {
+                        this.stage = 1;
+                        this.currentPic = this.currentPicSet.idle;
+                    }
+
+                    /**
+                     * @description Your pet will die!
+                     */
+                    die() {
+                        this.state = "dead";
+                        this.$pets[this.spot].attr("src", this.currentPicSet.dead);
+                    }
+
+                    /**
+                     * @description Increases the input (by value) by one and caps it at 10;
+                     * @param {number} stat 
+                     * @returns stat
+                     */
+                    increaseStat(stat) {
+                        this.tilNextFill -= timing.deltaTime;
+                        if (this.tilNextFill <= 0) {
+                            stat++;
+                            if (stat > 10) stat = 10;
+                            this.tilNextFill = this.secondsPerFill * 1000;
+                        }
+
+                        return stat;
+                    }
+
+                    /**
+                     * @description Decreases the input (by value) by one and limits it to 0. May kill your pet.
+                     * @param {number} stat 
+                     * @returns stat
+                     */
+                    decreaseStat(stat) {
+                        stat--;
+                        if (stat <= 0) {
+                            stat = 0;
+                            this.die();
+                        }
+
+                        return stat;
+                    }
+
+                    /**
+                     * @description Toggle's your pet's feeding mode. Will toggle-off other modes.
+                     * @returns Your pet's food value.
+                     */
+                    toggleFeeding() {
+                        if (this.stage === 0) this.crackEgg();
+                        
+                        if (this.state !== "dead") {
+                            if (this.state !== "feeding") {
+                                this.state = "feeding";
+                            }
+                            else this.state = "idle";
+                        }
+
+                        return this.food;
+                    }
+
+                    /**
+                     * @description Toggle's your pet's sleeping mode. Will toggle-off other modes.
+                     * @returns Your pet's sleep value.
+                     */
+                    toggleSleeping() {
+                        if (this.stage === 0) this.crackEgg();
+                        
+                        if (this.state !== "dead") {
+                            if (this.state !== "sleeping") {
+                                this.state = "sleeping";
+                                if (this.stage > 0) this.$pets[this.spot].attr("src", this.currentPicSet.sleep);
+                            }
+                            else this.state = "idle";
+                        }
+
+                        return this.sleep;
+                    }
+
+                    /**
+                     * @description Toggle's your pet's dancing mode. Will toggle-off other modes.
+                     * @returns Your pet's fun value.
+                     */
+                    toggleDancing() {
+                        if (this.stage === 0) this.crackEgg();
+                        
+                        if (this.state !== "dead") {
+                            if (this.state !== "dancing") {
+                                this.state = "dancing";
+                            }
+                            else this.state = "idle";
+                        }
+                        
+                        return this.fun;
+                    }
+
+                    /**
+                     * @description Moves your pet to screen center.
+                     */
+                    moveEgg() {
+                        this.clearDisplay();
+
+                        this.spot = 1;
+                        this.$pets[this.spot].attr("src", this.currentPic);
+                        this.$pets[this.spot].css("display", "initial");
+                    }
+
+                    /**
+                     * @description Moves your pet to any spot.
+                     */
+                    moveRandomly() {
+                        this.clearDisplay();
+
+                        let chosen = Math.floor(Math.random() * 3);
+                        this.spot = chosen;
+                        this.$pets[chosen].attr("src", this.currentPic);
+                        this.$pets[chosen].css("display", "initial");
+                    }
+
+                    /**
+                     * @description Moves your pet to the right spot.
+                     */
+                    moveFeeding() {
+                        this.clearDisplay();
+
+                        this.spot = 2;
+                        this.$pets[this.spot].attr("src", this.currentPic);
+                        this.$pets[this.spot].css("display", "initial");
+                    }
+
+                    /**
+                     * @description Move your pet randomly between the left and center spots.
+                     */
+                    moveDancing() {
+                        this.clearDisplay();
+
+                        let chosen = Math.floor(Math.random() * 2);
+                        this.spot = chosen;
+                        this.$pets[chosen].attr("src", this.currentPic);
+                        this.$pets[chosen].css("display", "initial");
+                    }
+
+                    /**
+                     * @description Updates your pet's current sprite based on its current action.
+                     */
+                    changePic() {
+                        if (Math.floor(Math.random() * 2) > 0) {
+                            switch (this.state) {
+                                case "sleeping":
+                                    this.currentPic = this.currentPicSet.sleep;
+                                    break;
+                                case "dancing":
+                                    this.currentPic = this.currentPicSet.stand;
+                                    break;
+                                case "feeding":
+                                    this.currentPic = this.currentPicSet.eat;
+                                    break;
+                            }
+                        }
+                        else this.currentPic = this.currentPicSet.idle;
+                    }
+
+                    /**
+                     * @description No pet will show on screen.
+                     */
+                    clearDisplay() {
+                        for (let i = 0; i < 3; i++) {
+                            this.$pets[i].css("display", "none");
+                        }
+                    }
+
+                    /**
+                     * 
+                     * @returns Your pet's stats.
+                     */
+                    getStats() {
+                        return [this.food, this.sleep, this.fun];
+                    }
+                }
+
+                class Game {
+                    /**
+                     * @description Initializes the game's values, grabs relevant DOM elements and gives buttons listeners.
+                     */
+                    constructor() {
+                        this.on = false;
+                        this.paused = false;
+                        this.pet = new Pet();
+                        this.$screen = $(".screen");
+                        this.$music = $(".music");
+                        this.$food = $(".food");
+                        this.$hand = $(".clock-hand");
+                        this.statusBars = [$("#s0"), $("#s1"), $("#s2")];
+                        $("#b0").on("click", function(e) {game.pressBrown();});
+                        $("#b1").on("click", function(e) {game.pressBlue();});
+                        $("#b2").on("click", function(e) {game.pressGreen();});
+                        $(".cartridge").hover(function(e) {game.togglePause();});
+                    }
+
+                    /**
+                     * @description Call this every main game loop for the game to run.
+                     */
+                    update() {
+                        if (this.on) {
+                            this.updateClock();
+                            if (!this.paused) {
+                                this.pet.update();
+                                this.updateStats();
+                            }
+                        }
+                    }
+
+                    /**
+                     * @description Toggles power and updates the display accordingly.
+                     * @returns Current power state.
+                     */
+                    togglePower() {
+                        this.on = !this.on;
+                        
+                        if (this.on) {
+                            this.updateClock();
+                            this.$screen.css("display", "initial");
+                            this.$screen.toggleClass("bloom");
+                            $("main").css("background-color", "var(--extreme-dark)");
+                            this.updateStats();
+                        }
+                        else {
+                            this.resetClock();
+                            this.$screen.css("display", "none");
+                            this.$screen.toggleClass("bloom");
+                            $("main").css("background-color", "var(--very-dark)");
+                            this.updateStats();
+                        }
+
+                        return this.on;
+                    }
+
+                    /**
+                     * @description Pauses the watch's game logic.
+                     */
+                    togglePause() {
+                        this.paused = !this.paused;
+                    }
+
+                    /**
+                     * @description Will turn on the game if off or initiate feeding mode. Will turn off other modes.
+                     */
+                    pressBrown() {
+                        if (!this.on) this.togglePower();
+                        else {
+                            this.pet.toggleFeeding();
+
+                            if (this.$music.css("display") !== "none") this.$music.css("display", "none");
+
+                            if (this.$food.css("display") === "none") {
+                                this.$food.css("display", "initial");
+                            }
+                            else {
+                                this.$food.css("display", "none");
+                            }
+
+                            this.$screen.addClass("bloom");
+                        }
+                    }
+
+                    /**
+                     * @description Will turn on the game if off or initiate sleeping mode. Will turn off other modes.
+                     */
+                    pressBlue() {
+                        if (!this.on) this.togglePower();
+                        else {
+                            this.pet.toggleSleeping();
+
+                            if (this.$food.css("display") !== "none") this.$food.css("display", "none");
+                            if (this.$music.css("display") !== "none") this.$music.css("display", "none");
+
+                            this.$screen.toggleClass("bloom");
+                        }
+                    }
+
+                    /**
+                     * @description Will turn on the game if off or initiate dancing mode. Will turn off other modes.
+                     */
+                    pressGreen() {
+                        if (!this.on) this.togglePower();
+                        else {
+                            this.pet.toggleDancing();
+
+                            if (this.$food.css("display") !== "none") this.$food.css("display", "none");
+                            
+                            if (this.$music.css("display") === "none") {
+                                this.$music.css("display", "initial");
+                            }
+                            else {
+                                this.$music.css("display", "none");
+                            }
+
+                            this.$screen.addClass("bloom");
+                        }
+                    }
+
+                    /**
+                     * @description Invoke this at your desired frequency. This makes the clock match real life time.
+                     */
+                    updateClock() {
+                        let time = new Date();
+                        let rotation = ((time.getHours() % 12 / 12) + (time.getMinutes() / 60 / 12)) * 360;
+                        this.$hand.css("transform", `rotate(${rotation}deg)`);
+                    }
+
+                    /**
+                     * @description Invoke this if the game loses power.
+                     */
+                    resetClock() {
+                        this.$hand.css("transform", "rotate(0)");
+                    }
+
+                    /**
+                     * @description Updates the DOM status bars based on your pet's stats.
+                     */
+                    updateStats() {
+                        let stats = this.pet.getStats();
+
+                        for (let i = 0; i < 3; i++) {
+                            let bar = this.statusBars[i];
+
+                            for (let j = 0; j < 10; j++) {
+                                bar.children().eq(j).css("display", "none");
+                            }
+
+                            if (this.on) {
+                                for (let j = 0; j < stats[i]; j++) {
+                                    bar.children().eq(j).css("display", "initial");
+                                }
+                            }
+                        }
+                    }
+                }
+                const game = new Game();
+
+                //main game loop
+                setInterval(function() {
+                    timing.update();
+                    game.update();
+                }, 1000);
+            </script>
+
+            <div class="text">
+                <h3>Tamago Watch</h3>
+
+                <h4>
+                    <a target="_blank" href="https://github.com/Mosshide/tamago-watch">
+                        <i class="fab fa-github-square"></i>Repository
+                    </a>
+
+                    <a target="_blank" href="https://mosshide.github.io/tamago-watch/">
+                        <i class="fas fa-external-link-square-alt"></i>Live App
+                    </a>
+                </h4>
+
+                <hr class="light">
+
+                <p>
+                    Tamago Watch is a virtual toy based off the classic Tamagotchi toy. I focused on
+                    making this toy rigid and consistent, so that it may invoke the feeling of real-life
+                    hardware. Just like the real toy, the Tamago Watch is arguably more fun to discover
+                    than to actually play for any extended period of time.
+                </p>
+
+                <p>
+                    This app is has been released and no future updates are planned.
+                </p>
+            </div>
+        </section>
+
+        <section class="showcase" id="won-ventures">
+            <img src="/img/wv_ss.jpg" />
+            
+            <div class="text">
+                <h3>Won Ventures</h3>
+
+                <h4>
+                    <a target="_blank" href="https://github.com/Mosshide/won-ventures">
+                        <i class="fab fa-github-square"></i>Repository
+                    </a>
+
+                    <a target="_blank" href="https://won-ventures.herokuapp.com/">
+                        <i class="fas fa-external-link-square-alt"></i>Live App
+                    </a>
+                </h4>
+
+                <hr>
+
+                <p>
+                    Won Ventures is a stock-trading site built by 
+                    <a href="https://www.linkedin.com/in/jonathanmichaelpark/">Jon Park</a> and myself.
+                    The project is a practice on reverse-engineering CRUD functionality from other 
+                    sites. In this case, we modeled after sites like Robinhood. A large focus was
+                    gaining collaboration experience. This was fun team project and it was
+                    a pleasure to work with Jon.
+                </p>
+
+                <p>
+                    This app is has been released and no future updates are planned.
+                </p>
+            </div>
+        </section>
+
+        <section class="showcase" id="wayfarer">
+            <img src="/img/wf_ss.jpg" />
+
+            <div class="text">
+                <h3>Wayfarer</h3>
+
+                <h4>
+                    <a target="_blank" href="https://github.com/Mosshide/wayfarer">
+                        <i class="fab fa-github-square"></i>Repository
+                    </a>
+                </h4>
+
+                <hr class="light">
+
+                <p>
+                    A city park and travelling app. The focus of this project was meeting client
+                    timelines and expectations. My team(
+                    <a href="https://www.linkedin.com/in/lesley-sauter-45372437/">Lesley Sauter</a> 
+                    and <a href="https://www.linkedin.com/in/scott-sperry0409/">Scott Perry</a>) and I 
+                    would meet with the client and fulfill planned sprints. We adhered to our client's
+                    user stories and wireframes, and communicated effectively with the client to ensure
+                    they were satisfied with our work.
+                </p>
+
+                <p>
+                    This app is has not been deployed as of yet and no future updates are planned.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        $(window).scroll(function() {
+            if (window.scrollY > (3 / 4) * parseInt($("header").css("height"))) {
+                $("nav").removeClass("nav-closed");
+            }
+            else {
+                $("nav").addClass("nav-closed");
+            }
+        });
+    </script>
+</body>
+</html>
