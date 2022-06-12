@@ -24,7 +24,7 @@ module.exports = {
         {
             name: "around",
             options: {
-                styles: ["borders"]
+                styles: ["around", "borders"]
             }
         }
     ]

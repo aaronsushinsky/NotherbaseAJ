@@ -12,7 +12,9 @@ module.exports = {
         },
         {
             name: "lobby",
-            options: {}
+            options: {
+                styles: ["lobby"]
+            }
         },
         {
             name: "kitchen",

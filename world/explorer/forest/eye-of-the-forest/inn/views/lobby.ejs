@@ -1,31 +1,46 @@
-<% if (pov === "behind-bar") { %>
-    <p>
-        Nothing's here. Anymore.
-    </p>
-    <hr>
-    <a href="/forest/eye-of-the-forest/inn/kitchen">
-        Head into the Kitchen
-    </a>
-    <a href="/forest/eye-of-the-forest/inn/lobby">
-        Back Away
-    </a>
-<% } else { %>
-    <p>
-        The creaking stops when you enter the lobby.
-        A few tables and chairs are scattered throughout,
-        a futile blockade between you and the bar in the back.
-    </p>
-    <hr>
-    <a href="/forest/eye-of-the-forest/inn/lobby?pov=behind-bar">
-        Look Behind the Bar
-    </a>
-    <a href="/forest/eye-of-the-forest/inn/kitchen">
-        Head into the Kitchen
-    </a>
-    <a href="/forest/eye-of-the-forest/inn/upstairs">
-        Go Upstairs
-    </a>
-    <a href="/forest/eye-of-the-forest/square">
-        Exit the Inn
-    </a>
-<% } %>
+<p>
+    The creaking stops when you enter the lobby.
+    A few tables and chairs are scattered throughout,
+    a futile blockade between you and the bar in the back.
+</p>
+
+<hr>
+
+<div class="dialogue" id="bartender">
+    <div class="frame">
+        <img src="/img/anon.png" class="portrait">
+    </div>
+    <div class="heart"></div>
+    <div class="content">
+
+    </div>
+</div>
+
+<div class="bar"></div>
+
+<hr>
+
+<a class="to" href="/forest/eye-of-the-forest/inn/kitchen">
+    Head into the Kitchen
+</a>
+
+<a class="to" href="/forest/eye-of-the-forest/inn/upstairs">
+    Go Upstairs
+</a>
+
+<hr>
+
+<a class="return" ref="/forest/eye-of-the-forest/square">
+    Exit the Inn
+</a>
+
+<script src="/js/dialogue.js"></script>
+<script>
+    let bartenderDialogue = new Dialogue("bartender", 5000, (self) => {
+        return [
+            Dialogue.createTextSlide(1, "Howdy."),
+            Dialogue.createTextSlide(2, "Hope you didn't come in here for a drink. Out of stock currently."),
+            Dialogue.createTextSlide(4, "That being said, dishes still need to be cleaned. Head in the back if you're looking for work.")
+        ];
+    });
+</script>

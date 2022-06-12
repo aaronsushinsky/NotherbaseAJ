@@ -13,6 +13,19 @@ h4 {
     margin: 5px;
 }
 
+.sign {
+    background-color: var(--wood);
+    padding: 30px;
+    border: 3px outset rgb(133, 98, 57);
+    border-radius: 5% 7% 10% 8%;
+}
+
+.sign * {
+    color: rgb(29, 23, 17);
+    text-shadow: 1px 1px rgb(133, 98, 57);
+    font-size: 30px;
+}
+
 .mini-library {
     border: 15px solid var(--wood);
     border-radius: 15px 15px 0 0;
