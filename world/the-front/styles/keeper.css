@@ -106,6 +106,35 @@
     color: var(--inkBlack);
 }
 
+.auth-form {
+    height: 100%;
+    width: 100%;
+    padding: 40px 5px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.auth-form h3 {
+    width: calc(100% - 20px);
+    text-align: center;
+    margin: 10px;
+}
+
+.auth-form h1 {
+    width: calc(100% - 20px);
+    text-align: center;
+    margin: 10px;
+}
+
+.auth-form p {
+    width: calc(100% - 20px);
+    text-align: center;
+    margin: 10px;
+    font-size: 15px;
+}
+
 .auth-form input, .auth-form button {
     background-color: var(--paperWhite);
 }

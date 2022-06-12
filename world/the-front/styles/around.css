@@ -1,0 +1,69 @@
+.fence {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.left {
+    position: absolute;
+    left: -15%;
+    top: -15%;
+    width: 130%;
+    height: 130%;
+    display: flex;
+}
+
+.right {
+    position: absolute;
+    left: -15%;
+    top: -15%;
+    width: 130%;
+    height: 130%;
+    display: flex;
+}
+
+.bar {
+    background-color: rgb(94, 94, 94);
+    height: 100%;
+    width: 5%;
+    margin: 0 2.5%;
+}
+
+.left .bar {
+    transform: rotate(-45deg);
+}
+
+@keyframes wiggleLeft {
+    0%   {
+        transform: rotate(-45deg);
+    }
+    20%  {
+        transform: rotate(-60deg);
+    }
+    40%  {
+        transform: rotate(-45deg);
+    }
+    60%  {
+        transform: rotate(-45deg);
+    }
+    80%  {
+        transform: rotate(-45deg);
+    }
+    100% {
+        transform: rotate(-45deg);
+    }
+}
+
+.right .bar {
+    transform: rotate(45deg);
+}
+
+.grass {
+    width: 100%;
+    height: 7%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(38, 73, 53);
+}

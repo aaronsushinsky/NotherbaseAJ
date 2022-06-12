@@ -11,6 +11,7 @@
     --woodColor: rgb(95, 68, 43);
     --darkWoodColor: rgb(70, 50, 32);
     --standardBorder: 1px solid var(--textColor);
+    --normalFontSize: 20px;
 }
 
 * {
@@ -18,6 +19,7 @@
     margin: 0;
     padding: 0;
     color: var(--textColor);
+    font-size: var(--normalFontSize);
 }
 
 .invisible {
@@ -100,7 +102,6 @@ input, textarea {
     border-radius: 5px;
     border: 1px solid var(--textColor);
     margin: 5px;
-    font-size: 15px;
 }
 
 input[type=submit], button, a {
@@ -136,7 +137,7 @@ input[type=submit]:hover, button:hover, a:hover {
 }
 
 .to {
-    width: 100%;
+    width: 45%;
     height: 200px;
     display: flex;
     justify-content: flex-end;
@@ -193,35 +194,57 @@ iframe {
     border: none;
 }
 
-.auth-form {
-    height: 100%;
+.dialogue {
     width: 100%;
-    padding: 40px 5px;
-    overflow: hidden;
+    height: 300px;
+    padding: 20px;
+    border-radius: 5px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.dialogue .frame {
+    width: 30%;
+    height: 100%;
+    border: 1px solid var(--textColor);
+    border-radius: 50px;
+    overflow: hidden;
+    object-fit: cover;
+    background-color: var(--darkBgColor);
+}
+
+.dialogue .portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+}
+
+.dialogue .heart {
+    width: 3px;
+    height: 100%;
+    background-color: var(--textColor);
+    border-radius: 5px;
+}
+
+.dialogue .content {
+    width: 65%;
+    height: 100%;
+    border: 1px dotted var(--textColor);
+    display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
 }
 
-.auth-form h3 {
-    width: calc(100% - 20px);
-    text-align: center;
-    margin: 10px;
-    font-size: 15px;
+.dialogue .content button {
+    padding: 10px 30px;
 }
 
-.auth-form h1 {
-    width: calc(100% - 20px);
-    text-align: center;
-    margin: 10px;
-    font-size: 20px;
-}
-
-.auth-form p {
-    width: calc(100% - 20px);
-    text-align: center;
-    margin: 10px;
-    font-size: 12px;
+.dialogue .selected {
+    border: none;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -230,6 +253,10 @@ iframe {
     }
 
     footer {
+        width: 100%;
+    }
+
+    .to {
         width: 100%;
     }
 }

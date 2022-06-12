@@ -1,31 +1,133 @@
 <p>
     The small forest path brings you to a clearing
     where you are immediately met by a modest cottage.
-</p>
-
-<p>
     A sign on the mailbox indicates a Sushinsky lives
     here.
 </p>
 
+<p>
+    On the porch sit two odd-looking cats who watch the steps
+    you take as you walk by.
+</p>
+
 <hr>
 
-<a href="/forest/clearing/wyatts-house/livingroom">
+<div class="dialogue" id="berry">
+    <div class="frame">
+        <img src="/img/berry.png" class="portrait">
+    </div>
+    <div class="heart"></div>
+    <div class="content">
+    </div>
+</div>
+
+<div class="dialogue" id="zerry">
+    <div class="frame">
+        <img src="/img/zerry.png" class="portrait">
+    </div>
+    <div class="heart"></div>
+    <div class="content">
+    </div>
+</div>
+
+<hr>
+
+<a class="to" href="/forest/clearing/wyatts-house/livingroom">
     Enter Wyatt's House
 </a>
 
-<a href="/forest/clearing/wyatts-house/backyard">
+<a class="to" href="/forest/clearing/wyatts-house/backyard">
     Go Around to the Back
 </a>
 
-<a href="/forest/clearing/tree-house">
+<a class="to" href="/forest/clearing/tree-house">
     Walk up to Tree House
 </a>
 
-<a href="/desert/wilderness/edge">
+<a class="to" href="/desert/wilderness/edge">
     Head out into the Wilderness
 </a>
 
-<a href="/forest/eye-of-the-forest/square">
+<hr>
+
+<a class="return" href="/forest/eye-of-the-forest/square">
     Back to The Eye of the Forest
 </a>
+
+<script src="/js/dialogue.js"></script>
+<script>
+    let berryDialogue = new Dialogue("berry", 3900, (self) => {
+        if (Dialogue.checkGlobalFlag("longTalkWithBerry")) {
+            return [
+                Dialogue.createTextSlide(1, `That was my answer too! But Nooo....`)
+            ];
+        }
+        else if (self.checkFlag("accepted")) {
+            return [
+                Dialogue.createTextSlide(3, `If a portal approached a cube at a certain velocity,
+                                             would the cube receive that velocity after completely passing through the portal?`),
+                Dialogue.createButtonSlide(3, [
+                    Dialogue.createButton("Yes.", "longTalkWithBerry", true),
+                    Dialogue.createButton("No.", "longTalkWithBerry", true)
+                ])
+            ];
+        }
+        else if (self.checkFlag("declined")) {
+            return [
+                Dialogue.createTextSlide(2, "Wow. I honestly didn't expect you to decline like that."),
+                Dialogue.createTextSlide(10, "To each their own I guess.")
+            ];
+        }
+        else if (self.checkFlag("responded")) {
+            return [
+                Dialogue.createTextSlide(2, "Great, I got your attention! Not many people come around here."),
+                Dialogue.createTextSlide(2, "Would you mind settling a debate I'm having with my acquaintance below?"),
+                Dialogue.createButtonSlide(3, [
+                    Dialogue.createButton("Sure.", "accepted"),
+                    Dialogue.createButton("No Way.", "declined")
+                ])
+            ];
+        }
+        else {
+            return [
+                Dialogue.createTextSlide(2, "Hey! Yeah, it's the talking cat on the porch!"),
+                Dialogue.createButtonSlide(3, [
+                    Dialogue.createButton("Hi!", "responded"),
+                    Dialogue.createButton("Hi?", "responded")
+                ]),
+                Dialogue.createTextSlide(1, "Hello?"),
+                Dialogue.createButtonSlide(3, [
+                    Dialogue.createButton("Hi!", "responded"),
+                    Dialogue.createButton("Hi?", "responded")
+                ])
+            ];
+        }
+    });
+
+    let zerryDialogue = new Dialogue("zerry", 4000, (self) => {
+        if (self.checkFlag("responded")) {
+            return [
+                Dialogue.createTextSlide(1, "Nice to meet you!"),
+                Dialogue.createTextSlide(10, "I don't know what else to say...")
+            ];
+        }
+        else if (Dialogue.checkGlobalFlag("longTalkWithBerry")) {
+            return [
+                Dialogue.createTextSlide(1, "I see you're not interested in talking to me...")
+            ];
+        }
+        else {
+            return [
+                Dialogue.createTextSlide(3, "..."),
+                Dialogue.createTextSlide(1, "Hello. My name is Zerry."),
+                Dialogue.createButtonSlide(2, [
+                    Dialogue.createButton("Hello.", "responded")
+                ]),
+                Dialogue.createTextSlide(1, "Hello?"),
+                Dialogue.createButtonSlide(5, [
+                    Dialogue.createButton("Hello.", "responded")
+                ])
+            ];
+        }
+    });
+</script>
