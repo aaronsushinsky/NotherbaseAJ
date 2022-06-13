@@ -10,6 +10,16 @@
 
 <hr>
 
+<div class="dialogue" id="garak">
+    <div class="frame">
+        <img src="/img/anon.png" class="portrait">
+    </div>
+    <div class="heart"></div>
+    <div class="content">
+
+    </div>
+</div>
+
 <h3>Clean Up the Debris?</h3>
 
 <div id="pile">
@@ -20,10 +30,48 @@
 
 <hr>
 
-<a href="/forest/clearing/wyatts-house">
+<a class="to" href="/forest/clearing/wyatts-house">
     Path to Forest Clearing
 </a>
 
-<a href="/forest/eye-of-the-forest/square">
+<hr>
+
+<a class="return" href="/forest/eye-of-the-forest/square">
     Back to Square
 </a>
+
+<script src="/js/dialogue.js"></script>
+<script>
+    let garakDialogue = new Dialogue("garak", 4000, function tree(self) {
+        if (Dialogue.checkGlobalFlag("helped")) {
+            return [
+                Dialogue.createTextSlide(2, "My, my! You've cleaned it all!"),
+                Dialogue.createTextSlide(3, "You have my greatest appreciation. Please do come around again.")
+            ];
+        }
+        else if (self.checkFlag("accepted")) {
+            return [
+                Dialogue.createTextSlide(1, "Wonderful!"),
+                Dialogue.createTextSlide(2, "The dreariness of this place was really starting to get to me.")
+            ];
+        }
+        else if (self.checkFlag("declined")) {
+            return [
+                Dialogue.createTextSlide(2, "I see. Well I shant bother you any further."),
+                Dialogue.createTextSlide(10, "")
+            ];
+        }
+        else {
+            return [
+                Dialogue.createTextSlide(2, "Oh, hello there. Welcome to my, uh... my humble stall."),
+                Dialogue.createTextSlide(2, "I would entreat you to make a purchase, but as you can see..."),
+                Dialogue.createTextSlide(2, "Let's just say things just haven't been the same since the Creation."),
+                Dialogue.createTextSlide(2, "In fact, would you be a dear help me clean up the rubble below?"),
+                Dialogue.createButtonSlide(4, [
+                    Dialogue.createButton("Of course.", "accepted"),
+                    Dialogue.createButton("How about no.", "declined")
+                ])
+            ];
+        }
+    });
+</script>

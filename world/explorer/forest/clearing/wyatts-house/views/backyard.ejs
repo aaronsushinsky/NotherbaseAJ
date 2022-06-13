@@ -28,24 +28,14 @@
 
 <hr>
 
-<a href="/forest/clearing/wyatts-house">
+<a class="return" href="/forest/clearing/wyatts-house">
     Return to Front Yard
 </a>
 
 <script>
     let fps = 5;
-    let harvestGame = null;
-    let weedItem, woodItem = null;
-    $.get("/item/findOne", { name: "Weed" }, function (data) {
-        weedItem = data.foundItem;
-        $.get("/item/findOne", { name: "Wood" }, function (data) {
-            woodItem = data.foundItem;
-            harvestGame = new HarvestGame();
-        });
-    });
 
     const $ground = $(".ground");
-
     const $OGtree = $(".tree");
     const $OGweed = $(".weed");
     $OGtree.css("display", "none");
@@ -83,8 +73,7 @@
 
             if (this.clicksToDie <= 0) {
                 this.$div.remove();
-                playerInventory.change({ item: woodItem._id, 
-                    amount: Math.floor(this.maxYield * (this.age / this.timeToGrow)) });
+                playerInventory.change(itemIDs[1], Math.floor(this.maxYield * (this.age / this.timeToGrow)));
                 this.cut = true;
             }
         }
@@ -132,7 +121,7 @@
         click = () => {
             this.$div.remove();
 
-            playerInventory.change({ item: weedItem._id, amount: 1 });
+            playerInventory.change(itemIDs[0], 1);
 
             this.cut = true;
         }
@@ -207,4 +196,6 @@
             }
         }
     }
+
+    let harvestGame = new HarvestGame();
 </script>
