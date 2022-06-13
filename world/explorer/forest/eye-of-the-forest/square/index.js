@@ -11,7 +11,8 @@ module.exports = {
             name: "clothing-stall",
             options: { 
                 styles: [ "clothing-stall", "borders" ], 
-                scripts: [ "clothing-stall" ]
+                localScripts: [ "clothing-stall" ],
+                requiredItems: ["Gold Coin"]
             }
         },
         {

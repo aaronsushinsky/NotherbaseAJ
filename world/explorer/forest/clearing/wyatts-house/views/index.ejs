@@ -59,7 +59,7 @@
     let berryDialogue = new Dialogue("berry", 3900, (self) => {
         if (Dialogue.checkGlobalFlag("longTalkWithBerry")) {
             return [
-                Dialogue.createTextSlide(1, `That was my answer too! But Nooo....`)
+                Dialogue.createTextSlide(1, `That was my answer too! But nooo....`)
             ];
         }
         else if (self.checkFlag("accepted")) {

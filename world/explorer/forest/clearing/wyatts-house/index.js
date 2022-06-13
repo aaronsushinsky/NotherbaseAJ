@@ -9,7 +9,10 @@ module.exports = {
         },
         {
             name: "backyard",
-            options: { styles: [ "backyard" ] }
+            options: { 
+                styles: [ "backyard" ],
+                requiredItems: [ "Weed", "Wood"]
+            }
         },
         {
             name: "livingroom",
