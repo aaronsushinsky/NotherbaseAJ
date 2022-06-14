@@ -1,106 +1,134 @@
-<section class="floor" id="4">
+<section class="floor" id="frog">
     <h2>Frog Game</h2>
+    <button id="toggle">Toggle</button>
 
-    <button id="new">Create New Game</button>
+    <div class="content invisible">
+        <button id="new">Create New Game</button>
 
-    <div class="mafia">
-        <div class="game-selector">
-        </div>
-
-        <div class="game-info">
-            <h3>Winner: None</h3>
-
-            <h4>Date Started: 0/0/0</h4>
-
-            <button>Increment Turn</button>
-            <label for="auto-turn">Automatic Turns: </label><input type="checkbox" name="auto-turn" id="auto-turn">
-            <label for="hour">Hour to Increment Turns: </label><input type="range" name="hour" id="hour" min=0 max=23>
-
-            <div class="player-selector">
-
+        <div class="mafia">
+            <div class="game-selector">
             </div>
 
-            <div class="turn-list">
-                <p>Turn 0: X killed Y</p>
+            <div class="game-info">
+                <h3>Winner: None</h3>
+
+                <h4>Date Started: 0/0/0</h4>
+
+                <button>Increment Turn</button>
+                <label for="auto-turn">Automatic Turns: </label><input type="checkbox" name="auto-turn" id="auto-turn">
+                <label for="hour">Hour to Increment Turns: </label><input type="range" name="hour" id="hour" min=0 max=23>
+
+                <div class="player-selector">
+
+                </div>
+
+                <div class="turn-list">
+                    <p>Turn 0: X killed Y</p>
+                </div>
+
+                <button>Delete Game</button>
             </div>
 
-            <button>Delete Game</button>
-        </div>
+            <div class="player-info">
+                <h3>Name</h3>
+                <h4>Role</h4>
+                <h4>Status</h4>
+                <button class="role">Townsperson</button>
+                <button class="role">Mafia</button>
+                <button class="role">Doctor</button>
+                <button class="role">Dub</button>
+                <button class="role">Dumb</button>
 
-        <div class="player-info">
-            <h3>Name</h3>
-            <h4>Role</h4>
-            <h4>Status</h4>
-            <button class="role">Townsperson</button>
-            <button class="role">Mafia</button>
-            <button class="role">Doctor</button>
-            <button class="role">Dub</button>
-            <button class="role">Dumb</button>
-
-            <button class="kill">Kill</button>
-            <button class="revive">Revive</button>
+                <button class="kill">Kill</button>
+                <button class="revive">Revive</button>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="floor" id="3">
+<section class="floor" id="items">
     <h2>Items</h2>
+    <button id="toggle">Toggle</button>
 
-    <div id="item-list">
+    <div class="content invisible">
+        <ul class="items">
 
-    </div>
-
-    <div class="editor">
-        <h5 class="tab">Item Name</h5>
-        <input type="text" class="name">
+        </ul>
     
-        <h5 class="tab">Short Item Description</h5>
-        <textarea class="short-desc" name="short-desc" cols="30" rows="3"></textarea>
-    
-        <h5 class="tab">Full Item Description</h5>
-        <textarea class="full-desc" name="full-desc" cols="30" rows="10"></textarea>
-    </div>
+        <div class="editor">
+            <div class="edit invisible">
+                <h5>Item Name:</h5>
+                <input type="text" id="name">
+            
+                <h5>Short Item Description:</h5>
+                <textarea id="short" name="short" cols="30" rows="3"></textarea>
+            
+                <h5>Full Item Description:</h5>
+                <textarea id="full" name="full" cols="30" rows="10"></textarea>
 
-    <div class="buttons">
-        <button class="new">Create New</button>
-        <button class="edit">Edit</button>
-        <button class="save">Save</button>
-        <button class="delete">Delete</button>
-    </div>
-</section>
+                <button id="cancel" onclick="itemFloor.cancelEdit()">Cancel</button>
+                <button id="save" onclick="itemFloor.saveSelectedItem()">Save</button>
+            </div>
 
-<section class="floor" id="2">
-    <h2>Floor 2</h2>
-</section>
+            <div class="read">
+                <h5 id="name">Item Name</h5>
+            
+                <h5>Short Item Description:</h5>
+                <p id="short"></p>
+            
+                <h5>Full Item Description:</h5>
+                <p id="full"></p>
 
-<section class="floor" id="1">
-    <h2>Users</h2>
-    <div class="info">
-        <h3 id="population">Population: 0</h3>
-        <h3>Active Today: -</h3>
-    </div>
-
-    <div id="user-list">
-
-    </div>
-
-    <div class="user-info">
-        <h4>Username:</h4>
-        <h5>user</h5>
-
-        <h4>Coin:</h4>
-        <input type="text" id="">
-
-        <h4>Home:</h4>
-        <input type="text" id="">
-
-        <h4>Auth Levels:</h4>
-        <div class="auth-list">
-
+                <button id="new" onclick="itemFloor.createNewItem()">Create New</button>
+                <button id="edit" onclick="itemFloor.editSelectedItem()">Edit</button>
+                <button id="delete" onclick="itemFloor.deleteSelectedItem()">Delete</button>
+                <button id="refresh" onclick="itemFloor.updateItems()">Refresh List</button>
+            </div>
         </div>
+    </div>
+</section>
 
-        <h4>Location:</h4>
-        <input type="text" id="">
+<section class="floor" id="none">
+    <h2>Floor 2</h2>
+    <button id="toggle">Toggle</button>
+
+    <div class="content invisible">
+
+    </div>
+</section>
+
+<section class="floor" id="users">
+    <h2>Users</h2>
+    <button id="toggle">Toggle</button>
+
+    <div class="content invisible">
+        <div class="info">
+            <h3 id="population">Population: 0</h3>
+            <h3>Active Today: -</h3>
+        </div>
+    
+        <div id="user-list">
+    
+        </div>
+    
+        <div class="user-info">
+            <h4>Username:</h4>
+            <h5>user</h5>
+    
+            <h4>Coin:</h4>
+            <input type="text" id="">
+    
+            <h4>Home:</h4>
+            <input type="text" id="">
+    
+            <h4>Auth Levels:</h4>
+            <div class="auth-list">
+    
+            </div>
+    
+            <h4>Location:</h4>
+            <input type="text" id="">
+        </div>
     </div>
 </section>
 

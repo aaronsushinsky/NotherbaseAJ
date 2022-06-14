@@ -12,7 +12,10 @@ module.exports = {
             options: { 
                 styles: [ "clothing-stall", "borders" ], 
                 localScripts: [ "clothing-stall" ],
-                requiredItems: ["Gold Coin"]
+                requiredItems: [
+                    "Gold Coin",
+                    "Rag Doll"
+                ]
             }
         },
         {

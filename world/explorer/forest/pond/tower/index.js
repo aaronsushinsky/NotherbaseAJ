@@ -12,8 +12,16 @@ module.exports = {
         {
             name: "inside",
             options: {
-                styles: [ "wizard-tower" ], 
-                localScripts: [ "inside" ], 
+                styles: [ 
+                    "wizard-tower",
+                    "items-floor",
+                    "user-floor",
+                    "frog-floor"
+                ], 
+                localScripts: [ 
+                    "inside",
+                    "items"
+                 ], 
                 needsKey: "Wizard Tower Key", 
                 dropOff: "/forest/pond/tower"
             }
