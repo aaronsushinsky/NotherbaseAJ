@@ -8,79 +8,9 @@
     --standardRadius: 5px;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-.invisible {
-    display: none;
-}
-
-body {
-    background-color: var(--bgColor);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-}
-
-main {
-    width: 100%;
-    min-height: 500px;
-    box-shadow: 5px 5px 5px 5px var(--shadowColor);
-    padding: 20px;
-    border-radius: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-}
-
-hr {
-    border: none;
-    border-bottom: 1px solid var(--textColor);
-    margin: 20px;
-    width: 100%;
-}
-
-main p {
-    color: var(--textColor);
-    width: 100%;
-    border: 1px solid var(--textColor);
-    border-radius: 5px;
-    padding: 5px;
-    margin-bottom: 0;
-    cursor: pointer;
-}
-
-main button, main a {
-    background-color: var(--bgColor);
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--textColor);
-    color: var(--textColor);
-    margin: 5px;
-    margin-top: 20px;
-    text-decoration: none;
-}
-
-main button:hover, main a:hover {
-    border: 1px solid var(--textColorBright);
-    color: var(--textColorBright);
-    cursor: pointer;
-}
-
-h2, h3 {
-    color: var(--textColor);
-    width: 100%;
-}
-
 .floor {
     width: 100%;
-    min-height: 500px;
+    min-height: 50px;
     border: 1px solid var(--shadowColor);
     background-color: var(--bgColor);
     padding: 10px;
@@ -90,95 +20,18 @@ h2, h3 {
     flex-wrap: wrap;
 }
 
-#item-list {
-    padding: 5px;
-    border: 1px solid var(--textColor);
-    border-radius: 5px;
-    margin: 20px 0;
-    margin: 5px;
+.floor h2 {
+    width: 90%;
 }
 
-.editor {
-    margin: 5px;
-    border: 1px solid var(--textColor);
-    padding: 5px;
-    border-radius: 5px;
+.floor button {
+    margin: 0;
 }
 
-.buttons {
-    margin: 5px;
-    border: 1px solid var(--textColor);
-    padding: 5px;
-    border-radius: 5px;
-}
-
-.tab {
-    background-color: var(--textColor);
-    border-radius: 5px 5px 0 0;
-    color: var(--bgColor);
-    margin-bottom: -5px;
-    width: 85%;
-    padding: 2px;
-}
-
-p:hover {
-    background-color: var(--bgColorBright);
-}
-
-p.selected {
-    border: 1px solid var(--textColorBright);
-}
-
-#user-list {
-    height: 500px;
-    width: 500px;
-    border: 1px solid var(--textColor);
-    overflow: auto;
-    margin: 5px;
-    padding: 5px;
-    border-radius: 5px;
-}
-
-.info {
-    width: 300px;
-    height: 300px;
-    border: 1px solid var(--textColor);
-    margin: 5px;
-    padding: 5px;
-    border-radius: 5px;
-}
-
-.user-info {
-    width: 300px;
-    height: 300px;
-    border: 1px solid var(--textColor);
-    margin: 5px;
-    padding: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 5px;
-}
-
-.user-info h4, .user-info h5, .user-info input, .user-info .auth-list {
-    width: 45%;
-}
-
-.mafia {
-    display: flex;
-    flex-wrap: wrap;
+.floor .content {
     width: 100%;
-    height: 500px;
-}
-
-.game-selector {
-    border: var(--standardBorder);
-    border-radius: var(--standardRadius);
-    padding: 5px;
-    width: 30%;
-}
-
-.game-info {
-    width: 65%;
-    border: var(--standardBorder);
-    border-radius: var(--standardRadius);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
 }

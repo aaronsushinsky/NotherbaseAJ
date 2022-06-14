@@ -20,6 +20,12 @@
     </div>
 </div>
 
+<div class="merchant invisible">
+    <button onClick="purchaseDoll()">Purchase Rag Doll for 5 Gold Coins</button>
+</div>
+
+<hr>
+
 <h3>Clean Up the Debris?</h3>
 
 <div id="pile">
@@ -43,10 +49,16 @@
 <script src="/js/dialogue.js"></script>
 <script>
     let garakDialogue = new Dialogue("garak", 4000, function tree(self) {
-        if (Dialogue.checkGlobalFlag("helped")) {
+        if (Dialogue.checkGlobalFlag("bought")) {
             return [
-                Dialogue.createTextSlide(2, "My, my! You've cleaned it all!"),
-                Dialogue.createTextSlide(3, "You have my greatest appreciation. Please do come around again.")
+                Dialogue.createTextSlide(1, "You have my greatest appreciation for your purchase!"),
+                Dialogue.createTextSlide(1, "Please do come around again.")
+            ];
+        }
+        else if (Dialogue.checkGlobalFlag("helped")) {
+            return [
+                Dialogue.createTextSlide(1, "My, my! You've cleaned it all"),
+                Dialogue.createTextSlide(3, "You've inspired me! Surely I can make something out of this rubbish to sell.")
             ];
         }
         else if (self.checkFlag("accepted")) {
@@ -61,11 +73,8 @@
                 Dialogue.createTextSlide(10, "")
             ];
         }
-        else {
+        else if (self.checkFlag("listened")) {
             return [
-                Dialogue.createTextSlide(2, "Oh, hello there. Welcome to my, uh... my humble stall."),
-                Dialogue.createTextSlide(2, "I would entreat you to make a purchase, but as you can see..."),
-                Dialogue.createTextSlide(2, "Let's just say things just haven't been the same since the Creation."),
                 Dialogue.createTextSlide(2, "In fact, would you be a dear help me clean up the rubble below?"),
                 Dialogue.createButtonSlide(4, [
                     Dialogue.createButton("Of course.", "accepted"),
@@ -73,5 +82,25 @@
                 ])
             ];
         }
+        else if (self.checkFlag("listening")) {
+            self.addFlag("listened");
+            return [
+                Dialogue.createTextSlide(2, "I would entreat you to make a purchase, but as you can see..."),
+                Dialogue.createTextSlide(2, "Let's just say things just haven't been the same since the Creation."),
+            ];
+        }
+        else {
+            self.addFlag("listening");
+            return [
+                Dialogue.createTextSlide(2, "Oh, hello there. Welcome to my, uh... my humble stall.")
+            ];
+        }
     });
+
+    let purchaseDoll = async function purchaseDoll() {
+        if (await playerInventory.change(itemIDs[0], -5)) {
+            await playerInventory.change(itemIDs[1], 1);
+            Dialogue.addGlobalFlag("bought");
+        }
+    }
 </script>

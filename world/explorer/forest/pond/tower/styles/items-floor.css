@@ -1,0 +1,63 @@
+:root {
+    --bgColor: rgb(37, 37, 37);
+    --bgColorBright: rgb(66, 66, 66);
+    --shadowColor: rgb(26, 26, 26);
+    --textColor: rgb(185, 135, 69);
+    --textColorBright: rgb(221, 181, 130);
+    --standardBorder: 1px solid var(--textColor);
+    --standardRadius: 5px;
+}
+
+.floor#items ul.items {
+    width: 40%;
+    height: 800px;
+    border: var(--standardBorder);
+    padding: 5px;
+    margin: 0;
+}
+
+.floor#items ul.items li {
+    list-style: none;
+    cursor: pointer;
+}
+
+.floor#items ul.items li:hover {
+    background-color: var(--bgColorBright);
+}
+
+.floor#items ul.items li.selected {
+    background-color: var(--shadowColor);
+}
+
+.floor#items .editor {
+    width: 55%;
+    height: 800px;
+    border: var(--standardBorder);
+    padding: 10px;
+}
+
+.floor#items .read h5 {
+    margin: 10px;
+}
+
+.floor#items .read #name {
+    margin: 20px;
+}
+
+.floor#items .read #short {
+    width: 100%;
+    height: 100px;
+    border: var(--standardBorder);
+    padding: 2px;
+}
+
+.floor#items .read #full {
+    width: 100%;
+    height: 250px;
+    border: var(--standardBorder);
+    padding: 2px;
+}
+
+.floor#items .edit h5 {
+    margin: 10px;
+}
