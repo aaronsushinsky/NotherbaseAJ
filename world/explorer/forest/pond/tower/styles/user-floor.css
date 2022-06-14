@@ -1,0 +1,33 @@
+#user-list {
+    height: 500px;
+    width: 500px;
+    border: 1px solid var(--textColor);
+    overflow: auto;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.info {
+    width: 300px;
+    height: 300px;
+    border: 1px solid var(--textColor);
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.user-info {
+    width: 300px;
+    height: 300px;
+    border: 1px solid var(--textColor);
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 5px;
+}
+
+.user-info h4, .user-info h5, .user-info input, .user-info .auth-list {
+    width: 45%;
+}

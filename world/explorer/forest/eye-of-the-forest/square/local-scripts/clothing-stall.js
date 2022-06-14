@@ -9,5 +9,6 @@ $("#debris").on("click", function (event) {
 
         Dialogue.addGlobalFlag("helped");
         playerInventory.change(itemIDs[0], 2);
+        $(".merchant").removeClass("invisible");
     }
 });
