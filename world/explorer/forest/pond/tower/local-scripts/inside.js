@@ -1,23 +1,3 @@
-let updateUsers = async function updateItems() {
-    $.get(`/user/all`, function(data) {
-        $("#user-list").empty();
-
-        for (let i = 0; i < data.foundUsers.length; i++) {
-            $("#user-list").append(`<p>${data.foundUsers[i].username}: ${data.foundUsers[i].authLevels}</p>`);
-        };
-
-        let $usersInList = $("#user-list p");
-        $usersInList.on("click", function (e) {
-            $usersInList.removeClass("selected");
-            $(e.currentTarget).addClass("selected");
-        });
-
-        $("#population").text(`Population: ${data.foundUsers.length}`);
-    });
-};
-
-updateUsers();
-
 let updateMafiaGames = function updateMafiaGames() {
     $.get(`/game/all`, { name: "mafia" }, function(data) {
         $(".mafia .game-selector").empty();

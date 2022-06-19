@@ -8,7 +8,7 @@ $("#debris").on("click", function (event) {
         $("h3").text("Thanks");
 
         Dialogue.addGlobalFlag("helped");
-        playerInventory.change(itemIDs[0], 2);
+        playerInventory.change("Debris", 2);
         $(".merchant").removeClass("invisible");
     }
 });
