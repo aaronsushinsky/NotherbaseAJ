@@ -52,7 +52,7 @@ class NonoGame {
         this.tiles = [];
         this.nonoSize = 100;
         this.maxNonoId = 4;
-        this.goldItem = itemIDs[0];
+        this.goldItem = "Gold Coin";
 
         this.startNew();
     }

@@ -1,3 +1,8 @@
+<style>
+    <%- include("../styles/index.css"); %>
+    <%- include("../styles/nono.css"); %>
+</style>
+
 <p>
     A random nono washes up on shore. Will you solve it?
 </p>
@@ -17,6 +22,8 @@
 </a>
 
 <script>
+    <%- include("../local-scripts/nono.js"); %>
+
     let lastPos = [0, 0];
 
     let moveNono = function moveNono() {

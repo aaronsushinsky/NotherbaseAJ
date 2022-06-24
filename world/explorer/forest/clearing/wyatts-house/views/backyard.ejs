@@ -1,3 +1,7 @@
+<style>
+    <%- include("../styles/backyard.css"); %>
+</style>
+
 <p>
     The plant life here grows without end.
 </p>
@@ -73,7 +77,7 @@
 
             if (this.clicksToDie <= 0) {
                 this.$div.remove();
-                playerInventory.change(itemIDs[1], Math.floor(this.maxYield * (this.age / this.timeToGrow)));
+                playerInventory.change("Wood", Math.floor(this.maxYield * (this.age / this.timeToGrow)));
                 this.cut = true;
             }
         }
@@ -121,7 +125,7 @@
         click = () => {
             this.$div.remove();
 
-            playerInventory.change(itemIDs[0], 1);
+            playerInventory.change("Weed", 1);
 
             this.cut = true;
         }

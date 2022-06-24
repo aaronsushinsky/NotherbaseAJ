@@ -1,3 +1,8 @@
+<style>
+    <%- include("../styles/borders.css"); %>
+    <%- include("../styles/clothing-stall.css"); %>
+</style>
+
 <p>
     A good size pile of rotting wood and ripped rags.
     Maybe clothes used to be sold here?
@@ -48,11 +53,19 @@
 
 <script src="/js/dialogue.js"></script>
 <script>
+    <%- include("../local-scripts/clothing-stall.js"); %> 
+
     let garakDialogue = new Dialogue("garak", 4000, function tree(self) {
         if (Dialogue.checkGlobalFlag("bought")) {
             return [
                 Dialogue.createTextSlide(1, "You have my greatest appreciation for your purchase!"),
                 Dialogue.createTextSlide(1, "Please do come around again.")
+            ];
+        }
+        else if (Dialogue.checkGlobalFlag("failed-buy")) {
+            return [
+                Dialogue.createTextSlide(1, "I'm sorry but I cannot accept any less than five gold coins."),
+                Dialogue.createTextSlide(1, "Haggling never was my strong suit.")
             ];
         }
         else if (Dialogue.checkGlobalFlag("helped")) {
@@ -98,9 +111,17 @@
     });
 
     let purchaseDoll = async function purchaseDoll() {
-        if (await playerInventory.change(itemIDs[0], -5)) {
-            await playerInventory.change(itemIDs[1], 1);
-            Dialogue.addGlobalFlag("bought");
+        if (!Dialogue.checkGlobalFlag("bought")) {
+            $(".merchant button").addClass("invisible");
+
+            if (await playerInventory.change("Gold Coin", -5)) {
+                await playerInventory.change("Rag Doll", 1);
+                Dialogue.addGlobalFlag("bought");
+            }
+            else {
+                $(".merchant button").removeClass("invisible");
+                Dialogue.addGlobalFlag("failed-buy");
+            }
         }
     }
 </script>
