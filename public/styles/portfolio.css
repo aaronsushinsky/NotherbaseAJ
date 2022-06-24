@@ -218,7 +218,7 @@ section iframe {
     padding: 10px;
     border: 5% solid var(--bgColor);
     border-radius: 0% 0% 50px 50px;
-    width: 50%;
+    width: 75%;
     flex-direction: row-reverse;
 }
 
@@ -476,5 +476,9 @@ section iframe {
 
     .watch {
         width: 100%;
+    }
+
+    #notherbase-fs {
+        width: 90%;
     }
 }
