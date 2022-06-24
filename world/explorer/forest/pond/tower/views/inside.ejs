@@ -1,3 +1,10 @@
+<style>
+    <%- include("../styles/wizard-tower.css"); %>
+    <%- include("../styles/items-floor.css"); %>
+    <%- include("../styles/user-floor.css"); %>
+    <%- include("../styles/frog-floor.css"); %>
+</style>
+
 <section class="floor" id="frog">
     <h2>Frog Game</h2>
     <button id="toggle">Toggle</button>
@@ -101,7 +108,7 @@
     <h2>Users</h2>
     <button id="toggle">Toggle</button>
 
-    <div class="content invisible">
+    <div class="content">
         <div class="info">
             <h3 id="population">Population: 0</h3>
             <h3>Active Today: -</h3>
@@ -112,22 +119,27 @@
         </div>
     
         <div class="user-info">
-            <h4>Username:</h4>
-            <h5>user</h5>
-    
-            <h4>Coin:</h4>
-            <input type="text" id="">
-    
-            <h4>Home:</h4>
-            <input type="text" id="">
-    
-            <h4>Auth Levels:</h4>
-            <div class="auth-list">
-    
+            <div class="read">
+                <h4>Username:</h4>
+                <p class="name">-</p>
+        
+                <h4>Coin:</h4>
+                <p class="coin">-</p>
+
+                <h4>Auth Levels:</h4>
+                <ul></ul>
             </div>
-    
-            <h4>Location:</h4>
-            <input type="text" id="">
+            <div class="edit invisible">
+                <h4>Username:</h4>
+                <input type="text" class="name">
+        
+                <h4>Coin:</h4>
+                <input type="text" class="coin">
+
+                <h4>Auth Levels:</h4>
+                <ul></ul>
+
+            </div>
         </div>
     </div>
 </section>
@@ -135,3 +147,14 @@
 <hr>
 
 <a href="/forest/pond/tower">Exit the Tower</a>
+
+<script>
+    <% for (let i = 0; i < inventory.items.length; i++) {
+        if (inventory.items[i].item.name === "Wizard Tower Key") { %>
+            <%- include("../local-scripts/inside.js"); %> 
+            <%- include("../local-scripts/items.js"); %> 
+            <%- include("../local-scripts/users.js"); %> 
+        <%  break;
+        }
+    } %>
+</script>

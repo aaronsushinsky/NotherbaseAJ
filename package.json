@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/Mosshide/NotherBase#readme",
   "dependencies": {
-    "notherbase-fs": "^1.2.16"
+    "notherbase-fs": "^1.3.5"
   }
 }
