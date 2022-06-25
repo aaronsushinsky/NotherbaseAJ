@@ -53,15 +53,17 @@
     top: 0;
     right: 0;
     width: 32px;
-    height: 32px;
+    height: 30px;
     position: absolute;
     border-radius: 0;
+    padding: 0 3px;
 }
 
 .menu .tabs {
     width: 100%;
     height: 30px;
     border: 1px solid var(--textColor);
+    border-top: none;
 }
 
 .menu .tabs button {

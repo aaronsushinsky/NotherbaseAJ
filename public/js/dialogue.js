@@ -175,4 +175,11 @@ class Dialogue {
             this.goToNextSlide();
         }
     }
+
+    interrupt() {
+        this.queue = [];
+        this.addToQueue(this.tree(this));
+        this.remainingBeats = nextSlide.beats;
+            this.setContent(nextSlide);
+    }
 }
