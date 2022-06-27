@@ -64,3 +64,9 @@
     width: 100%;
     margin: 0;
 }
+
+@media only screen and (max-width: 1000px) {
+    .item-card {
+        width: calc(50% - 5px);
+    }
+}
