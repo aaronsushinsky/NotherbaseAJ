@@ -41,3 +41,11 @@ h6 {
     font-size: 40px;
     text-align: center;
 }
+
+@media only screen and (max-width: 1000px) {
+    h6 {
+        width: 100%;
+        font-size: 30px;
+        text-align: center;
+    }
+}
