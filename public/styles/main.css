@@ -12,6 +12,7 @@
     --darkWoodColor: rgb(70, 50, 32);
     --standardBorder: 1px solid var(--textColor);
     --normalFontSize: 20px;
+    --mobileFontSize: 15px;
 }
 
 * {
@@ -250,8 +251,14 @@ iframe {
 }
 
 @media only screen and (max-width: 1000px) {
+    * {
+        color: var(--textColor);
+        font-size: var(--mobileFontSize);
+    }
+
     main {
         width: 100%;
+        padding: 1px;
     }
 
     footer {
@@ -260,5 +267,29 @@ iframe {
 
     .to {
         width: 100%;
+        height: 100px;
+        padding: 20px;
+    }
+
+    .dialogue {
+        height: 150px;
+        padding: 5px;
+    }
+    
+    .dialogue .frame {
+        border-radius: 10px;
+    }
+    
+    .dialogue .heart {
+        border-radius: 5px;
+    }
+    
+    .dialogue .content {
+        border-radius: 10px;
+    }
+    
+    .dialogue .content button {
+        padding: 10px 10px;
+        margin: 0;
     }
 }
