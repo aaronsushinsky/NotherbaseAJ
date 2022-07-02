@@ -177,9 +177,8 @@ class Dialogue {
     }
 
     interrupt() {
+        this.remainingBeats = 0;
         this.queue = [];
         this.addToQueue(this.tree(this));
-        this.remainingBeats = nextSlide.beats;
-            this.setContent(nextSlide);
     }
 }
