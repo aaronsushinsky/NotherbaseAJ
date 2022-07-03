@@ -177,10 +177,14 @@ ul {
 
 .door {
     border: 1px solid var(--darkWoodColor);
-    width: 100px;
-    height: 150px;
+    width: 150px;
+    height: 250px;
     background-color: var(--woodColor);
     position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 30px;
 }
 
 .knob {
@@ -269,6 +273,10 @@ iframe {
         width: 100%;
         height: 100px;
         padding: 20px;
+    }
+
+    .door {
+        width: 45%;
     }
 
     .dialogue {

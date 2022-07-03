@@ -22,7 +22,6 @@ body {
 
 main {
     background-color: var(--cabinColorDark);
-    width: 800px;
 }
 
 .column {
