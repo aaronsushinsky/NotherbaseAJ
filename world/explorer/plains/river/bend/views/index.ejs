@@ -1,0 +1,65 @@
+<style>
+    <%- include("../styles/ant-hill.css"); %>
+</style>
+
+<p>
+    Welcome
+</p>
+
+<hr>
+
+<div class="ant-hill-game">
+    <div class="ui">
+        <h3 class="total">
+            0 Bio
+        </h3>
+        
+        <ul class="workers">
+            <li>
+                <button disabled onclick="antHill.birthMale()">Birth Male</button>
+                <p>0 Males</p>
+            </li>
+            <li>
+                <button disabled onclick="antHill.birthMiner()">Birth Miner</button>
+                <p>0 Miners</p>
+            </li>
+            <li>
+                <button disabled onclick="antHill.birthWarrior()">Birth Warrior</button>
+                <p>0 Warriors</p>
+            </li>
+            <li>
+                <button disabled onclick="antHill.birthBuilder()">Birth Builder</button>
+                <p>0 Builders</p>
+            </li>
+            <li>
+                <button disabled onclick="antHill.birthFemale()">Birth Female</button>
+                <p>1 Female</p>
+            </li>
+        </ul>
+    </div>
+    <div class="window">
+        <button id="left" class="invisible">Left</button>
+        <button id="right" class="invisible">Right</button>
+
+        <div class="ground">
+            <div class="stem">
+
+            </div>
+            <div class="queen-chamber">
+                <img src="/img/ant.png" class="ant">
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<a href="/coast/tall-beach/nono-cove" class="return">
+    Return to the Coast
+</a>
+
+<script>
+    <%- include("../local-scripts/ant-hill.js"); %>
+
+    let antHill = new AntHill();
+</script>
