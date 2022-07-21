@@ -20,7 +20,9 @@ $loginButton.on("click", async (e) => {
             email: $("#login-email").val(),
             password: $("#login-pass").val()
         }, (data) => {
-            Dialogue.addGlobalFlag("logged-in")
+            Dialogue.addGlobalFlag("logged-in");
+            closeClipboard("for-login");
+            keeper.interrupt();
         });
     } catch (error) {
         //console.log(error);
@@ -29,7 +31,6 @@ $loginButton.on("click", async (e) => {
         }
         else if (error.status === 500) {
             $loginInfo.text("Server Error: Try again later!");
-            closeClipboard("for-login");
         }
     }
 });

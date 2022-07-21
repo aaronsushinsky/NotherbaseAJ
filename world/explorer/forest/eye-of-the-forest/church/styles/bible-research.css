@@ -1,0 +1,47 @@
+.bible-research {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.bible-research .category {
+    border: 1px solid rgb(223, 187, 71);
+    padding: 5px;
+    margin: 5px;
+    width: calc(50% - 10px);
+    background-color: rgba(255, 235, 205, 0.514);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.category h3 {
+    color: rgb(20, 20, 20);
+}
+
+.category.text {
+    width: 100%;
+    height: 300px;
+}
+
+.characters>ul {
+    width: 50%;
+    background-color: var(--bgColor);
+    list-style: none;
+    margin: 0;
+    border: 1px solid rgb(223, 187, 71);
+    padding: 5px;
+}
+
+.characters .info {
+    width: 50%;
+    background-color: var(--bgColor);
+    border: 1px solid rgb(223, 187, 71);
+    padding: 5px;
+}
+
+.genealogy ul {
+    list-style: none;
+}
+
+.genealogy li {
+    color: var(--bgColor);
+}

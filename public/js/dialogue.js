@@ -1,17 +1,21 @@
 class Dialogue {
     constructor(name, beatFrequency, tree) {
-        this.name = name;
+        if (typeof name === 'string') this.name = name;
+        else console.log("Dialogue requires a string for name");
         this.$div = $(`.dialogue#${name}`);
         this.$portrait = this.$div.find(".portrait");
         this.$content = this.$div.find(".content");
         this.$heart = this.$div.find(".heart");
 
-        this.beatFrequency = beatFrequency;
+        if (typeof beatFrequency === 'number') this.beatFrequency = beatFrequency;
+        else console.log("Dialogue requires a number for beat frequency");
         this.remainingBeats = 0;
         this.queue = [];
 
         this.flags = [];
-        this.tree = tree;
+
+        if (typeof tree === 'function') this.tree = tree;
+        else console.log("Dialogue requires a tree function");
 
         this.beat();
         setInterval(() => {this.beat();}, this.beatFrequency);
@@ -177,9 +181,8 @@ class Dialogue {
     }
 
     interrupt() {
+        this.remainingBeats = 0;
         this.queue = [];
         this.addToQueue(this.tree(this));
-        this.remainingBeats = nextSlide.beats;
-            this.setContent(nextSlide);
     }
 }

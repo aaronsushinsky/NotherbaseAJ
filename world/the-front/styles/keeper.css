@@ -69,11 +69,12 @@
     background-color: rgba(255, 0, 0, 0.63);
     border: 1px solid black;
     position: absolute;
-    right: -35px;
+    right: 0;
     top: -15px;
     width: 25px;
     height: 25px;
     padding: 0;
+    z-index: 11;
 }
 
 .clipboard.on-counter .close {
@@ -164,4 +165,21 @@
     border: none !important;
     width: 100% !important;
     height: 25px !important;
+}
+
+#change-button {
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 1000px) {
+    .clipboard {
+        left: 2.5%;
+        width: 95%;
+        top: -500px;
+    }
+
+    .clipboard.for-register {
+        left: initial;
+        right: 2.5%;
+    }
 }

@@ -1,0 +1,80 @@
+<style>
+    <%- include("../styles/ant-hill.css"); %>
+</style>
+
+<p>
+    Welcome
+</p>
+
+<hr>
+
+<div class="ant-hill-game">
+    <div class="ui">
+        <h3 class="bio">
+            0 BIO
+        </h3>
+
+        <h3 class="ants">
+            0 ANTS
+        </h3>
+        
+        <ul class="workers">
+            <li>
+                <button disabled onclick="antHill.birthWorker('males')">Birth Male</button>
+                <p id="males-count">0 Males</p>
+            </li>
+            <li>
+                <button disabled onclick="antHill.birthWorker('miners')">Birth Miner</button>
+                <p id="miners-count">0 Miners</p>
+            </li>
+            <li>
+                <button disabled onclick="antHill.birthWorker('warriors')">Birth Warrior</button>
+                <p id="warriors-count">0 Warriors</p>
+            </li>
+            <li>
+                <button disabled onclick="antHill.birthWorker('builders')">Birth Builder</button>
+                <p id="builders-count">0 Builders</p>
+            </li>
+            <li>
+                <button disabled onclick="antHill.birthWorker('females')">Birth Female</button>
+                <p id="females-count">0 Females</p>
+            </li>
+        </ul>
+    </div>
+    <div class="window">
+        <button id="left" class="invisible">Left</button>
+        <button id="right" class="invisible">Right</button>
+
+        <div class="hill">
+
+        </div>
+
+        <div class="ground">
+            <div class="stem">
+
+            </div>
+            <div class="queen-chamber">
+                <img src="/img/ant.png" class="ant">
+                <div id="heart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<a href="/plains/the-grass/cow-town" class="to">
+    Go to Cow Town
+</a>
+
+<hr>
+
+<a href="/coast/tall-beach/nono-cove" class="return">
+    Return to the Coast
+</a>
+
+<script>
+    <%- include("../local-scripts/ant-hill.js"); %>
+
+    let antHill = new AntHill();
+</script>

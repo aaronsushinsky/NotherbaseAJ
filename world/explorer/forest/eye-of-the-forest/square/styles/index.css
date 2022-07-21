@@ -21,45 +21,7 @@ h4 {
 }
 
 .sign * {
-    color: rgb(29, 23, 17);
-    text-shadow: 1px 1px rgb(133, 98, 57);
+    color: rgb(199, 175, 150);
+    text-shadow: 1px 1px rgb(41, 27, 12);
     font-size: 30px;
-}
-
-.mini-library {
-    border: 15px solid var(--wood);
-    border-radius: 15px 15px 0 0;
-    background-color: var(--woodDark);
-    width: 90%;
-    margin: 20px 0;
-}
-
-.mini-library button {
-    width: 50%;
-    margin: 0 25%;
-}
-
-.mini-library h5 {
-    background-color: var(--wood);
-    padding: 5px;
-    color: var(--woodDark);
-    font-size: large;
-}
-
-.mini-library hr {
-    background-color: var(--wood);
-    margin: 0;
-    border: 5px solid var(--wood);
-}
-
-.mini-library ul {
-    background-color: var(--woodDark);
-    padding: 10px 20px;
-    width: 100%;
-    margin: 0;
-}
-
-.mini-library li {
-    list-style-type: '☲';
-    padding: 0 5px;
 }
