@@ -67,3 +67,9 @@
     left: 0;
     background-color: rgb(38, 73, 53);
 }
+
+@media only screen and (max-width: 1000px) {
+    .fence {
+        height: 150px;
+    }
+}
