@@ -1,0 +1,13 @@
+:root {
+
+}
+
+.road {
+    background-color: rgb(77, 58, 37);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    flex-wrap: wrap;
+}
