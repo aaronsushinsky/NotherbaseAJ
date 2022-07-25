@@ -44,7 +44,6 @@
 
         <script>
             $.post(`/forest/clearing/wyatts-house/basement/serve/mc-status`, function (data) {
-                console.log(data);
                 if (data.scriptResult.players) {
                     $("#status").text(`Status: Online`);
                     $("#players").text(`Players: ${data.scriptResult.players.online}`);
