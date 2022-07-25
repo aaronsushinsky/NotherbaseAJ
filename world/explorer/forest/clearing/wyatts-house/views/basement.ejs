@@ -16,7 +16,8 @@
 <div class="monitor">
     <div class="screen">
         <p>Wyatt's Bedrock Minecraft Server</p>
-        <p>Address: 73.11.150.171:19132</p>
+        <p>Address: 73.11.150.171</p>
+        <p>Port: 19132</p>
         <p id="status">Status: Offline</p>
         <p id="players">Players: 0</p>
     </div>
@@ -30,6 +31,7 @@
 
 <script>
     $.post(`/forest/clearing/wyatts-house/basement/serve/mc-status`, function (data) {
+        console.log(data);
         if (data.scriptResult.players) {
             $("#status").text(`Status: Online`);
             $("#players").text(`Players: ${data.scriptResult.players.online}`);
