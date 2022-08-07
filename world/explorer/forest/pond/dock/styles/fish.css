@@ -1,0 +1,125 @@
+:root {
+
+}
+
+main {
+    background-color: rgb(4, 4, 17);
+    padding: 0;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+
+.game {
+    background: rgb(112,207,222);
+    background: linear-gradient(173deg, rgb(146, 215, 226) 0%, rgba(4,4,17,1) 55%, rgba(4,4,17,1) 100%);
+    height: 1000px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.halo {
+    width: 100px;
+    height: 100px;
+    background: rgb(227,220,197);
+    background: radial-gradient(circle, rgba(227, 220, 197, 0.384) 0%, rgba(191, 163, 93, 0) 100%);
+    position: absolute;
+    top: 50px;
+    left: 75px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sun {
+    width: 80%;
+    height: 80%;
+    background: rgb(227,220,197);
+    background: radial-gradient(circle, rgba(227,220,197,1) 0%, rgba(203,194,137,1) 90%, rgba(191,164,93,1) 100%);
+    border-radius: 50%;
+}
+
+.cloud {
+    width: 40%;
+    height: 20%;
+    background: rgb(225,238,252);
+    background: linear-gradient(180deg, rgba(225, 238, 252, 0.226) 0%, rgba(255, 255, 255, 0.014) 100%);
+    position: absolute;
+    top: 50px;
+    left: -150px;
+    border-radius: 35px;
+    transform: skew(55deg, -10deg) rotate(30deg) scale(1);
+    animation: cloud-bob 20s ease infinite alternate;
+}
+
+@keyframes cloud-bob {
+    from {
+        left: -150px;
+        top: 50px;
+        transform: skew(55deg, -10deg) rotate(30deg) scale(1);
+    }
+    to {
+        left: -250px;
+        top: 0;
+        transform: skew(35deg, -10deg) rotate(30deg) scale(.85);
+    }
+}
+
+.water {
+    width: 100%;
+    height: 60%;
+    background-color: rgba(20, 61, 116, 0.548);
+    background: linear-gradient(173deg, rgba(20, 61, 116, 0.548) 0%, rgba(4,4,17,1) 55%, rgba(4,4,17,1) 100%);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    animation: water-bob 3s ease-in-out infinite alternate;
+}
+
+@keyframes water-bob {
+    from {
+        bottom: 0;
+    }
+    to {
+        bottom: -10px;
+    }
+}
+
+.ground {
+    width: 130%;
+    height: 60%;
+    background-color: rgba(51, 40, 22, 0.548);
+    background: linear-gradient(173deg, rgba(51, 40, 22, 0.548) 0%, rgba(4,4,17,1) 55%, rgba(4,4,17,1) 100%);
+    position: absolute;
+    bottom: -75px;
+    right: -150px;
+    border-radius: 35%;
+    transform: skew(5deg, -20deg);
+}
+
+.dock {
+    width: 200px;
+    height: 5px;
+    background: rgb(44,38,30);
+    background: linear-gradient(170deg, rgba(44,38,30,1) 0%, rgba(13,12,10,1) 100%);
+    position: absolute;
+    top: 38%;
+    right: 200px;
+    border-radius: 2px;
+}
+
+.dock .pole {
+    width: 8px;
+    height: 60px;
+    background: rgb(44,38,30);
+    background: linear-gradient(170deg, rgba(44,38,30,1) 0%, rgba(13,12,10,1) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 2px;
+}
+
+.return {
+    background-color: rgba(0, 0, 0, 0);
+}

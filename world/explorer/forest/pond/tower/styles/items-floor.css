@@ -14,6 +14,7 @@
     border: var(--standardBorder);
     padding: 5px;
     margin: 0;
+    overflow: auto;
 }
 
 .floor#items ul.items li {
