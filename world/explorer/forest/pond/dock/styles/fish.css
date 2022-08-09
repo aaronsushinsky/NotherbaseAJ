@@ -90,12 +90,24 @@ main {
     width: 130%;
     height: 60%;
     background-color: rgba(51, 40, 22, 0.548);
-    background: linear-gradient(173deg, rgba(51, 40, 22, 0.548) 0%, rgba(4,4,17,1) 55%, rgba(4,4,17,1) 100%);
+    background: linear-gradient(270deg, rgba(51, 40, 22, 1) 0%, rgba(4,4,17,1) 55%, rgba(4,4,17,1) 100%);
     position: absolute;
     bottom: -75px;
     right: -150px;
     border-radius: 35%;
     transform: skew(5deg, -20deg);
+}
+
+.background {
+    width: 150%;
+    height: 100%;
+    background-color: rgba(51, 40, 22, 0.548);
+    background: linear-gradient(100deg, rgb(90, 83, 73) 0%, rgb(9, 9, 26) 55%, rgba(4,4,17,1) 100%);
+    position: absolute;
+    top: 350px;
+    right: -350px;
+    border-radius: 10%;
+    transform: rotate(45deg);
 }
 
 .dock {

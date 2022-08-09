@@ -5,13 +5,28 @@
 .content#player h3 {
     width: 100%;
     text-transform: capitalize;
+    border: 1px solid var(--textColor);
+    padding: 10px;
+    height: 100px;
+    position: relative;
+    font-size: 35px;
+    display: flex;
+    align-items: center;
 }
 
 .content#player input {
-    width: 50%;
+    width: 100px;
     text-transform: capitalize;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 2px;
 }
 
 .content#player h3 button {
     width: 100px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 2px;
 }
