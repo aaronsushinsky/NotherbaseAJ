@@ -1,4 +1,8 @@
 .content#account {
+    padding: 20px;
+}
+
+.content#account h3 {
     padding: 10px;
 }
 
