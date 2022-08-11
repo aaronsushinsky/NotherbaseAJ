@@ -6,7 +6,7 @@
     position: fixed;
     left: 12.5%;
     top: 5%;
-    background-color: var(--bgColorTransparent);
+    background-color: var(--bgColor);
     backdrop-filter: blur(3px);
     border-radius: 5px;
     z-index: 500;

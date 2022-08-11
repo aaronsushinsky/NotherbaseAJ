@@ -3,7 +3,7 @@
     color: var(--textColor);
     width: 100%;
     height: 100%;
-    padding: 5px;
+    padding: 25px 25px 0 25px;
     z-index: 500;
     overflow: auto;
 }
@@ -39,30 +39,43 @@
 }
 
 .item-card {
-    width: 300px;
-    height: 60px;
+    width: 100%;
+    height: 40px;
     border-radius: 3px;
     border: 1px solid var(--textColor);
-    padding: 5px;
+    padding: 0;
     margin: 2.5px;
     position: relative;
     background-color: var(--bgColor);
+    display: flex;
+    align-items: center;
+}
+
+.item-card h5 {
+    min-width: 40%;
+    padding: 10px;
+}
+
+.item-card p {
+    width: auto;
+    padding: 10px;
+    margin: 0;
 }
 
 .item-card button {
-    position: absolute;
-    right: 0;
-    top: 0;
     margin: 0;
     padding: 0 3px;
     border-radius: 0;
     border-top: none;
-    border-right: none;
+    border-bottom: none;
+    height: 100%;
+    width: 75px;
 }
 
 .item-card hr {
-    width: 100%;
-    margin: 0;
+    min-width: 5%;
+    height: 1px;
+    margin: 5px;
 }
 
 @media only screen and (max-width: 1000px) {
