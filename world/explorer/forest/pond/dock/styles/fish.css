@@ -30,6 +30,16 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: halo-wob 1s ease infinite alternate;
+}
+
+@keyframes halo-wob {
+    from {
+        border-radius: 50%
+    }
+    to {
+        border-radius: 405%
+    }
 }
 
 .sun {
@@ -51,6 +61,7 @@ main {
     border-radius: 35px;
     transform: skew(55deg, -10deg) rotate(30deg) scale(1);
     animation: cloud-bob 20s ease infinite alternate;
+    backdrop-filter: blur(2px);
 }
 
 @keyframes cloud-bob {
@@ -70,7 +81,7 @@ main {
     width: 100%;
     height: 60%;
     background-color: rgba(20, 61, 116, 0.548);
-    background: linear-gradient(173deg, rgba(20, 61, 116, 0.548) 0%, rgba(4,4,17,1) 55%, rgba(4,4,17,1) 100%);
+    background: linear-gradient(173deg, rgba(20, 61, 116, 0.548) 0%, rgba(4, 4, 17, 0.541) 55%, rgba(4, 4, 17, 0.63) 100%);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -86,11 +97,24 @@ main {
     }
 }
 
+.waters {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(20, 61, 116, 0.548);
+    background: linear-gradient(173deg, rgba(20, 61, 116, 0.548) 0%, rgba(4, 4, 17, 0.705) 55%, rgba(4, 4, 17, 0.849) 100%);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    backdrop-filter: blur(1px);
+    pointer-events: none;
+}
+
 .ground {
     width: 130%;
     height: 60%;
     background-color: rgba(51, 40, 22, 0.548);
-    background: linear-gradient(270deg, rgba(51, 40, 22, 1) 0%, rgba(4,4,17,1) 55%, rgba(4,4,17,1) 100%);
+    background: linear-gradient(200deg, rgba(51, 40, 22, 1) 0%, rgba(4,4,17,1) 55%, rgba(4,4,17,1) 100%);
     position: absolute;
     bottom: -75px;
     right: -150px;
@@ -134,4 +158,62 @@ main {
 
 .return {
     background-color: rgba(0, 0, 0, 0);
+}
+
+.fish {
+    width: 50px;
+    height: 25px;
+    position: absolute;
+    opacity: 0;
+    border-radius: 25px 35px 15px 25px;
+    left: 50%;
+    bottom: 50%;
+}
+
+.tail {
+    position: absolute;
+    width: 15px;
+    height: 18px;
+    left: -7px;
+    top: 3px;
+    border-radius: 0 20px 20px 0;
+}
+
+.wag {
+    animation: tail-wag .25s ease-in-out 1;
+}
+
+@keyframes tail-wag {
+    from {
+        transform: rotate3d(0);
+    }
+    33% {
+        transform: rotate3d(0, 1, 0, 45deg);
+    }
+    to {
+        transform: rotate3d(0, 1, 0, -45deg);
+    }
+}
+
+.water .weed {
+    background-color: rgba(0, 0, 0, 0.904);
+    width: 20px;
+    height: 50%;
+    position: absolute;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.67);
+    left: 0%;
+    bottom: 0%;
+}
+
+.water .boat {
+    background: rgb(119, 63, 30);
+    background: linear-gradient(180deg, rgb(119, 63, 30) 0%, rgb(8, 8, 19) 75%, rgba(8, 8, 19, 0.438) 100%);
+    width: 110px;
+    height: 40px;
+    position: absolute;
+    border-radius: 3px 3px 30px 30px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.67);
+    left: 30%;
+    top: -15px;
 }
