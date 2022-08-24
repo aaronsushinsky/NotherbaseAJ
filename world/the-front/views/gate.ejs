@@ -15,6 +15,19 @@
     </p>
 <% } %> 
 
+
+<hr>
+
+<div class="dialogue" id="wunder">
+    <div class="frame">
+        <img src="/img/anon.png" class="portrait">
+    </div>
+    <div class="heart"></div>
+    <div class="content">
+        
+    </div>
+</div>
+
 <hr>
 
 <% if (user) { %> 
@@ -40,3 +53,25 @@
 <a class="return" href="/the-front">
     Back Away
 </a>
+
+<script src="/js/dialogue.js"></script>
+<script>
+    let wunder = new Dialogue("wunder", 3000, function tree(self) {
+        if (self.checkFlag("safe")) return [
+            Dialogue.createTextSlide(1, "You say that like you've been inside."),
+            Dialogue.createTextSlide(1, "Or what if it's safe for you, but not me?")
+        ];
+        else if (self.checkFlag("sorry")) return [
+            Dialogue.createTextSlide(1, "That's what I was thinking."),
+            Dialogue.createTextSlide(1, "But I can't just sit here forever.")
+        ];
+        else return [
+            Dialogue.createTextSlide(1, "NotherBase..."),
+            Dialogue.createTextSlide(1, "I wonder if it's safe to enter..."),
+            Dialogue.createButtonSlide(2, [
+                Dialogue.createButton("Of course it's safe.", "safe"),
+                Dialogue.createButton("Better to be safe than sorry.", "sorry")
+            ])
+        ]
+    });
+</script>

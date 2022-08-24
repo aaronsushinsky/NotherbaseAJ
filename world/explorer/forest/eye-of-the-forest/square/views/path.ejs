@@ -1,0 +1,57 @@
+<style>
+</style>
+
+<p>
+    There is a small dirt path leading out of
+    the Eye of the Forest.
+</p>
+
+<p id="blocker" class="invisible">
+    Something blocks the path.
+</p>
+
+<hr>
+
+<!-- <button id="toggle">Toggle</button> -->
+
+<a class="locked to nother-base" id="lock" href="">
+    Head down the Path
+</a>
+
+<hr>
+
+<a class="return road" href="/forest/eye-of-the-forest/square">
+    Return to the Square
+</a>
+
+<script>
+    let $lock = $("#lock");
+    let $blocker = $("#blocker");
+    let locked = true;
+
+    $.get("/forest/eye-of-the-forest/square/path/load", function (data) {
+        locked = (data.locked === "true");
+        updateLock();
+    });
+
+    // $("#toggle").click(function () {
+    //     locked = !locked;
+
+    //     $.post("/forest/eye-of-the-forest/square/path/save", { locked: locked }, function (data) {
+    //         updateLock();
+    //     });
+    // });
+
+    let updateLock = function updateLock() {
+        if (locked) {
+            $lock.addClass("locked");
+            $lock.attr("href", "#");
+            $blocker.removeClass("invisible");
+        }
+        else {
+            $lock.removeClass("locked");
+            $lock.attr("href", "/forest/clearing/wyatts-house");
+            $blocker.addClass("invisible");
+        };
+    }
+</script>

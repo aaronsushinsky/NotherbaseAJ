@@ -142,8 +142,17 @@ input[type=submit]:hover, button:hover, a:hover {
     user-select: none;
 }
 
-.to {
+.go {
     width: 45%;
+    height: 200px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 20px;
+}
+
+.to {
+    width: 100%;
     height: 200px;
     display: flex;
     justify-content: flex-end;
