@@ -11,12 +11,36 @@
     border-bottom: 10px solid rgb(161, 96, 59);
 }
 
-.to.pile {
-    border-bottom: 10px solid rgb(110, 110, 110);
+.to.clothing-stall {
+    border-bottom: 10px solid rgb(75, 34, 78);
 }
 
-.to.pile:hover {
-    border-bottom: 10px solid rgb(165, 165, 165);
+.to.clothing-stall:hover {
+    border-bottom: 10px solid rgb(128, 59, 133);
+}
+
+.to.food-stall {
+    border-bottom: 10px solid rgb(117, 71, 28);
+}
+
+.to.food-stall:hover {
+    border-bottom: 10px solid rgb(168, 100, 37);
+}
+
+.to.tool-stall {
+    border-bottom: 10px solid rgb(87, 73, 76);
+}
+
+.to.tool-stall:hover {
+    border-bottom: 10px solid rgb(146, 126, 130);
+}
+
+.to.toy-stall {
+    border-bottom: 10px solid rgb(103, 121, 39);
+}
+
+.to.toy-stall:hover {
+    border-bottom: 10px solid rgb(153, 179, 60);
 }
 
 .to.bricks {
@@ -33,6 +57,14 @@
 
 .to.road:hover {
     border-bottom: 10px solid rgb(94, 109, 122);
+}
+
+.to.path {
+    border-bottom: 10px solid rgb(31, 97, 75);
+}
+
+.to.path:hover {
+    border-bottom: 10px solid rgb(25, 136, 99);
 }
 
 .to.church {

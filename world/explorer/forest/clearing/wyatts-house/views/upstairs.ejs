@@ -9,6 +9,8 @@
 
 <hr>
 
+
+
 <div class="today">
     <h3>To Do Today</h3>
     <ul>
@@ -33,27 +35,13 @@
             <input type="checkbox" name="excersize" id="dishes">
         </li>
         <li>
-            <p>Vacuumed and Extra Chores</p>
+            <p>Vacuumed</p>
             <input type="checkbox" name="extra" id="dishes">
         </li>
     </ul>
 </div>
 
 <div id="destiny">
-    <button class="folder" id="bigscreen-folder">Big Screen</button>
-    <% if (query.embed) { %>
-        <iframe class="folded" id="bigscreen" src="https://www.youtube.com/embed/<%= query.embed %>" 
-            title="YouTube video player" frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen></iframe>
-    <% } else { %>
-        <iframe
-            class="folded" id="bigscreen"
-            src="https://player.twitch.tv/?channel=destiny&parent=www.notherbase.com"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-        </iframe>
-    <% } %>
     <iframe class="folded" id="dgg-chat" src="https://www.destiny.gg/embed/chat?follow=%2Fbigscreen"></iframe>
     <button class="folder" id="chat-folder">Chat</button>
 </div>

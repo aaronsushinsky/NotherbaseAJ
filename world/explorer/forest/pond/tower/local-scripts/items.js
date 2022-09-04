@@ -1,5 +1,12 @@
 class ItemFloor {
     constructor() {
+        this.$search = $(".floor#items #search");
+        this.$search.on("input", (e) => {
+            this.filter = $(e.currentTarget).val();
+            this.renderItemList();
+        });
+
+        this.filter = "";
         this.items = [];
         this.$itemList = $(".floor#items ul.items");
         this.$items = $(".floor#items ul.items li");
@@ -27,7 +34,15 @@ class ItemFloor {
     async updateItems() {
         try {
             await $.get(`/item/all`, (data) => {
-                this.items = data.foundItems;
+                this.items = [];
+                let newItems = data.foundItems;
+
+                for (let i = 0; i < newItems.length; i++) {
+                    let w = 0;
+                    while (w < this.items.length && newItems[i].name > this.items[w].name) w++;
+                    this.items.splice(w, 0, newItems[i]);
+                }
+
                 this.renderItemList();
             });
         } 
@@ -40,7 +55,9 @@ class ItemFloor {
         this.$itemList.empty();
 
         for (let i = 0; i < this.items.length; i++) {
-            $(".floor#items ul.items").append(`<li onClick="itemFloor.selectItem(${i})">${this.items[i].name}</li>`);
+            if (this.items[i].name.toLowerCase().includes(this.filter.toLowerCase())) {
+                $(".floor#items ul.items").append(`<li onClick="itemFloor.selectItem(${i})">${this.items[i].name}</li>`);
+            }
         };
 
         this.$items = $(".floor#items ul.items li");
