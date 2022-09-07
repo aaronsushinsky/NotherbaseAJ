@@ -1,0 +1,68 @@
+:root {
+   --textColor: linear-gradient(170deg, rgb(163, 159, 159) 0%, rgb(98, 97, 97) 100%);
+}
+
+body {
+    background: linear-gradient(170deg, rgb(163, 159, 159) 0%, rgb(98, 97, 97) 100%);
+}
+
+main {
+    background: linear-gradient(170deg, rgba(250, 113, 78, 0.05) 0%, 
+    rgba(253, 172, 152, 0.2) 50%, 
+    rgba(255, 51, 0, 0) 100%);
+    margin-bottom: 100px;
+    border-radius: 2px;
+}
+
+footer {
+    justify-content: flex-start;
+}
+
+.column {
+    width: 40%;
+    margin-top: 50px;
+}
+
+.column p {
+    margin: 0;
+    padding: 2px;
+}
+
+a {
+    border: none;
+    background: none;
+    border-bottom: var(--standardBorder);
+    border-radius: 0;
+    margin: 0;
+    color: rgb(21, 64, 63);
+}
+
+a:hover {
+    border: none;
+    border-bottom: var(--standardBorder);
+    background: none;
+}
+
+footer a {
+    width: auto;
+}
+
+ul {
+    width: 100%;
+    width: 80%;
+}
+
+li {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+main>p {
+    margin: 25px;
+}
+
+h1 {
+    font-size: 50px;
+}
