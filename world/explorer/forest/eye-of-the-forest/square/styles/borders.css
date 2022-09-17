@@ -74,3 +74,11 @@
 .church:hover {
     border-bottom: 10px solid rgb(221, 214, 190);
 }
+
+.library {
+    border-bottom: 10px solid rgb(118, 129, 230);
+}
+
+.library:hover {
+    border-bottom: 10px solid rgb(147, 155, 235);
+}

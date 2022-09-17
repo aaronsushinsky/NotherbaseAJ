@@ -1,0 +1,157 @@
+:root {
+
+}
+
+.case {
+    background-color: rgb(77, 45, 24);
+    padding: 20px;
+    border-radius: 2px;
+}
+
+h1 {
+    font-size: 40px;
+    padding: 5px;
+    color: rgb(187, 187, 187);
+    text-shadow: 2px 2px #030303;
+}
+
+.search {
+    width: 100%;
+    border: var(--standardBorder);
+    height: 500px;
+    background: rgb(25, 25, 25);
+}
+
+.search input {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    border-bottom: var(--standardBorder);
+}
+
+.search ul {
+    border: 1px dotted var(--textColor);
+    height: 410px;
+    margin: 20px;
+    padding: 2px;
+}
+
+.viewing {
+    width: 100%;
+    padding: 10px;
+}
+
+.recipe {
+    background: var(--bgColor);
+    border: var(--standardBorder);
+}
+
+.recipe .read {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.recipe h6 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.recipe .edit {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.edit .ingredients li input[type=number] {
+    width: 50px;
+}
+
+.edit li {
+    display: flex;
+}
+
+.edit li * {
+    margin: 0;
+    border-radius: 0;
+    padding: 2px;
+}
+
+.edit li #measure {
+    width: 25%;
+}
+
+.edit li #ingredient {
+    width: 65%;
+}
+
+.tabs .tab {
+    width: 20%;
+    border: var(--standardBorder);
+    border-bottom: none;
+    background: var(--darkBgColor);
+    padding: 5px;
+    border-radius: 3px 3px 0 0;
+}
+
+.title {
+    width: 100%;
+    position: relative;
+    padding: 10px;
+}
+
+.title h5 {
+    width: 80%;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.title h6 {
+    width: 80%;
+    padding-left: 10px;
+    font-size: 30px;
+}
+
+.title img {
+    width: 100px;
+    height: 100px;
+    image-rendering: pixelated;
+    position: absolute;
+    right: 15px;
+    top: calc(50% - 50px);
+    border: 5px inset rgb(59, 42, 27);
+}
+
+.buttons {
+    width: 100%;
+    text-align: center;
+}
+
+.buttons button {
+    width: 20%;
+}
+
+ul.ingredients {
+    width: 35%;
+    border: var(--standardBorder);
+    padding: 30px;
+    background: var(--darkBgColor);
+}
+
+ul.directions {
+    width: 60%;
+    border: var(--standardBorder);
+    padding: 30px;
+    background: var(--darkBgColor);
+}
+
+li {
+    width: 100%;
+}
+
+li p {
+    display: inline;
+    margin-right: 5px;
+}

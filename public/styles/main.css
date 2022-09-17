@@ -7,12 +7,17 @@
     --veryDarkBgColorTransparent: rgba(15, 15, 15, 0.404);
     --veryDarkBgColor: rgb(15, 15, 15);
     --lightBgColor: rgb(57, 57, 57);
+    --selectionColor: rgb(58, 58, 58);
+    --selectedTextColor: rgb(248, 192, 100);
+    --hoverColor: rgb(97, 97, 97);
+    --hoverTextColor: rgb(216, 171, 112);
     --shadowColor: rgba(7, 7, 7, 0.616);
     --textColor: rgb(185, 135, 69);
     --textColorBright: rgb(221, 181, 130);
     --woodColor: rgb(95, 68, 43);
     --darkWoodColor: rgb(70, 50, 32);
     --standardBorder: 1px solid var(--textColor);
+    --brightBorder: 1px solid var(--textColorBright);
     --normalFontSize: 20px;
     --mobileFontSize: 15px;
 }
@@ -191,8 +196,59 @@ h3 {
     width: 100%;
 }
 
+.search {
+    width: 100%;
+    border: var(--standardBorder);
+    height: 500px;
+    background: rgb(25, 25, 25);
+}
+
+.search input {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    border-bottom: var(--standardBorder);
+}
+
+.search ul {
+    border: 1px dotted var(--textColor);
+    height: 410px;
+    margin: 20px;
+    padding: 2px;
+}
+
 ul {
     margin: 10px;
+}
+
+li:hover {
+    background: var(--hoverColor);
+    color: var(--hoverTextColor);
+}
+
+li.selected {
+    background: var(--selectionColor);
+    color: var(--selectedTextColor);
+}
+
+ul.selector {
+    padding: 0;
+}
+
+ul.selector li {
+    border: none;
+    border-bottom: var(--standardBorder);
+    list-style: none;
+    padding: 5px;
+}
+
+ul.selector li:hover {
+    cursor: pointer;
+}
+
+ul.selector p {
+    color: rgb(78, 78, 78);
 }
 
 .door {

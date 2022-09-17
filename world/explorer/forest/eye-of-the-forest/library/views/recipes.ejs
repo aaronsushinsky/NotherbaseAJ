@@ -1,0 +1,94 @@
+<style>
+    <%- include("../styles/recipes.css") %>
+</style>
+
+<div class="case">
+    <h1>Recipes for Food</h1>
+
+    <div class="search">
+        <input type="text">
+        <ul class="selector">
+            <p>No Recipes</p>
+        </ul>
+    </div>
+    
+    <div class="viewing">
+        <div class="tabs">
+            <div class="tab">Current Tab</div>
+        </div>
+        <div class="content">
+            <div class="recipe">
+                <div class="read">
+                    <div class="title">
+                        <h5>Homemade Artisan Bread</h5><br>
+                        <img src="/img/food/default.jpg">
+                        <h6>From Sally's Baking Recipes</h6>
+                    </div>
+                    <ul class="ingredients">
+                        <h6>Ingredients:</h6>
+                        <li><p class="amount">3.25</p><p class="measure">cup</p><p class="ingredient">bread flour</p></li>
+                        <li><p class="amount">2</p><p class="measure">tbsp</p><p class="ingredient">instant yeast</p></li>
+                        <li><p class="amount">2</p><p class="measure">tbsp</p><p class="ingredient">salt</p></li>
+                        <li><p class="amount">1.5</p><p class="measure">cup</p><p class="ingredient">water</p></li>
+                        <li><p class="ingredient">Optional: rosemary</p></li>
+                    </ul>
+                    <ul class="directions">
+                        <h6>Directions:</h6>
+                        <li>Mix in yeast and water and flour. Work until all flour is moistened. Dough will be shaggy, sticky and dry.</li>
+                        <li>Cover dough and let it rise for 2-3 hours. Optionally, let it sit in the fridge for 12 hours to 3 days. If you do, let it sit out 45 minutes in room temperature before baking.</li>
+                        <li>Preheat oven to 475 degrees Farenheit. Score surface.</li>
+                        <li>Bake for 20-25 minutes.</li>
+                        <li>Cool for 5 minutes to a few hours and serve!</li>
+                    </ul>
+                </div>
+                <div class="edit invisible">
+                    <div class="title">
+                        <h6>Recipe Name:</h6>
+                        <input type="text" id="name" placeholder="recipe name">
+                        <h6>Image Source URL:</h6>
+                        <input type="text" id="img-url" placeholder="recipe image url" value="/img/food/default.jpg">
+                        <h6>Recipe Source:</h6>
+                        <input type="text" id="source" placeholder="recipe source">
+                    </div>
+                    <ul class="ingredients">
+                        <h6>Ingredients:</h6>
+                        <li class="new">
+                            <input type="number" id="amount" placeholder="1">
+                            <input type="text" id="measure" placeholder="tbsp">
+                            <input type="text" id="ingredient" placeholder="carrots">
+                            <button onclick="recipeBrowser.addIngredient()">+</button>
+                            <button onclick="recipeBrowser.deleteIngredient(0)">X</button>
+                        </li>
+                    </ul>
+                    <ul class="directions">
+                        <h6>Directions:</h6>
+                        <li class="new">
+                            <input type="text" placeholder="directions go here">
+                            <button onclick="recipeBrowser.addDirection()">+</button>
+                            <button onclick="recipeBrowser.deleteDirection(0)">X</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <button class="invisible" id="save">Save</button>
+            <button class="invisible" id="cancel">Cancel</button>
+            <button id="new">New</button>
+            <button id="edit">Edit</button>
+            <button id="delete">Delete</button>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<a class="return" href="/forest/eye-of-the-forest/library/lobby">
+    Return to the Lobby
+</a>
+
+<script>
+    <%- include("../local-scripts/recipes.js"); %>
+
+    let recipeBrowser = new RecipeBrowser();
+</script>

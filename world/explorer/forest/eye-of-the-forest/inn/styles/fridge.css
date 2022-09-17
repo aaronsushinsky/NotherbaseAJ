@@ -1,0 +1,125 @@
+:root {
+    --pantry: rgb(122, 87, 47);
+    --pantryShadow: rgba(37, 26, 14, 0.637);
+    --fridge: rgb(241, 233, 224);
+    --fridgeDark: rgb(117, 114, 110);
+}
+
+li {
+    list-style: none;
+    display: flex;
+}
+
+li input {
+    padding: 0;
+    padding-left: 3px;
+    margin: 0;
+    border-radius: 0;
+}
+
+ul {
+    margin: 0;
+}
+
+.pantry {
+    background-color: var(--pantry);
+    border-radius: 1px;
+    margin-bottom: 25px;
+    box-shadow: 0 30px 5px -5px var(--pantryShadow);
+}
+
+.fridge {
+    background-color: var(--fridge);
+    border-radius: 10px;
+    height: 1000px;
+    width: 100%;
+    position: relative;
+    margin-bottom: 25px;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.fridge .tablet {
+    width: 100%;
+    height: 25%;
+    background-color: rgb(14, 14, 14);
+    border-radius: 2px;
+}
+
+.fridge .items {
+    width: 75%;
+    height: 500px;
+    background-color: var(--fridgeDark);
+}
+
+.items .tabs {
+    width: 100%;
+    height: 30px;
+    display: flex;
+}
+
+.items ul {
+    padding: 5px;
+}
+
+.tabs button {
+    height: 100%;
+    width: calc(100% / 7);
+    margin: 0;
+    border-radius: 0;
+    padding: 0;
+}
+
+.items li #amount {
+    width: 10%;
+}
+
+.items li #measure {
+    width: 20%;
+}
+
+.items li #item {
+    width: 60%;
+}
+
+.items li #exp {
+    width: 200px;
+}
+
+.fridge .condiments {
+    width: 20%;
+    height: 500px;
+    background-color: var(--fridgeDark);
+}
+
+.fridge .freezer {
+    width: 100%;
+    background-color: var(--fridgeDark);
+    height: 200px;
+}
+
+.fridge #left-foot {
+    position: absolute;
+    bottom: -35px;
+    left: 25px;
+    width: 25px;
+    height: 35px;
+    background-color: var(--fridgeDark);
+    border-radius: 0 0 5px 5px;
+    z-index: -1;
+}
+
+.fridge #right-foot {
+    position: absolute;
+    bottom: -35px;
+    right: 25px;
+    width: 25px;
+    height: 35px;
+    background-color: var(--fridgeDark);
+    border-radius: 0 0 5px 5px;
+    z-index: 0;
+}
