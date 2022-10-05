@@ -1,9 +1,13 @@
 :root {
-    --gate: rgba(128, 128, 128, 0.678);
+    --gate: rgb(128, 128, 128);
     --woodColor: rgb(110, 76, 37);
     --woodColorBright: rgb(150, 103, 50);
 }
 
 .nother-base {
     background-color: var(--gate);
+}
+
+#wunder img {
+    object-position: right;
 }

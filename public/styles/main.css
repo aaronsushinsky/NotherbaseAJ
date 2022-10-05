@@ -1,7 +1,7 @@
 :root {
     --bgColor: rgb(37, 37, 37);
     --bgColorGradient: linear-gradient(170deg, rgba(37,37,37,1) 0%, rgba(15,15,15,1) 100%);
-    --bgColorTransparent: rgba(37, 37, 37, 0.404);
+    --bgColorTransparent: rgba(37, 37, 37, 0.76);
     --darkBgColor: rgb(27, 27, 27);
     --darkBgColorGradient: linear-gradient(170deg, rgba(27,27,27,1) 0%, rgba(5,5,5,1) 100%);
     --veryDarkBgColorTransparent: rgba(15, 15, 15, 0.404);
@@ -17,9 +17,26 @@
     --woodColor: rgb(95, 68, 43);
     --darkWoodColor: rgb(70, 50, 32);
     --standardBorder: 1px solid var(--textColor);
+    --thickBorder: 5px solid var(--textColor);
     --brightBorder: 1px solid var(--textColorBright);
     --normalFontSize: 20px;
     --mobileFontSize: 15px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--lightBgColor);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--textColor);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--textColorBright);
 }
 
 * {
@@ -185,10 +202,11 @@ input[type=submit]:hover, button:hover, a:hover {
 
 h2 {
     color: var(--textColor);
-    width: 100%;
+    width: auto;
     font-size: xx-large;
-    padding-left: 15%;
-    padding-top: 50px;
+    margin-left: 15%;
+    margin-top: 50px;
+    margin-right: 50%;
 }
 
 h3 {
@@ -222,16 +240,6 @@ ul {
     margin: 10px;
 }
 
-li:hover {
-    background: var(--hoverColor);
-    color: var(--hoverTextColor);
-}
-
-li.selected {
-    background: var(--selectionColor);
-    color: var(--selectedTextColor);
-}
-
 ul.selector {
     padding: 0;
 }
@@ -245,6 +253,13 @@ ul.selector li {
 
 ul.selector li:hover {
     cursor: pointer;
+    background: var(--hoverColor);
+    color: var(--hoverTextColor);
+}
+
+ul.selector li.selected {
+    background: var(--selectionColor);
+    color: var(--selectedTextColor);
 }
 
 ul.selector p {
@@ -320,6 +335,7 @@ iframe {
     justify-content: center;
     align-items: center;
     border-radius: 50px;
+    background-color: var(--bgColor);
 }
 
 .dialogue .content button {
