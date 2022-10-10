@@ -31,7 +31,7 @@ header {
 main {
     color: var(--textColor);
     background: var(--primaryColor);
-    width: 100%;
+    width: 900px;
 }
 
 .profile {
