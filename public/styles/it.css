@@ -1,0 +1,45 @@
+:root {
+    --footerTextColor : rgba(185, 135, 69, 0.568);
+}
+
+main {
+    align-content: flex-start;
+}
+
+h1 {
+    width: 100%;
+    font-size: xx-large;
+    margin: 5px 5px 20px 5px;
+    text-align: center;
+}
+
+label {
+    width: 100%;
+    margin: 10px;
+}
+
+footer {
+    color: var(--footerTextColor);
+    justify-content: flex-end;
+    font-size: small;
+}
+
+input, textarea {
+    background-color: rgb(31, 31, 31);
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#submit {
+    background: rgb(43,43,43);
+    background: linear-gradient(170deg, rgba(43,43,43,1) 0%, rgb(60, 73, 58) 100%);
+}
+
+#view {
+    background: rgb(43,43,43);
+    background: linear-gradient(170deg, rgba(43,43,43,1) 0%, rgb(58, 66, 73) 100%);
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wyatt Sushinsky</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/it.css">
+</head>
+<body>
+    <main>
+        <div class="login">
+            <h1>IT Request Tracker</h1>
+            <h3>Choose your company or organiztion:</h3>
+            <div class="account">
+                <img src="/img/it/loveinc.jpg">
+            </div>
+        </div>
+        <div class="form invisible">
+            <h1>IT Request Form</h1>
+            <label>Company/Organization:<input type="text" placeholder="company or organization name"></label>
+            <label>Title of Request:<input type="text" placeholder="title"></label>
+            <label>Description:<textarea id="description" cols="30" rows="10" placeholder="description"></textarea></label>
+            <button id="submit">Submit</button>
+            <button id="view">View Previous Requests</button>
+        </div>
+        <div class="history invisible"></div>
+    </main>
+    <footer>This website created by Wyatt Lee Sushinsky</footer>
+</body>
+</html>
