@@ -15,23 +15,70 @@
 </head>
 <body>
     <main>
-        <div class="login">
-            <h1>IT Request Tracker</h1>
-            <h3>Choose your company or organiztion:</h3>
-            <div class="account">
-                <img src="/img/it/loveinc.jpg">
-            </div>
-        </div>
-        <div class="form invisible">
-            <h1>IT Request Form</h1>
-            <label>Company/Organization:<input type="text" placeholder="company or organization name"></label>
+        <h1>IT Request Tracker</h1>
+        <label>Organization: <input type="text" id="org"></label>
+
+        <div class="form">
             <label>Title of Request:<input type="text" placeholder="title"></label>
             <label>Description:<textarea id="description" cols="30" rows="10" placeholder="description"></textarea></label>
+            <label id="attach">
+                Attachments:
+                <ul>
+                    <li><button>+</button></li>
+                </ul>
+            </label>
             <button id="submit">Submit</button>
-            <button id="view">View Previous Requests</button>
         </div>
-        <div class="history invisible"></div>
+
+        <div class="history">
+            <ul id="tickets">
+
+            </ul>
+            <div class="ticket">
+                <h4>Request</h4>
+                <p>Hours</p>
+                <p>Description</p>
+            </div>
+        </div>
     </main>
-    <footer>This website created by Wyatt Lee Sushinsky</footer>
+    <footer>
+        This website created by Wyatt Lee Sushinsky
+    </footer>
 </body>
+
+<script>
+    class Tracker {
+        constructor() {
+            this.$historyButton = $(".form #history");
+            this.$historyButton.click(this.viewHistory);
+            this.$returnButton = $(".history #return");
+            this.$returnButton.click(this.closeHistory);
+            this.$logoutButton = $(".form #logout");
+            this.$logoutButton.click(this.logout);
+        }
+
+        attemptLogin = () => {
+            //finish
+
+            this.changeState("form");
+        }
+
+        viewHistory = () => {
+            //finish
+
+            this.changeState("history");
+        }
+
+        changeState(id) {
+            let $before = $(`main .${this.state}`);
+            let $after = $(`main .${id}`);
+            this.state = id;
+
+            $before.addClass("invisible");
+            $after.removeClass("invisible");
+        }
+    }
+
+    let tracker = new Tracker();
+</script>
 </html>
