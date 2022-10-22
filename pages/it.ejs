@@ -23,7 +23,7 @@
                 <h4>Submit a Request</h4><button id="pointer" onclick="tracker.toggleFold('form')">v</button>
             </div>
             <label>
-                Title of Request:<input type="text" placeholder="title">
+                Title of Request:<input id="title" type="text" placeholder="title">
             </label>
             <label id="desc-label">
                 Description:
@@ -35,7 +35,7 @@
                     <li><button>+</button></li>
                 </ul>
             </label>
-            <button id="submit">Submit</button>
+            <button id="submit" onclick="tracker.submitTicket()">Submit</button>
         </div>
 
         <div class="history folded">
@@ -77,33 +77,28 @@
 <script>
     class Tracker {
         constructor() {
-            this.$historyButton = $(".form #history");
-            this.$historyButton.click(this.viewHistory);
-            this.$returnButton = $(".history #return");
-            this.$returnButton.click(this.closeHistory);
-            this.$logoutButton = $(".form #logout");
-            this.$logoutButton.click(this.logout);
+            this.$title = $(".form #title");
+            this.$desc = $(".form #description");
         }
 
-        attemptLogin = () => {
+        submitTicket = () => {
             //finish
+            $.post("/pages/serve/submit-ticket", {
+                ticket: {
+                    name: this.$title.val(),
+                    quote: 0,
+                    used: 0,
+                    description: this.$desc.val(),
+                    attachments: []
+                }
+            }, () => {
 
-            this.changeState("form");
+            });
         }
 
         viewHistory = () => {
             //finish
 
-            this.changeState("history");
-        }
-
-        changeState(id) {
-            let $before = $(`main .${this.state}`);
-            let $after = $(`main .${id}`);
-            this.state = id;
-
-            $before.addClass("invisible");
-            $after.removeClass("invisible");
         }
 
         toggleFold(folder) {
