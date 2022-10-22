@@ -19,9 +19,17 @@
         <label>Organization: <input type="text" id="org"></label>
 
         <div class="form">
-            <label>Title of Request:<input type="text" placeholder="title"></label>
-            <label>Description:<textarea id="description" cols="30" rows="10" placeholder="description"></textarea></label>
-            <label id="attach">
+            <div class="spine">
+                <h4>Submit a Request</h4><button id="pointer" onclick="tracker.toggleFold('form')">v</button>
+            </div>
+            <label>
+                Title of Request:<input type="text" placeholder="title">
+            </label>
+            <label id="desc-label">
+                Description:
+                <textarea id="description" cols="30" rows="10" placeholder="description"></textarea>
+            </label>
+            <label id="att-label">
                 Attachments:
                 <ul>
                     <li><button>+</button></li>
@@ -30,14 +38,34 @@
             <button id="submit">Submit</button>
         </div>
 
-        <div class="history">
+        <div class="history folded">
+            <div class="spine">
+                <h4>View Ticket History</h4><button id="pointer" onclick="tracker.toggleFold('history')">^</button>
+            </div>
+            <label>
+                Password:
+                <input type="password" id="password">
+            </label>
+            <label>
+                Start Date:
+                <input type="date">
+            </label>
+            <label>
+                End Date:
+                <input type="date">
+            </label>
             <ul id="tickets">
 
             </ul>
             <div class="ticket">
                 <h4>Request</h4>
-                <p>Hours</p>
+                <p>Hours Used</p>
+                <p>Hours Quoted</p>
                 <p>Description</p>
+                <ul>
+                    <h5>Attachments</h5>
+                    <li>+</li>
+                </ul>
             </div>
         </div>
     </main>
@@ -76,6 +104,12 @@
 
             $before.addClass("invisible");
             $after.removeClass("invisible");
+        }
+
+        toggleFold(folder) {
+            let $folder = $(`.${folder}`);
+            $folder.find('#pointer').text($folder.hasClass("folded") ? "v" : "^");
+            $folder.toggleClass("folded");
         }
     }
 
