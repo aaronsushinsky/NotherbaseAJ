@@ -8,9 +8,7 @@ module.exports = async function viewHistory(db, user, body) {
             let passed = await bcrypt.compare(body.password, foundAccount.password);
 
             if (passed) {
-                console.log("logged in");
                 let foundPage = await db.page.findOne({ name: body.name, user: foundAccount._id });
-                console.log(foundPage);
 
                 if (foundPage === null) {
                     await db.page.create({
