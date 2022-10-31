@@ -1,33 +1,30 @@
 module.exports = async function viewHistory(db, user, body) {
     try {
-        const foundAccount = await user.findOne({ email: req.body.email });
+        const foundAccount = await user.findOne({ _id: user });
 
         if (foundAccount) {
-            if (await bcrypt.compare(req.body.password, foundAccount.password)) {
-                req.session.currentUser = foundAccount._id;
+            let passed = await bcrypt.compare(req.body.password, foundAccount.password);
+            if (passed) {
+                let foundPage = await db.page.find({ name: body.name, user: user });
 
-                res.status(200).send("Login successful!");
+                if (foundPage === null) {
+                    await db.page.create({
+                        name: body.name,
+                        type: "local",
+                        user: user,
+                        data: {}
+                    });
+
+                    return `No history found!`;
+                }
+                else if (foundPage.data.tickets.length > 0) {
+                    return foundPage.data.tickets;
+                }
+                else return `No history found!`;
             }
             else {
-                res.status(401).send("Login Failed: Password incorrect!");
+                return "Access Denied: Password incorrect!";
             }
-        }
-
-        
-        let foundPage = await db.page.find({ name: body.name, user: user });
-
-        if (foundPage === null) {
-            await db.page.create({
-                name: body.name,
-                type: "local",
-                user: user,
-                data: {}
-            });
-
-            return `No history found! ${body.name}:${user.length}`;
-        }
-        else {
-            return foundPage.data.tickets;
         }
     } 
     catch(err) {

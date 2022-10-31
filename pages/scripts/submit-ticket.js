@@ -1,23 +1,33 @@
 module.exports = async function submitTicket(db, user, body) {
     try {
-        let foundPage = await db.page.find({ name: body.name, user: user });
+        const foundAccount = await user.findOne({ username: body.org });
 
-        if (foundPage === null) {
-            await db.page.create({
-                name: body.name,
-                type: "local",
-                user: user,
-                data: {}
-            });
+        if (foundAccount) {
+            let foundPage = await db.page.find({ name: body.name, user: foundAccount._id });
 
-            foundPage = await db.page.find({ name: body.name, user: user });
+            if (foundPage === null) {
+                await db.page.create({
+                    name: body.name,
+                    type: "local",
+                    user: foundAccount._id,
+                    data: {}
+                });
+
+                foundPage = await db.page.find({ name: body.name, user: foundAccount._id });
+            }
+            
+            body.ticket.date = Date.now();
+            body.ticket.used = 0;
+            body.ticket.quoted = 0;
+
+            foundPage.data.tickets.push(body.ticket);
+            foundPage.markModified("data");
+            await foundPage.save();
         }
-        
-        body.ticket.date = Date.now();
-        foundPage.data.tickets.push(body.ticket);
-        foundPage.markModified("data");
-        await foundPage.save();
-    } 
+        else {
+            return "Access Denied: Org not found!";
+        }
+    }
     catch(err) {
         return err;
     }

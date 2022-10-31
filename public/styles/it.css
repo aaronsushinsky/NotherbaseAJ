@@ -123,6 +123,12 @@ footer {
     overflow: hidden;
 }
 
+#request-history {
+    margin: 0 30%;
+    width: 250px;
+    height: 50px;
+}
+
 .history ul {
     width: 30%;
     height: 300px;
@@ -135,6 +141,12 @@ footer {
     height: 300px;
     border: var(--standardBorder);
     padding: 5px;
+}
+
+.ticket ul {
+    width: 100%;
+    border: none;
+    list-style: none;
 }
 
 h3 {

@@ -23,7 +23,7 @@
                 <h4>Submit a Request</h4><button id="pointer" onclick="tracker.toggleFold('form')">v</button>
             </div>
             <label>
-                Title of Request:<input type="text" placeholder="title">
+                Title of Request:<input type="text" placeholder="title" id="title">
             </label>
             <label id="desc-label">
                 Description:
@@ -35,7 +35,7 @@
                     <li><button>+</button></li>
                 </ul>
             </label>
-            <button id="submit">Submit</button>
+            <button id="submit" onclick="tracker.submitTicket()">Submit</button>
         </div>
 
         <div class="history folded">
@@ -48,20 +48,21 @@
             </label>
             <label>
                 Start Date:
-                <input type="date">
+                <input type="date" id="start-date">
             </label>
             <label>
                 End Date:
-                <input type="date">
+                <input type="date" id="end-date">
             </label>
+            <button id="request-history" onclick="tracker.viewHistory()">Request Ticket History</button>
             <ul id="tickets">
 
             </ul>
             <div class="ticket">
-                <h4>Request</h4>
-                <p>Hours Used</p>
-                <p>Hours Quoted</p>
-                <p>Description</p>
+                <h4 id="title">Request</h4>
+                <p id="used">Hours Used</p>
+                <p id="quoted">Hours Quoted</p>
+                <p id="desc">Description</p>
                 <ul>
                     <h5>Attachments</h5>
                     <li>+</li>
@@ -77,33 +78,88 @@
 <script>
     class Tracker {
         constructor() {
-            this.$historyButton = $(".form #history");
-            this.$historyButton.click(this.viewHistory);
-            this.$returnButton = $(".history #return");
-            this.$returnButton.click(this.closeHistory);
-            this.$logoutButton = $(".form #logout");
-            this.$logoutButton.click(this.logout);
+            this.tickets = [];
+            this.attachments = [];
+
+            //inputs
+            this.$org = $("#org");
+            this.$title = $("#title");
+            this.$description = $("#description");
+            this.$password = $("#password");
+            this.$dateStart = $("start-date");
+            this.$dateEnd = $("end-date");
+            
+            //views
+            this.$ticketsList = $("ul#tickets");
+            this.$ticketTitle = $(".ticket #title");
+            this.$ticketUsed = $(".ticket #used");
+            this.$ticketQuoted = $(".ticket #quoted");
+            this.$ticketDescription = $(".ticket #desc");
+            this.$ticketAttachments = $(".ticket ul");
+
+
+            this.selectTicket(-1);
         }
 
-        attemptLogin = () => {
-            //finish
-
-            this.changeState("form");
+        submitTicket = async () => {
+            try {
+                await $.post("/serve/submit-ticket", {
+                    org: this.$org.val(),
+                    ticket: {
+                        title: this.$title.val(),
+                        description: this.$description.val(),
+                        attachments: this.attachments
+                    }
+                }, () => {
+                    console.log("success");
+                });
+            } 
+            catch(err) {
+                console.log(err);   
+            }
         }
 
-        viewHistory = () => {
-            //finish
+        viewHistory = async () => {
+            try {
+                $.post("/serve/view-history", {
+                    org: this.$org.val(),
+                    password: this.$password.val(),
+                    dateStart: this.$dateStart.val(),
+                    dateEnd: this.$dateEnd.val()
+                }, (data) => {
+                    this.tickets = data.tickets;
 
-            this.changeState("history");
+                    this.$ticketsList.empty();
+
+                    for (let i = 0; i < data.tickets.length; i++) {
+                        this.$ticketsList.append(`<li id="${i}" onclick="tracker.selectTicket(${i})">${this.tickets[i].title}</li>`);
+                    }
+                });
+            } 
+            catch(err) {
+                console.log(err);
+            }
         }
 
-        changeState(id) {
-            let $before = $(`main .${this.state}`);
-            let $after = $(`main .${id}`);
-            this.state = id;
+        selectTicket(which) {
+            let $items = $("#tickets li");
+            $items.removeClass("selected");
 
-            $before.addClass("invisible");
-            $after.removeClass("invisible");
+            if (which > 0 && which < this.tickets.length) {
+                let $which = $(`#tickets #${which}`);
+                $which.addClass("selected");
+    
+                this.$ticketTitle.text("Request: " + this.tickets[which].title);
+                this.$ticketUsed.text("Hours Used: " + this.tickets[which].used);
+                this.$ticketQuoted.text("Hours Quoted: " + this.tickets[which].quoted);
+                this.$ticketDescription.text("Description: " + this.tickets[which].description);
+            }
+            else {
+                this.$ticketTitle.text("Request: ");
+                this.$ticketUsed.text("Hours Used: ");
+                this.$ticketQuoted.text("Hours Quoted: ");
+                this.$ticketDescription.text("Description: ");
+            }
         }
 
         toggleFold(folder) {
