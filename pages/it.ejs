@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wyatt Sushinsky</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/it.css">
+</head>
+<body>
+    <main>
+        <div class="normal">
+            <h1>IT Request Tracker</h1>
+            <label>
+                Organization: <input type="text" id="org"></label>
+            <label>
+                Password: <input type="password" id="password">
+            </label>
+            <p id="alert"></p>
+    
+            <div class="form">
+                <div class="spine">
+                    <h4>Submit a Request</h4><button id="pointer" onclick="tracker.toggleFold('form')">v</button>
+                </div>
+                <label>
+                    Title of Request:<input type="text" placeholder="title" id="title">
+                </label>
+                <label id="desc-label">
+                    Description:
+                    <textarea id="description" cols="30" rows="10" placeholder="description"></textarea>
+                </label>
+                <button id="submit" onclick="tracker.submitTicket()">Submit</button>
+            </div>
+    
+            <div class="history folded">
+                <div class="spine">
+                    <h4>View Ticket History</h4><button id="pointer" onclick="tracker.toggleFold('history')">^</button>
+                </div>
+                <label>
+                    Start Date:
+                    <input type="date" id="start-date">
+                </label>
+                <label>
+                    End Date:
+                    <input type="date" id="end-date">
+                </label>
+                <button id="request-history" onclick="tracker.viewHistory()">Request Ticket History</button>
+            </div>
+        </div>
+
+        <ul class="invisible" id="tickets">
+            <button id="close" onclick="tracker.closeHistory()">&#60;</button>
+        </ul>
+    </main>
+    <footer>
+        This website created by Wyatt Lee Sushinsky
+    </footer>
+</body>
+
+<script>
+    class Tracker {
+        constructor() {
+            this.tickets = [];
+
+            this.$normal = $(".normal");
+            this.$alert = $("#alert");
+
+            //inputs
+            this.$org = $("#org");
+            this.$title = $("#title");
+            this.$description = $("#description");
+            this.$password = $("#password");
+            this.$dateStart = $("#start-date");
+            this.$dateEnd = $("#end-date");
+            this.$attachments = $("#att-label input");
+            
+            //views
+            this.$ticketsList = $("ul#tickets");
+        }
+
+        submitTicket = async () => {
+            try {
+                await $.post("/serve/submit-ticket", {
+                    name: "it",
+                    org: this.$org.val(),
+                    password: this.$password.val(),
+                    ticket: {
+                        title: this.$title.val(),
+                        description: this.$description.val()
+                    }
+                }, (data) => {
+                    this.$title.val("");
+                    this.$description.val("");
+                    console.log(data);
+                    this.$alert.text(data);
+                });
+            } 
+            catch(err) {
+                console.log(err);
+            }
+        }
+
+        viewHistory = async () => {
+            if (this.$dateStart[0].valueAsNumber && this.$dateEnd[0].valueAsNumber && this.$dateStart[0].valueAsNumber < this.$dateEnd[0].valueAsNumber) {
+                try {
+                    await $.post("/serve/view-history", {
+                        name: "it",
+                        org: this.$org.val(),
+                        password: this.$password.val(),
+                        dateStart: this.$dateStart[0].valueAsNumber,
+                        dateEnd: this.$dateEnd[0].valueAsNumber
+                    }, (data) => {
+                        if (data.status === "ok") {
+                            this.tickets = data.tickets;
+    
+                            this.$ticketsList.empty();
+                            this.$ticketsList.append(`<button id="close" onclick="tracker.closeHistory()">&#60; Close Request History</button>`);
+    
+                            if (data.tickets.length > 0) {
+                                let total = 0;
+
+                                for (let i = 0; i < data.tickets.length; i++) {
+                                    total += this.tickets[i].used;
+                                    this.$ticketsList.append(`<li id="${i}" onclick="tracker.selectTicket(${i})">
+                                        <h4 id="title">Request: ${this.tickets[i].title}</h4>
+                                        <p id="used">Hours Used: ${this.tickets[i].used}</p>
+                                        <p id="quoted">Hours Quoted: ${this.tickets[i].quoted}</p>
+                                        <p id="desc">Description: ${this.tickets[i].description}</p>
+                                        </li>`);
+                                }
+
+                                this.$ticketsList.append(`<h4>Total Hours Used: ${total}</h4>`);
+                            }
+                            else {
+                                this.$ticketsList.append(`<p>No history found for the specified time period!</p>`);
+                            }
+    
+                            this.$normal.addClass("invisible")
+                            this.$ticketsList.removeClass("invisible");
+                            this.$alert.text("");
+                        }
+                        else {
+                            console.log(data);
+                            this.$alert.text(data.message);
+                        }
+                    });
+                } 
+                catch(err) {
+                    console.log(err);
+                }
+            }
+            else {
+                this.$alert.text("Please fix dates!");
+            }
+        }
+
+        closeHistory() {
+            this.$ticketsList.addClass("invisible")
+            this.$normal.removeClass("invisible");
+            this.$alert.text("");
+        }
+
+        toggleFold(folder) {
+            let $folder = $(`.${folder}`);
+            $folder.find('#pointer').text($folder.hasClass("folded") ? "v" : "^");
+            $folder.toggleClass("folded");
+        }
+    }
+
+    let tracker = new Tracker();
+</script>
+</html>
