@@ -129,8 +129,10 @@
                                     total += this.tickets[i].used;
                                     this.$ticketsList.append(`<li id="${i}" onclick="tracker.selectTicket(${i})">
                                         <h4 id="title">Request: ${this.tickets[i].title}</h4>
-                                        <p id="used">Hours Used: ${this.tickets[i].used}</p>
+                                        <p id="date">Created On: ${(new Date(this.tickets[i].date)).toDateString()}</p>
                                         <p id="quoted">Hours Quoted: ${this.tickets[i].quoted}</p>
+                                        <p id="date">Resolved On: ${this.tickets[i].resolved ? (new Date(this.tickets[i].resolved)).toDateString() : "unresolved"}</p>
+                                        <p id="used">Hours Used: ${this.tickets[i].used}</p>
                                         <p id="desc">Description: ${this.tickets[i].description}</p>
                                         </li>`);
                                 }
