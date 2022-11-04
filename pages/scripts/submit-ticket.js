@@ -26,7 +26,9 @@ module.exports = async function submitTicket(db, user, body) {
                 body.ticket.date = Date.now();
                 body.ticket.used = 0;
                 body.ticket.quoted = 0;
+                body.ticket.resolved = false;
                 body.ticket.attachments = [];
+                body.ticket.id = Date.now();
 
                 foundPage.data.tickets.push(body.ticket);
                 foundPage.markModified("data");

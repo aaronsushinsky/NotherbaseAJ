@@ -31,9 +31,50 @@ label {
 footer {
     color: var(--footerTextColor);
     justify-content: flex-end;
-    font-size: small;
+    flex-wrap: wrap;
     position: relative;
     box-shadow: 5px 5px var(--shadowColor);
+}
+
+footer input, footer p {
+    color: var(--footerTextColor);
+    font-size: small;
+    width: auto;
+    margin: 0;
+    height: 15px;
+    background-color: rgba(240, 248, 255, 0);
+}
+
+#ad-panel {
+    background-color: rgba(237, 237, 237, 0.046);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5%;
+    height: 100%;
+    margin: 0;
+    border: none;
+    border-radius: 0px 0px 0px 5px;
+    padding: 0;
+}
+
+.admin-panel {
+    width: 90%;
+    height: 150px;
+    margin-left: 10%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.admin-panel p {
+    width: 100%;
+}
+
+.admin-panel button {
+    height: 25px;
+    padding: 2px;
+    font-size: small;
+    margin: 0;
 }
 
 .spine {
@@ -141,6 +182,18 @@ footer {
 #tickets li {
     border: var(--standardBorder);
     padding: 10px;
+}
+
+#tickets li.selectable {
+    cursor: pointer;
+}
+
+#tickets li.selectable:hover {
+    border: var(--textColorBright);
+}
+
+#tickets li.selected {
+    border: var(--textColorBright);
 }
 
 #tickets h4 {

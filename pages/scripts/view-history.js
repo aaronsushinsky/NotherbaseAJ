@@ -28,6 +28,8 @@ module.exports = async function viewHistory(db, user, body) {
                     let sendTickets = [];
 
                     for (let i = 0; i < foundPage.data.tickets.length; i++) {
+                        if (!foundPage.data.tickets[i].id) foundPage.data.tickets[i].id = Date.now();
+                        
                         if (foundPage.data.tickets[i].date >= body.dateStart && foundPage.data.tickets[i].date <= body.dateEnd) {
                             sendTickets.push(foundPage.data.tickets[i]);
                         }
