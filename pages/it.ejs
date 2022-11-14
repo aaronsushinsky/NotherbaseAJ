@@ -15,49 +15,51 @@
 </head>
 <body>
     <main>
-        <div class="normal">
-            <h1>IT Request Tracker</h1>
+        <h1>IT Request Tracker</h1>
+
+        <div class="login-form">
             <label>
-                Organization: <input type="text" id="org">
+                Organization Email: <input type="text" id="email">
             </label>
             <label>
                 Password: <input type="password" id="password">
             </label>
-            <p id="alert"></p>
-    
-            <div class="form">
-                <div class="spine">
-                    <h4>Submit a Request</h4><button id="pointer" onclick="tracker.toggleFold('form')">v</button>
-                </div>
-                <label>
-                    Title of Request:<input type="text" placeholder="title" id="title">
-                </label>
-                <label id="desc-label">
-                    Description:
-                    <textarea id="description" cols="30" rows="10" placeholder="description"></textarea>
-                </label>
-                <button id="submit" onclick="tracker.submitTicket()">Submit</button>
-            </div>
-    
-            <div class="history folded">
-                <div class="spine">
-                    <h4>View Ticket History</h4><button id="pointer" onclick="tracker.toggleFold('history')">^</button>
-                </div>
-                <label>
-                    Start Date:
-                    <input type="date" id="start-date">
-                </label>
-                <label>
-                    End Date:
-                    <input type="date" id="end-date">
-                </label>
-                <button id="request-history" onclick="tracker.viewHistory()">Request Ticket History</button>
-            </div>
+            <button onclick="tracker.attemptLogin()">Login</button>
+        </div>
+        
+        <div class="form invisible">
+            <h4>Submit a Request for <%= user ? user.username : "none" %></h4>
+            <label>
+                Title of Request:<input type="text" placeholder="title" id="title">
+            </label>
+            <label id="desc-label">
+                Description:
+                <textarea id="description" cols="30" rows="10" placeholder="description"></textarea>
+            </label>
+            <button id="submit" onclick="tracker.submitTicket()">Submit</button>
+            <button id="to-history" onclick="tracker.goToHistoryForm()">Request History</button>
         </div>
 
-        <ul class="invisible" id="tickets">
+        <div class="history invisible">
+            <h4>Request Ticket History</h4>
+            <label>
+                Start Date:
+                <input type="date" id="start-date">
+            </label>
+            <label>
+                End Date:
+                <input type="date" id="end-date">
+            </label>
+            <button id="request-history" onclick="tracker.viewHistory()">View Ticket History</button>
+            <button id="to-submit" onclick="tracker.goToSubmitForm()">Return</button>
+        </div>
+
+        <ul class="tickets invisible">
             <button id="close" onclick="tracker.closeHistory()">&#60;</button>
         </ul>
+
+        <button class="logout invisible" onclick="tracker.logout()">Logout</button>
+        <p id="alert"></p>
     </main>
     <footer>
         <button id="ad-panel" onclick="tracker.toggleAdmin()"></button>
@@ -74,39 +76,98 @@
 <script>
     class Tracker {
         constructor() {
-            this.state = "base";
+            this.state = "login";
             this.admin = false;
             this.selectedTicket = -1;
             this.tickets = [];
 
-            this.$normal = $(".normal");
+            //general
             this.$alert = $("#alert");
+            this.$logout = $(".logout");
 
-            this.$org = $("#org");
+            //login
+            this.$loginForm = $(".login-form");
+            this.$email = $("#email");
+            this.$password = $("#password");
+
+            //submit
+            this.$submitForm = $(".form");
             this.$title = $("#title");
             this.$description = $("#description");
-            this.$password = $("#password");
+
+            //history
+            this.$historyForm = $(".history");            
             this.$dateStart = $("#start-date");
             this.$dateEnd = $("#end-date");
-            this.$attachments = $("#att-label input");
 
-            this.$ticketsList = $("ul#tickets");
-            this.$adminPanel = $(".history-ticket");
+            //tickets
+            this.$ticketsList = $("ul.tickets");
 
+            //admin
             this.$adminPanel = $(".admin-panel");
             this.$admin = $("#ad");
             this.$adPassword = $("#ad-password");
             this.$adUsed = $("#ad-used");
             this.$adQuoted = $("#ad-quoted");
-            this.$adDate = $("#ad-date")
+            this.$adDate = $("#ad-date");
+
+            if (<%= user ? "true" : "false" %>) {
+                this.goToSubmitForm();
+                this.$logout.removeClass("invisible");
+            }
+        }
+
+        attemptLogin = async () => {
+            try {
+                await $.post("/user/login", {
+                    email: this.$email.val(),
+                    password: this.$password.val()
+                }, (data) => {
+                    location.reload();
+                });
+            } catch (error) {
+                console.log(error);
+                if (error.status === 401) {
+                    this.$alert.text("Login Error: Username or password incorrect!");
+                }
+                else if (error.status === 500) {
+                    this.$alert.text("Server Error: Try again later!");
+                }
+            }
+        }
+
+        logout = async () => {
+            try {
+                await $.post("/user/logout", {}, (data) => {
+                    location.reload();
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        goToSubmitForm() {
+            this.$loginForm.addClass("invisible");
+            this.$historyForm.addClass("invisible");
+            this.$ticketsList.addClass("invisible");
+
+            this.state = "submit";
+            this.$submitForm.removeClass("invisible");
+        }
+
+        goToHistoryForm() {
+            this.$loginForm.addClass("invisible");
+            this.$submitForm.addClass("invisible");
+            this.$ticketsList.addClass("invisible");
+
+            this.state = "history";
+            this.$historyForm.removeClass("invisible");
         }
 
         submitTicket = async () => {
             try {
                 await $.post("/serve/submit-ticket", {
                     name: "it",
-                    org: this.$org.val(),
-                    password: this.$password.val(),
                     ticket: {
                         title: this.$title.val(),
                         description: this.$description.val()
@@ -127,11 +188,8 @@
             if (this.$dateStart[0].valueAsNumber && this.$dateEnd[0].valueAsNumber && this.$dateStart[0].valueAsNumber < this.$dateEnd[0].valueAsNumber) {
                 try {
                     await $.post("/serve/view-history", {
-                        name: "it",
-                        org: this.$org.val(),
-                        password: this.$password.val(),
-                        dateStart: this.$dateStart[0].valueAsNumber,
-                        dateEnd: this.$dateEnd[0].valueAsNumber
+                        dateStart: this.$dateStart[0].value,
+                        dateEnd: this.$dateEnd[0].value
                     }, (data) => {
                         if (data.status === "ok") {
                             this.tickets = data.tickets;
@@ -162,12 +220,14 @@
                             else {
                                 this.$ticketsList.append(`<p>No history found for the specified time period!</p>`);
                             }
-    
-                            this.$normal.addClass("invisible")
+
+                            this.$loginForm.addClass("invisible");
+                            this.$submitForm.addClass("invisible");
+                            this.$historyForm.addClass("invisible");
                             this.$ticketsList.removeClass("invisible");
                             this.$alert.text("");
 
-                            this.state = "history";
+                            this.state = "tickets";
                             this.selectTicket(-1);
                         }
                         else {
@@ -187,21 +247,14 @@
 
         closeHistory() {
             this.selectTicket(-1);
-            this.$ticketsList.addClass("invisible")
-            this.$normal.removeClass("invisible");
-            this.$alert.text("");
-
-            this.state = "base";
-        }
-
-        toggleFold(folder) {
-            let $folder = $(`.${folder}`);
-            $folder.find('#pointer').text($folder.hasClass("folded") ? "v" : "^");
-            $folder.toggleClass("folded");
+            this.tickets = [];
+            this.$ticketsList.empty();
+            
+            this.goToHistoryForm();
         }
     
         toggleAdmin() {
-            if (this.state === "history") {
+            if (this.state === "tickets") {
                 this.admin = !this.admin;
                 this.$adminPanel.toggleClass("invisible");
                 $(".history-ticket").toggleClass("selectable");
@@ -218,7 +271,7 @@
                 try {
                     await $.post("/serve/delete-ticket", {
                         name: "it",
-                        org: this.$org.val(),
+                        org: "<%= user ? user.username : "" %>",
                         admin: this.$admin.val(),
                         adPassword: this.$adPassword.val(),
                         ticketID: this.tickets[this.selectedTicket].id
@@ -238,7 +291,7 @@
                 try {
                     await $.post("/serve/set-hours", {
                         name: "it",
-                        org: this.$org.val(),
+                        org: "<%= user ? user.username : "" %>",
                         admin: this.$admin.val(),
                         adPassword: this.$adPassword.val(),
                         ticketID: this.tickets[this.selectedTicket].id,
@@ -260,7 +313,7 @@
                 try {
                     await $.post("/serve/resolve-ticket", {
                         name: "it",
-                        org: this.$org.val(),
+                        org: "<%= user ? user.username : "" %>",
                         admin: this.$admin.val(),
                         adPassword: this.$adPassword.val(),
                         ticketID: this.tickets[this.selectedTicket].id,
