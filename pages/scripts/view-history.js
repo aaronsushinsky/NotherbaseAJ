@@ -1,65 +1,36 @@
-const bcrypt = require("bcrypt");
+const util = require("./pages-util");
 
 module.exports = async function viewHistory(db, user, body) {
     try {
-        const foundAccount = await db.user.findOne({ username: body.org });
+        let result = await util.get(db, user, {}, {
+            name: "it",
+            scope: "local"
+        });
 
-        if (foundAccount) {
-            let passed = await bcrypt.compare(body.password, foundAccount.password);
+        let sendTickets = [];
+        let afterDate = new Date(body.dateStart + "T00:00");
+        let beforeDate = new Date(body.dateEnd + "T00:00");
 
-            if (passed) {
-                let foundPage = await db.page.findOne({ name: body.name, user: foundAccount._id });
-
-                if (foundPage === null) {
-                    await db.page.create({
-                        name: body.name,
-                        type: "local",
-                        user: foundAccount._id,
-                        data: {
-                            tickets: []
-                        }
-                    });
-                    return {
-                        status: "ok",
-                        tickets: []
-                    };
-                }
-                else {
-                    let sendTickets = [];
-
-                    for (let i = 0; i < foundPage.data.tickets.length; i++) {
-                        if (!foundPage.data.tickets[i].id) foundPage.data.tickets[i].id = Date.now();
-                        
-                        if (foundPage.data.tickets[i].date >= body.dateStart && foundPage.data.tickets[i].date <= body.dateEnd) {
-                            sendTickets.push(foundPage.data.tickets[i]);
-                        }
-                    }
-
-                    return {
-                        status: "ok",
-                        tickets: sendTickets
-                    };
-                }
-            }
-            else {
-                return {
-                    status: "bad",
-                    message: "Access Denied: Password incorrect!"
-                };
+        for (let i = 0; i < result.data.tickets.length; i++) {
+            if (!result.data.tickets[i].id) result.data.tickets[i].id = Date.now();
+            if (!result.data.tickets[i].comments) result.data.tickets[i].comments = [];
+            
+            console.log(result.data.tickets[i].date);
+            if (result.data.tickets[i].date >= afterDate && result.data.tickets[i].date <= beforeDate) {
+                sendTickets.push(result.data.tickets[i]);
             }
         }
-        else {
-            return {
-                status: "bad",
-                message: "Access Denied: Org not found!"
-            };
-        }
-    } 
+
+        return {
+            status: "ok",
+            tickets: sendTickets
+        };
+    }
     catch(err) {
         return {
             status: "bad",
-            err: err,
-            message: "Error!"
-        }
+            message: "Error!",
+            err: err
+        };
     }
 }
