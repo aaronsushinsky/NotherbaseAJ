@@ -1,5 +1,6 @@
 <style>
     <%- include("../styles/upstairs.css"); %>
+    <%- include("../styles/wallet.css"); %>
 </style>
 
 <p>
@@ -9,41 +10,68 @@
 
 <hr>
 
-
-
-<div class="today">
-    <h3>To Do Today</h3>
-    <ul>
-        <li>
-            <p>Praised my Lord</p>
-            <input type="checkbox" name="bible" id="dishes">
-        </li>
-        <li>
-            <p>Went to Work</p>
-            <input type="checkbox" name="job" id="dishes">
-        </li>
-        <li>
-            <p>Cleaned Dishes</p>
-            <input type="checkbox" name="dishes" id="dishes">
-        </li>
-        <li>
-            <p>Took Out the Trash</p>
-            <input type="checkbox" name="trash" id="dishes">
-        </li>
-        <li>
-            <p>Excercised at Least 30 Minutes</p>
-            <input type="checkbox" name="excersize" id="dishes">
-        </li>
-        <li>
-            <p>Vacuumed</p>
-            <input type="checkbox" name="extra" id="dishes">
-        </li>
-    </ul>
+<div class="todo today">
+    <div class="main">
+        <h3>To Do Today</h3>
+        <ul>
+            
+        </ul>
+    </div>
+    <div class="new invisible">
+        <h3>Submit a New Task for Today</h3>
+        <input type="text" id="task">
+        <input type="time" id="time">
+        <button onclick="todo.submitToday()">Submit</button>
+    </div>
+    <button onclick='todo.flip("today")'>#</button>
 </div>
 
-<div id="destiny">
-    <iframe class="folded" id="dgg-chat" src="https://www.destiny.gg/embed/chat?follow=%2Fbigscreen"></iframe>
-    <button class="folder" id="chat-folder">Chat</button>
+<div class="todo week">
+    <div class="main">
+        <h3>To Do This Week</h3>
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+
+<div class="todo month">
+    <div class="main">
+        <h3>To Do This Month</h3>
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+
+<div class="todo year">
+    <div class="main">
+        <h3>To Do This Year</h3>
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+
+<div class="wallet">
+    <h2>Your Wallet</h2>
+    <div class="summary">
+        <div class="spending">
+            <h3>Spending Money Left</h3>
+            <h4 id="week">This Week: $0</h4>
+            <h4 id="month">This Month: $0</h4>
+            <input type="text" id="item"><input type="number" id="spend"><button onclick="">Spend</button>
+        </div>
+        <div class="flow">
+            <h3>Cash Flow Last Month</h3>
+            <h4 id="income">Made: $0</h4>
+            <h4 id="expenses">Spent: $0</h4>
+            <h4 id="saved">Saved: $0</h4>
+        </div>
+    </div>
+    <div class="settings invisible">
+    </div>
+    <button onclick="wallet.toggleView()">$$</button>
 </div>
 
 <hr>
@@ -52,12 +80,14 @@
     Go Downstairs
 </a>
 
+<script src="/js/path-util.js"></script>
 <script>
-    $("#bigscreen-folder").on("click", function () {
-        $("#bigscreen").toggleClass("folded");
-    });
+    (async function() {
+  await Promise.resolve(console.log('🎉'));
+  // → 🎉
+}());
+    await pathLoader.loadPath("forest", "clearing", "wyatts-house", "upstairs");
 
-    $("#chat-folder").on("click", function () {
-        $("#dgg-chat").toggleClass("folded");
-    });
+    <%- include("../local-scripts/todo.js") %>
+    <%- include("../local-scripts/wallet.js") %>
 </script>

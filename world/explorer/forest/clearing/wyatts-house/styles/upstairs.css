@@ -23,7 +23,7 @@ main {
     border: 5px solid var(--woodColor);
 }
 
-.today {
+.todo {
     width: 300px;
     min-height: 100px;
     border: 5px solid var(--woodColor);
@@ -33,23 +33,30 @@ main {
     padding: 5px;
     box-shadow: 2px 2px 5px 5px var(--shadow);
     overflow: auto;
+    position: relative;
 }
 
-.today h3 {
+.todo>button {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+
+.todo h3 {
     width: calc(100% - 10px);
     text-align: center;
     font-size: 25px;
     margin: 5px;
 }
 
-.today ul {
+.todo ul {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     margin: 0;
 }
 
-.today li {
+.todo li {
     display: flex;
     align-items: center;
     width: 100%;
@@ -60,14 +67,14 @@ main {
     background-color: var(--gravelColor);
 }
 
-.today p {
+.todo p {
     width: calc(100% - 30px);
     color: var(--veryDarkWoodColor);
     margin: 0;
     font-size: 18px;
 }
 
-.today input {
+.todo input {
     width: 30px;
     height: 30px;
 }
@@ -81,69 +88,4 @@ main {
     position: relative;
     border-radius: 3px;
     margin: 10px;
-}
-
-.to-do {
-    position: absolute;
-    top: 15px;
-    left: 10px;
-    width: 100%;
-}
-
-.to-do ul {
-    margin: 0;
-}
-
-.to-do h3 {
-    color: var(--gravelColor);
-    font-size: 12px;
-    width: 100%;
-    text-align: center;
-}
-
-.to-do li {
-    list-style: none;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.to-do p {
-    color: var(--gravelColor);
-    margin: 0;
-    width: 50%;
-    border: 1px solid var(--gravelColor);
-    font-size: 10px;
-    padding: 2px;
-}
-
-#destiny {
-    width: 700px;
-    margin: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    border: 1px solid var(--gravelColor);
-}
-
-#bigscreen {
-    width: 700px;
-    height: calc(700px * 9 / 16);
-    border-radius: 5px 5px 0px 0px;
-    display: block;
-}
-
-button.folder {
-    width: 100%;
-    margin: 0;
-}
-
-#dgg-chat {
-    width: 700px;
-    height: 1000px;
-    border-radius: 0px 0px 5px 5px;
-}
-
-.folded {
-    height: 0 !important;
 }
