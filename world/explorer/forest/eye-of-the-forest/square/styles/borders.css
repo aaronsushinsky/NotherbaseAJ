@@ -3,74 +3,82 @@
     --notherColor: rgb(65, 65, 65);
 }
 
-.to.inn {
+.inn {
     border-bottom: 10px solid rgb(126, 75, 45);
 }
 
-.to.inn:hover {
+.inn:hover {
     border-bottom: 10px solid rgb(161, 96, 59);
 }
 
-.to.clothing-stall {
+.clothing-stall {
     border-bottom: 10px solid rgb(75, 34, 78);
 }
 
-.to.clothing-stall:hover {
+.clothing-stall:hover {
     border-bottom: 10px solid rgb(128, 59, 133);
 }
 
-.to.food-stall {
+.food-stall {
     border-bottom: 10px solid rgb(117, 71, 28);
 }
 
-.to.food-stall:hover {
+.food-stall:hover {
     border-bottom: 10px solid rgb(168, 100, 37);
 }
 
-.to.tool-stall {
+.tool-stall {
     border-bottom: 10px solid rgb(87, 73, 76);
 }
 
-.to.tool-stall:hover {
+.tool-stall:hover {
     border-bottom: 10px solid rgb(146, 126, 130);
 }
 
-.to.toy-stall {
+.toy-stall {
     border-bottom: 10px solid rgb(103, 121, 39);
 }
 
-.to.toy-stall:hover {
+.toy-stall:hover {
     border-bottom: 10px solid rgb(153, 179, 60);
 }
 
-.to.bricks {
+.bricks {
     border-bottom: 10px solid rgb(145, 0, 0);
 }
 
-.to.bricks:hover {
+.bricks:hover {
     border-bottom: 10px solid rgb(216, 0, 0);
 }
 
-.to.road {
+.road {
     border-bottom: 10px solid rgb(48, 58, 63);
 }
 
-.to.road:hover {
+.road:hover {
     border-bottom: 10px solid rgb(94, 109, 122);
 }
 
-.to.path {
+.path {
     border-bottom: 10px solid rgb(31, 97, 75);
 }
 
-.to.path:hover {
+.path:hover {
     border-bottom: 10px solid rgb(25, 136, 99);
 }
 
-.to.church {
+.church {
     border-bottom: 10px solid rgb(230, 213, 118);
 }
 
-.to.church:hover {
+.church:hover {
     border-bottom: 10px solid rgb(221, 214, 190);
+}
+
+.library {
+    border-bottom: 10px solid rgb(118, 129, 230);
+}
+
+.library:hover {
+    border-bottom: 10px solid rgb(147, 155, 235);
 }

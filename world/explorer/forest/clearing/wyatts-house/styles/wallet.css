@@ -1,0 +1,55 @@
+.wallet {
+    border: var(--standardBorder);
+    padding: 10px;
+    background-color: rgb(72, 42, 31);
+    border-radius: 5px;
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+.wallet h2 {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    height: 10%;
+}
+
+.wallet .summary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    height: 90%;
+}
+
+.wallet .spending {
+    width: 100%;
+    background-color: rgb(87, 72, 66);
+    padding: 10px;
+    border: var(--standardBorder);
+    border-radius: 5px;
+}
+
+.wallet .flow {
+    width: 100%;
+    padding: 10px;
+    border: var(--standardBorder);
+    background-color: rgb(90, 80, 77);
+    border-radius: 5px;
+}
+
+.wallet>button {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.wallet .settings {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    justify-content: space-around;
+    width: 100%;
+    height: 90%;
+}

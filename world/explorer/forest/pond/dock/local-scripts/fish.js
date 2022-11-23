@@ -126,7 +126,7 @@ class Pond {
         this.mouse = [];
 
         this.spawnFish();
-        this.spawnWeeds();
+    this.spawnWeeds();
     }
 
     spawnFish() {

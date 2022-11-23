@@ -1,0 +1,34 @@
+.stream {
+    width: 100%;
+    min-height: 200px;
+    background-color: rgb(7, 7, 7);
+    border: 1px solid rgb(7, 7, 7);
+    overflow: hidden;
+    position: relative;
+}
+
+.stream .label {
+    background: rgb(43,43,43);
+    background: linear-gradient(170deg, rgba(43,43,43,1) 0%, rgba(43,43,43,1) 30%, rgba(5,5,5,1) 100%);
+    border-radius: 0 10px 0 0;
+    transform: skew(340deg, 5deg);
+    height: 50px;
+    padding-left: 25px;
+    padding-right: 5px;
+    padding-top: 2px;
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    border: none;
+    margin: 0;
+}
+
+.stream .label:hover {
+    background: rgb(43,43,43);
+    background: linear-gradient(170deg, rgb(82, 82, 82) 0%, rgb(46, 43, 36) 30%, rgba(5,5,5,1) 100%);
+}
+
+.stream .source {
+    height: 500px;
+    width: calc(500px * 16 / 9);
+}

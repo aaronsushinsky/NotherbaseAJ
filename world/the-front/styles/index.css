@@ -33,10 +33,75 @@
     transition: all .2s ease;
 }
 
-h6 {
-    width: 100%;
+.sign {
+    width: 30%;
     font-size: 40px;
     text-align: center;
+    padding: 20px;
+    margin: 10px;
+}
+
+.line {
+    width: 50%;
+    background-color: var(--bgColor);
+    border: var(--thickBorder);
+    padding: 0;
+    margin-top: 10px;
+    background: url("/img/textures/used desk.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.line h3 {
+    border-bottom: var(--standardBorder);
+    padding: 5px;
+    background: var(--bgColor);
+    backdrop-filter: blur(2px);
+}
+
+.line ul {
+    height: 175px;
+    overflow: auto;
+    border: var(--standardBorder);
+    width: 100%;
+    margin: 0;
+}
+
+.line li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    height: 50px;
+    background-color: var(--bgColor);
+}
+
+.line img {
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+}
+
+.line p {
+    height: 100%;
+    text-align: right;
+    width: 100%;
+    border-radius: 0;
+    padding-top: 5px;
+}
+
+.line h5 {
+    font-size: small;
+    text-align: center;
+    background: var(--bgColor);
+    border-radius: 25px;
+    width: 50%;
 }
 
 @media only screen and (max-width: 1000px) {
