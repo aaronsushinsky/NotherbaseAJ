@@ -82,7 +82,7 @@ class RecipeBrowser {
         let dir = [];
         let $directions = this.$editDirectionsList.find("li input");
         for (let i = 0; i < $directions.length; i++) {
-            if ($($directions[0]).val() != "") dir.push($($directions[i]).val());
+            if ($($directions[i]).val() != "") dir.push($($directions[i]).val());
         }
 
         //update recipe
