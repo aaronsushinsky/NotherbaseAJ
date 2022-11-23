@@ -56,3 +56,16 @@
 <a class="return" href="/forest/eye-of-the-forest/church/library">
     Return to the Library
 </a>
+
+<script src="http://cdn.scripture.api.bible/fums/fumsv2.min.js"></script>
+<script>
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('api-key', 'abf5f92e2607bf5b27a61fd995b44671');
+        }
+    });
+
+    $.get(`https://api.scripture.api.bible/v1/bibles/9879dbb7cfe39e4d-01/books`, function (data) {
+        console.log(data);
+    });
+</script>

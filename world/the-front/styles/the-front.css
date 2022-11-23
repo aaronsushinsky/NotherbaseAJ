@@ -1,0 +1,14 @@
+:root {
+    --defaultBackground: url("/img/forest/bgs/paths.png");
+}
+
+body {
+    background: var(--defaultBackground);
+    background-position: bottom;
+    background-size: cover;
+}
+
+main p, main h2, main h6 {
+    border-radius: 5px;
+    padding: 5px;
+}

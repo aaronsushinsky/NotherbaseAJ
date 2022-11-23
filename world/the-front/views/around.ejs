@@ -1,4 +1,6 @@
+<link rel="stylesheet" href="/styles/pond.css">
 <style>
+    <%- include("../styles/the-front.css"); %>
     <%- include("../styles/borders.css"); %>
     <%- include("../styles/around.css"); %>
 </style>
@@ -48,8 +50,21 @@
     <div class="grass"></div>
 </div>
 
+<hr class="path">
+
+<div class="grass">
+    <div class="pond">
+</div>
+
+</div>
+
 <hr>
 
 <a class="return" href="/the-front/gate">
     Return to the Gate
 </a>
+
+<script src="/js/pond.js"></script>
+<script>
+    let pond = new Pond(5);
+</script>
