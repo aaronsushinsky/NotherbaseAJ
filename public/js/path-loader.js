@@ -8,11 +8,6 @@ class PathLoader {
         this.data = {};
     }
 
-    loadPath = async (region, area, poi, detail) => {
-        this.setPath(region, area, poi, detail);
-        await this.load();
-    }
-
     setPath(region, area, poi, detail) {
         this.region = region;
         this.area = area;
@@ -44,6 +39,7 @@ class PathLoader {
 
         try {
             this.data[where] = dataToSave;
+            this.data._lastUpdate = Date.now();
 
             await $.post(route, this.data, (data) => {
                 return "saved";

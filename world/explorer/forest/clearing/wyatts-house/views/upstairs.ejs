@@ -19,8 +19,14 @@
     </div>
     <div class="new invisible">
         <h3>Submit a New Task for Today</h3>
-        <input type="text" id="task">
-        <input type="time" id="time">
+        <label>
+            Description: 
+            <input type="text" id="task">
+        </label>
+        <label>
+            Hour: 
+            <input type="number" min="0" max="24" id="time">
+        </label>
         <button onclick="todo.submitToday()">Submit</button>
     </div>
     <button onclick='todo.flip("today")'>#</button>
@@ -80,14 +86,7 @@
     Go Downstairs
 </a>
 
-<script src="/js/path-util.js"></script>
 <script>
-    (async function() {
-  await Promise.resolve(console.log('🎉'));
-  // → 🎉
-}());
-    await pathLoader.loadPath("forest", "clearing", "wyatts-house", "upstairs");
-
     <%- include("../local-scripts/todo.js") %>
     <%- include("../local-scripts/wallet.js") %>
 </script>
