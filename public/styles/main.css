@@ -346,6 +346,32 @@ iframe {
     border: none;
 }
 
+.merchant {
+    width: 100%;
+    border: var(--standardBorder);
+    min-height: 100px;
+    background-color: rgb(49, 49, 49);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.merchant h4 {
+    width: 100%;
+}
+
+.merchant div {
+    border: var(--standardBorder);
+    width: 165px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.merchant div button {
+    margin: 0;
+    width: 100%;
+}
+
 @media only screen and (max-width: 1000px) {
     * {
         color: var(--textColor);
