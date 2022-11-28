@@ -10,6 +10,10 @@
     --shadowColor: rgb(82, 82, 82);
 }
 
+* {
+    font-family: "Chakra Petch", sans-serif;
+}
+
 main {
     align-content: flex-start;
     box-shadow: 5px 5px var(--shadowColor);

@@ -110,6 +110,36 @@ footer a {
     height: 100%;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    width: 100%;
+    text-align: center;
+    text-shadow: 3px 3px var(--shadowColor);
+}
+
+h1 {
+    font-size: 100px;
+}
+
+h2 {
+    font-size: 60px;
+}
+
+h3 {
+    font-size: 40px;
+}
+
+h4 {
+    font-size: 30px;
+}
+
+h5 {
+    font-size: 25px;
+}
+
+h6 {
+    font-size: 20px;
+}
+
 hr {
     border: none;
     border-bottom: 1px solid var(--textColor);
@@ -119,17 +149,24 @@ hr {
 
 p {
     color: var(--textColor);
-    margin-bottom: 10px;
-    width: 80%;
+    width: 100%;
 }
 
-input, textarea {
+textarea {
     padding: 10px;
-    width: calc(100% - 10px);
+    width: 100%;
     background-color: var(--bgColor);
-    border-radius: 5px;
-    border: 1px solid var(--textColor);
-    margin: 5px;
+    border-radius: 3px;
+    border: var(--standardBorder);
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    background-color: var(--bgColor);
+    border-radius: 3px;
+    border: var(--standardBorder);
+    height: 50px;
 }
 
 input[type=submit], button, a {
@@ -148,6 +185,13 @@ input[type=submit]:hover, button:hover, a:hover {
     border: 1px solid var(--textColorBright);
     color: var(--textColorBright);
     cursor: pointer;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: var(--standardBorder);
 }
 
 .locked {
@@ -200,18 +244,10 @@ input[type=submit]:hover, button:hover, a:hover {
     padding: 20px;
 }
 
-h2 {
-    color: var(--textColor);
-    width: auto;
-    font-size: xx-large;
-    margin-left: 15%;
-    margin-top: 50px;
-    margin-right: 50%;
-}
-
-h3 {
-    color: var(--textColor);
-    width: 100%;
+.limb {
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
 }
 
 .search {
@@ -231,13 +267,16 @@ h3 {
 
 .search ul {
     border: 1px dotted var(--textColor);
-    height: 410px;
-    margin: 20px;
+    height: calc(100% - 70px);
+    margin: 10px;
     padding: 2px;
+    width: calc(100% - 20px);
 }
 
 ul {
-    margin: 10px;
+    border: var(--standardBorder);
+    width: 100%;
+    list-style: none;
 }
 
 ul.selector {
@@ -245,9 +284,7 @@ ul.selector {
 }
 
 ul.selector li {
-    border: none;
-    border-bottom: var(--standardBorder);
-    list-style: none;
+    border: var(--standardBorder);
     padding: 5px;
 }
 
@@ -344,6 +381,32 @@ iframe {
 
 .dialogue .selected {
     border: none;
+}
+
+.merchant {
+    width: 100%;
+    border: var(--standardBorder);
+    min-height: 100px;
+    background-color: rgb(49, 49, 49);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.merchant h4 {
+    width: 100%;
+}
+
+.merchant div {
+    border: var(--standardBorder);
+    width: 165px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.merchant div button {
+    margin: 0;
+    width: 100%;
 }
 
 @media only screen and (max-width: 1000px) {

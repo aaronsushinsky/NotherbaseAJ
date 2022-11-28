@@ -4,6 +4,18 @@
 
 <hr>
 
+<div class="dialogue" id="pastor">
+    <div class="frame">
+        <img src="/img/npcs/anon.png" class="portrait">
+    </div>
+    <div class="heart"></div>
+    <div class="content">
+
+    </div>
+</div>
+
+<hr>
+
 <a class="go" href="/forest/eye-of-the-forest/church/visitor-center">
     Enter the Visitor Center
 </a>
@@ -17,3 +29,12 @@
 <a class="return" href="/forest/eye-of-the-forest/church">
     Exit the Church
 </a>
+
+<script src="/js/dialogue.js"></script>
+<script>
+    let pastorDialogue = new Dialogue("pastor", 2000, () => {
+        return [
+            Dialogue.createTextSlide(1, "Welcome to the church.")
+        ];
+    });
+</script>
