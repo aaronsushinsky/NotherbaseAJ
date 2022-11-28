@@ -21,7 +21,9 @@
 
 if (inventory) {
     for (let i = 0; i < inventory.items.length; i++) {
-        if (inventory.items[i].item.name === "Wizard Tower Key") hasKey = true;
+        if (inventory.items[i].item) {
+            if (inventory.items[i].item.name === "Wizard Tower Key") hasKey = true;
+        }
     }
 }
 

@@ -1,0 +1,23 @@
+<style>
+    <%- include("../styles/cemetery.css"); %>
+</style>
+
+<p>An old cemetery with weeds growing around.</p>
+
+<hr>
+
+<div class="ground">
+</div>
+
+<hr>
+
+<a class="return" href="/forest/eye-of-the-forest/church">
+    Back to the Church Front
+</a>
+
+<!-- <script src="/js/plants/weed.js"></script> -->
+<script>
+    <%- include("../../../../../../public/js/plants/weed.js") %>
+
+    const weed = new Weed("og-weed", "weed", ".ground");
+</script>
