@@ -64,7 +64,7 @@ header {
     width: 70%;
     position: absolute;
     right: 0;
-    background-image: url("/img/fancy-me.jpg");
+    background-image: url("/img/portfolio/fancy-me.jpg");
     background-size: cover;
     background-position-x: center;
     background-repeat: no-repeat;
@@ -270,7 +270,7 @@ section iframe {
     position: absolute;
     left: 5%;
     top: 30%;
-    background-image: url("/img/cartridge.png");
+    background-image: url("/img/watch/cartridge.png");
     background-size: cover;
     transition: ease-out .15s;
     z-index: 0;
@@ -400,7 +400,7 @@ section iframe {
 
 .button {
     background-color: rgba(0, 0, 0, 0);
-    background-image: url("/img/button_brown.png");
+    background-image: url("/img/watch/button_brown.png");
     background-size: 100%;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -413,25 +413,25 @@ section iframe {
 }
 
 .button:active {
-    background-image: url("/img/button_brown_down.png");
+    background-image: url("/img/watch/button_brown_down.png");
 }
 
 #b1 {
-    background-image: url("/img/button_blue.png");
+    background-image: url("/img/watch/button_blue.png");
     top: 40%;
 }
 
 #b1:active {
-    background-image: url("/img/button_blue_down.png");
+    background-image: url("/img/watch/button_blue_down.png");
 }
 
 #b2 {
-    background-image: url("/img/button_green.png");
+    background-image: url("/img/watch/button_green.png");
     top: 75%;
 }
 
 #b2:active {
-    background-image: url("/img/button_green_down.png");
+    background-image: url("/img/watch/button_green_down.png");
 }
 
 @media only screen and (max-width: 900px) {

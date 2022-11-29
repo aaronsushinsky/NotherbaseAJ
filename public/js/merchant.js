@@ -67,7 +67,7 @@ class Merchant {
 
         for (let i = 0; i < this.stalls[stall].items.length; i++) {
             this.stalls[stall].$div.append(`<div class="merchant-item">
-                <h5>${this.stalls[stall].items[i].item.name}</h5>
+                <h6>${this.stalls[stall].items[i].item.name}</h6>
                 <p>${this.stalls[stall].items[i].price}</p>
                 <p>${this.stalls[stall].items[i].amount} Left</p>
                 <button onclick="merchant.buyItem(${i}, '${stall}')">Buy</button>
