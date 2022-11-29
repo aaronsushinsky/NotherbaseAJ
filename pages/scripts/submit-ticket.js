@@ -18,7 +18,16 @@ module.exports = async function submitTicket(db, user, body) {
             mode: "add"
         });
 
-        if (result === "posted") return "Request submitted.";
+        if (result === "posted") {
+            await db.sendMail.send("wyattsushi@gmail.com", `New IT Request from ${user.username}`, `
+                <h1>Request: ${body.ticket.title}</h1> <br>
+                Ticket ID: ${body.ticket.id} <br>
+                Submitted On: ${new Date(body.ticket.date).getDate()} <br>
+                From: ${user.username} <br>
+                Description: ${body.ticket.description}
+            `)
+            return "Request submitted.";
+        }
         else return `Error: ${result}`
     }
     catch(err) {

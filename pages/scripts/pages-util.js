@@ -18,14 +18,7 @@ const post = async function post(db, user, body, options) {
         let foundPage = null;
 
         if (options.scope === "local") {
-            const foundAccount = await db.user.findById(user);
-    
-            if (foundAccount) {
-                foundPage = await db.page.findOne({ name: options.name, user: user });
-            }
-            else {
-                return "userErr";
-            }
+            foundPage = await db.page.findOne({ name: options.name, user: user });
         }
         else {
             foundPage = await db.page.findOne({ name: options.name, type: options.scope });  
@@ -82,14 +75,7 @@ const get = async function get(db, user, query, options) {
         let foundPage = null;
 
         if (options.scope === "local") {
-            const foundAccount = await db.user.findById(user);
-    
-            if (foundAccount) {
-                foundPage = await db.page.findOne({ name: options.name, user: user });
-            }
-            else {
-                return "userErr";
-            }
+            foundPage = await db.page.findOne({ name: options.name, user: user });
         }
         else {
             foundPage = await db.page.findOne({ name: options.name, type: options.scope });   
