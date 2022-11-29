@@ -16,6 +16,7 @@
     border: none;
     align-content: flex-start;
     height: 100%;
+    justify-content: center;
 }
 
 .inventory .item-spawner {
@@ -39,8 +40,8 @@
 }
 
 .item-card {
-    width: 100%;
-    height: 40px;
+    width: calc(50% - 5px);
+    height: 70px;
     border-radius: 3px;
     border: 1px solid var(--textColor);
     padding: 0;
@@ -49,33 +50,40 @@
     background-color: var(--bgColor);
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    position: relative;
 }
 
 .item-card h5 {
-    min-width: 40%;
-    padding: 10px;
+    width: 100%;
+    padding: 5px;
+    height: 50%
 }
 
 .item-card p {
     width: auto;
-    padding: 10px;
+    padding: 5px;
     margin: 0;
+    height: 50%;
 }
 
 .item-card button {
     margin: 0;
     padding: 0 3px;
     border-radius: 0;
-    border-top: none;
     border-bottom: none;
-    height: 100%;
+    height: 50%;
     width: 75px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: none;
 }
 
 .item-card hr {
-    min-width: 5%;
+    width: 100%;
     height: 1px;
-    margin: 5px;
+    margin: 0;
 }
 
 @media only screen and (max-width: 1000px) {
