@@ -14,8 +14,7 @@ module.exports = async function viewHistory(db, user, body) {
         for (let i = 0; i < result.data.tickets.length; i++) {
             if (!result.data.tickets[i].id) result.data.tickets[i].id = Date.now();
             if (!result.data.tickets[i].comments) result.data.tickets[i].comments = [];
-            
-            console.log(result.data.tickets[i].date);
+
             if (result.data.tickets[i].date >= afterDate && result.data.tickets[i].date <= beforeDate) {
                 sendTickets.push(result.data.tickets[i]);
             }

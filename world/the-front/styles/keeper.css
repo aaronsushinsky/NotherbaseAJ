@@ -117,18 +117,6 @@
     flex-wrap: wrap;
 }
 
-.auth-form h3 {
-    width: calc(100% - 20px);
-    text-align: center;
-    margin: 10px;
-}
-
-.auth-form h1 {
-    width: calc(100% - 20px);
-    text-align: center;
-    margin: 10px;
-}
-
 .auth-form p {
     width: calc(100% - 20px);
     text-align: center;
