@@ -1,6 +1,6 @@
 <%- include("./plant.js") %>
 
-class Weed extends Plant {
+class Bush extends Plant {
     constructor(id, kind, ground) {
         super(id, kind, ground, {
             leafImages: [ "/img/textures/substance.png" ],
@@ -48,7 +48,7 @@ class Weed extends Plant {
                         max: 0
                     }
                 },
-                max: 100,
+                max: 1,
                 spawnRate: {
                     cooldown: 500,
                     potentialDelay: 500

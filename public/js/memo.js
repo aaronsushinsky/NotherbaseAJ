@@ -16,6 +16,8 @@ class Memo {
 
     load = async () => {
         let loaded = await memories.load(`memo-${this.service}`);
+        
+        if (this.onLoad) this.onLoad(loaded);
 
         if (loaded) {
             let keys = Object.keys(loaded.lines);
@@ -42,7 +44,7 @@ class Memo {
             this.lines[$textAreas[i].id] = $textAreas[i].value;            
         }
 
-        console.log(this.lines);
+        if (this.onSave) this.onSave(this.lines);
 
         let s = await memories.save(`memo-${this.service}`, {
             lines: this.lines

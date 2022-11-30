@@ -12,7 +12,7 @@ class Limb {
     }
 
     css(prop, val) {
-        if (this.$div) this.$div.css(prop, val);
+        if (this.$div) this.$div[0].style[prop] = val;
     }
 
     update = () => {
@@ -31,6 +31,8 @@ class Limb {
         if (this.$div) this.$div.remove();
         this.$div = $(`<div class="limb ${this.kind}" id="${this.id}"></div>`);
         this.css("background", `url("${this.img}")`);
+        this.css("left", `${this.position[0]}%`);
+        this.css("bottom", `${this.position[1]}%`);
         this.moveTo(this.position);
         this.rotateTo(this.rotation);
         this.$parent.append(this.$div);
@@ -43,8 +45,8 @@ class Limb {
 
     moveTo(position) {
         this.position = position;
-        this.css("left", position[0]);
-        this.css("bottom", position[1]);
+        this.css("left", `${position[0]}%`);
+        this.css("bottom", `${position[1]}%`);
     }
 
     setImage(imgPath) {
@@ -55,6 +57,7 @@ class Limb {
     addChild(limb) {
         limb.setBeat(this.beatCooldown);
         this.children.push(limb);
+        this.children[this.children.length - 1].render();
     }
 
     rotateTo(angle) {
@@ -94,7 +97,7 @@ class Entity {
     addBody(limb) {
         limb.setBeat(this.beatCooldown);
         this.bodies.push(limb);
-        this.render();
+        this.bodies[this.bodies.length - 1].render();
     }
 
     setBodyImage(imgPath) {
