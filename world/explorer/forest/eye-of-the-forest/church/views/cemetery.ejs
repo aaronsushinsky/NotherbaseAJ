@@ -44,9 +44,5 @@
 <script>
     <%- include("../../../../../../public/js/plants/weed.js") %>
 
-    let weed = [];
-    
-    for (let i = 0; i < 100; i++) {
-        weed.push(new Weed(`og-weed-${i}`, "weed", ".ground"));
-    }
+    let weed = new Weed(`og-weed`, "weed", ".ground");
 </script>

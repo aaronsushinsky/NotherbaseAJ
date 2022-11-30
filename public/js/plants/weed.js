@@ -48,7 +48,7 @@ class Weed extends Plant {
                         max: 0
                     }
                 },
-                max: 1,
+                max: 100,
                 spawnRate: {
                     cooldown: 500,
                     potentialDelay: 500
