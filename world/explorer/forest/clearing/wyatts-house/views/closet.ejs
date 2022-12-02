@@ -1,4 +1,4 @@
-<h1>H1 The Tavern Lobby</h1>
+<h1>H1 Tavern Lobby</h1>
 
 <div class="ceiling">
     <h3>Welcome !!!H3</h3>
@@ -20,131 +20,135 @@
     <hr>
 </div>
 
-<div class="level">
-    <div class="side-wall">
-        <div class="sign r-marg b-marg">
-            <h5>A Sign h5</h5>
-            <p class="b-marg">
-                A p tag. Let's try to give it several lines of text to demonstrate what will happen as it is squished
-                in various containers and interacting with other same-level elements. That first sentence was a pretty
-                good length, but this is going to need a bit more.
-            </p>
-            <p>
-                Here is some information that might appear on a sign. A quest needs doing that has as a reward for
-                its completion the item(s) below:
-            </p>
-            <h2>$50000 h2</h2>
-        </div>
+<div class="sign">
+    <h5>A Sign h5</h5>
+    <p>
+        A p tag. Let's try to give it several lines of text to demonstrate what will happen as it is squished
+        in various containers and interacting with other same-level elements. That first sentence was a pretty
+        good length, but this is going to need a bit more.
+    </p>
+    <p>
+        Here is some information that might appear on a sign. A quest needs doing that has as a reward for
+        its completion the item(s) below:
+    </p>
+    <h2>$50000 h2</h2>
+</div>
+
+<div class="search">
+    <h4>Search h4</h4>
+    <input type="text" placeholder="search">
+    <h5>Selector List h5</h5>
+    <ul class="selector">
+        <li id="0" onclick="selectItem(this)">A basic li</li>
+        <li id="1" onclick="selectItem(this)">A basic li</li>
+        <li id="2" onclick="selectItem(this)">A basic li</li>
+        <li id="3" onclick="selectItem(this)">A basic li</li>
+        <li id="4" onclick="selectItem(this)">A basic li</li>
+        <li id="5" onclick="selectItem(this)">A basic li</li>
+        <li id="6" onclick="selectItem(this)">A basic li</li>
+        <li id="7" onclick="selectItem(this)">A basic li</li>
+        <li id="8" onclick="selectItem(this)">A basic li</li>
+        <li id="9" onclick="selectItem(this)">A basic li</li>
+        <li id="10" onclick="selectItem(this)">A basic li</li>
+        <li id="11" onclick="selectItem(this)">A basic li</li>
+    </ul>
+</div>
+
+<div class="memo" id="mini">
+    <input type="text" id="litty">
+    <button onclick="mini.save()">Save</button>
+</div>
+<ul>
+    <h4>UL Header (h4)</h4>
+    <li>A basic li</li>
+    <li>A basic li</li>
+    <li>A basic li</li>
+    <li>A basic li</li>
+</ul>
+
+<div class="dialogue" id="keeper">
+    <div class="frame">
+        <img src="/img/npcs/anon.png" class="portrait">
+    </div>
+    <div class="heart"></div>
+    <div class="content">
         
-        <div class="search">
-            <h4>Search h4</h4>
-            <input type="text" placeholder="search">
-            <h5>Selector List h5</h5>
-            <ul class="selector b-marg">
-                <li id="0" onclick="selectItem(this)">A basic li</li>
-                <li id="1" onclick="selectItem(this)">A basic li</li>
-                <li id="2" onclick="selectItem(this)">A basic li</li>
-                <li id="3" onclick="selectItem(this)">A basic li</li>
-                <li id="4" onclick="selectItem(this)">A basic li</li>
-                <li id="5" onclick="selectItem(this)">A basic li</li>
-                <li id="6" onclick="selectItem(this)">A basic li</li>
-                <li id="7" onclick="selectItem(this)">A basic li</li>
-            </ul>
-        </div>
-
-        <div class="memo" id="mini">
-            <input type="text" id="litty">
-            <button onclick="mini.save()">Save</button>
-        </div>
-    </div>
-
-    <div class="back-wall">
-        <ul class="b-marg">
-            <h4 class="b-marg">UL Header (h4)</h4>
-            <li>A basic li</li>
-            <li>A basic li</li>
-            <li>A basic li</li>
-            <li>A basic li</li>
-        </ul>
-
-        <div class="dialogue" id="keeper">
-            <div class="frame">
-                <img src="/img/npcs/anon.png" class="portrait">
-            </div>
-            <div class="heart"></div>
-            <div class="content">
-                
-            </div>
-        </div>
-
-        <div class="merchant" id="tools">
-
-        </div>
-    </div>
-
-    <div class="foundation">
-        <div class="form b-marg">
-            <h4>Form h4</h4>
-            <label>
-                Your Name:
-                <input type="text" placeholder="text">
-            </label>
-            <label class="half">
-                Your Age:
-                <input type="number">
-            </label>
-            <label class="half">
-                Current Time:
-                <input type="datetime-local">
-            </label>
-            <label class="half">
-                Your Birthday:
-                <input type="date">
-            </label>
-            <label class="half">
-                A Future Date:
-                <input type="time">
-            </label>
-            <label class="sixth">
-                <input type="checkbox"> First
-            </label>
-            <label class="sixth">
-                <input type="checkbox"> Second
-            </label>
-            <label class="sixth">
-                <input type="checkbox"> Third
-            </label>
-            <label class="sixth">
-                <input type="checkbox"> Fourth
-            </label>
-            <label class="sixth">
-                <input type="checkbox"> Fifth
-            </label>
-            <label>
-                Give Me Your Life Story:
-                <textarea cols="30" rows="10"></textarea>
-            </label>
-            <button>Basic Button</button>
-            <button>Basic Button</button>
-            <button>Basic Button</button>
-            <button>Basic Button</button>
-            <button>Basic Button</button>
-            <p class="info">Check yourself!</p>
-        </div>
     </div>
 </div>
 
-<div class="exit">
-    <a href="/zebra" class="go">Go to Zebra</a>
-    <a href="/it" class="go">Go to IT</a>
-    <a href="/portfolio" class="to">To Portfolio</a>
+<div class="merchant" id="tools">
 
-    <hr>
-
-    <a href="/forest/clearing/wyatts-house/upstairs" class="return-door">
-        Exit the Closet
-    </a>
 </div>
+
+<div class="form ">
+    <h4>Form h4</h4>
+    <label>
+        Your Name:
+        <input type="text" placeholder="text">
+    </label>
+    <label>
+        Your Age:
+        <input type="number">
+    </label>
+    <label>
+        Current Time:
+        <input type="datetime-local">
+    </label>
+    <label>
+        Your Birthday:
+        <input type="date">
+    </label>
+    <label>
+        A Future Date:
+        <input type="time">
+    </label>
+    <label>
+        <input type="checkbox">First
+    </label>
+    <label>
+        <input type="checkbox">Second
+    </label>
+    <label>
+        <input type="checkbox">Third
+    </label>
+    <label>
+        <input type="checkbox">Fourth
+    </label>
+    <label>
+        <input type="checkbox">Fifth
+    </label>
+    <label>
+        Give Me Your Life Story:
+        <textarea cols="30" rows="10"></textarea>
+    </label>
+    <button>Basic Button</button>
+    <button>Basic Button</button>
+    <button>Basic Button</button>
+    <button>Basic Button</button>
+    <button>Basic Button</button>
+    <p class="info">Check yourself!</p>
+</div>
+
+<hr>
+
+<button class="do">Do</button>
+<a href="/zebra" class="door">Go to Zebra
+    <div class="knob"></div>
+</a>
+<a href="#" class="go locked">Go to IT</a>
+
+
+<hr>
+
+<a href="/zebra" class="go">Go to Zebra</a>
+<a href="/it" class="go">Go to IT</a>
+<a href="/portfolio" class="to">To Portfolio</a>
+
+<hr>
+
+<a href="/forest/clearing/wyatts-house/upstairs" class="return-door">
+    Exit the Closet
+</a>
 
 <script src="/js/dialogue.js"></script>
 <script src="/js/merchant.js"></script>
