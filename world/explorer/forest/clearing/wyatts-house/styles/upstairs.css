@@ -14,29 +14,24 @@
     --shadow: rgba(0, 0, 0, 0.479);
 }
 
-body {
-    background-color: var(--veryDarkWoodColor);
-    z-index: -3;
-}
-
 main {
     border: 5px solid var(--woodColor);
 }
 
 .todo {
-    width: 45%;
+    width: var(--fillHalfFromMargin);
     min-height: 100px;
     border: 5px solid var(--woodColor);
     background-color: var(--darkWoodColor);
-    margin: 20px;
-    border-radius: 5px;
-    padding: 5px;
+    margin: var(--margin);
+    border-radius: var(--borderRadius);
+    padding: var(--padding);
     box-shadow: 2px 2px 5px 5px var(--shadow);
     overflow: auto;
     position: relative;
 }
 
-.todo>button {
+.todo #flip {
     position: absolute;
     right: 5px;
     top: 5px;
@@ -101,4 +96,10 @@ main {
     position: relative;
     border-radius: 3px;
     margin: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+    .todo {
+        width: var(--fillFromMargin);
+    }
 }

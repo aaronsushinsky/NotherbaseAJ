@@ -33,37 +33,19 @@
     transition: all .2s ease;
 }
 
-.sign {
-    width: 30%;
-    font-size: 40px;
-    text-align: center;
-    padding: 20px;
-    margin: 10px;
-}
-
 .line {
-    width: 50%;
+    width: var(--fillHalfFromMargin);
     background-color: var(--bgColor);
     border: var(--thickBorder);
     padding: 0;
-    margin-top: 10px;
-    background: url("/img/textures/used desk.png");
-    background-size: cover;
-    background-position: center;
+    margin: var(--margin);
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.line h3 {
-    border-bottom: var(--standardBorder);
-    padding: 5px;
-    background: var(--bgColor);
-    backdrop-filter: blur(2px);
-}
-
 .line ul {
-    height: 175px;
+    height: 300px;
     overflow: auto;
     border: var(--standardBorder);
     width: 100%;
@@ -71,8 +53,8 @@
 }
 
 .line li {
-    margin: 0;
-    padding: 0;
+    margin: var(--margin);
+    padding: var(--padding);
     list-style: none;
     position: relative;
     height: 50px;
@@ -89,25 +71,11 @@
 }
 
 .line p {
-    height: 100%;
     text-align: right;
-    width: 100%;
-    border-radius: 0;
-    padding-top: 5px;
 }
 
-.line h5 {
-    font-size: small;
-    text-align: center;
-    background: var(--bgColor);
-    border-radius: 25px;
-    width: 50%;
-}
-
-@media only screen and (max-width: 1000px) {
-    h6 {
-        width: 100%;
-        font-size: 30px;
-        text-align: center;
+@media only screen and (max-width: 800px) {
+    .line {
+        width: var(--fillFromMargin);
     }
 }

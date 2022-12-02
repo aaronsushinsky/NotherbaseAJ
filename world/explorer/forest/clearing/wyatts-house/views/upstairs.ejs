@@ -19,6 +19,7 @@
         <ul>
             
         </ul>
+        <button id="flip" onclick='todo.flipToNew("today")'>#</button>
     </div>
     <div class="new invisible">
         <h3>Submit a New Task for Today</h3>
@@ -26,9 +27,10 @@
             Description: 
             <input type="text" id="task">
         </label>
-        <button onclick="todo.submit('today')">Submit</button>
+        <button id="submit" onclick="todo.submit('today')">Submit</button>
+        <button id="flip" onclick='todo.flipToMain("today")'>#</button>
     </div>
-    <button onclick='todo.flipToNew("today")'>#</button>
+    
 </div>
 
 <div class="todo week">
@@ -40,6 +42,7 @@
         <ul>
             
         </ul>
+        <button id="flip" onclick='todo.flipToNew("week")'>#</button>
     </div>
     <div class="new invisible">
         <h3>Submit a New Task for This Week</h3>
@@ -47,9 +50,9 @@
             Description: 
             <input type="text" id="task">
         </label>
-        <button onclick="todo.submit('week')">Submit</button>
+        <button id="submit" onclick="todo.submit('week')">Submit</button>
+        <button id="flip" onclick='todo.flipToMain("week")'>#</button>
     </div>
-    <button onclick='todo.flipToNew("week")'>#</button>
 </div>
 
 <div class="todo month">
@@ -61,6 +64,7 @@
         <ul>
             
         </ul>
+        <button id="flip" onclick='todo.flipToNew("month")'>#</button>
     </div>
     <div class="new invisible">
         <h3>Submit a New Task for This Month</h3>
@@ -68,9 +72,9 @@
             Description: 
             <input type="text" id="task">
         </label>
-        <button onclick="todo.submit('month')">Submit</button>
+        <button id="submit" onclick="todo.submit('month')">Submit</button>
+        <button id="flip" onclick='todo.flipToMain("month")'>#</button>
     </div>
-    <button onclick='todo.flipToNew("month")'>#</button>
 </div>
 
 <div class="todo year">
@@ -82,6 +86,7 @@
         <ul>
             
         </ul>
+        <button id="flip" onclick='todo.flipToNew("year")'>#</button>
     </div>
     <div class="new invisible">
         <h3>Submit a New Task for This Year</h3>
@@ -89,9 +94,9 @@
             Description: 
             <input type="text" id="task">
         </label>
-        <button onclick="todo.submit('year')">Submit</button>
+        <button id="submit" onclick="todo.submit('year')">Submit</button>
+        <button id="flip" onclick='todo.flipToMain("year")'>#</button>
     </div>
-    <button onclick='todo.flipToNew("year")'>#</button>
 </div>
 
 <div class="wallet">
@@ -119,6 +124,7 @@
 
 <a href="/forest/clearing/wyatts-house/closet" class="door">
     Go in the Closet
+    <div class="knob"></div>
 </a>
 
 <hr>
