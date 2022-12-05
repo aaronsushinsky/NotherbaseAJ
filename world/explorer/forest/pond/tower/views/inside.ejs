@@ -6,7 +6,7 @@
 </style>
 
 <section class="floor" id="frog">
-    <h2>Frog Game</h2>
+    <h4>Frog Game</h4>
     <button id="toggle">Toggle</button>
 
     <div class="content invisible">
@@ -54,7 +54,7 @@
 </section>
 
 <section class="floor" id="items">
-    <h2>Items</h2>
+    <h4>Items</h4>
     <button id="toggle">Toggle</button>
 
     <div class="content invisible">
@@ -99,7 +99,7 @@
 </section>
 
 <section class="floor" id="none">
-    <h2>Floor 2</h2>
+    <h4>Floor 2</h4>
     <button id="toggle">Toggle</button>
 
     <div class="content invisible">
@@ -108,29 +108,28 @@
 </section>
 
 <section class="floor" id="users">
-    <h2>Users</h2>
+    <h4>Users</h4>
     <button id="toggle">Toggle</button>
 
     <div class="content">
-        <div class="info">
-            <h3 id="population">Population: 0</h3>
-            <h3>Active Today: -</h3>
+        <div class="global-info">
+            <h5 id="population">Population: 0</h5>
+            <h5>Active Today: -</h5>
         </div>
     
-        <div id="user-list">
+        <ul class="selector" id="user-list">
     
-        </div>
+        </ul>
     
         <div class="user-info">
             <div class="read">
-                <h4>Username:</h4>
-                <p class="name">-</p>
-        
-                <h4>Coin:</h4>
-                <p class="coin">-</p>
-
-                <h4>Auth Levels:</h4>
-                <ul></ul>
+                <p class="name">Username: -</p>
+                <p class="coin">Coin: -</p>
+                <p class="auth">Auth Levels: -</p>
+                <p class="home">Home: -</p>
+                <p class="location">Location: -</p>
+                <p class="attributes">Attributes: -</p>
+                <p class="email">Email: -</p>
             </div>
             <div class="edit invisible">
                 <h4>Username:</h4>
@@ -152,12 +151,9 @@
 <a href="/forest/pond/tower">Exit the Tower</a>
 
 <script>
-    <% for (let i = 0; i < inventory.items.length; i++) {
-        if (inventory.items[i].item.name === "Wizard Tower Key") { %>
-            <%- include("../local-scripts/inside.js"); %> 
-            <%- include("../local-scripts/items.js"); %> 
-            <%- include("../local-scripts/users.js"); %> 
-        <%  break;
-        }
-    } %>
+    <% if (user.authLevels.includes("Creator")) { %>
+        <%- include("../local-scripts/inside.js"); %> 
+        <%- include("../local-scripts/items.js"); %> 
+        <%- include("../local-scripts/users.js"); %> 
+    <% } %>
 </script>

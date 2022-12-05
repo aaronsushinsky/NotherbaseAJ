@@ -18,13 +18,18 @@
     align-items: flex-start;
     justify-content: center;
     flex-wrap: wrap;
+    position: relative;
 }
 
 .floor h2 {
     width: 90%;
 }
 
-.floor button {
+.floor #toggle {
+    position: absolute;
+    right: var(--margin);
+    top: var(--margin);
+    padding: var(--padding);
     margin: 0;
 }
 

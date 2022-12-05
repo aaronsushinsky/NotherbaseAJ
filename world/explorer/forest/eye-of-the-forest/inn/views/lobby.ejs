@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/styles/stream.css">
 <style>
     <%- include("../styles/lobby.css"); %>
 </style>
@@ -9,37 +8,36 @@
     a futile blockade between you and the bar in the back.
 </p>
 
-<p>
-    There is a small stage.
-</p>
+<hr>
+
+<a class="go table" href="/forest/eye-of-the-forest/inn/table#pov=0">
+    Sit at this Table
+</a>
+
+<a class="go table" href="/forest/eye-of-the-forest/inn/table#pov=1">
+    Sit at this Table
+</a>
+
+<a class="go table" href="/forest/eye-of-the-forest/inn/table#pov=2">
+    Sit at this Table
+</a>
+
+<a class="go table" href="/forest/eye-of-the-forest/inn/table#pov=3">
+    Sit at this Table
+</a>
+
+<a class="go table" href="/forest/eye-of-the-forest/inn/table#pov=4">
+    Sit at this Table
+</a>
 
 <hr>
 
-<div class="stage">
-    <div class="stream">
-        <div class="source"></div>
-        <a class="label" href="#">No Streamer</a>
-    </div>
-</div>
+<a class="go" href="/forest/eye-of-the-forest/inn/bar">
+    Approach the Bar
+</a>
 
-<hr>
-
-<div class="dialogue" id="bartender">
-    <div class="frame">
-        <img src="/img/npcs/anon.png" class="portrait">
-    </div>
-    <div class="heart"></div>
-    <div class="content">
-
-    </div>
-</div>
-
-<div class="bar"></div>
-
-<hr>
-
-<a class="to" href="/forest/eye-of-the-forest/inn/kitchen">
-    Head into the Kitchen
+<a class="go" href="/forest/eye-of-the-forest/inn/stage">
+    Approach the Stage
 </a>
 
 <a class="to" href="/forest/eye-of-the-forest/inn/upstairs">
@@ -52,13 +50,3 @@
     Exit the Inn
 </a>
 
-<script src="/js/dialogue.js"></script>
-<script>
-    let bartenderDialogue = new Dialogue("bartender", 5000, (self) => {
-        return [
-            Dialogue.createTextSlide(1, "Howdy."),
-            Dialogue.createTextSlide(2, "Hope you didn't come in here for a drink. Out of stock currently."),
-            Dialogue.createTextSlide(4, "That being said, dishes still need to be cleaned. Head in the back if you're looking for work.")
-        ];
-    });
-</script>

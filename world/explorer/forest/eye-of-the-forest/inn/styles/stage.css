@@ -1,0 +1,16 @@
+.stage {
+    width: 100%;
+    height: 100px;
+    background-color: rgb(68, 43, 34);
+    padding: 30px;
+    display: flex;
+    align-items: flex-end;
+    margin-top: 450px;
+}
+
+.stage .stream {
+    border: none;
+    border-right: 15px solid rgb(68, 43, 34);
+    border-left: 15px solid rgb(68, 43, 34);
+    border-radius: 10px 10px 0 0;
+}

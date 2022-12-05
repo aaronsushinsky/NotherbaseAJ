@@ -1,60 +1,34 @@
-#user-list {
+.floor#users .content {
+    height: 700px;
+}
+
+.floor#users .global-info {
+    width: var(--fillFromMargin);
+}
+
+.floor#users .selector {
+    width: var(--fillThirdFromMargin);
     height: 500px;
-    width: 30%;
-    border: 1px solid var(--textColor);
-    overflow: auto;
-    margin: 5px;
 }
 
-#user-list p {
-    margin: 0;
-    padding: 5px;
-    width: 100%;
+.floor#users .selector li {
+    padding: var(--padding);
 }
 
-#user-list p:hover {
-    background-color: var(--lightBgColor);
-    cursor: pointer;
-}
-
-#user-list p.selected {
-    background-color: var(--darkBgColor);
-}
-
-.info {
-    width: 100%;
-    height: 100px;
-    border: 1px solid var(--textColor);
-    margin: 5px;
-    padding: 5px;
-}
-
-.user-info {
-    width: 67%;
+.floor#users .user-info {
+    width: calc(var(--fillThirdFromMargin) * 2);
     height: 500px;
-    border: 1px solid var(--textColor);
-    margin: 5px;
-    padding: 5px;
+    border: var(--standardBorder);
+    margin: var(--margin);
+    padding: var(--padding);
     display: flex;
     flex-wrap: wrap;
 }
 
-.user-info>div {
+.floor#users .user-info>div {
     width: 100%;
     height: 100%;
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
-}
-
-.user-info h4, .user-info h5, .user-info input, .user-info .auth-list {
-    width: 30%;
-}
-
-.user-info p {
-    width: 65%;
-}
-
-.user-info ul {
-    width: 65%;
 }

@@ -2,7 +2,7 @@
   "name": "notherbase",
   "version": "1.0.0",
   "description": "Welcome to NotherBase",
-  "main": "notherbase.js",
+  "exports": "./notherbase.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node notherbase.js"
@@ -24,6 +24,10 @@
   "homepage": "https://github.com/Mosshide/NotherBase#readme",
   "dependencies": {
     "@minescope/mineping": "^1.0.4",
-    "notherbase-fs": "^1.4.4"
+    "notherbase-fs": "^1.5.1"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=14.16"
   }
 }
