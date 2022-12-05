@@ -1,9 +1,9 @@
-const path = require('path');
-const notherbase = require("notherbase-fs");
+import NotherBaseFS from "notherbase-fs";
+import { fileURLToPath } from 'node:url';
+const __dirname = fileURLToPath(new URL('./', import.meta.url));
 
-notherbase.start(
-    path.resolve(__dirname, "world/explorer"),
-    path.resolve(__dirname, "world/explorer/void"),
-    path.resolve(__dirname, "world/the-front"),
-    path.resolve(__dirname, "pages")
-);
+const notherBaseFS = new NotherBaseFS(
+    `${__dirname}world/explorer`, 
+    `${__dirname}world/explorer/void`, 
+    `${__dirname}world/the-front`, 
+    `${__dirname}pages`);
