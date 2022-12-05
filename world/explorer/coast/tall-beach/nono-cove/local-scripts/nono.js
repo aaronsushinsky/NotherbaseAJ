@@ -64,7 +64,7 @@ class NonoGame {
         this.$board.css("width", this.dimensions[0] * (tileSize) + this.nonoSize + 5);
         this.$board.css("height", this.dimensions[1] * (tileSize) + this.nonoSize + 5);
 
-        let $nono = this.$board.append(`<img class="nono" src="/img/nono-${Math.floor(Math.random() * (this.maxNonoId + 1))}.png">`).children().last();
+        let $nono = this.$board.append(`<img class="nono" src="/img/nono/nono-${Math.floor(Math.random() * (this.maxNonoId + 1))}.png">`).children().last();
         $nono.css("width", this.nonoSize);
         $nono.css("height", this.nonoSize);
 
