@@ -1,6 +1,6 @@
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 
-module.exports = async function deleteTicket(db, user, body) {
+export default async function deleteTicket(db, user, body) {
     try {
         let foundAccount = await db.user.findOne({ username: body.admin });
 

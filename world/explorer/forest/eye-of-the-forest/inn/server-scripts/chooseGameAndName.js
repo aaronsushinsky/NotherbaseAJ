@@ -1,4 +1,4 @@
-module.exports = async function chooseGameAndName(db) {
+export default async function chooseGameAndName(db) {
     let colors = ["Red", "Green", "Blue", "Yellow", "Orange", "Pink", "Purple", "Brown", "White", "Black", "Grey"];
     let animals = ["fox", "bear", "bird", "fish", "lizard", "bug", "microbe", "horse", "cat", "dog", "snipe", "cow"];
 
