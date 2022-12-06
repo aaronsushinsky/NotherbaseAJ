@@ -1,6 +1,6 @@
-const util = require("./pages-util");
+import util from "./pages-util.js";
 
-module.exports = async function submitTicket(db, user, body) {
+export default async function submitTicket(db, user, body) {
     try {
         body.ticket.date = Date.now();
         body.ticket.used = 0;

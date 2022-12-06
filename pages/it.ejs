@@ -15,20 +15,21 @@
 </head>
 <body>
     <main>
-        <h1>IT Request Tracker</h1>
+        <h2>IT Request Tracker</h2>
 
-        <div class="login-form">
+        <div class="login form">
             <label>
                 Organization Email: <input type="text" id="email">
             </label>
             <label>
                 Password: <input type="password" id="password">
+                <input type="checkbox" id="unhide" onclick="tracker.toggleShowPassword()"> Show Password
             </label>
             <button onclick="tracker.attemptLogin()">Login</button>
         </div>
         
-        <div class="form invisible">
-            <h4>Submit a Request for <%= user ? user.username : "none" %></h4>
+        <div class="submit form invisible">
+            <h5>Submit a Request for <%= user ? user.username : "none" %></h5>
             <label>
                 Title of Request:<input type="text" placeholder="title" id="title">
             </label>
@@ -40,8 +41,8 @@
             <button id="to-history" onclick="tracker.goToHistoryForm()">Request History</button>
         </div>
 
-        <div class="history invisible">
-            <h4>Request Ticket History</h4>
+        <div class="history form invisible">
+            <h5>Request Ticket History</h5>
             <label>
                 Start Date:
                 <input type="date" id="start-date">
@@ -86,12 +87,12 @@
             this.$logout = $(".logout");
 
             //login
-            this.$loginForm = $(".login-form");
+            this.$loginForm = $(".login.form");
             this.$email = $("#email");
             this.$password = $("#password");
 
             //submit
-            this.$submitForm = $(".form");
+            this.$submitForm = $(".submit.form");
             this.$title = $("#title");
             this.$description = $("#description");
 
@@ -111,10 +112,16 @@
             this.$adQuoted = $("#ad-quoted");
             this.$adDate = $("#ad-date");
 
-            if (<%= user ? "true" : "false" %>) {
+            <% if (user) { %>
                 this.goToSubmitForm();
                 this.$logout.removeClass("invisible");
-            }
+            <% } %>
+        }
+
+        toggleShowPassword() {
+            let hidden = this.$password.attr("type");
+            if (hidden === "password") this.$password.attr("type", "text");
+            else this.$password.attr("type", "password");
         }
 
         attemptLogin = async () => {
@@ -215,7 +222,7 @@
                                         </li>`);
                                 }
 
-                                this.$ticketsList.append(`<h4>Total Hours Used: ${total}</h4>`);
+                                this.$ticketsList.append(`<h3>Total Hours Used: ${total}</h3>`);
                             }
                             else {
                                 this.$ticketsList.append(`<p>No history found for the specified time period!</p>`);
@@ -251,6 +258,8 @@
             this.$ticketsList.empty();
             
             this.goToHistoryForm();
+
+            if (this.admin) this.toggleAdmin();
         }
     
         toggleAdmin() {

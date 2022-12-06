@@ -1,6 +1,6 @@
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 
-module.exports = async function resolveTicket(db, user, body) {
+export default async function resolveTicket(db, user, body) {
     try {
         let foundAccount = await db.user.findOne({ username: body.admin });
 
