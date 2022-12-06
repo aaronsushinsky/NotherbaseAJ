@@ -93,7 +93,7 @@ const get = async function get(db, user, query, options) {
     }
 }
 
-module.exports = {
+export default {
     post: post,
     get: get
 }

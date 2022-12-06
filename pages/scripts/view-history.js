@@ -1,6 +1,6 @@
-const util = require("./pages-util");
+import util from "./pages-util.js";
 
-module.exports = async function viewHistory(db, user, body) {
+export default async function viewHistory(db, user, body) {
     try {
         let result = await util.get(db, user, {}, {
             name: "it",
