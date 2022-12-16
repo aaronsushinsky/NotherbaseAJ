@@ -19,11 +19,9 @@
 
 <% let hasKey = false;
 
-if (inventory) {
-    for (let i = 0; i < inventory.items.length; i++) {
-        if (inventory.items[i].item) {
-            if (inventory.items[i].item.name === "Wizard Tower Key") hasKey = true;
-        }
+if (user.inventory) {
+    for (let i = 0; i < user.inventory.length; i++) {
+        if (user.inventory[i].name === "Wizard Tower Key") hasKey = true;
     }
 }
 

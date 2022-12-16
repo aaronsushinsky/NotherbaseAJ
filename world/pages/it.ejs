@@ -66,7 +66,7 @@
         <button id="ad-panel" onclick="tracker.toggleAdmin()"></button>
         <p>This website created by Wyatt Lee Sushinsky</p>
         <div class="admin-panel invisible">
-            <p>Admin: <input type="text" id="ad"> Password: <input type="password" id="ad-password"></p>
+            <p>Admin: <input type="email" id="ad"> Password: <input type="password" id="ad-password"></p>
             <p>Hours: <input type="number" id="ad-used"> Used | <input type="number" id="ad-quoted"> Quoted | <button onclick="tracker.setHours()">Set</button></p>
             <p>Resolve on Date: <input type="date" id="ad-date"> <button onclick="tracker.resolveTicket()">Resolve</button></p>
             <button onclick="tracker.deleteTicket()">Delete</button>
@@ -74,6 +74,7 @@
     </footer>
 </body>
 
+<script src="/js/commune.js"></script>
 <script>
     class Tracker {
         constructor() {
@@ -125,31 +126,27 @@
         }
 
         attemptLogin = async () => {
-            try {
-                await $.post("/user/login", {
-                    email: this.$email.val(),
-                    password: this.$password.val()
-                }, (data) => {
-                    location.reload();
-                });
-            } catch (error) {
-                console.log(error);
-                if (error.status === 401) {
-                    this.$alert.text("Login Error: Username or password incorrect!");
-                }
-                else if (error.status === 500) {
-                    this.$alert.text("Server Error: Try again later!");
-                }
+            let response = await commune("login", {
+                email: this.$email.val(),
+                password: this.$password.val()
+            });
+
+            if (response.status === "success") {
+                location.reload();
+            }
+            else {
+                this.$alert.text(response.message);
             }
         }
 
         logout = async () => {
-            try {
-                await $.post("/user/logout", {}, (data) => {
-                    location.reload();
-                });
-            } catch (error) {
-                console.log(error);
+            let response = await commune("logout", {});
+
+            if (response.status === "success") {
+                location.reload();
+            }
+            else {
+                this.$alert.text(response.message);
             }
         }
 
@@ -172,79 +169,74 @@
         }
 
         submitTicket = async () => {
-            try {
-                await $.post("/serve/submit-ticket", {
-                    name: "it",
-                    ticket: {
-                        title: this.$title.val(),
-                        description: this.$description.val()
-                    }
-                }, (data) => {
-                    this.$title.val("");
-                    this.$description.val("");
-                    console.log(data);
-                    this.$alert.text(data);
-                });
-            } 
-            catch(err) {
-                console.log(err);
+            let response = await commune("servePages", {
+                script: "submit-ticket",
+                ticket: {
+                    title: this.$title.val(),
+                    description: this.$description.val()
+                }
+            });
+
+            if (response.status === "success") {
+                this.$title.val("");
+                this.$description.val("");
+                console.log(response);
+                this.$alert.text(response.data);
+            }
+            else {
+                this.$alert.text(response.message);
             }
         }
 
         viewHistory = async () => {
             if (this.$dateStart[0].valueAsNumber && this.$dateEnd[0].valueAsNumber && this.$dateStart[0].valueAsNumber < this.$dateEnd[0].valueAsNumber) {
-                try {
-                    await $.post("/serve/view-history", {
-                        dateStart: this.$dateStart[0].value,
-                        dateEnd: this.$dateEnd[0].value
-                    }, (data) => {
-                        if (data.status === "ok") {
-                            this.tickets = data.tickets;
+                let response = await commune("servePages", {
+                    script: "view-history",
+                    dateStart: this.$dateStart[0].value,
+                    dateEnd: this.$dateEnd[0].value
+                });
+
+                if (response.status === "success") {
+                    this.tickets = response.data;
     
-                            this.$ticketsList.empty();
-                            this.$ticketsList.append(`<button id="close" onclick="tracker.closeHistory()">&#60; Close Request History</button>`);
-    
-                            if (data.tickets.length > 0) {
-                                let total = 0;
+                    this.$ticketsList.empty();
+                    this.$ticketsList.append(`<button id="close" onclick="tracker.closeHistory()">&#60; Close Request History</button>`);
 
-                                for (let i = 0; i < data.tickets.length; i++) {
-                                    total += this.tickets[i].used;
-                                    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+                    if (this.tickets.length > 0) {
+                        let total = 0;
 
-                                    this.$ticketsList.append(`<li class="history-ticket" id="${i}" onclick="tracker.selectTicket(${i})">
-                                        <h4 id="title">Request: ${this.tickets[i].title}</h4>
-                                        <p>Ticket Number: ${this.tickets[i].id}</p>
-                                        <p id="date">Created On: ${(new Date(this.tickets[i].date)).toDateString()}</p>
-                                        <p id="quoted">Hours Quoted: ${this.tickets[i].quoted}</p>
-                                        <p id="date">Resolved On: ${this.tickets[i].resolved ? (new Date(this.tickets[i].resolved)).toLocaleDateString('en-US', options) : "Unresolved"}</p>
-                                        <p id="used">Hours Used: ${this.tickets[i].used}</p>
-                                        <p id="desc">Description: ${this.tickets[i].description}</p>
-                                        </li>`);
-                                }
+                        for (let i = 0; i < this.tickets.length; i++) {
+                            total += this.tickets[i].used;
+                            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
 
-                                this.$ticketsList.append(`<h3>Total Hours Used: ${total}</h3>`);
-                            }
-                            else {
-                                this.$ticketsList.append(`<p>No history found for the specified time period!</p>`);
-                            }
-
-                            this.$loginForm.addClass("invisible");
-                            this.$submitForm.addClass("invisible");
-                            this.$historyForm.addClass("invisible");
-                            this.$ticketsList.removeClass("invisible");
-                            this.$alert.text("");
-
-                            this.state = "tickets";
-                            this.selectTicket(-1);
+                            this.$ticketsList.append(`<li class="history-ticket" id="${i}" onclick="tracker.selectTicket(${i})">
+                                <h4 id="title">Request: ${this.tickets[i].title}</h4>
+                                <p>Ticket Number: ${this.tickets[i].id}</p>
+                                <p id="date">Created On: ${(new Date(this.tickets[i].date)).toDateString()}</p>
+                                <p id="quoted">Hours Quoted: ${this.tickets[i].quoted}</p>
+                                <p id="date">Resolved On: ${this.tickets[i].resolved ? (new Date(this.tickets[i].resolved)).toLocaleDateString('en-US', options) : "Unresolved"}</p>
+                                <p id="used">Hours Used: ${this.tickets[i].used}</p>
+                                <p id="desc">Description: ${this.tickets[i].description}</p>
+                                </li>`);
                         }
-                        else {
-                            console.log(data);
-                            this.$alert.text(data.message);
-                        }
-                    });
-                } 
-                catch(err) {
-                    console.log(err);
+
+                        this.$ticketsList.append(`<h3>Total Hours Used: ${total}</h3>`);
+                    }
+                    else {
+                        this.$ticketsList.append(`<p>No history found for the specified time period!</p>`);
+                    }
+
+                    this.$loginForm.addClass("invisible");
+                    this.$submitForm.addClass("invisible");
+                    this.$historyForm.addClass("invisible");
+                    this.$ticketsList.removeClass("invisible");
+                    this.$alert.text("");
+
+                    this.state = "tickets";
+                    this.selectTicket(-1);
+                }
+                else {
+                    this.$alert.text(response.message);
                 }
             }
             else {
@@ -278,16 +270,16 @@
         deleteTicket = async () => {
             if (this.selectedTicket >= 0 && this.selectedTicket < this.tickets.length) {
                 try {
-                    await $.post("/serve/delete-ticket", {
-                        name: "it",
+                    let response = await commune("servePages", {
+                        script: "delete-ticket",
                         org: "<%= user ? user.username : "" %>",
                         admin: this.$admin.val(),
                         adPassword: this.$adPassword.val(),
                         ticketID: this.tickets[this.selectedTicket].id
-                    }, (data) => {
-                        console.log(data.message);
-                        this.viewHistory();
                     });
+
+                    console.log(response);
+                    this.viewHistory();
                 } 
                 catch(err) {
                     console.log(err);
@@ -298,18 +290,18 @@
         setHours = async () => {
             if (this.selectedTicket >= 0 && this.selectedTicket < this.tickets.length ) {
                 try {
-                    await $.post("/serve/set-hours", {
-                        name: "it",
+                    let response = await commune("servePages", {
+                        script: "set-hours",
                         org: "<%= user ? user.username : "" %>",
                         admin: this.$admin.val(),
                         adPassword: this.$adPassword.val(),
                         ticketID: this.tickets[this.selectedTicket].id,
                         used: this.$adUsed.val(),
                         quoted: this.$adQuoted.val()
-                    }, (data) => {
-                        console.log(data.message);
-                        this.viewHistory();
                     });
+
+                    console.log(response);
+                    this.viewHistory();
                 } 
                 catch(err) {
                     console.log(err);
@@ -320,17 +312,17 @@
         resolveTicket = async () => {
             if (this.selectedTicket >= 0 && this.selectedTicket < this.tickets.length) {
                 try {
-                    await $.post("/serve/resolve-ticket", {
-                        name: "it",
+                    let response = await commune("servePages", {
+                        script: "resolve-ticket",
                         org: "<%= user ? user.username : "" %>",
                         admin: this.$admin.val(),
                         adPassword: this.$adPassword.val(),
                         ticketID: this.tickets[this.selectedTicket].id,
                         resolveDate: this.$adDate.val() + "T00:00:00"
-                    }, (data) => {
-                        console.log(data.message);
-                        this.viewHistory();
                     });
+
+                    console.log(response);
+                    this.viewHistory();
                 } 
                 catch(err) {
                     console.log(err);

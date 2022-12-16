@@ -22,14 +22,9 @@ class Merchant {
     }
 
     addItem = async (itemName, price, stall, amount = 1) => {
-        let gotItem = null;
-        await $.get("/item", { name: itemName}, (res) => {
-            gotItem = res.foundItem
-        });
-
         if (this.stalls[stall]) {
             this.stalls[stall].items.push({
-                item: gotItem,
+                name: itemName,
                 price: price,
                 amount: amount
             });
@@ -46,7 +41,7 @@ class Merchant {
     buyItem = async (which, stall, amount = 1) => {
         if (playerInventory.hasItem(this.currencyType, this.stalls[stall].items[which].price * amount)) {
             await playerInventory.change(this.currencyType, -this.stalls[stall].items[which].price * amount);
-            await playerInventory.change(this.stalls[stall].items[which].item.name, amount)
+            await playerInventory.change(this.stalls[stall].items[which].name, amount)
         }
         else console.log(`Insufficient ${this.currencyType}`);
 
@@ -54,8 +49,8 @@ class Merchant {
     }
 
     sellItem(which, stall, amount = 1) {
-        if (playerInventory.hasItem(this.stalls[stall].items[which].item.name)) {
-            playerInventory.change(this.stalls[stall].items[which].item.name, amount);
+        if (playerInventory.hasItem(this.stalls[stall].items[which].name)) {
+            playerInventory.change(this.stalls[stall].items[which].name, amount);
         }
         this.render(stall);
     }
@@ -67,7 +62,7 @@ class Merchant {
 
         for (let i = 0; i < this.stalls[stall].items.length; i++) {
             this.stalls[stall].$div.append(`<div class="merchant-item">
-                <h6>${this.stalls[stall].items[i].item.name}</h6>
+                <h6>${this.stalls[stall].items[i].name}</h6>
                 <p>${this.stalls[stall].items[i].price}</p>
                 <p>${this.stalls[stall].items[i].amount} Left</p>
                 <button onclick="merchant.buyItem(${i}, '${stall}')">Buy</button>

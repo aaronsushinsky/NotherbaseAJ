@@ -15,45 +15,35 @@ let $returnButtons = $(".return-button");
 
 //try to login
 $loginButton.on("click", async (e) => {
-    try {
-        await $.post("/user/login", {
-            email: $("#login-email").val(),
-            password: $("#login-pass").val()
-        }, (data) => {
-            Dialogue.addGlobalFlag("logged-in");
-            closeClipboard("for-login");
-            keeper.interrupt();
-        });
-    } catch (error) {
-        //console.log(error);
-        if (error.status === 401) {
-            $loginInfo.text("Login Error: Username or password incorrect!");
-        }
-        else if (error.status === 500) {
-            $loginInfo.text("Server Error: Try again later!");
-        }
+    let response = await commune("login", {
+        email: $("#login-email").val(),
+        password: $("#login-pass").val()
+    });
+
+    if (response.status === "success") {
+        Dialogue.addGlobalFlag("logged-in");
+        closeClipboard("for-login");
+        keeper.interrupt();
+    }
+    else {
+        $loginInfo.text(response.message);
     }
 });
 
 //try to register an account
 $registerButton.on("click", async function () {
-    try {
-        await $.post("/user/register", {
-            email: $("#register-email").val(),
-            username: $("#register-user").val(),
-            password: $("#register-pass").val(),
-            confirmation: $("#register-confirmation").val()
-        }, (data) => {
-            $registerInfo.text("You hear a nod from deep within the shack. Your new account has been registered.");
-        });
-    } catch (error) {
-        //console.log(error);
-        if (error.status === 400) {
-            $registerInfo.text("Registration Error: Username taken!");
-        }
-        else if (error.status === 500) {
-            $registerInfo.text("Server Error: Try again later!");
-        }
+    let response = await commune("register", {
+        email: $("#register-email").val(),
+        username: $("#register-user").val(),
+        password: $("#register-pass").val(),
+        confirmation: $("#register-confirmation").val()
+    });
+
+    if (response.status === "success") {
+        $registerInfo.text("You hear a nod from deep within the shack. Your new account has been registered.");
+    }
+    else {
+        $registerInfo.text(response.message);
     }
 });
 

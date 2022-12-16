@@ -32,23 +32,12 @@ class ItemFloor {
     }
 
     async updateItems() {
-        try {
-            await $.get(`/item/all`, (data) => {
-                this.items = [];
-                let newItems = data.foundItems;
+        let response = await commune("getAllItems");
 
-                for (let i = 0; i < newItems.length; i++) {
-                    let w = 0;
-                    while (w < this.items.length && newItems[i].name > this.items[w].name) w++;
-                    this.items.splice(w, 0, newItems[i]);
-                }
+        this.items = response.data;
+        console.log(response);
 
-                this.renderItemList();
-            });
-        } 
-        catch(err) {
-            console.log(err);
-        }
+        this.renderItemList();
     };
 
     renderItemList() {
@@ -64,10 +53,15 @@ class ItemFloor {
         this.selectItem(this.selected);
     }
     
-    createNewItem() {
+    async createNewItem() {
         if (this.state === "reading") {
+            let response = await commune("newItem", {
+                name: "New Item",
+                shortDescription: "Short Description",
+                fullDescription: "Full Description"
+            });
+
             this.items.push({
-                _id: null,
                 name: "New Item",
                 shortDescription: "Short Description",
                 fullDescription: "Full Description"
@@ -122,23 +116,18 @@ class ItemFloor {
 
     async saveSelectedItem() {
         if (this.state === "editing") {
-            try {
-                await $.post("/item", {
-                    id: this.items[this.selected]._id,
-                    name: this.$editName.val(),
-                    shortDescription: this.$editShort.val(),
-                    fullDescription: this.$editFull.val(),
-                }, () => {
-                    this.items[this.selected].name = this.$editName.val();
-                    this.items[this.selected].shortDescription = this.$editShort.val();
-                    this.items[this.selected].fullDescription = this.$editFull.val();
-                    this.cancelEdit();
-                    this.updateItems();
-                });
-            } 
-            catch(err) {
-                console.log(err);
-            }
+            let response = await commune("setItem", {
+                name: this.$editName.val(),
+                shortDescription: this.$editShort.val(),
+                fullDescription: this.$editFull.val()
+            });
+
+            this.items[this.selected].name = this.$editName.val();
+            this.items[this.selected].shortDescription = this.$editShort.val();
+            this.items[this.selected].fullDescription = this.$editFull.val();
+
+            this.cancelEdit();
+            this.updateItems();
         }
     }
 
@@ -152,17 +141,12 @@ class ItemFloor {
 
     async deleteSelectedItem() {
         if (this.state === "reading" && this.hasValidSelection()) {
-            try {
-                await $.post("/item/delete", {
-                    id: this.items[this.selected]._id
-                }, () => {
-                    this.selectItem(-1);
-                    this.updateItems();
-                });
-            } 
-            catch(err) {
-                console.log(err);
-            }
+            let response = await commune("deleteItem", {
+                name: this.items[this.selected].name
+            });
+
+            this.selectItem(-1);
+            this.updateItems();
         }
     }
 }

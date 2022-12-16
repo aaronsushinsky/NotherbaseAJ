@@ -27,8 +27,15 @@ class Todo {
         
         let loaded = await memories.load("tasks");
 
-        if (loaded) {
+        if (loaded.tasks) {
             this.tasks = loaded.tasks;
+        }
+        else {
+            this.tasks = {};
+
+            for (let i = 0; i < this.periodTypes.length; i++) {
+                this.tasks[this.periodTypes[i]] = [];
+            }
         }
 
         this.renderFull();

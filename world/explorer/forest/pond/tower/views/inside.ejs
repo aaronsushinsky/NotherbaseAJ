@@ -152,7 +152,9 @@
 
 <script>
     <% if (user.authLevels.includes("Creator")) { %>
-        <%- include("../local-scripts/inside.js"); %> 
+        $(".floor button#toggle").on("click", function (e) {
+            $(e.target.parentElement).find(".content").toggleClass("invisible");
+        });
         <%- include("../local-scripts/items.js"); %> 
         <%- include("../local-scripts/users.js"); %> 
     <% } %>

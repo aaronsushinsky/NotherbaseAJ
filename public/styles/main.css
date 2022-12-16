@@ -396,6 +396,12 @@ iframe {
     border: none;
 }
 
+.login-cover a {
+    padding: var(--padding);
+    margin: 0;
+    display: flex;
+}
+
 .dialogue {
     width: var(--fillFromMargin);
     height: 200px;
