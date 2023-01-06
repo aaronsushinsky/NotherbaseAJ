@@ -1,0 +1,58 @@
+<style>
+    <%- include("../borders.css"); %>
+</style>
+
+<p>
+    Tool Stall
+</p>
+
+<hr>
+
+<div class="dialogue" id="clerk">
+    <div class="frame">
+        <img src="/img/npcs/anon.png" class="portrait">
+    </div>
+    <div class="heart"></div>
+    <div class="content">
+
+    </div>
+</div>
+
+<hr>
+
+<div class="merchant" id="tools">
+
+</div>
+
+<button onclick="playerInventory.change('Gold Coin', 100)">Gain 100 Gold</button>
+
+<hr>
+
+<a class="return" href="/forest/eye-of-the-forest/square">
+    Back to Square
+</a>
+
+<script src="/js/dialogue.js"></script>
+<script src="/js/merchant.js"></script>
+<script>
+    let clerkDialogue = new Dialogue("clerk", 1250, () => {
+        return [
+            Dialogue.createTextSlide(1, "'Got tools.")
+        ];
+    });
+
+    merchant.addStall("tools");
+    merchant.addCurrency(1000);
+    merchant.addItem("Debris", 100, "tools", 20);
+    merchant.addItem("Chisel", 100, "tools", 20);
+    merchant.addItem("Axe", 100, "tools", 20);
+    merchant.addItem("Fishing Rod", 100, "tools", 20);
+    merchant.addItem("Hammer", 100, "tools", 20);
+    merchant.addItem("Hoe", 100, "tools", 20);
+    merchant.addItem("Knife", 100, "tools", 20);
+    merchant.addItem("Pickaxe", 100, "tools", 20);
+    merchant.addItem("Shovel", 100, "tools", 20);
+    merchant.addItem("Oar", 100, "tools", 20);
+    merchant.addItem("Scythe", 100, "tools", 20);
+    merchant.addItem("Stick Net", 100, "tools", 20);
+</script>
