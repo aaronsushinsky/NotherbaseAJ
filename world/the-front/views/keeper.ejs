@@ -1,4 +1,5 @@
 <style>
+    <%- include("../styles/the-front.css"); %>
     <%- include("../styles/keeper.css"); %>
     <%- include("../styles/borders.css"); %>
 </style>
@@ -13,7 +14,7 @@
 <div class="shack">
     <div class="dialogue" id="keeper">
         <div class="frame">
-            <img src="/img/anon.png" class="portrait">
+            <img src="/img/npcs/anon.png" class="portrait">
         </div>
         <div class="heart"></div>
         <div class="content">
@@ -26,8 +27,8 @@
             <button class="close">X</button>
             <div class="application">
                 <div class="auth-form" id="login-form">
-                    <h1>NotherBase</h1>
-                    <h3>Login to Your Account</h3>
+                    <h4>NotherBase</h4>
+                    <h5>Login to Your Account</h5>
                     <input type="email" name="email" placeholder="e@mail.com" id="login-email">
                     <input type="password" name="password" placeholder="password" id="login-pass">
                     <button id="login-button">Login</button>
@@ -35,16 +36,16 @@
                     <p id="login-info"></p>
                 </div>
                 <div class="auth-form invisible" id="reset-form">
-                    <h1>NotherBase</h1>
-                    <h3>Reset Your Password</h3>
+                    <h4>NotherBase</h4>
+                    <h5>Reset Your Password</h5>
                     <input type="email" name="email" placeholder="e@mail.com" id="reset-email">
                     <button id="reset-button">Send Reset Code to Your Email</button>
                     <button class="subtle return-button">Return to Login</button>
                     <p id="reset-info"></p>
                 </div>
                 <div class="auth-form invisible" id="set-form">
-                    <h1>NotherBase</h1>
-                    <h3>Change Your Password</h3>
+                    <h4>NotherBase</h4>
+                    <h5>Change Your Password</h5>
                     <p>A reset code was sent to your email. Submit that with your new password below.</p>
                     <input type="number" name="token" placeholder="0000" id="change-token">
                     <input type="password" name="password" placeholder="new password" id="change-password">
@@ -63,8 +64,8 @@
             <button class="close">X</button>
             <div class="application">
                 <div class="auth-form" id="register-form">
-                    <h1>NotherBase</h1>
-                    <h3>Register a New Account</h3>
+                    <h4>NotherBase</h4>
+                    <h5>Register a New Account</h5>
                     <input type="email" name="email" placeholder="e@mail.com" id="register-email">
                     <input type="text" name="username" placeholder="username" id="register-user">
                     <input type="password" name="password" placeholder="password" id="register-pass">

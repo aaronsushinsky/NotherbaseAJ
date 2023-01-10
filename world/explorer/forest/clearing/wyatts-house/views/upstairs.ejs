@@ -1,5 +1,6 @@
 <style>
     <%- include("../styles/upstairs.css"); %>
+    <%- include("../styles/wallet.css"); %>
 </style>
 
 <p>
@@ -9,42 +10,122 @@
 
 <hr>
 
-
-
-<div class="today">
-    <h3>To Do Today</h3>
-    <ul>
-        <li>
-            <p>Praised my Lord</p>
-            <input type="checkbox" name="bible" id="dishes">
-        </li>
-        <li>
-            <p>Went to Work</p>
-            <input type="checkbox" name="job" id="dishes">
-        </li>
-        <li>
-            <p>Cleaned Dishes</p>
-            <input type="checkbox" name="dishes" id="dishes">
-        </li>
-        <li>
-            <p>Took Out the Trash</p>
-            <input type="checkbox" name="trash" id="dishes">
-        </li>
-        <li>
-            <p>Excercised at Least 30 Minutes</p>
-            <input type="checkbox" name="excersize" id="dishes">
-        </li>
-        <li>
-            <p>Vacuumed</p>
-            <input type="checkbox" name="extra" id="dishes">
-        </li>
-    </ul>
+<div class="todo today">
+    <div class="loading">
+        <h5>Loading...</h5>
+    </div>
+    <div class="main invisible">
+        <h3>To Do Today</h3>
+        <ul>
+            
+        </ul>
+        <button id="flip" onclick='todo.flipToNew("today")'>#</button>
+    </div>
+    <div class="new invisible">
+        <h3>Submit a New Task for Today</h3>
+        <label>
+            Description: 
+            <input type="text" id="task">
+        </label>
+        <button id="submit" onclick="todo.submit('today')">Submit</button>
+        <button id="flip" onclick='todo.flipToMain("today")'>#</button>
+    </div>
+    
 </div>
 
-<div id="destiny">
-    <iframe class="folded" id="dgg-chat" src="https://www.destiny.gg/embed/chat?follow=%2Fbigscreen"></iframe>
-    <button class="folder" id="chat-folder">Chat</button>
+<div class="todo week">
+    <div class="loading">
+        <h5>Loading...</h5>
+    </div>
+    <div class="main">
+        <h3>To Do This Week</h3>
+        <ul>
+            
+        </ul>
+        <button id="flip" onclick='todo.flipToNew("week")'>#</button>
+    </div>
+    <div class="new invisible">
+        <h3>Submit a New Task for This Week</h3>
+        <label>
+            Description: 
+            <input type="text" id="task">
+        </label>
+        <button id="submit" onclick="todo.submit('week')">Submit</button>
+        <button id="flip" onclick='todo.flipToMain("week")'>#</button>
+    </div>
 </div>
+
+<div class="todo month">
+    <div class="loading">
+        <h5>Loading...</h5>
+    </div>
+    <div class="main">
+        <h3>To Do This Month</h3>
+        <ul>
+            
+        </ul>
+        <button id="flip" onclick='todo.flipToNew("month")'>#</button>
+    </div>
+    <div class="new invisible">
+        <h3>Submit a New Task for This Month</h3>
+        <label>
+            Description: 
+            <input type="text" id="task">
+        </label>
+        <button id="submit" onclick="todo.submit('month')">Submit</button>
+        <button id="flip" onclick='todo.flipToMain("month")'>#</button>
+    </div>
+</div>
+
+<div class="todo year">
+    <div class="loading">
+        <h5>Loading...</h5>
+    </div>
+    <div class="main">
+        <h3>To Do This Year</h3>
+        <ul>
+            
+        </ul>
+        <button id="flip" onclick='todo.flipToNew("year")'>#</button>
+    </div>
+    <div class="new invisible">
+        <h3>Submit a New Task for This Year</h3>
+        <label>
+            Description: 
+            <input type="text" id="task">
+        </label>
+        <button id="submit" onclick="todo.submit('year')">Submit</button>
+        <button id="flip" onclick='todo.flipToMain("year")'>#</button>
+    </div>
+</div>
+
+<div class="wallet">
+    <h4>Your Wallet</h4>
+    <div class="summary">
+        <div class="spending">
+            <h5>Spending Money Left</h5>
+            <h6 id="week">This Week: $0</h6>
+            <h6 id="month">This Month: $0</h6>
+            <input type="text" id="item"><input type="number" id="spend"><button onclick="">Spend</button>
+        </div>
+        <div class="flow">
+            <h5>Cash Flow Last Month</h5>
+            <h6 id="income">Made: $0</h6>
+            <h6 id="expenses">Spent: $0</h6>
+            <h6 id="saved">Saved: $0</h6>
+        </div>
+    </div>
+    <div class="settings invisible">
+    </div>
+    <button onclick="wallet.toggleView()">$$</button>
+</div>
+
+<hr>
+
+<a href="/forest/clearing/wyatts-house/closet" class="door">
+    Go in the Closet
+    <div class="knob"></div>
+</a>
 
 <hr>
 
@@ -53,11 +134,6 @@
 </a>
 
 <script>
-    $("#bigscreen-folder").on("click", function () {
-        $("#bigscreen").toggleClass("folded");
-    });
-
-    $("#chat-folder").on("click", function () {
-        $("#dgg-chat").toggleClass("folded");
-    });
+    <%- include("../local-scripts/todo.js") %>
+    <%- include("../local-scripts/wallet.js") %>
 </script>

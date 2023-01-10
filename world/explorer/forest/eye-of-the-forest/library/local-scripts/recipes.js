@@ -26,13 +26,6 @@ class RecipeBrowser {
         this.$editIngredientList = this.$edit.find(".ingredients");
         this.$editDirectionsList = this.$edit.find(".directions");
 
-        //entry buttons
-        this.$saveButton = $(".buttons #save");
-        this.$cancelButton = $(".buttons #cancel");
-        this.$newButton = $(".buttons #new");
-        this.$editButton = $(".buttons #edit");
-        this.$deleteButton = $(".buttons #delete");
-
         //tabs
         this.tab = 0;
         this.tabRecipes = [-1];
@@ -41,28 +34,18 @@ class RecipeBrowser {
     }
 
     load = async () => {
-        //enable the search bar
-        this.$search.on("input", (e) => {
-            this.filterRecipes($(e.currentTarget).val());
-            this.renderSearchResults();
-        });
-
-        //enable entry control buttons
-        this.$saveButton.click(this.saveRecipe);
-        this.$cancelButton.click(this.cancelRecipe);
-        this.$newButton.click(this.newRecipe);
-        this.$editButton.click(this.editRecipe);
-        this.$deleteButton.click(this.deleteRecipe);
-
         //load recipes
-        await $.get("/forest/eye-of-the-forest/library/recipes/load", (data) => {
-            console.log(data);
-            this.recipes = data.recipes;
-            this.filteredRecipes = this.recipes;
-        });
-        if (!this.recipes) this.recipes = [];
+        let loadedData = await memories.load("recipes");
+        if (!loadedData) this.recipes = [];
+        else this.recipes = loadedData.recipes;
 
         this.renderSearchResults();
+
+        //enable the search bar
+        this.$search.on("input", (e) => {
+            this.filter = $(e.currentTarget).val();
+            this.renderSearchResults();
+        });
     }
 
     renderSearchResults() {
@@ -70,7 +53,10 @@ class RecipeBrowser {
 
         for (let i = 0; i < this.recipes.length; i++) {
             if (this.recipes[i].name.toLowerCase().includes(this.filter.toLowerCase())) {
-                this.$searchList.append(`<li onclick="recipeBrowser.clickRecipe(this, ${i})">${this.filteredRecipes[i].name}</li>`);
+                this.$searchList.append(`<li onclick="recipeBrowser.clickRecipe(this, ${i})">
+                    ${this.recipes[i].name}
+                    <button onclick="recipeBrowser.deleteRecipe(${i})">X</button>
+                </li>`);
             }
         };
         if (this.$searchList.find("li").length < 1) {
@@ -83,18 +69,20 @@ class RecipeBrowser {
         let ing = [];
         let $ingredients = this.$editIngredientList.find("li");
         for (let i = 0; i < $ingredients.length; i++) {
-            ing.push({
-                amount: $($ingredients[i]).find("#amount").val(),
-                measure: $($ingredients[i]).find("#measure").val(),
-                ingredient: $($ingredients[i]).find("#ingredient").val()
-            });
+            if ($($ingredients[i]).find("#ingredient").val() != "") {
+                ing.push({
+                    amount: $($ingredients[i]).find("#amount").val(),
+                    measure: $($ingredients[i]).find("#measure").val(),
+                    ingredient: $($ingredients[i]).find("#ingredient").val()
+                });
+            }
         }
 
         //compile directions list
         let dir = [];
         let $directions = this.$editDirectionsList.find("li input");
         for (let i = 0; i < $directions.length; i++) {
-            dir.push($($directions[i]).val());
+            if ($($directions[i]).val() != "") dir.push($($directions[i]).val());
         }
 
         //update recipe
@@ -119,41 +107,116 @@ class RecipeBrowser {
             };
         }
 
-        console.log(this.recipes[currentRecipe]);
-
-        try {
-            //save to db
-            await $.post("/forest/eye-of-the-forest/library/recipes/save", { recipes: this.recipes }, () => {
-                console.log("Recipes Saved!");
-                this.cancelRecipe();
-                this.renderSearchResults();
-            });
-        } catch(err) {
-            console.log(err);
-        }
+        await memories.save("recipes", {
+            recipes: this.recipes
+        })
+        
+        this.cancelRecipe();
+        this.renderSearchResults();
     }
 
     newRecipe = () => {
         this.tabRecipes[this.tab] = -1;
-        this.$read.addClass("invisible");
-        this.$edit.removeClass("invisible");
-
-        this.$saveButton.removeClass("invisible");
-        this.$cancelButton.removeClass("invisible");
-        this.$newButton.addClass("invisible");
-        this.$editButton.addClass("invisible");
-        this.$deleteButton.addClass("invisible");
+        
+        this.editRecipe();
     }
 
     editRecipe = () => {
         this.$read.addClass("invisible");
         this.$edit.removeClass("invisible");
 
-        this.$saveButton.removeClass("invisible");
-        this.$cancelButton.removeClass("invisible");
-        this.$newButton.addClass("invisible");
-        this.$editButton.addClass("invisible");
-        this.$deleteButton.addClass("invisible");
+        if (this.tabRecipes[this.tab] >= 0) {
+            this.$editName.val(this.recipes[this.tabRecipes[this.tab]].name);
+            this.$editImage.val(this.recipes[this.tabRecipes[this.tab]].img);
+            this.$editSource.val(this.recipes[this.tabRecipes[this.tab]].source);
+            
+            this.renderEditIngredients(this.recipes[this.tabRecipes[this.tab]].ingredients);
+            this.renderEditDirections(this.recipes[this.tabRecipes[this.tab]].directions);
+        }
+    }
+
+    renderEditIngredients(ingredients) {
+        this.$editIngredientList.empty();
+        this.$editIngredientList.append(`<h6>Ingredients:</h6>`);
+        for (let i = 0; i < ingredients.length; i++) {
+            this.$editIngredientList.append(`<li>
+                <input type="number" id="amount" placeholder="1" value="${ingredients[i].amount}">
+                <input type="text" id="measure" placeholder="tbsp" value="${ingredients[i].measure}">
+                <input type="text" id="ingredient" placeholder="carrots" value="${ingredients[i].ingredient}">
+                <button onclick="recipeBrowser.addIngredient(${i})">+</button>
+                <button onclick="recipeBrowser.deleteIngredient(${i})">X</button>
+            </li>`);
+        }
+        this.$editIngredientList.append(`<li class="new">
+            <input type="number" id="amount" placeholder="1">
+            <input type="text" id="measure" placeholder="tbsp">
+            <input type="text" id="ingredient" placeholder="carrots">
+            <button onclick="recipeBrowser.addIngredient(${ingredients.length})">+</button>
+            <button onclick="recipeBrowser.deleteIngredient(${ingredients.length})">X</button>
+        </li>`);
+    }
+
+    renderEditDirections(directions) {
+        this.$editDirectionsList.empty();
+        this.$editDirectionsList.append(`<h6>Directions:</h6>`);
+        for (let i = 0; i < directions.length; i++) {
+            this.$editDirectionsList.append(`<li class="new">
+                <input type="text" placeholder="directions go here" value="${directions[i]}">
+                <button onclick="recipeBrowser.addDirection(${i})">+</button>
+                <button onclick="recipeBrowser.deleteDirection(${i})">X</button>
+            </li>`);
+        }
+        this.$editDirectionsList.append(`<li class="new">
+            <input type="text" placeholder="directions go here">
+            <button onclick="recipeBrowser.addDirection(${directions.length})">+</button>
+            <button onclick="recipeBrowser.deleteDirection(${directions.length})">X</button>
+        </li>`);
+    }
+
+    addIngredient = (under) => {
+        let l = this.$editIngredientList.find("li").length;
+        this.$editIngredientList.append(`<li class="new">
+            <input type="number" id="amount" placeholder="1">
+            <input type="text" id="measure" placeholder="tbsp">
+            <input type="text" id="ingredient" placeholder="carrots">
+            <button onclick="recipeBrowser.addIngredient(${l})">+</button>
+            <button onclick="recipeBrowser.deleteIngredient(${l})">X</button>
+        </li>`);
+    }
+
+    deleteIngredient = (which) => {
+        let ing = [];
+        let $ingredients = this.$editIngredientList.find("li");
+        for (let i = 0; i < $ingredients.length; i++) {
+            if ($($ingredients[i]).find("#ingredient").val() != "" && i != which) {
+                ing.push({
+                    amount: $($ingredients[i]).find("#amount").val(),
+                    measure: $($ingredients[i]).find("#measure").val(),
+                    ingredient: $($ingredients[i]).find("#ingredient").val()
+                });
+            }
+        }
+
+        this.renderEditIngredients(ing);
+    }
+
+    addDirection = (under) => {
+        let l = this.$editDirectionsList.find("li").length;
+        this.$editDirectionsList.append(`<li class="new">
+            <input type="text" placeholder="directions go here">
+            <button onclick="recipeBrowser.addDirection(${l})">+</button>
+            <button onclick="recipeBrowser.deleteDirection(${l})">X</button>
+        </li>`);
+    }
+
+    deleteDirection(which) {
+        let dir = [];
+        let $directions = this.$editDirectionsList.find("li input");
+        for (let i = 0; i < $directions.length; i++) {
+            if ($($directions[i]).val() != "" && i != which) dir.push($($directions[i]).val());
+        }
+
+        this.renderEditDirections(dir);
     }
 
     cancelRecipe = () => {
@@ -175,41 +238,54 @@ class RecipeBrowser {
         this.$editDirectionsList.empty();
         this.$editDirectionsList.append(`<h6>Directions:</h6>`);
         this.$editDirectionsList.append(`<li class="new">
-        <input type="text" placeholder="directions go here">
-        <button onclick="recipeBrowser.addDirection()">+</button>
-        <button onclick="recipeBrowser.deleteDirection(0)">X</button>
-    </li>`);
+            <input type="text" placeholder="directions go here">
+            <button onclick="recipeBrowser.addDirection()">+</button>
+            <button onclick="recipeBrowser.deleteDirection(0)">X</button>
+        </li>`);
 
-        this.$saveButton.addClass("invisible");
-        this.$cancelButton.addClass("invisible");
-        this.$newButton.removeClass("invisible");
-        this.$editButton.removeClass("invisible");
-        this.$deleteButton.removeClass("invisible");
+        this.readRecipe();
     }
 
-    deleteRecipe = async () => {
+    deleteRecipe = async (which) => {
+        this.recipes.splice(which, 1);
 
+        await memories.save("recipes", {
+            recipes: this.recipes
+        })
+        
+        this.tabRecipes[this.tab] = -1;
+        this.cancelRecipe();
+        this.renderSearchResults();
     }
 
-    readRecipe = (index) => {
+    readRecipe = (index = this.tabRecipes[this.tab]) => {
         this.tabRecipes[this.tab] = index;
         let currentRecipe = this.getSelectedRecipe();
-        this.$readName.text(currentRecipe.name);
-        this.$readImage.attr("src", currentRecipe.img);
-        this.$readSource.text("From " + currentRecipe.source);
+
         this.$readIngredientList.empty();
         this.$readIngredientList.append(`<h6>Ingredients:</h6>`);
-        for (let i = 0; i < currentRecipe.ingredients.length; i++) {
-            this.$readIngredientList.append(`<li>
-                <p class="amount">${currentRecipe.ingredients[i].amount}</p>
-                <p class="measure">${currentRecipe.ingredients[i].measure}</p>
-                <p class="ingredient">${currentRecipe.ingredients[i].ingredient}</p>
-            </li>`);
-        }
         this.$readDirectionsList.empty();
         this.$readDirectionsList.append(`<h6>Directions:</h6>`);
-        for (let i = 0; i < currentRecipe.directions.length; i++) {
-            this.$readDirectionsList.append(`<li>${currentRecipe.directions[i]}</li>`);
+
+        if (currentRecipe) {
+            this.$readName.text(currentRecipe.name);
+            this.$readImage.attr("src", currentRecipe.img);
+            this.$readSource.text("From " + currentRecipe.source);
+            for (let i = 0; i < currentRecipe.ingredients.length; i++) {
+                this.$readIngredientList.append(`<li>
+                    <p class="amount">${currentRecipe.ingredients[i].amount}</p>
+                    <p class="measure">${currentRecipe.ingredients[i].measure}</p>
+                    <p class="ingredient">${currentRecipe.ingredients[i].ingredient}</p>
+                </li>`);
+            }
+            for (let i = 0; i < currentRecipe.directions.length; i++) {
+                this.$readDirectionsList.append(`<li>${currentRecipe.directions[i]}</li>`);
+            }
+        }
+        else {
+            this.$readName.text("No Recipe");
+            this.$readImage.attr("src", "/img/food/default.jpg");
+            this.$readSource.text("No Chef");
         }
     }
 
@@ -217,15 +293,6 @@ class RecipeBrowser {
         if (this.tabRecipes[this.tab] < 0) return null;
         return this.recipes[this.tabRecipes[this.tab]];
     }
-
-    // selectRecipe(index) {
-    //     this.$searchResults = this.$searchList.find("li");
-    //     this.$searchResults.removeClass("selected");
-
-    //     if (index > -1) {
-    //         $(this.$searchResults[index]).addClass("selected");
-    //     }
-    // }
 
     clickRecipe = (element, index) => {
         this.$searchResults = this.$searchList.find("li");

@@ -20,26 +20,19 @@
             <div class="recipe">
                 <div class="read">
                     <div class="title">
-                        <h5>Homemade Artisan Bread</h5><br>
+                        <h5>Recipe Name</h5><br>
                         <img src="/img/food/default.jpg">
-                        <h6>From Sally's Baking Recipes</h6>
+                        <h6>Chef Name</h6>
                     </div>
                     <ul class="ingredients">
                         <h6>Ingredients:</h6>
-                        <li><p class="amount">3.25</p><p class="measure">cup</p><p class="ingredient">bread flour</p></li>
-                        <li><p class="amount">2</p><p class="measure">tbsp</p><p class="ingredient">instant yeast</p></li>
-                        <li><p class="amount">2</p><p class="measure">tbsp</p><p class="ingredient">salt</p></li>
-                        <li><p class="amount">1.5</p><p class="measure">cup</p><p class="ingredient">water</p></li>
-                        <li><p class="ingredient">Optional: rosemary</p></li>
                     </ul>
                     <ul class="directions">
                         <h6>Directions:</h6>
-                        <li>Mix in yeast and water and flour. Work until all flour is moistened. Dough will be shaggy, sticky and dry.</li>
-                        <li>Cover dough and let it rise for 2-3 hours. Optionally, let it sit in the fridge for 12 hours to 3 days. If you do, let it sit out 45 minutes in room temperature before baking.</li>
-                        <li>Preheat oven to 475 degrees Farenheit. Score surface.</li>
-                        <li>Bake for 20-25 minutes.</li>
-                        <li>Cool for 5 minutes to a few hours and serve!</li>
                     </ul>
+                    <button id="new" onclick="recipeBrowser.newRecipe()">New</button>
+                    <button id="edit" onclick="recipeBrowser.editRecipe()">Edit</button>
+                    <button id="delete" onclick="recipeBrowser.deleteRecipe()">Delete</button>
                 </div>
                 <div class="edit invisible">
                     <div class="title">
@@ -68,15 +61,10 @@
                             <button onclick="recipeBrowser.deleteDirection(0)">X</button>
                         </li>
                     </ul>
+                    <button id="save" onclick="recipeBrowser.saveRecipe()">Save</button>
+                    <button id="cancel" onclick="recipeBrowser.cancelRecipe()">Cancel</button>
                 </div>
             </div>
-        </div>
-        <div class="buttons">
-            <button class="invisible" id="save">Save</button>
-            <button class="invisible" id="cancel">Cancel</button>
-            <button id="new">New</button>
-            <button id="edit">Edit</button>
-            <button id="delete">Delete</button>
         </div>
     </div>
 </div>

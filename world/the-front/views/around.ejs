@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/styles/pond.css">
 <style>
+    <%- include("../styles/the-front.css"); %>
     <%- include("../styles/borders.css"); %>
     <%- include("../styles/around.css"); %>
 </style>
@@ -53,9 +54,10 @@
 
 <div class="grass">
     <div class="pond">
+    </div>
 </div>
 
-</div>
+<div class="chat-box" id="the-front-park-bench"></div>
 
 <hr>
 
@@ -63,7 +65,14 @@
     Return to the Gate
 </a>
 
+<script src="/js/chat-box.js"></script>
 <script src="/js/pond.js"></script>
 <script>
+    <% if (user) { %>
+        let chat = new ChatBox("<%= user.username %>", "the-front-park-bench");
+    <% } else { %>
+        let chat = new ChatBox("An Unknown Person", "the-front-park-bench");
+    <% } %>
+
     let pond = new Pond(5);
 </script>

@@ -14,7 +14,7 @@
 
 <!-- <button id="toggle">Toggle</button> -->
 
-<a class="locked to nother-base" id="lock" href="">
+<a class="to nother-base" id="lock" href="/forest/clearing/wyatts-house">
     Head down the Path
 </a>
 
@@ -29,10 +29,10 @@
     let $blocker = $("#blocker");
     let locked = true;
 
-    $.get("/forest/eye-of-the-forest/square/path/load", function (data) {
-        locked = (data.locked === "true");
-        updateLock();
-    });
+    // $.get("/forest/eye-of-the-forest/square/path/load", function (data) {
+    //     locked = (data.locked === "true");
+    //     updateLock();
+    // });
 
     // $("#toggle").click(function () {
     //     locked = !locked;
@@ -42,16 +42,16 @@
     //     });
     // });
 
-    let updateLock = function updateLock() {
-        if (locked) {
-            $lock.addClass("locked");
-            $lock.attr("href", "#");
-            $blocker.removeClass("invisible");
-        }
-        else {
-            $lock.removeClass("locked");
-            $lock.attr("href", "/forest/clearing/wyatts-house");
-            $blocker.addClass("invisible");
-        };
-    }
+    // let updateLock = function updateLock() {
+    //     if (locked) {
+    //         $lock.addClass("locked");
+    //         $lock.attr("href", "#");
+    //         $blocker.removeClass("invisible");
+    //     }
+    //     else {
+    //         $lock.removeClass("locked");
+    //         $lock.attr("href", "/forest/clearing/wyatts-house");
+    //         $blocker.addClass("invisible");
+    //     };
+    // }
 </script>

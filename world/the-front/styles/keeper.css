@@ -28,8 +28,8 @@
 
 .clipboard {
     background-color: rgb(73, 47, 28);
-    width: 300px;
-    height: 500px;
+    width: 330px;
+    height: 550px;
     position: absolute;
     left: calc(50% -  150px);
     top: -400px;
@@ -69,8 +69,8 @@
     background-color: rgba(255, 0, 0, 0.63);
     border: 1px solid black;
     position: absolute;
-    right: 0;
-    top: -15px;
+    right: var(--padding);
+    top: var(--padding);
     width: 25px;
     height: 25px;
     padding: 0;
@@ -115,18 +115,6 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-}
-
-.auth-form h3 {
-    width: calc(100% - 20px);
-    text-align: center;
-    margin: 10px;
-}
-
-.auth-form h1 {
-    width: calc(100% - 20px);
-    text-align: center;
-    margin: 10px;
 }
 
 .auth-form p {

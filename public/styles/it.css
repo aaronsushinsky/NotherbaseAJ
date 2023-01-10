@@ -1,0 +1,146 @@
+:root {
+    --footerTextColor : rgb(255, 255, 255);
+    --bgColor: white;
+    --darkBgColor: rgb(255, 255, 255);
+    --darkBgColorGradient: linear-gradient(170deg, rgb(192, 204, 223) 0%, rgb(255, 255, 255) 100%);
+    --veryDarkBgColorTransparent: rgba(15, 15, 15, 0.404);
+    --veryDarkBgColor: rgb(121, 108, 103);
+    --textColor: rgb(27, 27, 27);
+    --textColorBright: rgb(99, 78, 64);
+    --shadowColor: rgb(82, 82, 82);
+}
+
+* {
+    font-family: "Chakra Petch", sans-serif;
+}
+
+main {
+    align-content: flex-start;
+    box-shadow: 5px 5px var(--shadowColor);
+    min-height: 380px;
+}
+
+footer {
+    color: var(--footerTextColor);
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    position: relative;
+    box-shadow: 5px 5px var(--shadowColor);
+}
+
+footer input, footer p {
+    color: var(--footerTextColor);
+    font-size: small;
+    width: auto;
+    margin: 0;
+    height: 15px;
+    background-color: rgba(240, 248, 255, 0);
+}
+
+.form {
+    border: none;
+}
+
+#ad-panel {
+    background-color: rgba(237, 237, 237, 0.046);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5%;
+    height: 100%;
+    margin: 0;
+    border: none;
+    border-radius: 0px 0px 0px 5px;
+    padding: 0;
+}
+
+.admin-panel {
+    width: 90%;
+    height: auto;
+    margin-left: 10%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.admin-panel p {
+    width: 100%;
+    height: auto;
+}
+
+.admin-panel button {
+    height: 25px;
+    padding: 2px;
+    font-size: small;
+    margin: 0;
+}
+
+.form #to-history {
+    background: linear-gradient(170deg, rgb(255, 255, 255) 0%, rgb(250, 226, 198) 100%);
+}
+
+#desc-label {
+    width: 90%;
+}
+
+#att-label {
+    width: 40%;
+}
+
+#submit {
+    background: linear-gradient(170deg, rgb(255, 255, 255) 0%, rgb(205, 250, 198) 100%);
+}
+
+#view {
+    background: linear-gradient(170deg, rgb(255, 255, 255) 0%, rgb(199, 225, 248) 100%);
+}
+
+#request-history {
+    background: linear-gradient(170deg, rgb(255, 255, 255) 0%, rgb(205, 250, 198) 100%);
+}
+
+.history #to-submit {
+    background: linear-gradient(170deg, rgb(255, 255, 255) 0%, rgb(250, 226, 198) 100%);
+}
+
+.tickets {
+    width: 100%;
+    min-height: 200px;
+    margin: 0;
+    background-color: white;
+    list-style: none;
+}
+
+.tickets li {
+    border: var(--standardBorder);
+    padding: 10px;
+}
+
+.tickets li.selectable {
+    cursor: pointer;
+}
+
+.tickets li.selectable:hover {
+    border: var(--textColorBright);
+}
+
+.tickets li.selected {
+    border: var(--textColorBright);
+}
+
+#close {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.folded {
+    height: 50px !important;
+    overflow: hidden;
+    transition: height .3s ease;
+}
+
+#alert {
+    width: 100%;
+    text-align: center;
+    margin: 10px;
+}

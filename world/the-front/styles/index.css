@@ -33,16 +33,49 @@
     transition: all .2s ease;
 }
 
-h6 {
-    width: 100%;
-    font-size: 40px;
-    text-align: center;
+.line {
+    width: var(--fillHalfFromMargin);
+    background-color: var(--bgColor);
+    border: var(--thickBorder);
+    padding: 0;
+    margin: var(--margin);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-@media only screen and (max-width: 1000px) {
-    h6 {
-        width: 100%;
-        font-size: 30px;
-        text-align: center;
+.line ul {
+    height: 300px;
+    overflow: auto;
+    border: var(--standardBorder);
+    width: 100%;
+    margin: 0;
+}
+
+.line li {
+    margin: var(--margin);
+    padding: var(--padding);
+    list-style: none;
+    position: relative;
+    height: 50px;
+    background-color: var(--bgColor);
+}
+
+.line img {
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+}
+
+.line p {
+    text-align: right;
+}
+
+@media only screen and (max-width: 800px) {
+    .line {
+        width: var(--fillFromMargin);
     }
 }

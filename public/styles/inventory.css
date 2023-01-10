@@ -3,7 +3,7 @@
     color: var(--textColor);
     width: 100%;
     height: 100%;
-    padding: 25px 25px 0 25px;
+    padding: var(--thickPadding);
     z-index: 500;
     overflow: auto;
 }
@@ -16,6 +16,7 @@
     border: none;
     align-content: flex-start;
     height: 100%;
+    justify-content: center;
 }
 
 .inventory .item-spawner {
@@ -39,47 +40,39 @@
 }
 
 .item-card {
-    width: 100%;
-    height: 40px;
-    border-radius: 3px;
-    border: 1px solid var(--textColor);
+    width: var(--fillFromMargin);
+    height: 100px;
+    border-radius: var(--borderRadius);
+    border: var(--standardBorder);
     padding: 0;
-    margin: 2.5px;
     position: relative;
     background-color: var(--bgColor);
     display: flex;
     align-items: center;
-}
-
-.item-card h5 {
-    min-width: 40%;
-    padding: 10px;
-}
-
-.item-card p {
-    width: auto;
-    padding: 10px;
-    margin: 0;
+    flex-wrap: wrap;
+    position: relative;
+    margin: var(--margin);
 }
 
 .item-card button {
     margin: 0;
     padding: 0 3px;
     border-radius: 0;
-    border-top: none;
     border-bottom: none;
-    height: 100%;
+    height: 50%;
     width: 75px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: none;
 }
 
 .item-card hr {
-    min-width: 5%;
+    width: 100%;
     height: 1px;
-    margin: 5px;
+    margin: 0;
 }
 
-@media only screen and (max-width: 1000px) {
-    .item-card {
-        width: calc(50% - 5px);
-    }
+@media only screen and (max-width: 1300px) {
+
 }

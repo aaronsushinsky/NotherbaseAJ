@@ -6,6 +6,7 @@
     background-color: rgb(77, 45, 24);
     padding: 20px;
     border-radius: 2px;
+    width: 100%;
 }
 
 h1 {
@@ -15,14 +16,14 @@ h1 {
     text-shadow: 2px 2px #030303;
 }
 
-.search {
+.case .search {
     width: 100%;
     border: var(--standardBorder);
     height: 500px;
     background: rgb(25, 25, 25);
 }
 
-.search input {
+.case .search input {
     width: 100%;
     margin: 0;
     border-radius: 0;
@@ -30,11 +31,25 @@ h1 {
     border-bottom: var(--standardBorder);
 }
 
-.search ul {
+.case .search ul {
     border: 1px dotted var(--textColor);
     height: 410px;
     margin: 20px;
     padding: 2px;
+}
+
+.case .search li {
+    position: relative;
+}
+
+.case .search button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+    height: 100%;
+    width: 30px;
+    padding: 0;
 }
 
 .viewing {
@@ -122,15 +137,6 @@ h1 {
     right: 15px;
     top: calc(50% - 50px);
     border: 5px inset rgb(59, 42, 27);
-}
-
-.buttons {
-    width: 100%;
-    text-align: center;
-}
-
-.buttons button {
-    width: 20%;
 }
 
 ul.ingredients {
