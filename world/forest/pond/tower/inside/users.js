@@ -25,25 +25,20 @@ class UserFloor {
     }
 
     async updateUsers() {
-        try {
-            await $.get(`/user/all`, (data) => {
-                this.$userList.empty();
-                this.users = data.foundUsers;
-        
-                for (let i = 0; i < this.users.length; i++) {
-                    this.$userList.append(`<li onClick="userFloor.selectUser(${i})">${this.users[i].username}</li>`);
-                }
-        
-                this.$users = $("#user-list li");
-        
-                this.$population.text(`Population: ${this.users.length}`);
+        let users = await base.do("get-users");
 
-                this.selectUser(this.selectedUser);
-            });
-        } 
-        catch(err) {
-            console.log(err);
+        this.$userList.empty();
+        this.users = users.data;
+
+        for (let i = 0; i < this.users.length; i++) {
+            this.$userList.append(`<li onClick="userFloor.selectUser(${i})">${this.users[i].username}</li>`);
         }
+
+        this.$users = $("#user-list li");
+
+        this.$population.text(`Population: ${this.users.length}`);
+
+        this.selectUser(this.selectedUser);
     };
 
     selectUser(which) {

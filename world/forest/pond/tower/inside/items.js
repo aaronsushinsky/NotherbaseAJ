@@ -32,10 +32,9 @@ class ItemFloor {
     }
 
     async updateItems() {
-        let response = await commune("getAllItems");
+        let response = await base.do("get-items");
 
         this.items = response.data;
-        console.log(response);
 
         this.renderItemList();
     };
@@ -55,7 +54,7 @@ class ItemFloor {
     
     async createNewItem() {
         if (this.state === "reading") {
-            let response = await commune("newItem", {
+            let response = await base.do("new-item", {
                 name: "New Item",
                 shortDescription: "Short Description",
                 fullDescription: "Full Description"
@@ -89,8 +88,8 @@ class ItemFloor {
 
         if (this.hasValidSelection()) {
             this.$readName.text(this.items[this.selected].name);
-            this.$readShort.text(this.items[this.selected].shortDescription);
-            this.$readFull.text(this.items[this.selected].fullDescription);
+            this.$readShort.text(this.items[this.selected].short);
+            this.$readFull.text(this.items[this.selected].long);
         }
         else {
             this.$readName.text("Please select an item from the list.");
@@ -116,15 +115,16 @@ class ItemFloor {
 
     async saveSelectedItem() {
         if (this.state === "editing") {
-            let response = await commune("setItem", {
+            let response = await base.do("set-item", {
+                oldName: this.items[this.selected].name,
                 name: this.$editName.val(),
-                shortDescription: this.$editShort.val(),
-                fullDescription: this.$editFull.val()
+                short: this.$editShort.val(),
+                long: this.$editFull.val()
             });
 
             this.items[this.selected].name = this.$editName.val();
-            this.items[this.selected].shortDescription = this.$editShort.val();
-            this.items[this.selected].fullDescription = this.$editFull.val();
+            this.items[this.selected].short = this.$editShort.val();
+            this.items[this.selected].long = this.$editFull.val();
 
             this.cancelEdit();
             this.updateItems();

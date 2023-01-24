@@ -25,16 +25,12 @@
     </div>
 </div>
 
-<div class="merchant invisible">
-    <button onClick="purchaseDoll()">Purchase Rag Doll for 5 Gold Coins</button>
-</div>
-
 <hr>
 
 <h3>Clean Up the Debris?</h3>
 
 <div id="pile">
-    <div id="debris">
+    <div onclick="garak.clean()" id="debris">
 
     </div>
 </div>
@@ -53,75 +49,78 @@
 
 <script src="/js/dialogue.js"></script>
 <script>
-    <%- include("./clothing-stall.js"); %> 
+    class Garak {
+        constructor() {
+            this.debrisHeight = 100;
+            this.dialogue = new Dialogue("garak", 4000, function tree(self) {
+                if (Dialogue.checkGlobalFlag("bought")) {
+                    return [
+                        Dialogue.createTextSlide(1, "You have my greatest appreciation for your purchase!"),
+                        Dialogue.createTextSlide(1, "Please do come around again.")
+                    ];
+                }
+                else if (Dialogue.checkGlobalFlag("failed-buy")) {
+                    return [
+                        Dialogue.createTextSlide(1, "I'm sorry but I cannot accept any less than five gold coins."),
+                        Dialogue.createTextSlide(1, "Haggling never was my strong suit.")
+                    ];
+                }
+                else if (Dialogue.checkGlobalFlag("helped")) {
+                    return [
+                        Dialogue.createTextSlide(1, "My, my! You've cleaned it all"),
+                        Dialogue.createTextSlide(3, "You've inspired me! Surely I can make something out of this rubbish to sell.")
+                    ];
+                }
+                else if (self.checkFlag("accepted")) {
+                    return [
+                        Dialogue.createTextSlide(1, "Wonderful!"),
+                        Dialogue.createTextSlide(2, "The dreariness of this place was really starting to get to me.")
+                    ];
+                }
+                else if (self.checkFlag("declined")) {
+                    return [
+                        Dialogue.createTextSlide(2, "I see. Well I shant bother you any further."),
+                        Dialogue.createTextSlide(10, "")
+                    ];
+                }
+                else if (self.checkFlag("listened")) {
+                    return [
+                        Dialogue.createTextSlide(2, "In fact, would you be a dear help me clean up the rubble below?"),
+                        Dialogue.createButtonSlide(4, [
+                            Dialogue.createButton("Of course.", "accepted"),
+                            Dialogue.createButton("How about no.", "declined")
+                        ])
+                    ];
+                }
+                else if (self.checkFlag("listening")) {
+                    self.addFlag("listened");
+                    return [
+                        Dialogue.createTextSlide(2, "I would entreat you to make a purchase, but as you can see..."),
+                        Dialogue.createTextSlide(2, "Let's just say things just haven't been the same since the Creation."),
+                    ];
+                }
+                else {
+                    self.addFlag("listening");
+                    return [
+                        Dialogue.createTextSlide(2, "Oh, hello there. Welcome to my, uh... my humble stall.")
+                    ];
+                }
+            });
+        }
 
-    let garakDialogue = new Dialogue("garak", 4000, function tree(self) {
-        if (Dialogue.checkGlobalFlag("bought")) {
-            return [
-                Dialogue.createTextSlide(1, "You have my greatest appreciation for your purchase!"),
-                Dialogue.createTextSlide(1, "Please do come around again.")
-            ];
-        }
-        else if (Dialogue.checkGlobalFlag("failed-buy")) {
-            return [
-                Dialogue.createTextSlide(1, "I'm sorry but I cannot accept any less than five gold coins."),
-                Dialogue.createTextSlide(1, "Haggling never was my strong suit.")
-            ];
-        }
-        else if (Dialogue.checkGlobalFlag("helped")) {
-            return [
-                Dialogue.createTextSlide(1, "My, my! You've cleaned it all"),
-                Dialogue.createTextSlide(3, "You've inspired me! Surely I can make something out of this rubbish to sell.")
-            ];
-        }
-        else if (self.checkFlag("accepted")) {
-            return [
-                Dialogue.createTextSlide(1, "Wonderful!"),
-                Dialogue.createTextSlide(2, "The dreariness of this place was really starting to get to me.")
-            ];
-        }
-        else if (self.checkFlag("declined")) {
-            return [
-                Dialogue.createTextSlide(2, "I see. Well I shant bother you any further."),
-                Dialogue.createTextSlide(10, "")
-            ];
-        }
-        else if (self.checkFlag("listened")) {
-            return [
-                Dialogue.createTextSlide(2, "In fact, would you be a dear help me clean up the rubble below?"),
-                Dialogue.createButtonSlide(4, [
-                    Dialogue.createButton("Of course.", "accepted"),
-                    Dialogue.createButton("How about no.", "declined")
-                ])
-            ];
-        }
-        else if (self.checkFlag("listening")) {
-            self.addFlag("listened");
-            return [
-                Dialogue.createTextSlide(2, "I would entreat you to make a purchase, but as you can see..."),
-                Dialogue.createTextSlide(2, "Let's just say things just haven't been the same since the Creation."),
-            ];
-        }
-        else {
-            self.addFlag("listening");
-            return [
-                Dialogue.createTextSlide(2, "Oh, hello there. Welcome to my, uh... my humble stall.")
-            ];
-        }
-    });
+        clean = async () => {
+            this.debrisHeight -= 10;
+            $("#debris").css("top", `${100 - this.debrisHeight}%`);
 
-    let purchaseDoll = async function purchaseDoll() {
-        if (!Dialogue.checkGlobalFlag("bought")) {
-            $(".merchant button").addClass("invisible");
+            if (this.debrisHeight <= 0) {
+                $("h3").text("Thanks");
 
-            if (await playerInventory.change("Gold Coin", -5)) {
-                await playerInventory.change("Rag Doll", 1);
-                Dialogue.addGlobalFlag("bought");
-            }
-            else {
-                $(".merchant button").removeClass("invisible");
-                Dialogue.addGlobalFlag("failed-buy");
+                Dialogue.addGlobalFlag("helped");
+
+                await base.do("finish-clean");
             }
         }
     }
+
+    let garak = new Garak();
 </script>

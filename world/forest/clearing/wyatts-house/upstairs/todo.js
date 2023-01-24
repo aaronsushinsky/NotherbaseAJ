@@ -25,7 +25,7 @@ class Todo {
             this.flipToLoading(this.periodTypes[i]);
         }
         
-        let loaded = await memories.load("tasks");
+        let loaded = await base.load("todo");
 
         if (loaded.tasks) {
             this.tasks = loaded.tasks;
@@ -46,7 +46,7 @@ class Todo {
     }
 
     saveTasks = async () => {
-        await memories.save("tasks", {
+        await base.do("save-tasks", {
             tasks: this.tasks
         });
     }

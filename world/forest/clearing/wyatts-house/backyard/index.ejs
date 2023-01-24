@@ -77,7 +77,6 @@
 
             if (this.clicksToDie <= 0) {
                 this.$div.remove();
-                playerInventory.change("Wood", Math.floor(this.maxYield * (this.age / this.timeToGrow)));
                 this.cut = true;
             }
         }
@@ -124,8 +123,6 @@
 
         click = () => {
             this.$div.remove();
-
-            playerInventory.change("Weed", 1);
 
             this.cut = true;
         }

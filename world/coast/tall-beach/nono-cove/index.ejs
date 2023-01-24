@@ -47,4 +47,8 @@
     moveNono();
 
     setInterval(moveNono, 2000);
+
+    base.load("nono").then((res) => {
+        nonoGame.startNew(res.level, res.difficulty);
+    });
 </script>

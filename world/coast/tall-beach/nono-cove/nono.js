@@ -53,11 +53,12 @@ class NonoGame {
         this.nonoSize = 100;
         this.maxNonoId = 4;
         this.goldItem = "Gold Coin";
-
-        this.startNew();
     }
 
-    startNew() {
+    startNew(level = null, difficulty = null) {
+        if (level) this.level = level;
+        if (difficulty) this.difficulty = difficulty;
+        
         this.dimensions = [this.level, this.level];
 
         this.$board.empty();
@@ -183,9 +184,19 @@ class NonoGame {
         return solved;
     }
 
-    tryFinishGame() {
+    tryFinishGame = async () => {
         if (this.checkForSolve()) {
-            playerInventory.change(this.goldItem, this.level + this.difficulty);
+            this.level++;
+            if (this.level > 10) {
+                this.difficulty += this.level - 10;
+                if (this.difficulty > 10) this.difficulty = 10;
+                this.level -= 10;
+            }
+
+            let response = await base.do("complete-nono", {
+                level: this.level,
+                difficulty: this.difficulty
+            });
 
             let $tiles = $(".nono-tile");
             $tiles.off("click");
@@ -194,12 +205,6 @@ class NonoGame {
             $tiles.addClass("blank");
             $tiles.removeClass("marked");
 
-            this.level++;
-            if (this.level > 10) {
-                this.difficulty += this.level - 10;
-                if (this.difficulty > 10) this.difficulty = 10;
-                this.level -= 10;
-            }
             setTimeout(() => {this.startNew();}, 2000);
         }
     }

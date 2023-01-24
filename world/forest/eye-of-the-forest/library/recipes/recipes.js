@@ -35,8 +35,8 @@ class RecipeBrowser {
 
     load = async () => {
         //load recipes
-        let loadedData = await memories.load("recipes");
-        if (!loadedData) this.recipes = [];
+        let loadedData = await base.load("recipes");
+        if (!loadedData.recipes) this.recipes = [];
         else this.recipes = loadedData.recipes;
 
         this.renderSearchResults();
@@ -107,9 +107,9 @@ class RecipeBrowser {
             };
         }
 
-        await memories.save("recipes", {
+        await base.do("save-recipes", {
             recipes: this.recipes
-        })
+        });
         
         this.cancelRecipe();
         this.renderSearchResults();
@@ -249,9 +249,9 @@ class RecipeBrowser {
     deleteRecipe = async (which) => {
         this.recipes.splice(which, 1);
 
-        await memories.save("recipes", {
+        await base.do("save-recipes", {
             recipes: this.recipes
-        })
+        });
         
         this.tabRecipes[this.tab] = -1;
         this.cancelRecipe();

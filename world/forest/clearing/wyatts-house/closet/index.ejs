@@ -54,10 +54,7 @@
     </ul>
 </div>
 
-<div class="memo" id="mini">
-    <input type="text" id="litty">
-    <button onclick="mini.save()">Save</button>
-</div>
+
 <ul>
     <h4>UL Header (h4)</h4>
     <li>A basic li</li>
@@ -158,8 +155,6 @@
         $(".selector li").removeClass("selected");
         $(element).addClass("selected");
     }
-
-    let mini = new Memo("mini", "mini");
 
     let keeper = new Dialogue("keeper", 4000, (self) => {
         if (Dialogue.checkGlobalFlag("logged-in")) {

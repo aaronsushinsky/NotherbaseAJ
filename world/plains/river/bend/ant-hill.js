@@ -8,7 +8,7 @@ class Human {
     }
 
     spawn() {
-        this.$window.append(`<img src="/img/human.png" class="human"></img>`);
+        this.$window.append(`<img src="/img/ant-hill/human.png" class="human"></img>`);
         this.$div = this.$window.find(".human");
     }
 

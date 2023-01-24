@@ -39,20 +39,20 @@ class Merchant {
     }
 
     buyItem = async (which, stall, amount = 1) => {
-        if (playerInventory.hasItem(this.currencyType, this.stalls[stall].items[which].price * amount)) {
-            await playerInventory.change(this.currencyType, -this.stalls[stall].items[which].price * amount);
-            await playerInventory.change(this.stalls[stall].items[which].name, amount)
-        }
-        else console.log(`Insufficient ${this.currencyType}`);
+        // if (playerInventory.hasItem(this.currencyType, this.stalls[stall].items[which].price * amount)) {
+        //     await playerInventory.change(this.currencyType, -this.stalls[stall].items[which].price * amount);
+        //     await playerInventory.change(this.stalls[stall].items[which].name, amount)
+        // }
+        // else console.log(`Insufficient ${this.currencyType}`);
 
-        this.render(stall);
+        // this.render(stall);
     }
 
     sellItem(which, stall, amount = 1) {
-        if (playerInventory.hasItem(this.stalls[stall].items[which].name)) {
-            playerInventory.change(this.stalls[stall].items[which].name, amount);
-        }
-        this.render(stall);
+        // if (playerInventory.hasItem(this.stalls[stall].items[which].name)) {
+        //     playerInventory.change(this.stalls[stall].items[which].name, amount);
+        // }
+        // this.render(stall);
     }
 
     render(stall) {
