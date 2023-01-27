@@ -1,0 +1,74 @@
+<style>
+    <%- include("./styles/the-front.css"); %>
+    <%- include("./styles/index.css"); %>
+    <%- include("./styles/borders.css"); %>
+</style>
+
+<div class="logo">N</div>
+
+<hr>
+
+<div class="sign">
+    <h4>NotherBase</h4>
+    <h5>Est '21</h5>
+    <h5>By Nother</h5>
+</div>
+
+<div class="line">
+    <h4>Apply Here To Exist:</h4>
+    <ul>
+        <li>
+            <img src="/img/npcs/humphrey.png">
+            <p>Humphrey</p>
+        </li>
+        <li>
+            <img src="/img/npcs/sleepe.png">
+            <p>Sleepe</p>
+        </li>
+        <li>
+            <img src="/img/npcs/crictic.png">
+            <p>Crictic</p>
+        </li>
+        <li>
+            <img src="/img/npcs/steve.png">
+            <p>Steve</p>
+        </li>
+        <li>
+            <img src="/img/npcs/vetcul.png">
+            <p>Vetcul</p>
+        </li>
+    </ul>
+    <h5>This Line For NPCs Only!</h5>
+</div>
+
+<hr>
+
+<h2>Go to a Nearby Place:</h2>
+
+<a class="to shack" href="/the-front/keeper">
+    Approach the Shack
+</a>
+
+<a class="to gate" href="/the-front/gate">
+    Approach the Gate
+</a>
+
+<script>
+    let color = 0;
+    let brightness = 15;
+
+    $(".logo").on("click", function () {
+        color += 2;
+        if (color > 255) color = 0;
+
+        brightness += 2;
+        if (brightness > 255) brightness = 255;
+
+        $("footer").css("background-color", `rgb(
+                ${brightness * (color) / 255}, 
+                ${brightness * (color % 2) / 255}, 
+                ${brightness * (255 - color) / 255}
+            )`
+        );
+    });
+</script>
