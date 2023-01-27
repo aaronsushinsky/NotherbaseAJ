@@ -1,0 +1,13 @@
+<style>
+    <%- include("../styles/index.css"); %>
+</style>
+
+<!-- Your HTML Here -->
+
+<script>
+    <%- include("../local-scripts/example.js"); %> 
+
+    base.load("service").then((res) => {
+        base.do("example");
+    })
+</script>
