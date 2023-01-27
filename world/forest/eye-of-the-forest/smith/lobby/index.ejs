@@ -1,0 +1,37 @@
+<style>
+    <%- include("../smith.css"); %>
+    <%- include("./lobby.css"); %>
+</style>
+
+<p>
+    The heat in here is as if you entered the
+    forge yourself.
+</p>
+
+<hr>
+
+<div class="dialogue" id="smith">
+    <div class="frame">
+        <img src="/img/npcs/anon.png" class="portrait">
+    </div>
+    <div class="heart"></div>
+    <div class="content">
+        
+    </div>
+</div>
+
+<hr>
+
+<a class="return" href="/forest/eye-of-the-forest/smith">
+    Exit the Blacksmith
+</a>
+
+<script src="/js/dialogue.js"></script>
+<script>
+    let smith = new Dialogue("smith", 4000, (self) => {
+        return [
+            Dialogue.createTextSlide(4, "Welcome."),
+            Dialogue.createTextSlide(2, "Only the finest hardware here.")
+        ];
+    });
+</script>

@@ -1,0 +1,99 @@
+<style>
+    <%- include("../borders.css"); %>
+    <%- include("./toy-stall.css"); %>
+    <%- include("./mini-library.css"); %>
+</style>
+<link rel="stylesheet" href="/styles/merchant-stall.css">
+
+<p>
+    Toy Stall
+</p>
+
+<hr>
+
+<div class="dialogue" id="jesh">
+    <div class="frame">
+        <img src="/img/npcs/anon.png" class="portrait">
+    </div>
+    <div class="heart"></div>
+    <div class="content">
+
+    </div>
+</div>
+
+<div class="display-area">
+    <div class="toy">
+        <div class="box">
+            <div class="lid"></div>
+        </div>
+    </div>
+    <div class="toy">
+        <div class="spinner">
+            <div class="pin"></div>
+            <div class="wing"></div>
+            <div class="wing"></div>
+            <div class="wing"></div>
+            <div class="wing"></div>
+            <div class="wing"></div>
+            <div class="wing"></div>
+        </div>
+    </div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+    <div class="toy"></div>
+</div>
+
+<hr>
+
+<div class="merchant-stall">
+
+</div>
+
+<div class="mini-library">
+    <div class="stock" id="player">
+        <h5>Books in your Inventory</h5>
+
+        <ul>
+            <li>Example Book</li>
+        </ul>
+    </div>
+    
+    <hr class="plank">
+    <button>Transfer</button>
+
+    <div class="stock" id="server">
+        <h5>Books in the Mini-Library</h5>
+
+        <ul>
+            <li>Example Book</li>
+        </ul>
+    </div>
+</div>
+
+<hr>
+
+<a class="return" href="/forest/eye-of-the-forest/square">
+    Back to Square
+</a>
+
+<script src="/js/dialogue.js"></script>
+<script>
+    let jesh = new Dialogue("jesh", 2000, function tree(self) {
+        return [
+            Dialogue.createTextSlide(1, "Welcome, welcome!"),
+            Dialogue.createTextSlide(2, "Looking for knick-knacks or doodads?"),
+            Dialogue.createTextSlide(1, "I got 'em!")
+        ]
+    });
+</script>

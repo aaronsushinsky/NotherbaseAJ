@@ -1,0 +1,54 @@
+<style>
+    <%- include("./index.css"); %>
+    <%- include("./nono.css"); %>
+</style>
+
+<p>
+    A random nono washes up on shore. Will you solve it?
+</p>
+
+<hr>
+
+<div class="nono-spirit">
+    <img id="move-nono-spirit" src="/img/nono/nono_spirit.png" alt="Nono Spirit">
+</div>
+
+<div id="nono-board"></div>
+
+<hr>
+
+<a class="to" href="/plains/river/bend">
+    Go to the Plains
+</a>
+
+<hr>
+
+<a class="return" href="/forest/pond/tower">
+    Back to the Wizard's Tower
+</a>
+
+<script>
+    <%- include("./nono.js"); %>
+
+    let lastPos = [0, 0];
+
+    let moveNono = function moveNono() {
+        let focus = $("#move-nono-spirit");
+        let newPos = [Math.floor(Math.random() * 200), Math.floor(Math.random() * 100)];
+
+        focus.animate({
+            left: newPos[0],
+            top: newPos[1],
+        }, 2000);
+
+        lastPos = newPos;
+    };
+
+    moveNono();
+
+    setInterval(moveNono, 2000);
+
+    base.load("nono").then((res) => {
+        nonoGame.startNew(res.level, res.difficulty);
+    });
+</script>
