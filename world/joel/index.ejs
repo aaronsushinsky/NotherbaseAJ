@@ -6,12 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <title>Joel Lantau</title>
-    <link rel="stylesheet" href="/styles/joel/home.css">
 </head>
+
+<style>
+    <%- include("./index.css"); %>
+    <%- include("./news.css"); %>
+    <%- include("./podcast.css"); %>
+    <%- include("./about.css"); %>
+</style>
+
 <body>
     <main>
         <section id="news">
-            <img class="profile" src="/img/textures/abstract street art.png">
             <h2>Here's what's new with Joel:</h2>
             <div class="blog-controls">
                 <div class="sort">
@@ -165,6 +171,7 @@
         <section class="invisible" id="about">
             <img src="/img/joel/profile.jpg">
             <h2>Joel Lantau</h2>
+            <h3>an image of God</h3>
             <p>Email: joel@email.com</p>
             <p>Phone: (000) 000-0000</p>
             <p>

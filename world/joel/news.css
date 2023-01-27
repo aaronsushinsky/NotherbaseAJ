@@ -1,0 +1,32 @@
+section#news {
+    background: url("/img/textures/abstract street art.png");
+    background-size: cover;
+}
+
+.blog {
+    width: 90%;
+    border: solid 1px black;
+    height: 60vh;
+    overflow: auto;
+    background: var(--primaryColor);
+}
+
+.blog-controls {
+    width: 90%;
+    height: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+article {
+    border-bottom: 1px solid black;
+    height: 500px;
+    width: 100%;
+}
+
+article img {
+    width: 300px;
+    height: 300px;
+    float: left;
+}
