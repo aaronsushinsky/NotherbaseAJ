@@ -3,11 +3,11 @@ export default async (req, user) => {
         route: "/forest/clearing/wyatts-house/upstairs",
         scope: "local",
         parent: user.id,
-        service: "todo"
+        service: `todo-${req.body.data.id}`
     }, null, {
         tasks: null
     });
 
-    spirit.memory.data.tasks = req.body.data.tasks;
+    spirit.memory.data.items = req.body.data.items;
     await spirit.commit();
 }

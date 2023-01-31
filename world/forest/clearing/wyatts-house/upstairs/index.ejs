@@ -10,93 +10,20 @@
 
 <hr>
 
-<div class="todo today">
-    <div class="loading">
-        <h5>Loading...</h5>
-    </div>
-    <div class="main invisible">
-        <h3>To Do Today</h3>
-        <ul>
-            
-        </ul>
-        <button id="flip" onclick='todo.flipToNew("today")'>#</button>
-    </div>
-    <div class="new invisible">
-        <h3>Submit a New Task for Today</h3>
-        <label>
-            Description: 
-            <input type="text" id="task">
-        </label>
-        <button id="submit" onclick="todo.submit('today')">Submit</button>
-        <button id="flip" onclick='todo.flipToMain("today")'>#</button>
-    </div>
+<div class="billboard" id="today">
+
+</div>
+
+<div class="billboard" id="week">
     
 </div>
 
-<div class="todo week">
-    <div class="loading">
-        <h5>Loading...</h5>
-    </div>
-    <div class="main">
-        <h3>To Do This Week</h3>
-        <ul>
-            
-        </ul>
-        <button id="flip" onclick='todo.flipToNew("week")'>#</button>
-    </div>
-    <div class="new invisible">
-        <h3>Submit a New Task for This Week</h3>
-        <label>
-            Description: 
-            <input type="text" id="task">
-        </label>
-        <button id="submit" onclick="todo.submit('week')">Submit</button>
-        <button id="flip" onclick='todo.flipToMain("week")'>#</button>
-    </div>
+<div class="billboard" id="month">
+    
 </div>
 
-<div class="todo month">
-    <div class="loading">
-        <h5>Loading...</h5>
-    </div>
-    <div class="main">
-        <h3>To Do This Month</h3>
-        <ul>
-            
-        </ul>
-        <button id="flip" onclick='todo.flipToNew("month")'>#</button>
-    </div>
-    <div class="new invisible">
-        <h3>Submit a New Task for This Month</h3>
-        <label>
-            Description: 
-            <input type="text" id="task">
-        </label>
-        <button id="submit" onclick="todo.submit('month')">Submit</button>
-        <button id="flip" onclick='todo.flipToMain("month")'>#</button>
-    </div>
-</div>
-
-<div class="todo year">
-    <div class="loading">
-        <h5>Loading...</h5>
-    </div>
-    <div class="main">
-        <h3>To Do This Year</h3>
-        <ul>
-            
-        </ul>
-        <button id="flip" onclick='todo.flipToNew("year")'>#</button>
-    </div>
-    <div class="new invisible">
-        <h3>Submit a New Task for This Year</h3>
-        <label>
-            Description: 
-            <input type="text" id="task">
-        </label>
-        <button id="submit" onclick="todo.submit('year')">Submit</button>
-        <button id="flip" onclick='todo.flipToMain("year")'>#</button>
-    </div>
+<div class="billboard" id="year">
+    
 </div>
 
 <div class="wallet">
@@ -133,7 +60,11 @@
     Go Downstairs
 </a>
 
+<script src="/js/billboard.js"></script>
 <script>
-    <%- include("./todo.js") %>
+    console.log(base);
+    let loaded = await base.load("todo-today");
+    const today = new Billboard("today", "To Do Today", loaded.items, "save-todo");
+
     <%- include("./wallet.js") %>
 </script>
