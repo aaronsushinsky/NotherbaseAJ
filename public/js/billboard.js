@@ -1,13 +1,19 @@
 class Billboard {
-    constructor(id, header = "", items = [], onSave = []) {
+    constructor(id, items = [], settings) {
+        this.defaultSettings = {
+            maxItems: 999,
+            itemTypes: ["img", "txt"],
+            onSave: null,
+            free: true
+        }
+        this.settings = {
+            ...this.defaultSettings,
+            ...settings
+        }
         this.items = items;
         this.id = id;
         this.$div = $(`.billboard#${id}`);
-        this.header = header;
-        this.maxItems = 999;
-        this.locked = false;
-        this.itemTypes = ["img, txt"];
-        this.onSave = [...onSave];
+        this.$init = this.$div.clone();
 
         this.render();
         this.load(items);
@@ -20,56 +26,67 @@ class Billboard {
         this.flipToMain();
     }
 
-    save = async () => {
-        for (let i = 0; i < this.onSave.length; i++) {
-            await base.do(this.onSave[i], {
+    save = () => {
+        if (this.settings.onSave) {
+            return base.do(this.settings.onSave, {
                 id: this.id,
                 items: this.items
             });
         }
     }
 
-    submit = async () => {
-        this.flipToLoading();
-        this.items.push({
-            type: "txt",
-            value: this.$task.val()
-        });
-        
-        await this.save();
-        this.renderItems();
-        this.flipToMain();
+    submit = async (type = "txt") => {
+        if (this.items.length < this.settings.maxItems) {
+            this.items.push({
+                type: type,
+                value: this.$txt.val()
+            });
+    
+            let saving = this.save();
+            this.flipToLoading();
+            
+            this.renderItems();
+            await saving;
+            this.flipToMain();
+        }
     }
 
     deleteItem = async (e) => {
-        this.flipToLoading();
         this.items.splice(parseInt(e.currentTarget.id), 1);
 
-        await this.save();
+        let saving = this.save();
+        this.flipToLoading();
+
         this.renderItems();
+        await saving;
         this.flipToMain();
     }
 
     render() {
         this.$div.empty();
+        this.$div.append(this.$init.children().clone());
 
-        this.$loading = $(`<div class="loading"><h5>Loading...</h5></div>`).appendTo(this.$div);
+        this.$loading = $(`<div class="loading"><h6>Loading...</h6></div>`).appendTo(this.$div);
         this.$main = $(`<div class="main invisible"></div>`).appendTo(this.$div);
-        this.$header = $(`<h3>${this.header}</h3>`).appendTo(this.$main);
         this.$items = $(`<ul></ul>`).appendTo(this.$main);
-        this.$flipToNew = $(`<button id="flip">#</button>`).appendTo(this.$main);
-        this.$flipToNew.click(this.flipToNew);
 
-        this.$new = $(`<div class="new invisible"></div>`).appendTo(this.$div);
-        this.$new.append(`<h3>Submit a new item:</h3>`);
-        this.$task = $(`<input type="text" id="task">`).appendTo(this.$new);
-        this.$task.keyup((e) => {
-            if (e.which == 13) this.submit();
-        });
-        this.$submit = $(`<button id="submit">Submit</button>`).appendTo(this.$new);
-        this.$submit.click(this.submit);
-        this.$flipToMain = $(`<button id="flip">#</button>`).appendTo(this.$new);
-        this.$flipToMain.click(this.flipToMain);
+        if (this.settings.free) {
+            this.$flipToNew = $(`<button class="flip">#</button>`).appendTo(this.$main);
+            this.$flipToNew.click(this.flipToNew);
+
+            this.$new = $(`<div class="new invisible"></div>`).appendTo(this.$div);
+            this.$new.append(`<h6>Submit a new item:</h6>`);
+            this.$txt = $(`<input type="text" id="task">`).appendTo(this.$new);
+            this.$txt.keyup((e) => {
+                if (e.which == 13) this.submit();
+            });
+            this.$submit = $(`<button id="submit">Submit Text</button>`).appendTo(this.$new);
+            this.$submit.click(this.submit);
+            this.$submitImg = $(`<button id="submit-img">Submit Image URL</button>`).appendTo(this.$new);
+            this.$submitImg.click(() => { this.submit("img"); });
+            this.$flipToMain = $(`<button class="flip">#</button>`).appendTo(this.$new);
+            this.$flipToMain.click(this.flipToMain);
+        }
     }
 
     renderItems = () => {
@@ -78,12 +95,14 @@ class Billboard {
         for (let i = 0; i < this.items.length; i++) {
             let item = this.items[i];
 
-            if (this.itemTypes.includes(item.type)) {
+            if (this.settings.itemTypes.includes(item.type)) {
                 let out = $('<li></li>');
                 if (item.type === "txt") out.append(item.value);
-                else if (item.type === "img") out.append(`<img src="${v}"></img>`);
-                let deleteButton = $(`<button id="${i}">X</button>`).appendTo(out);
-                deleteButton.click(this.deleteItem);
+                else if (item.type === "img") out.append(`<img src="${item.value}"></img>`);
+                if (this.settings.free) {
+                    let deleteButton = $(`<button class="delete" id="${i}">X</button>`).appendTo(out);
+                    deleteButton.click(this.deleteItem);
+                }
                 
                 this.$items.append(out);
             }
@@ -92,21 +111,23 @@ class Billboard {
 
     flipToMain = () => {
         this.$loading.addClass("invisible");
-        this.$new.addClass("invisible");
+        if (this.settings.free) {
+            this.$txt.val("");
+            this.$new.addClass("invisible");
+        }
         this.$main.removeClass("invisible");
-        this.$task.val("");
     }
 
     flipToNew = () => {
         this.$loading.addClass("invisible");
         this.$new.removeClass("invisible");
         this.$main.addClass("invisible");
-        this.$task.focus();
+        this.$txt.focus();
     }
 
     flipToLoading = () => {
         this.$main.addClass("invisible");
-        this.$new.addClass("invisible");
+        if (this.settings.free) this.$new.addClass("invisible");
         this.$loading.removeClass("invisible");
     }
 }

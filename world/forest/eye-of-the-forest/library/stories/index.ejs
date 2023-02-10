@@ -1,0 +1,67 @@
+<style>
+    <%- include("./stories.css") %>
+</style>
+
+<h2>Stories</h2>
+
+<div class="browser" id="stories">
+    <div class="search">
+        <input placeholder="search" type="text">
+        <ul class="selector">
+            <p>No Recipes</p>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="recipe">
+            <div class="read">
+                <div class="title">
+                    <h5>Story Name</h5><br>
+                    <img src="/img/food/default.jpg">
+                    <h6>Story Source</h6>
+                </div>
+                <button id="new" onclick="recipeBrowser.newRecipe()">New</button>
+                <button id="edit" onclick="recipeBrowser.editRecipe()">Edit</button>
+                <button id="delete" onclick="recipeBrowser.deleteRecipe()">Delete</button>
+            </div>
+
+            <div class="edit invisible">
+                <div class="title">
+                    <h6>Story Name:</h6>
+                    <input type="text" id="name" placeholder="Story name">
+                    <h6>Image Source URL:</h6>
+                    <input type="text" id="img-url" placeholder="Story image url" value="/img/food/default.jpg">
+                    <h6>Story Source:</h6>
+                    <input type="text" id="source" placeholder="Story source">
+                </div>
+                <button id="save" onclick="recipeBrowser.saveRecipe()">Save</button>
+                <button id="cancel" onclick="recipeBrowser.cancelRecipe()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<a class="return" href="/forest/eye-of-the-forest/library/lobby">
+    Return to the Lobby
+</a>
+
+<script>
+    <%- include("./browser.js"); %>
+
+    let storyBrowser = new Browser({
+        id: "stories",
+        header: "Stories",
+        subheader: "For Reading"
+    }, {
+        service: "stories",
+        parent: "<%= user.id %>",
+        data: {
+            title: String,
+            source: String,
+            author: String,
+            content: String
+        }
+    });
+</script>

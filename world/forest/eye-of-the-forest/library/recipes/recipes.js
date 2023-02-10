@@ -55,7 +55,6 @@ class RecipeBrowser {
             if (this.recipes[i].name.toLowerCase().includes(this.filter.toLowerCase())) {
                 this.$searchList.append(`<li onclick="recipeBrowser.clickRecipe(this, ${i})">
                     ${this.recipes[i].name}
-                    <button onclick="recipeBrowser.deleteRecipe(${i})">X</button>
                 </li>`);
             }
         };
@@ -246,7 +245,7 @@ class RecipeBrowser {
         this.readRecipe();
     }
 
-    deleteRecipe = async (which) => {
+    deleteRecipe = async (which = this.tabRecipes[this.tab]) => {
         this.recipes.splice(which, 1);
 
         await base.do("save-recipes", {

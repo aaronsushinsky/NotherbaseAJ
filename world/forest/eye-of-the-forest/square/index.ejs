@@ -2,6 +2,7 @@
     <%- include("./borders.css"); %>
     <%- include("./index.css"); %>
 </style>
+<link rel="stylesheet" href="/styles/billboard.css">
 
 <p>
     You enter a ghost town. This is the public square,
@@ -29,6 +30,10 @@
     <h5>Toss some gold coins in the well?</h5>
     <input type="number" value=1>
     <button onclick="base.do('toss-in-well', { amount: parseInt($('.well input').val()) })">Toss</button>
+</div>
+
+<div class="billboard" id="square-bb">
+    <h5>Community Billboard</h5>
 </div>
 
 <hr>
@@ -64,3 +69,15 @@
 <a class="return" href="/the-front">
     Exit NotherBase
 </a>
+
+<script src="/js/billboard.js"></script>
+<script>
+    let squareBB = null;
+
+    base.load("square-bb", "global").then((res) => {
+        squareBB = new Billboard("square-bb", res.items, { 
+            onSave: "save-square-bb",
+            maxItems: 5
+        });
+    });
+</script>

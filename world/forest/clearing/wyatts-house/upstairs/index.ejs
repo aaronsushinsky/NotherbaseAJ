@@ -11,19 +11,19 @@
 <hr>
 
 <div class="billboard" id="today">
-
+    <h5>To Do Today</h5>
 </div>
 
 <div class="billboard" id="week">
-    
+    <h5>To Do This Week</h5>
 </div>
 
 <div class="billboard" id="month">
-    
+    <h5>To Do This Month</h5>
 </div>
 
 <div class="billboard" id="year">
-    
+    <h5>To Do This Year</h5>
 </div>
 
 <div class="wallet">
@@ -62,9 +62,23 @@
 
 <script src="/js/billboard.js"></script>
 <script>
-    console.log(base);
-    let loaded = await base.load("todo-today");
-    const today = new Billboard("today", "To Do Today", loaded.items, "save-todo");
+    let today, week, month, year = null;
+
+    base.load("todo-today").then((res) => {
+        today = new Billboard("today", res.items, { onSave: "save-todo" });
+    });
+
+    base.load("todo-week").then((res) => {
+        week = new Billboard("week", res.items, { onSave: "save-todo" });
+    });
+
+    base.load("todo-month").then((res) => {
+        month = new Billboard("month", res.items, { onSave: "save-todo" });
+    });
+
+    base.load("todo-year").then((res) => {
+        year = new Billboard("year", res.items, { onSave: "save-todo" });
+    });
 
     <%- include("./wallet.js") %>
 </script>
