@@ -1,34 +1,34 @@
-import './environment.js';
+<%- include("./hill.js"); %>
 
-class Colony {
-    constructor() {
-        this.environment = new Eenvironment();
-        this.resources = [];
-        this.ants = [];
-        this.predators = [];
+class Colony extends Entity {
+    constructor(game, colony = null) {
+        super();
+        this.parent = game;
+
+        if (colony) for (let i = 0; i < colony.hills.length; i++) {
+            this.children.push(new Hill(this, colony.hills[i]));
+        }
     }
 
-    beat() {
-        for (let i = 0; i < this.resources.length; i++) {
-            this.resources[i].beat();
+    onRender = () => {
+        if (this.children.length < 1) {
+            this.$div = $(`<div class="colony"><h4>Colony</h4></div>`);
+            this.$dig = $('<button onclick="">Dig (costs 1 Queen Ant Egg)</button>');
+            this.$dig.click(this.dig);
+            this.$div.append(this.$dig);
+            return this.$div;
         }
-
-        for (let i = 0; i < this.ants.length; i++) {
-            this.ants[i].beat();
-        }
-
-        this.environment.beat();
+        else return `<div class="colony"><h4>Colony</h4></div>`;
     }
 
-    render() {
-        for (let i = 0; i < this.resources.length; i++) {
-            this.resources[i].render();
+    dig = async () => {
+        this.$dig.addClass("invisible");
+        let result = await base.do("game/dig-new-hill");
+        console.log(result);
+        if (result.data) {
+            this.children.push(new Hill(this));
+            this.children[this.children.length - 1].render();
         }
-
-        for (let i = 0; i < this.ants.length; i++) {
-            this.ants[i].render();
-        }
-
-        this.environment.render();
+        else this.$dig.removeClass("invisible");
     }
 }

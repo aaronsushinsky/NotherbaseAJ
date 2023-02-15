@@ -7,3 +7,22 @@
     --borderThin: 2px solid var(--dirt);
     --borderThinLight: 2px solid var(--dirtLight);
 }
+
+.colony {
+    border: var(--standardBorder);
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.hill {
+    border: var(--standardBorder);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chamber {
+    border: var(--standardBorder);
+    display: flex;
+    flex-wrap: wrap;
+}

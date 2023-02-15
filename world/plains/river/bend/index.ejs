@@ -2,6 +2,8 @@
     <%- include("./ant-hill.css"); %>
 </style>
 
+<button onclick="base.do('game/add-queen-egg')">Add Queen Egg</button>
+
 <div class="ant-hill-game">
     
 </div>
@@ -13,11 +15,14 @@
 </a>
 
 <script>
+    <%- include("./entity.js"); %>
     <%- include("./ant-hill-game.js"); %>
 
-    const antHillGame = new AntHillGame();
+    let antHillGame = null;
 
     base.load("ant-hill-game").then((res) => {
-        antHillGame.load(res.colonies);
+        antHillGame = new AntHillGame();//res.colonies);
+        antHillGame.render();
+        setInterval(antHillGame.beat, 500);
     });
 </script>

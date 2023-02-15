@@ -1,17 +1,16 @@
-class AntHillGame {
-    constructor() {
-        this.colonies = [];
+<%- include("./colony.js"); %>
 
-        this.beat();
-    }
+class AntHillGame extends Entity {
+    constructor(colonies = []) {
+        super();
+        this.$div = $(".ant-hill-game");
 
-    load(colonies) {
-        this.colonies = colonies;
-    }
+        for (let i = 0; i < colonies.length; i++) {
+            this.children.push(new Colony(this, colonies[i]));
+        }
 
-    beat() {
-        for (let i = 0; i < this.colonies.length; i++) {
-            this.colonies[i].beat();
+        if (this.children.length < 1) {
+            this.children.push(new Colony(this));
         }
     }
 }
