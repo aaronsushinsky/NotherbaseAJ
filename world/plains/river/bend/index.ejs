@@ -21,7 +21,7 @@
     let antHillGame = null;
 
     base.load("ant-hill-game").then((res) => {
-        antHillGame = new AntHillGame();//res.colonies);
+        antHillGame = new AntHillGame(res.colonies);
         antHillGame.render();
         setInterval(antHillGame.beat, 500);
     });

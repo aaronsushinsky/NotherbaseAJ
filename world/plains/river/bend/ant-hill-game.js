@@ -12,5 +12,5 @@ class AntHillGame extends Entity {
         if (this.children.length < 1) {
             this.children.push(new Colony(this));
         }
-    }
+    }    
 }
