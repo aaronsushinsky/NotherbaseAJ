@@ -2,8 +2,8 @@
 
 class Hill extends Entity {
     constructor(colony, hill = null) {
-        super();
-        this.parent = colony;
+        super(colony);
+        this.render();
 
         if (hill) for (let i = 0; i < hill.chambers.length; i++) {
             this.children.push(new Chamber(this, hill.chambers[i]));

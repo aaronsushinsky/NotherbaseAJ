@@ -1,13 +1,12 @@
-class Resource {
-    constructor() {
-
+class Resource extends Entity {
+    constructor(chamber, resource = null) {
+        super(chamber);
+        this.render();
     }
 
-    beat() {
+    onBeat() {
         
     }
 
-    render() {
-
-    }
+    onRender = (self) => `<div class="resource"><h6>resource</h6></div>`;
 }

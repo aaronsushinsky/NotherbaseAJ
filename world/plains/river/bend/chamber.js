@@ -4,20 +4,26 @@
 
 class Chamber extends Entity {
     constructor(hill, chamber = null) {
-        super();
-        this.parent = hill;
+        super(hill);
+        this.render();
+        this.startingAntAmount = 5;
 
-        // if (chamber) {
-        //     this.children.push(new Environment(this, chamber.environment));
+        if (chamber) {
+            this.environment = new Environment(this, chamber.environment);
+            this.children.push(this.environment);
 
-        //     for (let i = 0; i < chamber.resources.length; i++) {
-        //         this.children.push(new Resource(this, chamber.resources[i]));
-        //     }
+            if (chamber.resources) for (let i = 0; i < chamber.resources.length; i++) {
+                this.children.push(new Resource(this, chamber.resources[i]));
+            }
 
-        //     for (let i = 0; i < chamber.ants.length; i++) {
-        //         this.children.push(new Ant(this, chamber.ants[i]));
-        //     }
-        // }
+            for (let i = 0; i < this.startingAntAmount; i++) {
+                this.children.push(new Ant(this));
+            }
+        }
+    }
+
+    grab(type, amount) {
+
     }
 
     onRender = (self) => `<div class="chamber"><h5>Chamber</h5></div>`;

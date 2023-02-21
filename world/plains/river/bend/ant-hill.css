@@ -8,6 +8,17 @@
     --borderThinLight: 2px solid var(--dirtLight);
 }
 
+.ant-hill-game {
+    width: 100%;
+}
+
+.field {
+    border: var(--standardBorder);
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
 .colony {
     border: var(--standardBorder);
     display: flex;
@@ -19,10 +30,39 @@
     border: var(--standardBorder);
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .chamber {
     border: var(--standardBorder);
     display: flex;
     flex-wrap: wrap;
+    width: 50%;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+.ant {
+    border: var(--standardBorder);
+    display: flex;
+}
+
+.ant .controls input {
+    width: 200px;
+}
+
+.environment {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 255, 0.068);
+    user-select: none;
+    pointer-events: none;
+}
+
+.environment h6 {
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+    width: auto;
 }

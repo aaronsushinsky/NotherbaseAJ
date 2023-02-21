@@ -1,13 +1,12 @@
-class Environment {
-    constructor() {
-
+class Environment extends Entity {
+    constructor(chamber, environment = null) {
+        super(chamber);
+        this.render();
     }
 
-    beat() {
+    onBeat() {
         
     }
 
-    render() {
-
-    }
+    onRender = (self) => `<div class="environment"><h6>Environment</h6></div>`;
 }

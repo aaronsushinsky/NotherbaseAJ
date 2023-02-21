@@ -1,8 +1,7 @@
 class Entity {
-    constructor() {
+    constructor(parent = null) {
         this.children = [];
-        this.parent = null;
-
+        this.parent = parent;
         this.$div = null;
     }
 
@@ -19,10 +18,9 @@ class Entity {
     }
 
     render = () => {
-        if (this.parent) this.$div = $(this.onRender()).appendTo(this.parent.$div);
-
-        for (let i = 0; i < this.children.length; i++) {
-            this.children[i].render();
+        if (this.parent) {
+            this.$div = $(this.onRender());
+            this.parent.$div.append(this.$div);
         }
     }
 }

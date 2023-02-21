@@ -1,4 +1,5 @@
 <%- include("./colony.js"); %>
+<%- include("./field.js"); %>
 
 class AntHillGame extends Entity {
     constructor(colonies = []) {
@@ -12,5 +13,7 @@ class AntHillGame extends Entity {
         if (this.children.length < 1) {
             this.children.push(new Colony(this));
         }
+
+        this.children.push(new Field(this));
     }    
 }
