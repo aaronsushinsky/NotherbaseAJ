@@ -1,12 +1,13 @@
 class Resource extends Entity {
-    constructor(chamber, resource = null) {
-        super(chamber);
-        this.render();
+    constructor(resource = null) {
+        super();
+        this.type = resource?.type;
+        this.amount = resource?.amount;
     }
 
     onBeat() {
         
     }
 
-    onRender = (self) => `<div class="resource"><h6>resource</h6></div>`;
+    onRender = () => `<div class="resource"><h6>${this.type??"No Type"}:${this.amount}</h6></div>`;
 }

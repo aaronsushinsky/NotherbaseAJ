@@ -1,19 +1,20 @@
+<%- include("./space.js"); %>
 <%- include("./colony.js"); %>
 <%- include("./field.js"); %>
 
-class AntHillGame extends Entity {
+class AntHillGame extends Space {
     constructor(colonies = []) {
         super();
         this.$div = $(".ant-hill-game");
 
         for (let i = 0; i < colonies.length; i++) {
-            this.children.push(new Colony(this, colonies[i]));
+            this.addChild(new Colony(colonies[i]));
         }
 
         if (this.children.length < 1) {
-            this.children.push(new Colony(this));
+            this.addChild(new Colony());
         }
 
-        this.children.push(new Field(this));
+        this.addChild(new Field());
     }    
 }

@@ -1,12 +1,11 @@
 <%- include("./hill.js"); %>
 
 class Colony extends Entity {
-    constructor(game, colony = null) {
-        super(game);
-        this.render();
+    constructor(colony = null) {
+        super();
 
         if (colony) for (let i = 0; i < colony.hills.length; i++) {
-            this.children.push(new Hill(this, colony.hills[i]));
+            this.addChild(new Hill(colony.hills[i]));
         }
 
         if (this.children.length < 1) {
@@ -23,8 +22,7 @@ class Colony extends Entity {
         let result = await base.do("game/dig-new-hill");
         
         if (result.data) {
-            this.children.push(new Hill(this));
-            this.children[this.children.length - 1].render();
+            this.addChild(new Hill());
         }
         else this.$dig.removeClass("invisible");
     }

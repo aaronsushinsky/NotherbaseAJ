@@ -1,25 +1,10 @@
 class Ant extends Entity {
-    constructor(chamber, ant = null) {
-        super(chamber);
-        this.render();
-        this.$main = this.$div.find(".main");
-        this.$controls = this.$div.find(".controls");
-        this.$amount = this.$div.find("input");
+    constructor(ant = null) {
+        super();
 
-        this.$do = this.$div.find("#do");
-        this.$do.click(this.flipToControls);
+        this.state = "defend";
 
-        this.$cancel = this.$div.find("#cancel");
-        this.$cancel.click(this.flipToMain);
-
-        this.$grab = this.$div.find("#grab");
-        this.$grab.click(this.grab);
-
-        this.$drop = this.$div.find("#drop");
-        this.$drop.click(this.drop);
-
-        this.$move = this.$div.find("#move");
-        this.$move.click(this.move);
+        this.variation = 1 + Math.floor(Math.random() * 5);
 
         this.resourceType = "food";
         this.resourcesHeld = 0;
@@ -28,48 +13,81 @@ class Ant extends Entity {
     }
 
     flipToControls = () => {
-        this.$main.addClass("invisible");
         this.$controls.removeClass("invisible");
     }
 
-    flipToMain = () => {
-        this.$controls.addClass("invisible");
-        this.$main.removeClass("invisible");
-    }
-
     grab = () => {
-        let result = this.parent.grab(this.resourceType, this.$amount.val());
+        // let result = this.parent.grab(this.resourceType, this.$amount.val());
 
-        this.resourcesHeld += result;
+        // this.resourcesHeld += result;
     }
 
     drop = () => {
-        let result = this.$amount.val();
-        if (result > this.resourcesHeld) result = this.resourcesHeld;
-        this.resourcesHeld -= result;
+        // let result = this.$amount.val();
+        // if (result > this.resourcesHeld) result = this.resourcesHeld;
+        // this.resourcesHeld -= result;
         
-        this.parent.drop(this.resourceType, result);
+        // this.parent.drop(this.resourceType, result);
     }
 
-    move = () => {
-        this.parent.move(this);
+    harvest = () => {
+        this[`$${this.state}`].removeClass("selected");
+        this.state = "harvest";
+        this[`$${this.state}`].addClass("selected");
+    }
+
+    defend = () => {
+        this[`$${this.state}`].removeClass("selected");
+        this.state = "defend";
+        this[`$${this.state}`].addClass("selected");
+    }
+
+    build = () => {
+        this[`$${this.state}`].removeClass("selected");
+        this.state = "build";
+        this[`$${this.state}`].addClass("selected");
+    }
+
+    explore = () => {
+        this[`$${this.state}`].removeClass("selected");
+        this.state = "explore";
+        this[`$${this.state}`].addClass("selected");
     }
 
     onBeat() {
         this.health -= this.exertion;
     }
 
-    onRender = () => `<div class="ant">
-                            <h6>Ant</h6>
-                            <div class="main">
-                                <button id="do">Do</button>
-                            </div>
-                            <div class="invisible controls">
-                                <button id="cancel">Cancel</button>
-                                <input type="number">
-                                <button id="grab">Grab</button>
-                                <button id="drop">Drop</button>
-                                <button id="move">Move</button>
-                            </div>
-                        </div>`;
+    onRender = () => {
+        this.$div = $(`<div class="ant">
+                        <div class="controls">
+                            <button id="harvest">Harvest</button>
+                            <button id="defend">Defend</button>
+                            <button id="build">Build</button>
+                            <button id="explore">Explore</button>
+                        </div>
+                    </div>`);
+        this.$div.css("background", `url("/img/ant-hill/${this.variation}.png")`);
+        this.$div.css("background-position", `left`);
+        this.$div.css("background-size", `contain`);
+        this.$div.css("background-repeat", `no-repeat`);
+
+        this.$controls = this.$div.find(".controls");
+
+        this.$harvest = this.$div.find("#harvest");
+        this.$harvest.click(this.harvest);
+
+        this.$defend = this.$div.find("#defend");
+        this.$defend.click(this.defend);
+
+        this.$build = this.$div.find("#build");
+        this.$build.click(this.build);
+
+        this.$explore = this.$div.find("#explore");
+        this.$explore.click(this.explore);
+
+        this[`$${this.state}`].addClass("selected");
+
+        return this.$div;
+    }
 }
