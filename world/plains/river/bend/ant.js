@@ -12,24 +12,6 @@ class Ant extends Entity {
         this.exertion = 10;
     }
 
-    flipToControls = () => {
-        this.$controls.removeClass("invisible");
-    }
-
-    grab = () => {
-        // let result = this.parent.grab(this.resourceType, this.$amount.val());
-
-        // this.resourcesHeld += result;
-    }
-
-    drop = () => {
-        // let result = this.$amount.val();
-        // if (result > this.resourcesHeld) result = this.resourcesHeld;
-        // this.resourcesHeld -= result;
-        
-        // this.parent.drop(this.resourceType, result);
-    }
-
     harvest = () => {
         this[`$${this.state}`].removeClass("selected");
         this.state = "harvest";
@@ -60,6 +42,7 @@ class Ant extends Entity {
 
     onRender = () => {
         this.$div = $(`<div class="ant">
+                        <img src="/img/ant-hill/${this.variation}.png"></img>
                         <div class="controls">
                             <button id="harvest">Harvest</button>
                             <button id="defend">Defend</button>
@@ -67,10 +50,6 @@ class Ant extends Entity {
                             <button id="explore">Explore</button>
                         </div>
                     </div>`);
-        this.$div.css("background", `url("/img/ant-hill/${this.variation}.png")`);
-        this.$div.css("background-position", `left`);
-        this.$div.css("background-size", `contain`);
-        this.$div.css("background-repeat", `no-repeat`);
 
         this.$controls = this.$div.find(".controls");
 
