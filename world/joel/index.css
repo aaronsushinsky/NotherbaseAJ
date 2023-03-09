@@ -14,7 +14,7 @@
 }
 
 .invisible {
-    display: none;
+    display: none !important;
 }
 
 body {
@@ -48,7 +48,8 @@ h1, h2, h3, h4, h5, h6, p {
 
 main {
     color: var(--textColor);
-    background: var(--primaryColor);
+    background: url("/img/textures/substance.png");
+    background-size: cover;
     width: 100%;
     height: calc(100% - 75px);
     overflow: hidden;
@@ -65,8 +66,8 @@ section {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background: var(--tertiaryColor);
     position: relative;
+    backdrop-filter: blur(15px);
 }
 
 nav {

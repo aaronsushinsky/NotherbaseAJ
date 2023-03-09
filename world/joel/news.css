@@ -1,17 +1,8 @@
 section#news {
-    background: url("/img/textures/abstract street art.png");
-    background-size: cover;
+    
 }
 
-.blog {
-    width: 90%;
-    border: solid 1px black;
-    height: 60vh;
-    overflow: auto;
-    background: var(--primaryColor);
-}
-
-.blog-controls {
+.news-controls {
     width: 90%;
     height: 40px;
     display: flex;
@@ -19,10 +10,30 @@ section#news {
     align-items: center;
 }
 
+section#news #flip  {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
 article {
     border-bottom: 1px solid black;
     height: 500px;
     width: 100%;
+    display: flex;
+}
+
+article .pics {
+    width: 40%;
+    height: 100%;
+    margin: 0;
+    padding: 10px;
+}
+
+article .text {
+    width: 60%;
+    height: 100%;
+    margin: 0;
 }
 
 article img {
