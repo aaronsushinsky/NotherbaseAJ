@@ -18,7 +18,7 @@ main {
     border: 5px solid var(--woodColor);
 }
 
-.todo {
+.billboard {
     width: var(--fillHalfFromMargin);
     min-height: 100px;
     border: 5px solid var(--woodColor);
@@ -31,7 +31,7 @@ main {
     position: relative;
 }
 
-.todo #flip {
+.billboard #flip {
     position: absolute;
     right: 5px;
     top: 5px;
@@ -39,21 +39,7 @@ main {
     padding: 5px;
 }
 
-.todo h3 {
-    width: calc(100% - 10px);
-    text-align: center;
-    font-size: 25px;
-    margin: 5px;
-}
-
-.todo ul {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 0;
-}
-
-.todo li {
+.billboard li {
     display: flex;
     align-items: center;
     width: 100%;
@@ -65,7 +51,7 @@ main {
     position: relative;
 }
 
-.todo li button {
+.billboard li button {
     position: absolute;
     right: 0;
     top: 0;
@@ -75,31 +61,8 @@ main {
     width: 30px;
 }
 
-.todo p {
-    width: calc(100% - 30px);
-    color: var(--veryDarkWoodColor);
-    margin: 0;
-    font-size: 18px;
-}
-
-.todo input {
-    width: 100%;
-    height: 50px;
-}
-
-.whiteboard {
-    background-color: var(--darkWoodColor);
-    border: 1px solid var(--brickColor);
-    padding: 10px;
-    width: 600px;
-    height: 300px;
-    position: relative;
-    border-radius: 3px;
-    margin: 10px;
-}
-
 @media only screen and (max-width: 800px) {
-    .todo {
+    .billboard {
         width: var(--fillFromMargin);
     }
 }

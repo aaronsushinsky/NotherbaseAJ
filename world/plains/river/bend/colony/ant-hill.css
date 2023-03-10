@@ -1,0 +1,128 @@
+:root {
+    --dirtLight: rgb(156, 113, 73);
+    --dirt: rgb(109, 74, 41);
+    --dirtDark: rgb(77, 52, 29);
+    --sky: rgb(175, 175, 238);
+    --border: 5px solid var(--dirt);
+    --borderThin: 2px solid var(--dirt);
+    --borderThinLight: 2px solid var(--dirtLight);
+}
+
+h4, h5 {
+    border: none;
+    background: rgba(0, 0, 0, 0.575);
+    border-radius: 30px;
+    backdrop-filter: blur(3px);
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.ant-hill-game {
+    width: 100%;
+}
+
+.field {
+    border: var(--standardBorder);
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    background: url("/img/textures/grass.png");
+}
+
+.colony {
+    border: var(--standardBorder);
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 5px;
+    background: url("/img/textures/knolls.png");
+    justify-content: center;
+}
+
+.hill {
+    border: var(--standardBorder);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    background: url("/img/textures/dirt.png");
+    padding: 5px;
+}
+
+.chamber {
+    border: var(--standardBorder);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 50%;
+    position: relative;
+    padding-bottom: 60px;
+    z-index: 0;
+}
+
+.ant {
+    border: var(--standardBorder);
+    display: flex;
+    width: 200px;
+    height: 64px;
+    margin: 1px;
+}
+
+.ant img {
+    width: 64px;
+    height: 64px;
+}
+
+.ant .controls {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.ant .controls button {
+    width: 50%;
+    height: 50%;
+    padding: 1px;
+    margin: 0;
+    font-size: var(--tinyText);
+    background: rgba(0, 0, 0, 0.527);
+    backdrop-filter: blur(3px);
+    overflow: hidden;
+    border-radius: 0;
+}
+
+.ant #do {
+    background: rgba(0, 0, 0, 0.315);
+    backdrop-filter: blur(1px);
+}
+
+.selected {
+    background: black !important;
+}
+
+.environment {
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(29, 20, 0, 0.534);
+    user-select: none;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.environment h6 {
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+    width: auto;
+}
+
+.resource {
+    border: var(--standardBorder);
+    background: var(--bgColor);
+}

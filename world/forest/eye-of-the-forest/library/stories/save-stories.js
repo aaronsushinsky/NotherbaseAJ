@@ -1,13 +1,13 @@
 export default async (req, user) => {
     let spirit = await req.db.Spirit.recallOrCreate({
-        route: "/forest/clearing/wyatts-house/upstairs",
+        route: "/forest/eye-of-the-forest/library/stories",
         scope: "local",
         parent: user.id,
-        service: "todo"
+        service: "stories"
     }, null, {
-        tasks: null
+        items: []
     });
 
-    spirit.memory.data.tasks = req.body.data.tasks;
+    spirit.memory.data.items = req.body.data.items;
     await spirit.commit();
 }

@@ -130,17 +130,18 @@
                 <p class="location">Location: -</p>
                 <p class="attributes">Attributes: -</p>
                 <p class="email">Email: -</p>
+                <button id="edit" onclick="userFloor.edit()">Edit</button>
             </div>
             <div class="edit invisible">
                 <h4>Username:</h4>
                 <input type="text" class="name">
-        
-                <h4>Coin:</h4>
-                <input type="text" class="coin">
 
                 <h4>Auth Levels:</h4>
-                <ul></ul>
+                <button onclick="userFloor.addAuth()">+</button>
+                <ul id="auth"></ul>
 
+                <button id="save" onclick="userFloor.save()">Save</button>
+                <button id="cancel"  onclick="userFloor.cancel()">Cancel</button>
             </div>
         </div>
     </div>
