@@ -1,0 +1,24 @@
+<style>
+    <%- include("./ant-hill.css"); %>
+</style>
+
+<div class="ant-hill-game">
+
+</div>
+
+<hr>
+
+<a href="/plains/the-grass/cow-town" class="to">
+    Go to Cow Town
+</a>
+
+<script>
+    <%- include("./ant-hill-game.js"); %>
+
+    let antHillGame = null;
+
+    base.load("ant-hill-game").then((res) => {
+        console.log(res);
+        antHillGame = new AntHillGame(res.colonies);
+    });
+</script>

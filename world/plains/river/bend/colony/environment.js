@@ -1,6 +1,5 @@
-class Environment extends Entity {
+class Environment {
     constructor(environment = null) {
-        super();
     }
 
     onBeat() {

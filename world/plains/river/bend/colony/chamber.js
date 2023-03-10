@@ -2,20 +2,19 @@
 <%- include("./ant.js"); %>
 <%- include("./resource.js"); %>
 
-class Chamber extends Entity {
+class Chamber {
     constructor(chamber = null) {
-        super();
-
         //init
         this.antLimit = 50;
         this.ants = 5;
         this.environment = null;
         this.resources = [];
 
-        if (chamber) {
-            this.environment = new Environment(chamber.environment);
-            this.addChild(this.environment);
+        this.environment = new Environment(chamber.environment);
+        this.addChild(this.environment);
 
+        if (chamber) {
+            
             if (chamber.resources) for (let i = 0; i < chamber.resources.length; i++) {
                 let newResource = new Resource(chamber.resources[i]);
                 this.resources.push(newResource);
@@ -29,15 +28,7 @@ class Chamber extends Entity {
     }
 
     onBeat = () => {
-        let harvesters = [];
-
-        this.ants.forEach((ant) => {
-            if (ant.state === "harvest" && harvesters.length < this.harvesterLimit) {
-                harvesters.push(this.removeChild(ant));
-            }
-        });
-
-
+        
     }
 
     onRender = () => `<div class="chamber">
