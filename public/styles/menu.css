@@ -47,6 +47,7 @@
     width: 64px;
     height: 64px;
     border-radius: 5px;
+    z-index: 100;
 }
 
 .menu button#close {

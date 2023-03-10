@@ -1,0 +1,48 @@
+.billboard {
+    width: 50%;
+    height: 500px;
+    border: var(--standardBorder);
+}
+
+.billboard li {
+    border: none;
+    position: relative;
+    padding: 10px;
+}
+
+.billboard .delete {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.billboard .flip {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.billboard .main {
+    position: relative;
+    padding: 10px;
+    overflow: auto;
+}
+
+.billboard .new {
+    position: relative;
+    padding: 10px;
+    overflow: auto;
+}
+
+.billboard ul {
+    display: flex;
+    flex-wrap: wrap;
+    border: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}

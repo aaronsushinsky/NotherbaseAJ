@@ -1,4 +1,4 @@
-class RecipeBrowser {
+class NoteBrowser {
     constructor() {
         this.recipes = null;
         this.filter = "";

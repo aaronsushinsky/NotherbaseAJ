@@ -1,5 +1,6 @@
 <style>
 </style>
+<link rel="stylesheet" href="/styles/billboard.css">
 
 <p>
     Approaching the inn reveals a creaky vessel,
@@ -30,6 +31,10 @@
     <button>Register for this Expidition</button>
 </div>
 
+<div class="billboard" id="inn-ads">
+
+</div>
+
 <hr>
 
 <a class="to" href="/forest/eye-of-the-forest/inn/lobby">
@@ -41,3 +46,15 @@
 <a class="return" href="/forest/eye-of-the-forest/road">
     Return to the Road
 </a>
+
+<script src="/js/billboard.js"></script>
+<script>
+    let innBB = null;
+
+    base.load("ads", "global").then((res) => {
+        innBB = new Billboard("inn-ads", res.items, {
+            onSave: "save-ads",
+            free: <%= user.authLevels.includes("eotf-inn-ads") %>
+        });
+    })
+</script>
