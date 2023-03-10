@@ -8,8 +8,6 @@ export default async (req, user) => {
         items: []
     });
 
-    console.log(spirit);
-
     spirit.memory.data.items = req.body.data.items;
     await spirit.commit();
 }
