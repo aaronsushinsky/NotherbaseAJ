@@ -48,7 +48,7 @@
 <script>
     <%- include("./browser.js"); %>
 
-    let browser = new StoryBrowser("stories");
+    let browser = new Browser("stories");
 
     base.load("stories").then((res) => {
         browser.load(res);

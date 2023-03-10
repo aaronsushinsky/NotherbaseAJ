@@ -1,16 +1,14 @@
-class Browser {
+class StoryBrowser {
     constructor(id) {
         this.id = id;
         this.items = [];
         this.filter = "";
         this.selected = -1;
-        this.lastSearch = 0;
+        this.lastSearch = null;
 
         this.$div = $(`.browser#${id}`);
         this.$search = this.$div.find(".search input");
-        this.$search.on("input", (e) => {
-            return this.setFilter(e.currentTarget.value);
-        });
+        this.$search.on("input", (e) => this.setFilter(e.currentTarget.value));
         this.$searchList = this.$div.find(".search ul");
 
         this.$read = {
@@ -47,7 +45,7 @@ class Browser {
     }
 
     setFilter = (filter) => {
-        if (Date.now() - this.lastSearch > 500) {
+        if (this.lastSearch - Date.now() > 500) {
             this.lastSearch = Date.now();
             this.filter = filter;
             this.renderSearchResults();
