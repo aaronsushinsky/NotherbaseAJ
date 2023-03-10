@@ -1,190 +1,156 @@
-class Browser {
-    constructor(browserOptions, spiritOptions) {
-        this.initBrowserOptions = {
-            header: "Browser",
-            subheader: "",
-            id: ""
-        }
-        this.browserOptions = {
-            ...this.initBrowserOptions,
-            ...browserOptions
-        }
-
-        this.initSpiritOptions = {
-            service: "default",
-            scope: "local",
-            parent: null,
-            route: location.pathname,
-            data: {
-                default: String
-            }
-        }
-        this.spiritOptions = {
-            ...this.initSpiritOptions,
-            ...spiritOptions
-        }
-
+class StoryBrowser {
+    constructor(id) {
+        this.id = id;
         this.items = [];
-        this.searchFilter = "";
+        this.filter = "";
+        this.selected = -1;
+        this.lastSearch = null;
 
-        this.selected = 0;
+        this.$div = $(`.browser#${id}`);
+        this.$search = this.$div.find(".search input");
+        this.$search.on("input", (e) => this.setFilter(e.currentTarget.value));
+        this.$searchList = this.$div.find(".search ul");
+
+        this.$read = {
+            div: this.$div.find(".read"),
+            title: this.$div.find(".read h4"),
+            image: this.$div.find(".read img"),
+            source: this.$div.find(".read h6"),
+            content: this.$div.find(".read p"),
+        };
+
+        this.$edit = {
+            div: this.$div.find(".edit"),
+            title: this.$div.find(".edit #title"),
+            image: this.$div.find(".edit #image"),
+            source: this.$div.find(".edit #source"),
+            content: this.$div.find(".edit #content"),
+        };
     }
 
-    render() {
-
-    }
-
-    renderSearchResults() {
+    renderSearchResults = () => {
         this.$searchList.empty();
 
-        for (let i = 0; i < this.recipes.length; i++) {
-            if (this.recipes[i].name.toLowerCase().includes(this.filter.toLowerCase())) {
-                this.$searchList.append(`<li onclick="recipeBrowser.clickRecipe(this, ${i})">
-                    ${this.recipes[i].name}
+        for (let i = 0; i < this.items.length; i++) {
+            let label = this.items[i].name || this.items[i].title || this.items[i].header || this.items[i].whenSearched || Object.values(this.items[i])[0];
+            if (label.toLowerCase().includes(this.filter.toLowerCase())) {
+                this.$searchList.append(`<li id="${i}" onclick="browser.select(${i})">
+                    ${label}
                 </li>`);
             }
         };
-        if (this.$searchList.find("li").length < 1) {
-            this.$searchList.append(`<p>No Recipes</p>`);
+        if (this.items.length < 1) {
+            this.$searchList.append(`<p>No Items</p>`);
         }
     }
 
-    load = async () => {
-        //load recipes
-        let load = await base.load(this.spiritOptions.service, this.spiritOptions.scope);
-        if (!load.items) this.items = [];
-        else this.items = load.items;
-
-        this.renderSearchResults();
-
-        //enable the search bar
-        this.$search.on("input", (e) => {
-            this.filter = $(e.currentTarget).val();
+    setFilter = (filter) => {
+        if (this.lastSearch - Date.now() > 500) {
+            this.lastSearch = Date.now();
+            this.filter = filter;
             this.renderSearchResults();
-        });
+        }
+    }
+
+    load = (res) => {
+        if (res?.items?.length) {
+            this.items = res.items;
+            this.renderSearchResults();
+        }
+        else console.log(res);
     }
 
     save = async () => {
-        //compile ingredients list
-        let ing = [];
-        let $ingredients = this.$editIngredientList.find("li");
-        for (let i = 0; i < $ingredients.length; i++) {
-            if ($($ingredients[i]).find("#ingredient").val() != "") {
-                ing.push({
-                    amount: $($ingredients[i]).find("#amount").val(),
-                    measure: $($ingredients[i]).find("#measure").val(),
-                    ingredient: $($ingredients[i]).find("#ingredient").val()
-                });
-            }
-        }
+        let newItem = {
+            title: this.$edit.title.val(),
+            source: this.$edit.source.val(),
+            img: this.$edit.image.val(),
+            content: this.$edit.content.val()
+        };
 
-        //compile directions list
-        let dir = [];
-        let $directions = this.$editDirectionsList.find("li input");
-        for (let i = 0; i < $directions.length; i++) {
-            if ($($directions[i]).val() != "") dir.push($($directions[i]).val());
-        }
+        if (this.selected < 0) this.items.push(newItem);
+        else this.items[this.selected] = newItem;
 
-        //update recipe
-        let currentRecipe = this.tabRecipes[this.tab];
-        if (currentRecipe < 0) {
-            currentRecipe = this.recipes.length;
-            this.recipes.push({
-                name: this.$editName.val(),
-                source: this.$editSource.val(),
-                img: this.$editImage.val(),
-                ingredients: ing,
-                directions: dir
-            });
-        }
-        else {
-            this.recipes[currentRecipe] = {
-                name: this.$editName.val(),
-                source: this.$editSource.val(),
-                img: this.$editImage.val(),
-                ingredients: ing,
-                directions: dir
-            };
-        }
-
-        await base.do("save-recipes", {
-            recipes: this.recipes
+        await base.do("save-stories", {
+            items: this.items
         });
         
-        this.cancelRecipe();
+        this.cancel();
         this.renderSearchResults();
+        this.select(this.items.length - 1);
     }
 
     read = async () => {
-        this.tabRecipes[this.tab] = index;
-        let currentRecipe = this.getSelectedRecipe();
+        this.cancel();
 
-        this.$readIngredientList.empty();
-        this.$readIngredientList.append(`<h6>Ingredients:</h6>`);
-        this.$readDirectionsList.empty();
-        this.$readDirectionsList.append(`<h6>Directions:</h6>`);
-
-        if (currentRecipe) {
-            this.$readName.text(currentRecipe.name);
-            this.$readImage.attr("src", currentRecipe.img);
-            this.$readSource.text("From " + currentRecipe.source);
-            for (let i = 0; i < currentRecipe.ingredients.length; i++) {
-                this.$readIngredientList.append(`<li>
-                    <p class="amount">${currentRecipe.ingredients[i].amount}</p>
-                    <p class="measure">${currentRecipe.ingredients[i].measure}</p>
-                    <p class="ingredient">${currentRecipe.ingredients[i].ingredient}</p>
-                </li>`);
-            }
-            for (let i = 0; i < currentRecipe.directions.length; i++) {
-                this.$readDirectionsList.append(`<li>${currentRecipe.directions[i]}</li>`);
-            }
+        if (this.selected > -1) {
+            let item = this.items[this.selected];
+            this.$read.title.text(item.title);
+            this.$read.image.attr("src", item.img);
+            this.$read.source.text("From: " + item.source);
+            this.$read.content.text(item.content);
         }
         else {
-            this.$readName.text("No Recipe");
-            this.$readImage.attr("src", "/img/food/default.jpg");
-            this.$readSource.text("No Chef");
+            this.$read.title.text("No Story");
+            this.$read.image.attr("src", "/img/food/default.jpg");
+            this.$read.source.text("No Source");
+            this.$read.content.text("No Content");
         }
     }
 
-    edit = async () => {
-        this.$read.addClass("invisible");
-        this.$edit.removeClass("invisible");
+    edit = () => {
+        this.$read.div.addClass("invisible");
+        this.$edit.div.removeClass("invisible");
 
-        if (this.tabRecipes[this.tab] >= 0) {
-            this.$editName.val(this.recipes[this.tabRecipes[this.tab]].name);
-            this.$editImage.val(this.recipes[this.tabRecipes[this.tab]].img);
-            this.$editSource.val(this.recipes[this.tabRecipes[this.tab]].source);
-            
-            this.renderEditIngredients(this.recipes[this.tabRecipes[this.tab]].ingredients);
-            this.renderEditDirections(this.recipes[this.tabRecipes[this.tab]].directions);
+        if (this.selected >= 0) {
+            let item = this.items[this.selected];
+            this.$edit.title.val(item.title);
+            this.$edit.image.val(item.img);
+            this.$edit.source.val(item.source);
+            this.$edit.content.val(item.content);
         }
+        else {
+            this.$edit.title.val("New Story");
+            this.$edit.image.val("/img/food/default.jpg");
+            this.$edit.source.val("New Source");
+            this.$edit.content.val("New Content");
+        }
+    }
+
+    cancel = () => {
+        this.$edit.div.addClass("invisible");
+        this.$read.div.removeClass("invisible");
     }
 
     delete = async () => {
-        this.recipes.splice(which, 1);
-
-        await base.do("save-recipes", {
-            recipes: this.recipes
-        });
-        
-        this.tabRecipes[this.tab] = -1;
-        this.cancelRecipe();
-        this.renderSearchResults();
-    }
-
-    new = async () => {
-        this.tabRecipes[this.tab] = -1;
-        
-        this.editRecipe();
-    }
-
-    select (element, index) {
-        this.$searchResults = this.$searchList.find("li");
-        this.$searchResults.removeClass("selected");
-
-        if (index > -1) {
-            $(element).addClass("selected");
-            this.readRecipe(index);
+        if (this.selected > -1) {
+            this.items.splice(this.selected, 1);
+    
+            await base.do("save-stories", {
+                items: this.items
+            });
+            
+            this.renderSearchResults();
+            this.cancel();
+            this.select(-1);
         }
+    }
+
+    new = () => {
+        this.selected = -1;
+        
+        this.edit();
+    }
+
+    select = (which) => {
+        this.selected = which;
+        let $searchResults = this.$searchList.find("li");
+        $searchResults.removeClass("selected");
+
+        if (which > -1) {
+            $searchResults.find(`#${which}`).addClass("selected");
+        }
+        
+        this.read();
     }
 }
