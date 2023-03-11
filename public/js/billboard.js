@@ -81,7 +81,7 @@ class Billboard {
                 if (e.which == 13) this.submit();
             });
             this.$submit = $(`<button id="submit">Submit Text</button>`).appendTo(this.$new);
-            this.$submit.click(this.submit);
+            this.$submit.click(() => this.submit());
             this.$submitImg = $(`<button id="submit-img">Submit Image URL</button>`).appendTo(this.$new);
             this.$submitImg.click(() => { this.submit("img"); });
             this.$flipToMain = $(`<button class="flip">#</button>`).appendTo(this.$new);
