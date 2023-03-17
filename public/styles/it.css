@@ -18,6 +18,7 @@ main {
     align-content: flex-start;
     box-shadow: 5px 5px var(--shadowColor);
     min-height: 380px;
+    max-width: 95%;
 }
 
 footer {

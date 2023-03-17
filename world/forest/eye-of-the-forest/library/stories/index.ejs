@@ -5,38 +5,7 @@
 <h2>Stories</h2>
 
 <div class="browser" id="stories">
-    <div class="search">
-        <input placeholder="search" type="text">
-        <ul class="selector">
-        </ul>
-    </div>
 
-    <div class="content">
-        <div class="read">
-            <h4>Story Title</h4>
-            <img src="/img/food/default.jpg">
-            <h6>Story Source</h6>
-            <p>Content</p>
-
-            <button id="new" onclick="browser.new()">New</button>
-            <button id="edit" onclick="browser.edit()">Edit</button>
-            <button id="delete" onclick="browser.delete()">Delete</button>
-        </div>
-
-        <div class="edit invisible">
-            <h6>Story Title:</h6>
-            <input type="text" id="title" placeholder="Title">
-            <h6>Story Source:</h6>
-            <input type="text" id="source" placeholder="Source">
-            <h6>Image URL:</h6>
-            <input type="text" id="image" placeholder="/story_image_url.jpg" value="/img/food/default.jpg">
-            <h6>Content:</h6>
-            <textarea id="content" cols="30" rows="10">Your Content Here</textarea>
-
-            <button id="save" onclick="browser.save()">Save</button>
-            <button id="cancel" onclick="browser.cancel()">Cancel</button>
-        </div>
-    </div>
 </div>
 
 <hr>
@@ -45,12 +14,4 @@
     Return to the Lobby
 </a>
 
-<script>
-    <%- include("./browser.js"); %>
-
-    let browser = new Browser("stories");
-
-    base.load("stories").then((res) => {
-        browser.load(res);
-    });
-</script>
+<%- include("./story-browser.ejs"); %>

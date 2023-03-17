@@ -255,6 +255,12 @@ input[type=checkbox] {
     border-radius: var(--borderRadius);
     border: var(--thickBorder);
     margin: var(--margin);
+    background: url("/img/signs/wooden-board.jpg");
+    background-size: 100% 100%;
+}
+
+.sign * {
+    background: var(--bgColor);
 }
 
 .form {
@@ -494,6 +500,15 @@ iframe {
     position: absolute;
     left: 50%;
     bottom: 50%;
+}
+
+.conchu {
+    border: 3px dotted var(--textColor) !important;
+    background: url("/img/misc/conchu.jpg") !important;
+}
+
+.browser {
+    width: 100%;
 }
 
 @media only screen and (max-width: 1300px) {

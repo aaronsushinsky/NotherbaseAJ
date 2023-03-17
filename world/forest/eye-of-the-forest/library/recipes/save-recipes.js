@@ -5,9 +5,11 @@ export default async (req, user) => {
         parent: user.id,
         service: "recipes"
     }, null, {
-        recipes: []
+        items: []
     });
 
-    spirit.memory.data.recipes = req.body.data.recipes;
+    spirit.memory.data.items = req.body.data.items;
     await spirit.commit();
+
+    if (spirit.memory.data.recipes) spirit.memory.data.recipes = null;
 }
