@@ -507,6 +507,10 @@ iframe {
     background: url("/img/misc/conchu.jpg") !important;
 }
 
+.browser {
+    width: 100%;
+}
+
 @media only screen and (max-width: 1300px) {
     main {
         width: 100%;

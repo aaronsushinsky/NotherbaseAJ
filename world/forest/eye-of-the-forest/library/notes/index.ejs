@@ -2,71 +2,9 @@
     <%- include("./index.css") %>
 </style>
 
-<div class="case conchu">
+<div class="browser" id="notes">
     <h2>Notes</h2>
 
-    <div class="search">
-        <input placeholder="search" type="text">
-        <ul class="selector">
-            <p>No Recipes</p>
-        </ul>
-    </div>
-    
-    <div class="viewing">
-        <div class="tabs">
-            <div class="tab">Current Tab</div>
-        </div>
-        <div class="content">
-            <div class="recipe">
-                <div class="read">
-                    <div class="title">
-                        <h5>Recipe Name</h5><br>
-                        <img src="/img/food/default.jpg">
-                        <h6>Chef Name</h6>
-                    </div>
-                    <ul class="ingredients">
-                        <h6>Ingredients:</h6>
-                    </ul>
-                    <ul class="directions">
-                        <h6>Directions:</h6>
-                    </ul>
-                    <button id="new" onclick="recipeBrowser.newRecipe()">New</button>
-                    <button id="edit" onclick="recipeBrowser.editRecipe()">Edit</button>
-                    <button id="delete" onclick="recipeBrowser.deleteRecipe()">Delete</button>
-                </div>
-                <div class="edit invisible">
-                    <div class="title">
-                        <h6>Recipe Name:</h6>
-                        <input type="text" id="name" placeholder="recipe name">
-                        <h6>Image Source URL:</h6>
-                        <input type="text" id="img-url" placeholder="recipe image url" value="/img/food/default.jpg">
-                        <h6>Recipe Source:</h6>
-                        <input type="text" id="source" placeholder="recipe source">
-                    </div>
-                    <ul class="ingredients">
-                        <h6>Ingredients:</h6>
-                        <li class="new">
-                            <input type="number" id="amount" placeholder="1">
-                            <input type="text" id="measure" placeholder="tbsp">
-                            <input type="text" id="ingredient" placeholder="carrots">
-                            <button onclick="recipeBrowser.addIngredient()">+</button>
-                            <button onclick="recipeBrowser.deleteIngredient(0)">X</button>
-                        </li>
-                    </ul>
-                    <ul class="directions">
-                        <h6>Directions:</h6>
-                        <li class="new">
-                            <input type="text" placeholder="directions go here">
-                            <button onclick="recipeBrowser.addDirection()">+</button>
-                            <button onclick="recipeBrowser.deleteDirection(0)">X</button>
-                        </li>
-                    </ul>
-                    <button id="save" onclick="recipeBrowser.saveRecipe()">Save</button>
-                    <button id="cancel" onclick="recipeBrowser.cancelRecipe()">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <hr>
@@ -75,8 +13,4 @@
     Return to the Lobby
 </a>
 
-<script>
-    <%- include("./notes.js"); %>
-
-    let noteBrowser = new NoteBrowser();
-</script>
+<%- include("./note-browser.ejs"); %>
