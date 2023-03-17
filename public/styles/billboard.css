@@ -4,10 +4,15 @@
     border: var(--standardBorder);
 }
 
+.billboard * {
+    background-color: var(--bgColor);
+}
+
 .billboard li {
     border: none;
     position: relative;
     padding: 10px;
+    width: 100%;
 }
 
 .billboard .delete {
@@ -21,7 +26,7 @@
 .billboard .flip {
     position: absolute;
     right: 0;
-    top: 0;
+    top: -20px;
     padding: 0;
     margin: 0;
 }
@@ -30,6 +35,7 @@
     position: relative;
     padding: 10px;
     overflow: auto;
+    overflow: visible;
 }
 
 .billboard .new {

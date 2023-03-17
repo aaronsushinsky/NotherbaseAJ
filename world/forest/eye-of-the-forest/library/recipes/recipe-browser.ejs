@@ -1,4 +1,4 @@
-class RecipeBrowser {
+<!-- class RecipeBrowser {
     constructor() {
         this.recipes = null;
         this.filter = "";
@@ -302,4 +302,103 @@ class RecipeBrowser {
             this.readRecipe(index);
         }
     }
-}
+} -->
+
+
+<script src="/js/util/browser.js"></script>
+
+<script>
+    class RecipeBrowser extends Browser {
+        constructor(id) {
+            super(id, ["name", "img", "source", "ingredients", "directions"], "save-recipes");
+
+            this.$read.name = $("<h4>Recipe Name</h4>").appendTo(this.$read.div);
+            this.$read.img = $(`<img src="/img/food/default.jpg">`).appendTo(this.$read.div);
+            this.$read.source = $("<h6>Recipe Source</h6>").appendTo(this.$read.div);
+            this.$read.ingredients = $("<ul></ul>").appendTo(this.$read.div);
+            this.$read.directions = $("<ul></ul>").appendTo(this.$read.div);
+
+            this.$read.new = $(`<button id="new">New</button>`).appendTo(this.$read.div).on("click", this.new);
+            this.$read.edit = $(`<button id="edit">Edit</button>`).appendTo(this.$read.div).on("click", this.edit);
+            this.$read.delete = $(`<button id="delete">Delete</button>`).appendTo(this.$read.div).on("click", this.delete);
+
+            this.$edit.name = $(`<input type="text" id="name" placeholder="Name">`).appendTo(this.$edit.div.append("<h6>Recipe Name:</h6>"));
+            this.$edit.source = $(`<input type="text" id="source" placeholder="Source">`).appendTo(this.$edit.div.append("<h6>Recipe Source:</h6>"));
+            this.$edit.img = $(`<input type="text" id="image" placeholder="/recipe_image_url.jpg" value="/img/food/default.jpg">`).appendTo(this.$edit.div.append("<h6>Image URL:</h6>"));
+            this.$edit.ingredients = $(`<ul class="ingredients"><h6>Ingredients:</h6>
+                        <li class="new">
+                            <input type="number" id="amount" placeholder="1">
+                            <input type="text" id="measure" placeholder="tbsp">
+                            <input type="text" id="ingredient" placeholder="carrots">
+                        </li></ul>`).appendTo(this.$edit.div);
+            this.$edit.addIngredient = $(`<button>+</button>`).appendTo(this.$edit.ingredients).on("click", this.addIngredient);
+            this.$edit.deleteIngredient = $(`<button>X</button>`).appendTo(this.$edit.ingredients).on("click", this.deleteIngredient);
+            this.$edit.directions = $(`<ul class="directions"><h6>Directions:</h6>
+                        <li class="new">
+                            <input type="text" placeholder="directions go here">
+                        </li></ul>`).appendTo(this.$edit.div);
+            this.$edit.addDirection = $(`<button>+</button>`).appendTo(this.$edit.directions).on("click", this.addDirection);
+            this.$edit.deleteDirection = $(`<button>X</button>`).appendTo(this.$edit.directions).on("click", this.deleteDirection);
+
+            this.$edit.save = $(`<button id="save">Save</button>`).appendTo(this.$edit.div).on("click", this.save);
+            this.$edit.cancel = $(`<button id="cancel">Cancel</button>`).appendTo(this.$edit.div).on("click", this.cancel);
+
+            this.prefixes = {
+                source: "From: "
+            }
+        }
+
+        addIngredient = () => {
+            let l = this.$editIngredientList.find("li").length;
+            this.$editIngredientList.append(`<li class="new">
+                <input type="number" id="amount" placeholder="1">
+                <input type="text" id="measure" placeholder="tbsp">
+                <input type="text" id="ingredient" placeholder="carrots">
+                <button onclick="recipeBrowser.addIngredient(${l})">+</button>
+                <button onclick="recipeBrowser.deleteIngredient(${l})">X</button>
+            </li>`);
+        }
+
+        deleteIngredient = () => {
+            let ing = [];
+            let $ingredients = this.$editIngredientList.find("li");
+            for (let i = 0; i < $ingredients.length; i++) {
+                if ($($ingredients[i]).find("#ingredient").val() != "" && i != which) {
+                    ing.push({
+                        amount: $($ingredients[i]).find("#amount").val(),
+                        measure: $($ingredients[i]).find("#measure").val(),
+                        ingredient: $($ingredients[i]).find("#ingredient").val()
+                    });
+                }
+            }
+
+            this.renderEditIngredients(ing);
+        }
+
+        addDirection = () => {
+            let l = this.$editDirectionsList.find("li").length;
+            this.$editDirectionsList.append(`<li class="new">
+                <input type="text" placeholder="directions go here">
+                <button onclick="recipeBrowser.addDirection(${l})">+</button>
+                <button onclick="recipeBrowser.deleteDirection(${l})">X</button>
+            </li>`);
+        }
+
+        deleteDirection() {
+            let dir = [];
+            let $directions = this.$editDirectionsList.find("li input");
+            for (let i = 0; i < $directions.length; i++) {
+                if ($($directions[i]).val() != "" && i != which) dir.push($($directions[i]).val());
+            }
+
+            this.renderEditDirections(dir);
+        }
+    }
+
+    let recipeBrowser = new RecipeBrowser("recipes");
+
+    base.load("recipes").then((res) => {
+        if (res.recipes) res.items = res.recipes;
+        recipeBrowser.load(res);
+    });
+</script>
