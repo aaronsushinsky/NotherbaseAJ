@@ -86,8 +86,8 @@ class Browser {
     }
 
     prefix(field, postfix) {
-        if (this.prefixes[field]) return this.prefixes[field] + postfix;
-        else return postfix;
+        if (this.prefixes[field]) return (this.prefixes[field] + postfix).replace(/(?:\r\n|\r|\n)/g, '<br />');
+        else return postfix.replace(/(?:\r\n|\r|\n)/g, '<br />');
     }
 
     read = async () => {
@@ -103,7 +103,7 @@ class Browser {
                         $ul.append(`<li>${this.prefix(this.fields[i], item[this.fields[i]])}</li>`);
                     }
                 }
-                else if (this.checkIfTextField($div)) $div.text(this.prefix(this.fields[i], item[this.fields[i]]));
+                else if (this.checkIfTextField($div)) $div.html(this.prefix(this.fields[i], item[this.fields[i]]));
                 else if (this.checkIfImageField($div)) $div.attr("src", this.prefix(this.fields[i], item[this.fields[i]]));
             }
         }
