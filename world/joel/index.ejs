@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Joel Lantau</title>
+</head>
+
+<style>
+    <%- include("./index.css"); %>
+    <%- include("./news.css"); %>
+    <%- include("./podcast.css"); %>
+    <%- include("./about.css"); %>
+</style>
+
+<body>
+    <main>
+        <section id="news">
+            <h2>Here's what's new with Joel:</h2>
+            
+            <div class="controls">
+                <button id="flip">#</button>
+                <div class="sort">
+                    <button>Newest</button>
+                    <button>Popular</button>
+                </div>
+                <div class="search">
+                    <input type="text" placeholder="search">
+                </div>
+                <button id="previous">Previous Page</button>
+                <p>0/0</p>
+                <button id="next">Next Page</button>
+            </div>
+
+            <div class="articles">
+                <article>
+                    <div class="pics">
+                        <h4>Example News Post</h4>
+                        <h5>01/01/99</h5>
+                        <img src="/img/textures/abstract street art.png">
+                    </div>
+                    <div class="text">
+                        <p>
+                            Another great week. Can't wait to see everyone again soon. <br>
+                      
+                            I need to test some more text, so I'm just going to type in
+                            some abitrary sentences that will fill up space. This will demonstrate
+                            the wrapping capabilities of HTML.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="invisible" id="podcast">
+            <h2>Joel's Podcast</h2>
+            <p>
+                Take a seat. Grab something to drink and a snack. Get comfortable.
+                Joel's Podcast is here to love God and neighbors. Spread His kingdom!
+            </p>
+            <p>
+                Listen to Joel's Podcast here on the site below
+                or on your favorite podcast app.
+            </p>
+            <ul>
+                <li>
+                    <h4>Episode 1: Hello World</h4>
+                    <p>In this episode Joel tests his mic.</p>
+                    <button>Play Episode</button>
+                </li>
+            </ul>
+        </section>
+
+        <section class="invisible" id="about">
+            <img src="/img/joel/profile.jpg">
+            <h2>Joel Lantau</h2>
+            <h3>an image of God</h3>
+            <p>Email: joel@email.com</p>
+            <p>Phone: (000) 000-0000</p>
+            <p>
+                Joel is the resident beat producer at Centralia Christian Church
+                and a moral guide to some of Chehalis' troubled youth. Joel loves
+                God and you, dear visitor. Joel's Podcast is an expression of this
+                love and a participation in the spread of the kingdom of God.
+            </p>
+            <p>
+                Praise God!
+            </p>
+        </section>
+    </main>
+
+    <nav>
+        <button class="selected" onclick="navigation.switch('news')" id="news">News</button>
+        <button onclick="navigation.switch('podcast')" id="podcast">Joel's Podcast</button>
+        <button onclick="navigation.switch('about')" id="about">About Joel</button>
+    </nav>
+    
+    <footer>
+        Contact Joel: joel@email.com | (000) 000-0000
+    </footer>
+
+    <script>
+        <%- include("./local-scripts/navigation.js"); %>
+        <%- include("./local-scripts/news.js"); %>
+        
+    </script>
+</body>
+</html>
