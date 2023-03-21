@@ -1,0 +1,18 @@
+#about>img {
+    width: 100%;
+    height: calc(100vh - 50px);
+    object-fit: cover;
+    object-position: top;
+}
+
+#about>h2 {
+    position: absolute;
+    right: 200px;
+    top: 200px;
+}
+
+#about>h3 {
+    position: absolute;
+    right: 200px;
+    top: 250px;
+}

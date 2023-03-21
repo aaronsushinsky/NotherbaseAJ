@@ -1,0 +1,37 @@
+section#news {
+    
+}
+
+.news-controls {
+    width: 90%;
+    height: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+article {
+    border-bottom: 1px solid black;
+    height: 500px;
+    width: 100%;
+    display: flex;
+}
+
+article .pics {
+    width: 40%;
+    height: 100%;
+    margin: 0;
+    padding: 10px;
+}
+
+article .text {
+    width: 60%;
+    height: 100%;
+    margin: 0;
+}
+
+article img {
+    width: 300px;
+    height: 300px;
+    float: left;
+}

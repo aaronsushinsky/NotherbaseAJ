@@ -1,0 +1,133 @@
+:root {
+    --textColor: rgb(0, 0, 0);
+    --primaryColor: rgb(244, 244, 244);
+    --secondaryColor: white;
+    --tertiaryColor: rgb(186, 139, 45);
+    --positiveColor: green;
+    --negativeColor: red;
+    --alertColor: yellow;
+    --shadowColor: rgba(0, 0, 0, 0.521);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.invisible {
+    display: none !important;
+}
+
+body {
+    background: var(--tertiaryColor);
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+header {
+    background: var(--secondaryColor);
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    overflow: hidden;
+}
+
+h1 {
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    padding: 5px;
+}
+
+main {
+    color: var(--textColor);
+    background: var(--secondaryColor);
+    background-size: cover;
+    width: calc(100% - 100px);
+    height: calc(100% - 50px);
+    overflow: hidden;
+    margin: 50px;
+    margin-bottom: 0;
+    border-radius: 25px 25px 0px 0px;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+section {
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    position: relative;
+}
+
+nav {
+    background: var(--tertiaryColor);
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+}
+
+nav button {
+    width: calc(100% / 3);
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+nav button.selected {
+    background: none;
+    border: none;
+}
+
+footer {
+    background: var(--tertiaryColor);
+    width: 100%;
+    height: 25px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sort {
+    display: flex;
+    width: 50%;
+    height: 100%;
+}
+
+.sort button {
+    width: 50%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.sort button.selected {
+    background: none;
+    border: none;
+}
+
+.search {
+    width: 50%;
+    height: 100%;
+}
+
+.search input {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
