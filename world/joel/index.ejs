@@ -19,10 +19,9 @@
     <main>
         <section id="news">
             <h2>Here's what's new with Joel:</h2>
-
-            <button id="flip">#</button>
             
-            <div class="news-controls invisible">
+            <div class="controls">
+                <button id="flip">#</button>
                 <div class="sort">
                     <button>Newest</button>
                     <button>Popular</button>
@@ -30,23 +29,29 @@
                 <div class="search">
                     <input type="text" placeholder="search">
                 </div>
+                <button id="previous">Previous Page</button>
+                <p>0/0</p>
+                <button id="next">Next Page</button>
             </div>
 
-            <article>
-                <div class="pics">
-                    <h4>Example News Post</h4>
-                    <img src="/img/textures/abstract street art.png">
-                </div>
-                <div class="text">
-                    <p>
-                        Another great week. Can't wait to see everyone again soon. <br>
-                  
-                        I need to test some more text, so I'm just going to type in
-                        some abitrary sentences that will fill up space. This will demonstrate
-                        the wrapping capabilities of HTML.
-                    </p>
-                </div>
-            </article>
+            <div class="articles">
+                <article>
+                    <div class="pics">
+                        <h4>Example News Post</h4>
+                        <h5>01/01/99</h5>
+                        <img src="/img/textures/abstract street art.png">
+                    </div>
+                    <div class="text">
+                        <p>
+                            Another great week. Can't wait to see everyone again soon. <br>
+                      
+                            I need to test some more text, so I'm just going to type in
+                            some abitrary sentences that will fill up space. This will demonstrate
+                            the wrapping capabilities of HTML.
+                        </p>
+                    </div>
+                </article>
+            </div>
         </section>
 
         <section class="invisible" id="podcast">
@@ -87,9 +92,9 @@
     </main>
 
     <nav>
-        <button class="selected" onclick="nav.switch('news')" id="news">News</button>
-        <button onclick="nav.switch('podcast')" id="podcast">Joel's Podcast</button>
-        <button onclick="nav.switch('about')" id="about">About Joel</button>
+        <button class="selected" onclick="navigation.switch('news')" id="news">News</button>
+        <button onclick="navigation.switch('podcast')" id="podcast">Joel's Podcast</button>
+        <button onclick="navigation.switch('about')" id="about">About Joel</button>
     </nav>
     
     <footer>
@@ -97,25 +102,9 @@
     </footer>
 
     <script>
-        class Navigation {
-            constructor () {
-                this.state = "welcome";
-            }
-
-            switch = (to) => {
-                if (this.state !== to) {
-                    $("section").addClass("invisible");
-                    $(`section#${to}`).removeClass("invisible");
-
-                    $("nav button").removeClass("selected");
-                    $(`nav button#${to}`).addClass("selected");
-
-                    this.state = to;
-                }
-            }
-        }
-
-        let nav = new Navigation();
+        <%- include("./local-scripts/navigation.js"); %>
+        <%- include("./local-scripts/news.js"); %>
+        
     </script>
 </body>
 </html>

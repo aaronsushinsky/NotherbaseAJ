@@ -48,12 +48,14 @@ h1, h2, h3, h4, h5, h6, p {
 
 main {
     color: var(--textColor);
-    background: url("/img/textures/substance.png");
+    background: var(--secondaryColor);
     background-size: cover;
-    width: 100%;
-    height: calc(100% - 75px);
+    width: calc(100% - 100px);
+    height: calc(100% - 50px);
     overflow: hidden;
-    margin: 0;
+    margin: 50px;
+    margin-bottom: 0;
+    border-radius: 25px 25px 0px 0px;
 }
 
 img {
@@ -62,12 +64,11 @@ img {
 }
 
 section {
-    padding: 0;
+    padding: 15px;
     width: 100%;
     height: 100%;
     overflow: auto;
     position: relative;
-    backdrop-filter: blur(15px);
 }
 
 nav {
