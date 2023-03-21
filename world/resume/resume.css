@@ -1,0 +1,68 @@
+:root {
+	--text: rgb(61, 61, 61);
+	--gray: rgb(98, 98, 98);
+}
+
+* {
+	font-family : Georgia;
+}
+
+h1 {
+	color : white;
+	background-color : var(--text);
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	width: 60%;
+	padding-left: 30px;
+	font-size : 40px;
+}
+
+h2 {
+	color : white;
+	background-color : var(--text);
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	width: 40%;
+	padding-left: 30px;
+}
+
+h3 {
+	color : var(--text);
+	display : inline;
+	margin-left : 5%;
+	margin-right : 2%;
+}
+
+h4 {
+	color : var(--text);
+	display : inline;
+	padding-right: 10px;
+}
+
+h5 {
+	color : var(--text);
+	margin-left : 5%;
+	display : inline;
+	font-size : 15px;
+}
+
+p {
+	margin-left : 5%;
+	margin-right : 10%;
+}
+
+body {
+	margin: 3% 3% 3% 3%;
+	border: 2px solid var(--text);
+	max-width: 900px;
+}
+
+ul {
+	padding-left : 5%;
+	list-style-position: inside;
+	columns : 2;
+}
+
+span {
+	float: right;
+}
