@@ -1,10 +1,11 @@
 .stream {
     width: 100%;
-    min-height: 200px;
+    height: 500px;
     background-color: rgb(7, 7, 7);
     border: 1px solid rgb(7, 7, 7);
-    overflow: hidden;
+    box-shadow: var(--boxShadow);
     position: relative;
+    overflow: hidden;
 }
 
 .stream .label {
@@ -28,7 +29,7 @@
     background: linear-gradient(170deg, rgb(82, 82, 82) 0%, rgb(46, 43, 36) 30%, rgba(5,5,5,1) 100%);
 }
 
-.stream .source {
-    height: 500px;
-    width: calc(500px * 16 / 9);
+.stream iframe {
+    width: 100%;
+    height: 100%;
 }

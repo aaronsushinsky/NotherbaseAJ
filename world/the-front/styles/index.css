@@ -33,6 +33,10 @@
     transition: all .2s ease;
 }
 
+.sign {
+    min-width: 45%;
+}
+
 .line {
     width: var(--fillHalfFromMargin);
     background-color: var(--bgColor);
@@ -72,6 +76,32 @@
 
 .line p {
     text-align: right;
+}
+
+.toy {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#pac2 {
+    transform: rotate(90deg);
+}
+
+#pac3 {
+    transform: rotate(180deg);
+}
+
+#pac4 {
+    transform: rotate(270deg);
+}
+
+#pac, #pac2, #pac3, #pac4 {
+    transition: all 1s ease, scale .1s ease;
+}
+
+#pac:hover, #pac2:hover, #pac3:hover, #pac4:hover {
+    scale: 1.05;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 800px) {

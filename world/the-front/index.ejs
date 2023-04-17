@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/styles/stream.css">
 <style>
     <%- include("./styles/the-front.css"); %>
     <%- include("./styles/index.css"); %>
@@ -5,6 +6,16 @@
 </style>
 
 <div class="logo">N</div>
+
+<hr>
+
+<div class="stream">
+    <iframe src="" title="YouTube video player" frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen></iframe>
+    <a class="label" href="#">No Streamer</a>
+</div>
+<div class="chat-box" id="the-front-stage"></div>
 
 <hr>
 
@@ -41,6 +52,32 @@
     <h5>This Line For NPCs Only!</h5>
 </div>
 
+<div class="toy">
+    <img src="/img/misc/pac.png" id="pac" draggable="false">
+</div>
+
+<div class="toy">
+    <img src="/img/misc/pac.png" id="pac2" draggable="false">
+</div>
+
+<div class="toy">
+    <img src="/img/misc/pac.png" id="pac3" draggable="false">
+</div>
+
+<div class="toy">
+    <img src="/img/misc/pac.png" id="pac4" draggable="false">
+</div>
+
+<div class="dialogue" id="unkiel">
+    <div class="frame">
+        <img src="/img/npcs/unkiel.png" class="portrait">
+    </div>
+    <div class="heart"></div>
+    <div class="content">
+
+    </div>
+</div>
+
 <hr>
 
 <h2>Go to a Nearby Place:</h2>
@@ -53,7 +90,15 @@
     Approach the Gate
 </a>
 
+<script src="/js/dialogue.js"></script>
+<script src="/js/chat-box.js"></script>
 <script>
+    <% if (user) { %>
+        let chat = new ChatBox("<%= user.username %>", "the-front-stage");
+    <% } else { %>
+        let chat = new ChatBox("An Unknown Person", "the-front-stage");
+    <% } %>
+
     let color = 0;
     let brightness = 15;
 
@@ -70,5 +115,33 @@
                 ${brightness * (255 - color) / 255}
             )`
         );
+    });
+
+    let lastAngle = 0;
+    let $pac = $("#pac");
+    let $pac2 = $("#pac2");
+    let $pac3 = $("#pac3");
+    let $pac4 = $("#pac4");
+
+    let rotate = function rotate(e) {
+        lastAngle += 90;
+        $pac.css("transform", `rotate(${lastAngle}deg)`);
+        $pac2.css("transform", `rotate(${lastAngle + 90}deg)`);
+        $pac3.css("transform", `rotate(${lastAngle + 180}deg)`);
+        $pac4.css("transform", `rotate(${lastAngle + 270}deg)`);
+    }
+
+    $("#pac").click(rotate);
+    $("#pac2").click(rotate);
+    $("#pac3").click(rotate);
+    $("#pac4").click(rotate);
+
+
+    let unkielDialogue = new Dialogue("unkiel", 3500, (self) => {
+        return [
+            Dialogue.createTextSlide(1, "Woah..."),
+            Dialogue.createTextSlide(2, "I exist now."),
+            Dialogue.createTextSlide(4, "Crazy.")
+        ];
     });
 </script>
