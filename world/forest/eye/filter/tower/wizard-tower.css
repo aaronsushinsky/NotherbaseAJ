@@ -8,6 +8,21 @@
     --standardRadius: 5px;
 }
 
+.tower {
+    width: 100%;
+    position: relative;
+}
+
+.tower #cover {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-repeat: repeat;
+    background: url("/img/textures/wood.jpg");
+}
+
 .floor {
     width: 100%;
     min-height: 50px;

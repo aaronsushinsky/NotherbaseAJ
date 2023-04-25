@@ -192,66 +192,6 @@
             <a href="/zebra" class="go">Go to Zebra</a>
             <a href="/it" class="go">Go to IT</a>
             <a href="/portfolio" class="to">To Portfolio</a>
-        
-            <script src="/js/dialogue.js"></script>
-            <script src="/js/merchant.js"></script>
-            <script src="/js/memo.js"></script>
-            <script>
-                let selectItem = (element) => {
-                    $(".selector li").removeClass("selected");
-                    $(element).addClass("selected");
-                }
-        
-                let keeper = new Dialogue("keeper", 4000, (self) => {
-                    if (Dialogue.checkGlobalFlag("logged-in")) {
-                        return [
-                            Dialogue.createTextSlide(1, "Did you hear that?"),
-                            Dialogue.createTextSlide(1, "You've logged in successfully!"),
-                            Dialogue.createTextSlide(1, "Head on through the gate.")
-                        ]
-                    }
-                    else if (self.checkFlag("first-time")) {
-                        return [
-                            Dialogue.createTextSlide(1, "That's wonderful!"),
-                            Dialogue.createTextSlide(1, "You can register an account using the clipboard on your right."),
-                            Dialogue.createTextSlide(1, "Use the clipboard on your left to login."),
-                            Dialogue.createTextSlide(1, "After successfully logging in, you can enter NotherBase through the gate."),
-                            Dialogue.createTextSlide(1, "I can't wait to see you in NotherBase!")
-                        ]
-                    }
-                    else if (self.checkFlag("second-time")) {
-                        return [
-                            Dialogue.createTextSlide(1, "Then don't let me keep you. :)")
-                        ]
-                    }
-                    else {
-                        return [
-                            Dialogue.createTextSlide(1, "Hi! Welcome to NotherBase!"),
-                            Dialogue.createTextSlide(1, "Is it your first time?"),
-                            Dialogue.createButtonSlide(2, [
-                                Dialogue.createButton("Yes, it is actually.", "first-time"),
-                                Dialogue.createButton("No, I know the way.", "second-time"),
-                                Dialogue.createButton("Please leave me alone.", "third-time")
-                            ])
-                        ];
-                    }
-                });
-        
-                merchant.addStall("tools");
-                merchant.addCurrency(1000);
-                merchant.addItem("Debris", 100, "tools", 20);
-                merchant.addItem("Chisel", 100, "tools", 20);
-                merchant.addItem("Axe", 100, "tools", 20);
-                merchant.addItem("Fishing Rod", 100, "tools", 20);
-                merchant.addItem("Hammer", 100, "tools", 20);
-                merchant.addItem("Hoe", 100, "tools", 20);
-                merchant.addItem("Knife", 100, "tools", 20);
-                merchant.addItem("Pickaxe", 100, "tools", 20);
-                merchant.addItem("Shovel", 100, "tools", 20);
-                merchant.addItem("Oar", 100, "tools", 20);
-                merchant.addItem("Scythe", 100, "tools", 20);
-                merchant.addItem("Stick Net", 100, "tools", 20);
-            </script>
         </div>
     </div>
     
@@ -259,30 +199,18 @@
         <h2>Layla's Room</h2>
     
         <hr>
-    
-        <article>
-            <h3>My Skills</h3><hr>
-            <ul>
-                <li>***** Mongering</li>
-                <li>Bad *****</li>
-            </ul>
-        </article>
-    
-        <article>
-            <h3>To Do</h3><hr>
-            <ul>
-                <li>Go to Work</li>
-                <li>Kiss Wyatt</li>
-            </ul>
-        </article>
-    
-        <article>
-            <h3>Recipes</h3><hr>
-            <ul>
-                <li>Guratan</li>
-                <li>Goulash</li>
-            </ul>
-        </article>
+
+        <div class="billboard" id="layla-skills">
+            <h5>My Skills</h5>
+        </div>
+
+        <div class="billboard" id="layla-todo">
+            <h5>To Do</h5>
+        </div>
+
+        <div class="billboard" id="layla-recipes">
+            <h5>My Recipes</h5>
+        </div>
     
         <article>
             <h3>Toy Box</h3><hr>
@@ -307,7 +235,7 @@
             <h5>To Do This Year</h5>
         </div>
         
-        <div class="wallet">
+        <div class="wallet conchu">
             <h4>Your Wallet</h4>
             <div class="summary">
                 <div class="spending">
@@ -357,10 +285,6 @@
 
 <a class="to" href="/forest/clearing/wyatts-house/livingroom">
     Enter Wyatt's House
-</a>
-
-<a class="to" href="/forest/clearing/wyatts-house/backyard">
-    Go around to the Back
 </a>
 
 <a class="to" href="/forest/clearing/tree-house">
@@ -592,12 +516,14 @@
             for (let i = 0; i < this.trees.length; i++) {
                 if (this.trees[i].cut) {
                     this.trees.splice(i, 1);
+                    base.do("cut-tree");
                 }
             }
 
             for (let i = 0; i < this.weeds.length; i++) {
                 if (this.weeds[i].cut) {
                     this.weeds.splice(i, 1);
+                    base.do("pull-weed");
                 }
             }
         }
@@ -631,6 +557,21 @@
     }
     let harvestGame = new HarvestGame();
 
+    //layla widgets
+    let lSkills, lToDo, lRecipes = null;
+
+    base.load("layla-skills").then((res) => {
+        lSkills = new Billboard("layla-skills", res.items, { onSave: "save-layla" });
+    });
+
+    base.load("layla-todo").then((res) => {
+        lToDo = new Billboard("layla-todo", res.items, { onSave: "save-layla" });
+    });
+
+    base.load("layla-recipes").then((res) => {
+        lRecipes = new Billboard("layla-recipes", res.items, { onSave: "save-layla" });
+    });
+
     //upstairs widgets
     let today, week, month, year = null;
 
@@ -651,4 +592,46 @@
     });
 
     <%- include("./wallet.js") %>
+
+
+    //closet stuff
+    let selectItem = (element) => {
+        $(".selector li").removeClass("selected");
+        $(element).addClass("selected");
+    }
+
+    let keeper = new Dialogue("keeper", 4000, (self) => {
+        if (Dialogue.checkGlobalFlag("logged-in")) {
+            return [
+                Dialogue.createTextSlide(1, "Did you hear that?"),
+                Dialogue.createTextSlide(1, "You've logged in successfully!"),
+                Dialogue.createTextSlide(1, "Head on through the gate.")
+            ]
+        }
+        else if (self.checkFlag("first-time")) {
+            return [
+                Dialogue.createTextSlide(1, "That's wonderful!"),
+                Dialogue.createTextSlide(1, "You can register an account using the clipboard on your right."),
+                Dialogue.createTextSlide(1, "Use the clipboard on your left to login."),
+                Dialogue.createTextSlide(1, "After successfully logging in, you can enter NotherBase through the gate."),
+                Dialogue.createTextSlide(1, "I can't wait to see you in NotherBase!")
+            ]
+        }
+        else if (self.checkFlag("second-time")) {
+            return [
+                Dialogue.createTextSlide(1, "Then don't let me keep you. :)")
+            ]
+        }
+        else {
+            return [
+                Dialogue.createTextSlide(1, "Hi! Welcome to NotherBase!"),
+                Dialogue.createTextSlide(1, "Is it your first time?"),
+                Dialogue.createButtonSlide(2, [
+                    Dialogue.createButton("Yes, it is actually.", "first-time"),
+                    Dialogue.createButton("No, I know the way.", "second-time"),
+                    Dialogue.createButton("Please leave me alone.", "third-time")
+                ])
+            ];
+        }
+    });
 </script>

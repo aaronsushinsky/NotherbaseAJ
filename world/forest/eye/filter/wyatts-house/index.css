@@ -19,10 +19,17 @@
     --toySize: 128px;
 }
 
+.livingroom, .upstairs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
 .closet {
-    width: 45%;
+    width: 26%;
     height: 700px;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .laylas-room * {
@@ -31,10 +38,14 @@
 
 .laylas-room {
     background-color: var(--pinkPastel);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .laylas-room article {
-    width: 400px;
+    width: 45%;
     border: 2px dotted var(--textColor);
     border-radius: 5px;
     box-shadow: 5px 5px 5px 5px var(--shadow);
@@ -48,8 +59,8 @@
 }
 
 .bookshelf {
-    width: 100%;
-    height: 300px;
+    width: 10%;
+    height: 500px;
     border: 5px solid var(--darkWoodColor);
     background-color: var(--woodColor);
 }
@@ -125,6 +136,11 @@
     user-select: none;
 }
 
+.toy img {
+    width: 100%;
+    height: 100%;
+}
+
 .pocket {
     position: absolute;
     width: 100%;
@@ -178,7 +194,7 @@
     top: 0;
 }
 
-.beautiful-icon {
+.toy .beautiful-icon {
     width: 50%;
     height: 50%;
     position: absolute;

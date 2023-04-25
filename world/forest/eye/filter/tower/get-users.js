@@ -1,11 +1,6 @@
 export default async (req, user) => {
     if (user.memory.data.authLevels.includes("Creator")) {
-        let spirit = await req.db.Spirit.recall({
-            route: "/",
-            scope: "global",
-            parent: null,
-            service: "user"
-        });
+        let spirit = await req.db.Spirit.recallAll("user");
     
         let userData = [];
     
