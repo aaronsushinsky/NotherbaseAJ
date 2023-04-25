@@ -43,11 +43,11 @@ footer input, footer p {
 }
 
 #ad-panel {
-    background-color: rgba(237, 237, 237, 0.046);
+    background-color: rgba(237, 237, 237, 0.226);
     position: absolute;
     left: 0;
     top: 0;
-    width: 5%;
+    width: 50px;
     height: 100%;
     margin: 0;
     border: none;

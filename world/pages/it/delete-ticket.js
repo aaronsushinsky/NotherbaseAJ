@@ -8,14 +8,7 @@ export default async function deleteTicket(req, user) {
 
         if (passed) {
             if (admin.memory.data.authLevels.includes("ITAD")) {
-                let org = user;
-
-                let page = await req.db.Spirit.recallOne({
-                    scope: "local",
-                    parent: org.id,
-                    service: "it",
-                    route: "/it"
-                });
+                let page = await req.db.Spirit.recallOne("it", user.id);
 
                 let pageData = page.memory.data;
                 

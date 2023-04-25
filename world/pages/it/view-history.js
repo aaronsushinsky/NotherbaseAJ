@@ -1,10 +1,5 @@
 export default async function viewHistory(req, user) {
-    let page = await req.db.Spirit.recallOrCreate({
-        scope: "local",
-        parent: user.id,
-        service: "it",
-        route: "/it"
-    }, {}, []);
+    let page = await req.db.Spirit.recallOne("it", user.id);
 
     let pageData = page.memory.data;
 

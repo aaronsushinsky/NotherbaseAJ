@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/it.css">
 </head>
+
 <body>
     <main>
         <h2>IT Request Tracker</h2>
@@ -62,6 +63,7 @@
         <button class="logout invisible" onclick="tracker.logout()">Logout</button>
         <p id="alert"></p>
     </main>
+
     <footer>
         <button id="ad-panel" onclick="tracker.toggleAdmin()"></button>
         <p>This website created by Wyatt Lee Sushinsky</p>
@@ -186,8 +188,9 @@
                 ticket: {
                     title: this.$title.val(),
                     description: this.$description.val()
-                }
-            }, { route: "/it" });
+                },
+                route: "/pages/it"
+            });
 
             if (response.status === "success") {
                 this.$title.val("");
@@ -204,8 +207,9 @@
                 let response = await Tracker.commune("/s/serve", {
                     script: "view-history",
                     dateStart: this.$dateStart[0].value,
-                    dateEnd: this.$dateEnd[0].value
-                }, { route: "/it" });
+                    dateEnd: this.$dateEnd[0].value,
+                    route: "/pages/it"
+                });
 
                 if (response.status === "success") {
                     this.tickets = response.data;
@@ -285,8 +289,9 @@
                     org: "<%= user ? user.username : "" %>",
                     admin: this.$admin.val(),
                     adPassword: this.$adPassword.val(),
-                    ticketID: this.tickets[this.selectedTicket].id
-                }, { route: "/it" });
+                    ticketID: this.tickets[this.selectedTicket].id,
+                    route: "/pages/it"
+                });
 
                 this.viewHistory();
             }
@@ -301,8 +306,9 @@
                     adPassword: this.$adPassword.val(),
                     ticketID: this.tickets[this.selectedTicket].id,
                     used: this.$adUsed.val(),
-                    quoted: this.$adQuoted.val()
-                }, { route: "/it" });
+                    quoted: this.$adQuoted.val(),
+                    route: "/pages/it"
+                });
 
                 this.viewHistory();
             }
@@ -316,8 +322,9 @@
                     admin: this.$admin.val(),
                     adPassword: this.$adPassword.val(),
                     ticketID: this.tickets[this.selectedTicket].id,
-                    resolveDate: this.$adDate.val() + "T00:00:00"
-                }, { route: "/it" });
+                    resolveDate: this.$adDate.val() + "T00:00:00",
+                    route: "/pages/it"
+                });
 
                 this.viewHistory();
             }
