@@ -24,7 +24,7 @@
   "homepage": "https://github.com/Mosshide/NotherBase#readme",
   "dependencies": {
     "@minescope/mineping": "^1.0.4",
-    "notherbase-fs": "^3.0.8"
+    "notherbase-fs": "^3.0.9"
   },
   "type": "module",
   "engines": {

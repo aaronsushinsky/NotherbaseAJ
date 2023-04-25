@@ -1,0 +1,217 @@
+:root {
+    --shadow: rgba(71, 71, 71, 0.527);
+    --laylaTextColor: rgb(255, 255, 255);
+    --pinkPastel: rgb(219, 148, 198);
+    --yellowPastel: rgb(214, 219, 148);
+    --bluePastel: rgb(148, 191, 219);
+    --greenPastel: rgb(130, 226, 189);
+    --woodColor: rgb(95, 68, 43);
+    --darkWoodColor: rgb(70, 50, 32);
+    --metalColor: rgb(104, 101, 100);
+    --darkMetalColor: rgb(75, 71, 70);
+    --brickColor: rgb(139, 67, 38);
+    --gravelColor: rgb(160, 158, 154);
+    --grassColor: rgb(50, 93, 61);
+    --skyColor: rgb(65, 98, 141);
+    --laylaPink: rgb(236, 169, 236);
+    --white: rgb(236, 236, 236);
+    --light: rgb(255, 255, 221);
+    --toySize: 128px;
+}
+
+.closet {
+    width: 45%;
+    height: 700px;
+    overflow: hidden;
+}
+
+.laylas-room * {
+    color: var(--laylaTextColor);
+}
+
+.laylas-room {
+    background-color: var(--pinkPastel);
+}
+
+.laylas-room article {
+    width: 400px;
+    border: 2px dotted var(--textColor);
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px 5px var(--shadow);
+    background-color: var(--bluePastel);
+    padding: 15px;
+    margin: 15px;
+}
+
+.laylas-room hr {
+    margin: 20px 0px;
+}
+
+.bookshelf {
+    width: 100%;
+    height: 300px;
+    border: 5px solid var(--darkWoodColor);
+    background-color: var(--woodColor);
+}
+
+.bookshelf hr {
+    margin: 0;
+    width: 100%;
+    border: none;
+    border-bottom: 5px solid var(--darkWoodColor);
+}
+
+.shelf {
+    width: 100%;
+    height: 33%;
+}
+
+.billboard {
+    width: var(--fillHalfFromMargin);
+    min-height: 100px;
+    border: 5px solid var(--woodColor);
+    background-color: var(--darkWoodColor);
+    margin: var(--margin);
+    border-radius: var(--borderRadius);
+    padding: var(--padding);
+    box-shadow: 2px 2px 5px 5px var(--shadow);
+    overflow: auto;
+    position: relative;
+}
+
+.billboard #flip {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    margin: 0;
+    padding: 5px;
+}
+
+.billboard li {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid var(--veryDarkWoodColor);
+    padding: 5px;
+    margin: 0px;
+    background-color: var(--veryDarkWoodColor);
+    position: relative;
+}
+
+.billboard li button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 30px;
+}
+
+.toy-box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.toy {
+    width: var(--toySize);
+    height: var(--toySize);
+    border: 2px solid grey;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    margin: 5px;
+    user-select: none;
+}
+
+.pocket {
+    position: absolute;
+    width: 100%;
+    height: 75%;
+    bottom: -10%;
+    background-color: rgb(170, 170, 170);
+    border-radius: 5px;
+    margin: 0;
+    transition: .5s ease-in;
+}
+
+.pocket-down {
+    bottom: -30%;
+    transition: .5s ease-in;
+}
+
+.background-changer {
+    background-color: rgb(99, 99, 190);
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+        animation-timing-function: ease-out;
+    }
+    50% {
+        transform: rotate(180deg) scale(1.2);
+        animation-timing-function: ease-in;
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotato {
+    animation-name: rotate;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.beautiful-button {
+    position: relative;
+}
+
+.beautiful-border {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.beautiful-icon {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    left: 25%;
+    top: 25%;
+}
+
+.beautiful-icon-pressed {
+    top: 27%;
+}
+
+.beautiful-background {
+    background-color: rgb(56, 165, 42);
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    left: 12.5%;
+    top: 12.5%;
+    border-radius: 50%;
+}
+
+
+.red-bg {
+    background-color: rgb(160, 76, 76);
+}
+
+.beautiful-background:hover {
+    background-color: rgb(144, 42, 165);
+}
+
+
+@media only screen and (max-width: 800px) {
+    .billboard {
+        width: var(--fillFromMargin);
+    }
+}

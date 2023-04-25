@@ -1,0 +1,654 @@
+<style>
+    <%- include("./backyard.css"); %>
+    <%- include("./index.css"); %>
+    <%- include("./wallet.css"); %>
+</style>
+
+<div class="porch">
+    <p>
+        The small forest path brings you to a clearing
+        where you are immediately met by a modest cottage.
+        A sign on the mailbox indicates a Sushinsky lives
+        here.
+    </p>
+    
+    <p>
+        On the porch sit two odd-looking cats who watch the steps
+        you take as you walk by.
+    </p>
+
+    <div class="dialogue" id="berry">
+        <div class="frame">
+            <img src="/img/npcs/berry.png" class="portrait">
+        </div>
+        <div class="heart"></div>
+        <div class="content">
+        </div>
+    </div>
+    
+    <div class="dialogue" id="zerry">
+        <div class="frame">
+            <img src="/img/npcs/zerry.png" class="portrait">
+        </div>
+        <div class="heart"></div>
+        <div class="content">
+        </div>
+    </div>
+</div>
+
+<div class="house">
+    <div class="livingroom">
+        <div class="bookshelf">
+            <div class="shelf">
+        
+            </div>
+            <hr>
+            <div class="shelf">
+                
+            </div>
+            <hr>
+            <div class="shelf">
+                
+            </div>
+        </div>
+
+        <div class="closet">
+            <h1>H1 Tavern Lobby</h1>
+        
+            <div class="ceiling">
+                <h3>Welcome !!!H3</h3>
+        
+                <p>
+                    A p tag. Let's try to give it several lines of text to demonstrate what will happen as it is squished
+                    in various containers and interacting with other same-level elements. That first sentence was a pretty
+                    good length, but this is going to need a bit more. Now that I've widened the main element, this p tag
+                    is due for more words.
+                </p>
+        
+                <p>
+                    A p tag. Let's try to give it several lines of text to demonstrate what will happen as it is squished
+                    in various containers and interacting with other same-level elements. That first sentence was a pretty
+                    good length, but this is going to need a bit more. Now that I've widened the main element, this p tag
+                    is due for more words.
+                </p>
+        
+                <hr>
+            </div>
+        
+            <div class="sign">
+                <h5>A Sign h5</h5>
+                <p>
+                    A p tag. Let's try to give it several lines of text to demonstrate what will happen as it is squished
+                    in various containers and interacting with other same-level elements. That first sentence was a pretty
+                    good length, but this is going to need a bit more.
+                </p>
+                <p>
+                    Here is some information that might appear on a sign. A quest needs doing that has as a reward for
+                    its completion the item(s) below:
+                </p>
+                <h2>$50000 h2</h2>
+            </div>
+        
+            <div class="search">
+                <h4>Search h4</h4>
+                <input type="text" placeholder="search">
+                <h5>Selector List h5</h5>
+                <ul class="selector">
+                    <li id="0" onclick="selectItem(this)">A basic li</li>
+                    <li id="1" onclick="selectItem(this)">A basic li</li>
+                    <li id="2" onclick="selectItem(this)">A basic li</li>
+                    <li id="3" onclick="selectItem(this)">A basic li</li>
+                    <li id="4" onclick="selectItem(this)">A basic li</li>
+                    <li id="5" onclick="selectItem(this)">A basic li</li>
+                    <li id="6" onclick="selectItem(this)">A basic li</li>
+                    <li id="7" onclick="selectItem(this)">A basic li</li>
+                    <li id="8" onclick="selectItem(this)">A basic li</li>
+                    <li id="9" onclick="selectItem(this)">A basic li</li>
+                    <li id="10" onclick="selectItem(this)">A basic li</li>
+                    <li id="11" onclick="selectItem(this)">A basic li</li>
+                </ul>
+            </div>
+        
+        
+            <ul>
+                <h4>UL Header (h4)</h4>
+                <li>A basic li</li>
+                <li>A basic li</li>
+                <li>A basic li</li>
+                <li>A basic li</li>
+            </ul>
+        
+            <div class="dialogue" id="keeper">
+                <div class="frame">
+                    <img src="/img/npcs/anon.png" class="portrait">
+                </div>
+                <div class="heart"></div>
+                <div class="content">
+                    
+                </div>
+            </div>
+        
+            <div class="merchant" id="tools">
+        
+            </div>
+        
+            <div class="form ">
+                <h4>Form h4</h4>
+                <label>
+                    Your Name:
+                    <input type="text" placeholder="text">
+                </label>
+                <label>
+                    Your Age:
+                    <input type="number">
+                </label>
+                <label>
+                    Current Time:
+                    <input type="datetime-local">
+                </label>
+                <label>
+                    Your Birthday:
+                    <input type="date">
+                </label>
+                <label>
+                    A Future Date:
+                    <input type="time">
+                </label>
+                <label>
+                    <input type="checkbox">First
+                </label>
+                <label>
+                    <input type="checkbox">Second
+                </label>
+                <label>
+                    <input type="checkbox">Third
+                </label>
+                <label>
+                    <input type="checkbox">Fourth
+                </label>
+                <label>
+                    <input type="checkbox">Fifth
+                </label>
+                <label>
+                    Give Me Your Life Story:
+                    <textarea cols="30" rows="10"></textarea>
+                </label>
+                <button>Basic Button</button>
+                <button>Basic Button</button>
+                <button>Basic Button</button>
+                <button>Basic Button</button>
+                <button>Basic Button</button>
+                <p class="info">Check yourself!</p>
+            </div>
+        
+            <hr>
+        
+            <button class="do">Do</button>
+            <a href="/zebra" class="door">Go to Zebra
+                <div class="knob"></div>
+            </a>
+            <a href="#" class="go locked">Go to IT</a>
+        
+            <a href="/zebra" class="go">Go to Zebra</a>
+            <a href="/it" class="go">Go to IT</a>
+            <a href="/portfolio" class="to">To Portfolio</a>
+        
+            <script src="/js/dialogue.js"></script>
+            <script src="/js/merchant.js"></script>
+            <script src="/js/memo.js"></script>
+            <script>
+                let selectItem = (element) => {
+                    $(".selector li").removeClass("selected");
+                    $(element).addClass("selected");
+                }
+        
+                let keeper = new Dialogue("keeper", 4000, (self) => {
+                    if (Dialogue.checkGlobalFlag("logged-in")) {
+                        return [
+                            Dialogue.createTextSlide(1, "Did you hear that?"),
+                            Dialogue.createTextSlide(1, "You've logged in successfully!"),
+                            Dialogue.createTextSlide(1, "Head on through the gate.")
+                        ]
+                    }
+                    else if (self.checkFlag("first-time")) {
+                        return [
+                            Dialogue.createTextSlide(1, "That's wonderful!"),
+                            Dialogue.createTextSlide(1, "You can register an account using the clipboard on your right."),
+                            Dialogue.createTextSlide(1, "Use the clipboard on your left to login."),
+                            Dialogue.createTextSlide(1, "After successfully logging in, you can enter NotherBase through the gate."),
+                            Dialogue.createTextSlide(1, "I can't wait to see you in NotherBase!")
+                        ]
+                    }
+                    else if (self.checkFlag("second-time")) {
+                        return [
+                            Dialogue.createTextSlide(1, "Then don't let me keep you. :)")
+                        ]
+                    }
+                    else {
+                        return [
+                            Dialogue.createTextSlide(1, "Hi! Welcome to NotherBase!"),
+                            Dialogue.createTextSlide(1, "Is it your first time?"),
+                            Dialogue.createButtonSlide(2, [
+                                Dialogue.createButton("Yes, it is actually.", "first-time"),
+                                Dialogue.createButton("No, I know the way.", "second-time"),
+                                Dialogue.createButton("Please leave me alone.", "third-time")
+                            ])
+                        ];
+                    }
+                });
+        
+                merchant.addStall("tools");
+                merchant.addCurrency(1000);
+                merchant.addItem("Debris", 100, "tools", 20);
+                merchant.addItem("Chisel", 100, "tools", 20);
+                merchant.addItem("Axe", 100, "tools", 20);
+                merchant.addItem("Fishing Rod", 100, "tools", 20);
+                merchant.addItem("Hammer", 100, "tools", 20);
+                merchant.addItem("Hoe", 100, "tools", 20);
+                merchant.addItem("Knife", 100, "tools", 20);
+                merchant.addItem("Pickaxe", 100, "tools", 20);
+                merchant.addItem("Shovel", 100, "tools", 20);
+                merchant.addItem("Oar", 100, "tools", 20);
+                merchant.addItem("Scythe", 100, "tools", 20);
+                merchant.addItem("Stick Net", 100, "tools", 20);
+            </script>
+        </div>
+    </div>
+    
+    <div class="laylas-room">
+        <h2>Layla's Room</h2>
+    
+        <hr>
+    
+        <article>
+            <h3>My Skills</h3><hr>
+            <ul>
+                <li>***** Mongering</li>
+                <li>Bad *****</li>
+            </ul>
+        </article>
+    
+        <article>
+            <h3>To Do</h3><hr>
+            <ul>
+                <li>Go to Work</li>
+                <li>Kiss Wyatt</li>
+            </ul>
+        </article>
+    
+        <article>
+            <h3>Recipes</h3><hr>
+            <ul>
+                <li>Guratan</li>
+                <li>Goulash</li>
+            </ul>
+        </article>
+    
+        <article>
+            <h3>Toy Box</h3><hr>
+            <%- include("./toy-box.ejs"); %>
+        </article>
+    </div>
+    
+    <div class="upstairs">
+        <div class="billboard" id="today">
+            <h5>To Do Today</h5>
+        </div>
+        
+        <div class="billboard" id="week">
+            <h5>To Do This Week</h5>
+        </div>
+        
+        <div class="billboard" id="month">
+            <h5>To Do This Month</h5>
+        </div>
+        
+        <div class="billboard" id="year">
+            <h5>To Do This Year</h5>
+        </div>
+        
+        <div class="wallet">
+            <h4>Your Wallet</h4>
+            <div class="summary">
+                <div class="spending">
+                    <h5>Spending Money Left</h5>
+                    <h6 id="week">This Week: $0</h6>
+                    <h6 id="month">This Month: $0</h6>
+                    <input type="text" id="item"><input type="number" id="spend"><button onclick="">Spend</button>
+                </div>
+                <div class="flow">
+                    <h5>Cash Flow Last Month</h5>
+                    <h6 id="income">Made: $0</h6>
+                    <h6 id="expenses">Spent: $0</h6>
+                    <h6 id="saved">Saved: $0</h6>
+                </div>
+            </div>
+            <div class="settings invisible">
+            </div>
+            <button onclick="wallet.toggleView()">$$</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="yard">
+    <div class="sky">
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="sun"></div>
+    </div>
+    <div class="ground">
+        <div class="tree">
+            <div class="leaves"></div>
+            <div class="trunk"></div>
+        </div>
+        <div class="weed">
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<a class="to" href="/forest/clearing/wyatts-house/livingroom">
+    Enter Wyatt's House
+</a>
+
+<a class="to" href="/forest/clearing/wyatts-house/backyard">
+    Go around to the Back
+</a>
+
+<a class="to" href="/forest/clearing/tree-house">
+    Walk up to Tree House
+</a>
+
+<hr>
+
+<a class="to" href="/forest/eye/filter/cave">
+    Go to Cave
+</a>
+
+<a class="to" href="/forest/eye/filter/tower">
+    Go to the Tower
+</a>
+
+<a class="to" href="/forest/eye/keep">
+    Go to the Keep
+</a>
+
+<hr>
+
+<a class="return" href="/forest/eye/library">
+    Return to the Library
+</a>
+
+<a class="return" href="/forest/eye/church">
+    Return to the Church
+</a>
+
+<script src="/js/dialogue.js"></script>
+<script src="/js/billboard.js"></script>
+<script>
+    //npc dialogues
+    let berryDialogue = new Dialogue("berry", 3900, (self) => {
+        if (Dialogue.checkGlobalFlag("longTalkWithBerry")) {
+            return [
+                Dialogue.createTextSlide(1, `That was my answer too! But nooo....`)
+            ];
+        }
+        else if (self.checkFlag("accepted")) {
+            return [
+                Dialogue.createTextSlide(3, `If a portal approached a cube at a certain velocity,
+                                             would the cube receive that velocity after completely passing through the portal?`),
+                Dialogue.createButtonSlide(3, [
+                    Dialogue.createButton("Yes.", "longTalkWithBerry", true),
+                    Dialogue.createButton("No.", "longTalkWithBerry", true)
+                ])
+            ];
+        }
+        else if (self.checkFlag("declined")) {
+            return [
+                Dialogue.createTextSlide(2, "Wow. I honestly didn't expect you to decline like that."),
+                Dialogue.createTextSlide(10, "To each their own I guess.")
+            ];
+        }
+        else if (self.checkFlag("responded")) {
+            return [
+                Dialogue.createTextSlide(2, "Great, I got your attention! Not many people come around here."),
+                Dialogue.createTextSlide(2, "Would you mind settling a debate I'm having with my acquaintance below?"),
+                Dialogue.createButtonSlide(3, [
+                    Dialogue.createButton("Sure.", "accepted"),
+                    Dialogue.createButton("No Way.", "declined")
+                ])
+            ];
+        }
+        else {
+            return [
+                Dialogue.createTextSlide(2, "Hey! Yeah, it's the talking cat on the porch!"),
+                Dialogue.createButtonSlide(3, [
+                    Dialogue.createButton("Hi!", "responded"),
+                    Dialogue.createButton("Hi?", "responded")
+                ]),
+                Dialogue.createTextSlide(1, "Hello?"),
+                Dialogue.createButtonSlide(3, [
+                    Dialogue.createButton("Hi!", "responded"),
+                    Dialogue.createButton("Hi?", "responded")
+                ])
+            ];
+        }
+    });
+
+    let zerryDialogue = new Dialogue("zerry", 4000, (self) => {
+        if (self.checkFlag("responded")) {
+            return [
+                Dialogue.createTextSlide(1, "Nice to meet you!"),
+                Dialogue.createTextSlide(10, "I don't know what else to say...")
+            ];
+        }
+        else if (Dialogue.checkGlobalFlag("longTalkWithBerry")) {
+            return [
+                Dialogue.createTextSlide(1, "I see you're not interested in talking to me...")
+            ];
+        }
+        else {
+            return [
+                Dialogue.createTextSlide(3, "..."),
+                Dialogue.createTextSlide(1, "Hello. My name is Zerry."),
+                Dialogue.createButtonSlide(2, [
+                    Dialogue.createButton("Hello.", "responded")
+                ]),
+                Dialogue.createTextSlide(1, "Hello?"),
+                Dialogue.createButtonSlide(5, [
+                    Dialogue.createButton("Hello.", "responded")
+                ])
+            ];
+        }
+    });
+
+    //backyard harvest game
+    class HarvestGame {
+        #Tree = class Tree {
+            constructor($OGtree, $ground) {
+                this.$div = $OGtree.clone();
+                this.$leaves = this.$div.find(".leaves");
+                this.$trunk = this.$div.find(".trunk");
+                this.cut = false;
+                this.maxYield = 5;
+                this.age = 0;
+                this.timeToGrow = 100000;
+                this.clicksToDie = 10;
+                this.maxWidth = 200;
+                this.maxHeight = 300;
+                this.position = [Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)];
+
+                $ground.append(this.$div);
+                this.$div.css("display", "initial");
+                this.updateCSS();
+
+                this.$trunk.on("click", this.click);
+            }
+
+            click = () => {
+                this.clicksToDie--;
+                this.$trunk.addClass("shake");
+                this.$leaves.addClass("shake");
+                this.$trunk[0].addEventListener('animationend', () => {
+                    this.$trunk.removeClass("shake");
+                    this.$leaves.removeClass("shake");
+                });
+
+                if (this.clicksToDie <= 0) {
+                    this.$div.remove();
+                    this.cut = true;
+                }
+            }
+
+            update(delta) {
+                this.age += delta;
+                if (this.age >= this.timeToGrow) this.age = this.timeToGrow;
+
+                this.updateCSS();
+            }
+            
+            updateCSS() {
+                let size = this.age / this.timeToGrow;
+                if (size > 1) size = 1;
+                this.$div.css("width", `${size * this.maxWidth}px`);
+                this.$div.css("height", `${size * this.maxHeight}px`);
+
+                this.$div.css("left", `calc(${this.position[0]}% - ${size * this.maxWidth / 2}px)`);
+                this.$div.css("bottom", `${this.position[1] - 5}%`);
+                this.$div.css("z-index", (100 - this.position[1]) + 25);
+            }
+        }
+
+        #Weed = class Weed {
+            constructor($OGweed, $ground) {
+                this.$div = $OGweed.clone();
+                this.$leaves = this.$div.find(".leaf");
+                this.cut = false;
+                this.age = 0;
+                this.timeToGrow = 100;
+                this.maxWidth = 20;
+                this.maxHeight = 30;
+
+                $ground.append(this.$div);
+                this.$div.css("display", "initial");
+                this.$div.css("left", `${Math.floor(Math.random() * 110) - 5}%`);
+                let z = Math.floor(Math.random() * 100) - 5;
+                this.$div.css("bottom", `${z}%`);
+                this.$div.css("z-index", (100 - z) + 25);
+                this.updateCSS();
+
+                this.$leaves.on("click", this.click);
+            }
+
+            click = () => {
+                this.$div.remove();
+
+                this.cut = true;
+            }
+
+            update(delta) {
+                this.age += delta;
+
+                this.updateCSS();
+            }
+            
+            updateCSS() {
+                let size = this.age / this.timeToGrow;
+                if (size > 1) size = 1;
+                this.$div.css("width", `${size * this.maxWidth}px`);
+                this.$div.css("height", `${size * this.maxHeight}px`);
+            }
+        }
+
+        constructor() {
+            this.$ground = $(".ground");
+            this.$OGtree = $(".tree");
+            this.$OGweed = $(".weed");
+            this.$OGtree.css("display", "none");
+            this.$OGweed.css("display", "none");
+            this.trees = [];
+            this.maxTrees = 10;
+            this.weeds = [];
+            this.maxWeeds = 100;
+            this.fps = 5;
+            setInterval(this.update, 1000 / this.fps);
+        }
+
+        update = () => {
+            this.checkForCuts();
+            this.attemptSpawn();
+            this.updateGrowth(1000 / this.fps);
+        }
+
+        checkForCuts() {
+            for (let i = 0; i < this.trees.length; i++) {
+                if (this.trees[i].cut) {
+                    this.trees.splice(i, 1);
+                }
+            }
+
+            for (let i = 0; i < this.weeds.length; i++) {
+                if (this.weeds[i].cut) {
+                    this.weeds.splice(i, 1);
+                }
+            }
+        }
+
+        attemptSpawn() {
+            if (Math.floor(Math.random() * 10) < 3) {
+                if (this.trees.length < this.maxTrees) {
+                    let newTree = new this.#Tree(this.$OGtree, this.$ground);
+
+                    this.trees.push(newTree);
+                }
+            }
+            else if (Math.floor(Math.random() * 10) < 3) {
+                if (this.weeds.length < this.maxWeeds) {
+                    let newWeed = new this.#Weed(this.$OGweed, this.$ground);
+
+                    this.weeds.push(newWeed);
+                }
+            }
+        }
+
+        updateGrowth(delta) {
+            for (let i = 0; i < this.trees.length; i++) {
+                this.trees[i].update(delta);
+            }
+
+            for (let i = 0; i < this.weeds.length; i++) {
+                this.weeds[i].update(delta);
+            }
+        }
+    }
+    let harvestGame = new HarvestGame();
+
+    //upstairs widgets
+    let today, week, month, year = null;
+
+    base.load("todo-today").then((res) => {
+        today = new Billboard("today", res.items, { onSave: "save-todo" });
+    });
+
+    base.load("todo-week").then((res) => {
+        week = new Billboard("week", res.items, { onSave: "save-todo" });
+    });
+
+    base.load("todo-month").then((res) => {
+        month = new Billboard("month", res.items, { onSave: "save-todo" });
+    });
+
+    base.load("todo-year").then((res) => {
+        year = new Billboard("year", res.items, { onSave: "save-todo" });
+    });
+
+    <%- include("./wallet.js") %>
+</script>

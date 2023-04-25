@@ -1,0 +1,52 @@
+<p>
+    The tower stands before you, wooden door locked.
+</p>
+
+<p>
+    "Blessed is the one who reads aloud the words of this prophecy, 
+    hears it and takes to heart what is written in it, because the 
+    time is near," is inscribed on the marble tablet embedded in 
+    the center of the door.
+</p>
+
+<p id="extra"></p>
+
+<hr>
+
+<button class="to" id="knock">
+    Knock on the Tower's Door
+</button>
+
+<% if (user.authLevels.includes("Creator")) { %>
+    <a class="to" href="/forest/pond/tower/inside#1">
+        Enter the Tower
+    </a>
+<% } %>
+
+<hr>
+
+<a class="to" href="/forest/eye/filter/wyatts-house">
+    Go to Wyatt's House
+</a>
+
+<a class="to" href="/forest/eye/filter/pond">
+    Go to the Pond
+</a>
+
+<a class="to" href="/forest/eye/keep">
+    Go to the Keep
+</a>
+
+<hr>
+
+<a class="return" href="/forest/eye/school">
+    Return to the School
+</a>
+
+<a class="return" href="/forest/eye/inn">
+    Return to the Inn
+</a>
+
+<script>
+    <%- include("./door.js"); %>     
+</script>

@@ -1,0 +1,68 @@
+<style>
+</style>
+<link rel="stylesheet" href="/styles/billboard.css">
+
+<p>
+    Approaching the inn reveals a creaky vessel,
+    livid with decay. It beckons you in, but it
+    is not the beckoning of warmth or rest.
+</p>
+
+<hr>
+
+<div class="sign conchu">
+    <h3>Looking for Tundra Explorers!</h3>
+    <p>
+        Register here to be part of the next
+        expidition into the snowy tundra!
+    </p>
+    <ul>
+        <li class="player"></li>
+        <li class="player"></li>
+        <li class="player"></li>
+        <li class="player"></li>
+        <li class="player"></li>
+        <li class="player"></li>
+        <li class="player"></li>
+        <li class="player"></li>
+        <li class="player"></li>
+        <li class="player"></li>
+    </ul>
+    <button>Register for this Expidition</button>
+</div>
+
+<div class="billboard conchu" id="inn-ads">
+
+</div>
+
+<hr>
+
+<a class="to" href="/forest/eye/inn/lobby">
+    Enter the Inn
+</a>
+
+<hr>
+
+<a class="to" href="/forest/eye/school">
+    Head to the School
+</a>
+
+<a class="to" href="/forest/eye/square">
+    Head to the Square
+</a>
+
+<a class="to" href="/forest/eye/filter/tower">
+    Head into the Filter
+</a>
+
+<script src="/js/billboard.js"></script>
+<script>
+    let innBB = null;
+
+    base.load("eotf-inn-ads", "global").then((res) => {
+        innBB = new Billboard("inn-ads", res.items, {
+            onSave: "save-ads",
+            free: <%= user.authLevels.includes("eotf-inn-ads") %>
+        });
+    })
+</script>

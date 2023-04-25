@@ -108,9 +108,9 @@ main {
     margin-top: var(--thickMargin);
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-content: center;
-    align-items: flex-start;
+    align-items: flex-end;
     background-color: var(--bgColor);
 }
 
