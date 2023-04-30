@@ -137,6 +137,10 @@ footer a {
     width: 50%;
 }
 
+article {
+    width: 100%;
+}
+
 h1, h2, h3, h4, h5, h6 {
     width: var(--fillFromMargin);
     text-align: center;
@@ -250,13 +254,19 @@ input[type=checkbox] {
 }
 
 .sign {
-    width: 350px;
+    width: 250px;
+    height: 400px;
     padding: var(--padding);
     border-radius: var(--borderRadius);
     border: var(--thickBorder);
     margin: var(--margin);
     background: url("/img/signs/wooden-board.jpg");
-    background-size: 100% 100%;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 .sign * {
@@ -403,10 +413,28 @@ iframe {
     border: none;
 }
 
+.login-cover {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 700px;
+}
+
 .login-cover a {
     padding: var(--padding);
-    margin: 0;
-    display: flex;
+    margin: 40px;
+}
+
+.login-cover a h1 {
+    border: none;
+}
+
+.login-cover h3 {
+    margin: 40px 0;
+}
+
+.login-cover button {
+    width: 250px;
 }
 
 .dialogue {
