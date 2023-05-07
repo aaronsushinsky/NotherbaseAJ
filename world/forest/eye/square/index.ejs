@@ -1,0 +1,141 @@
+<style>
+    <%- include("./index.css"); %>
+    <%- include("./mini-library.css"); %>
+</style>
+<link rel="stylesheet" href="/styles/billboard.css">
+
+<p>
+    You enter a ghost town. This is the public square,
+    or at least that's what it seemed to be at one point.
+</p>
+
+<hr>
+
+<div class="sign" id="index">
+    <h3>The Eye of the Forest</h3>
+    <h4>Population: !-0</h4>
+    <h4>Points of Interest:</h4>
+    <ul>
+        <li id="church">The Church</li>
+        <div class="invisible detail" id="church">Go here if you need healing or saving.</div>
+        <li id="library">The Library</li>
+        <div class="invisible detail" id="library">Go here if you need information about anything.</div>
+        <li id="school">The School</li>
+        <div class="invisible detail" id="school">Go here if you need education.</div>
+        <li id="inn">The Inn</li>
+        <div class="invisible detail" id="inn">Go here if you need to rest.</div>
+        <li id="square">The City Square</li>
+        <div class="invisible detail" id="square">You are here. Enjoy.</div>
+        <li id="market">The Market</li>
+        <div class="invisible detail" id="market">Go here if you need to buy something.</div>
+        <li id="artisans">The Artisans</li>
+        <div class="invisible detail" id="artisans">Go here if you need something made or repaired.</div>
+        <li id="field">The Field</li>
+        <div class="invisible detail" id="field">Go here if you need to touch grass.</div>
+        <li id="filter">The Filter</li>
+        <div class="invisible detail" id="filter">This forest provides the keep with some peace and quiet.</div>
+        <li id="keep">The Keep</li>
+        <div class="invisible detail" id="keep">Go here if you need to petition the authorities.</div>
+        <button class="invisible" id="close">X</button>
+    </ul>
+</div>
+
+<div class="well">
+    <h4>Town Well</h4>
+    <h5>Toss some gold coins in the well?</h5>
+    <input type="number" value=1>
+    <button onclick="base.do('toss-in-well', { amount: parseInt($('.well input').val()) })">Toss</button>
+</div>
+
+<div class="billboard conchu" id="square-bb">
+    <h5>Community Billboard</h5>
+</div>
+
+<div id="pile">
+    <div id="debris">
+
+    </div>
+</div>
+
+
+<div class="mini-library">
+    <div class="stock" id="player">
+        <h5>Books in your Inventory</h5>
+
+        <ul>
+            <li>Example Book</li>
+        </ul>
+    </div>
+    
+    <hr class="plank">
+    <button class="conchu">Transfer</button>
+
+    <div class="stock" id="server">
+        <h5>Books in the Mini-Library</h5>
+
+        <ul>
+            <li>Example Book</li>
+        </ul>
+    </div>
+</div>
+
+<hr>
+
+<a class="go" href="/forest/eye/square/theater">
+    Enter the Theater
+</a>
+
+<hr>
+
+<a class="to" href="/forest/eye/inn">
+    Head to the Inn
+</a>
+
+<a class="to" href="/forest/eye/market">
+    Head to the Market
+</a>
+
+<a class="to" href="/forest/eye/filter/pond">
+    Head into the Filter
+</a>
+
+<hr>
+
+<a class="return" href="/the-front">
+    Exit NotherBase
+</a>
+
+<script src="/js/billboard.js"></script>
+<script src="/js/dialogue.js"></script>
+<script>
+    let squareBB = null;
+
+    base.load("square-bb", "global").then((res) => {
+        squareBB = new Billboard("square-bb", res.items, { 
+            onSave: "save-square-bb",
+            maxItems: 5
+        });
+    });
+
+    class IndexSign {
+        constructor() {
+            this.$items = $(".sign#index li");
+            this.$details = $(".sign#index .detail");
+            this.$close = $(".sign#index button#close");
+            this.$close.click(this.close);
+
+            this.$items.click(this.flip);
+        }
+
+        flip = (e) => {
+            $(`.sign#index .detail#${e.target.id}`).removeClass("invisible");
+            this.$close.removeClass("invisible");
+        }
+
+        close = () => {
+            $(`.sign#index .detail`).addClass("invisible");
+            this.$close.addClass("invisible");
+        }
+    }
+    let indexSign = new IndexSign();
+</script>

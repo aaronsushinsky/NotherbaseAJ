@@ -1,0 +1,20 @@
+<p>
+    This is classroom <%= query.room %>.
+</p>
+
+<div class="chat-box" id="eotf-classroom-<%= query.room %>"></div>
+
+<hr>
+
+<a class="return" href="/forest/eye/school/hallway">
+    Exit the Classroom
+</a>
+
+<script src="/js/chat-box.js"></script>
+<script>
+    <% if (user) { %>
+        let chat = new ChatBox("<%= user.username %>", "eotf-classroom-<%= query.room %>");
+    <% } else { %>
+        let chat = new ChatBox("An Unknown Person", "eotf-classroom-<%= query.room %>");
+    <% } %>
+</script>

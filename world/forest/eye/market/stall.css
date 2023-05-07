@@ -1,0 +1,48 @@
+:root {
+    --wood: rgb(87, 62, 32);
+    --woodDark: rgb(29, 23, 17);
+}
+
+.stall {
+    width: 47%;
+    overflow: hidden;
+    height: 720px;
+    background: var(--woodDark);
+    border: 2px solid var(--wood);
+}
+
+.display-area {
+    border: 3px solid rgb(112, 67, 8);
+    width: 100%;
+    height: 300px;
+    background-color: rgb(204, 153, 95);
+    border-radius: 3px;
+    display: flex;
+    padding: 5px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.display-area .toy {
+    width: 100px;
+    height: 100px;
+    border: 3px solid rgb(112, 67, 8);
+    margin: 5px;
+    background-color: rgb(155, 114, 68);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toy .box {
+    width: 80%;
+    height: 50%;
+    background-color: rgb(97, 70, 39);
+}
+
+.toy .box .lid {
+    width: 100%;
+    height: 20%;
+    background-color: rgb(73, 53, 29);
+}

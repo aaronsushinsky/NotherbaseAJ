@@ -1,0 +1,226 @@
+<style>
+    <%- include("./stall.css"); %>
+</style>
+
+<p>
+    This is the market.
+</p>
+
+<hr>
+
+<div class="stall" id="tools">
+    <div class="dialogue" id="clerk">
+        <div class="frame">
+            <img src="/img/npcs/anon.png" class="portrait">
+        </div>
+        <div class="heart"></div>
+        <div class="content">
+            Hi! I'm still learning how to be alive.
+        </div>
+    </div>
+
+    <div class="display-area">
+
+    </div>
+</div>
+
+
+<div class="stall">
+    <div class="dialogue" id="jesh">
+        <div class="frame">
+            <img src="/img/npcs/anon.png" class="portrait">
+        </div>
+        <div class="heart"></div>
+        <div class="content">
+    
+        </div>
+    </div>
+    
+    <div class="display-area">
+        <div class="toy">
+            <div class="box">
+                <div class="lid"></div>
+            </div>
+        </div>
+        <div class="toy">
+            <div class="spinner">
+                <div class="pin"></div>
+                <div class="wing"></div>
+                <div class="wing"></div>
+                <div class="wing"></div>
+                <div class="wing"></div>
+                <div class="wing"></div>
+                <div class="wing"></div>
+            </div>
+        </div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+        <div class="toy"></div>
+    </div>
+
+</div>
+
+<div class="stall">
+    <div class="dialogue" id="clerk">
+        <div class="frame">
+            <img src="/img/npcs/anon.png" class="portrait">
+        </div>
+        <div class="heart"></div>
+        <div class="content"></div>
+    </div>
+
+    <div class="display-area">
+
+    </div>
+</div>
+
+<div class="stall">
+    <div class="dialogue" id="garak">
+        <div class="frame">
+            <img src="/img/npcs/anon.png" class="portrait">
+        </div>
+        <div class="heart"></div>
+        <div class="content">
+    
+        </div>
+    </div>
+
+    <div class="display-area">
+
+    </div>
+</div>
+
+<hr>
+
+<a class="do" href="/forest/eye/market/stage">
+    Approach the Stage
+</a>
+
+<hr>
+
+<a class="to" href="/forest/eye/square">
+    Head to the Square
+</a>
+
+<a class="to" href="/forest/eye/artisans">
+    Head to the Artisans
+</a>
+
+<a class="to" href="/forest/eye/filter/pond">
+    Head into the Filter
+</a>
+
+<script src="/js/merchant.js"></script>
+<script src="/js/dialogue.js"></script>
+<script>
+    class Garak {
+        constructor() {
+            this.debrisHeight = 100;
+            this.dialogue = new Dialogue("garak", 4000, function tree(self) {
+                // if (Dialogue.checkGlobalFlag("bought")) {
+                //     return [
+                //         Dialogue.createTextSlide(1, "You have my greatest appreciation for your purchase!"),
+                //         Dialogue.createTextSlide(1, "Please do come around again.")
+                //     ];
+                // }
+                // else if (Dialogue.checkGlobalFlag("failed-buy")) {
+                //     return [
+                //         Dialogue.createTextSlide(1, "I'm sorry but I cannot accept any less than five gold coins."),
+                //         Dialogue.createTextSlide(1, "Haggling never was my strong suit.")
+                //     ];
+                // }
+                // else if (Dialogue.checkGlobalFlag("helped")) {
+                //     return [
+                //         Dialogue.createTextSlide(1, "My, my! You've cleaned it all"),
+                //         Dialogue.createTextSlide(3, "You've inspired me! Surely I can make something out of this rubbish to sell.")
+                //     ];
+                // }
+                // else if (self.checkFlag("accepted")) {
+                //     return [
+                //         Dialogue.createTextSlide(1, "Wonderful!"),
+                //         Dialogue.createTextSlide(2, "The dreariness of this place was really starting to get to me.")
+                //     ];
+                // }
+                // else if (self.checkFlag("declined")) {
+                //     return [
+                //         Dialogue.createTextSlide(2, "I see. Well I shant bother you any further."),
+                //         Dialogue.createTextSlide(10, "")
+                //     ];
+                // }
+                // else if (self.checkFlag("listened")) {
+                //     return [
+                //         Dialogue.createTextSlide(2, "In fact, would you be a dear help me clean up the rubble below?"),
+                //         Dialogue.createButtonSlide(4, [
+                //             Dialogue.createButton("Of course.", "accepted"),
+                //             Dialogue.createButton("How about no.", "declined")
+                //         ])
+                //     ];
+                // }
+                //else 
+                if (self.checkFlag("listening")) {
+                    self.addFlag("listened");
+                    return [
+                        Dialogue.createTextSlide(2, "I would entreat you to make a purchase, but as you can see..."),
+                        Dialogue.createTextSlide(2, "Let's just say things just haven't been the same since the Creation."),
+                    ];
+                }
+                else {
+                    self.addFlag("listening");
+                    return [
+                        Dialogue.createTextSlide(2, "Oh, hello there. Welcome to my, uh... my humble stall.")
+                    ];
+                }
+            });
+        }
+
+        clean = async () => {
+            this.debrisHeight -= 10;
+            $("#debris").css("top", `${100 - this.debrisHeight}%`);
+
+            if (this.debrisHeight <= 0) {
+                $("h3").text("Thanks");
+
+                Dialogue.addGlobalFlag("helped");
+
+                await base.do("finish-clean");
+            }
+        }
+    }
+
+    let garak = new Garak();
+
+    let jesh = new Dialogue("jesh", 2000, function tree(self) {
+        return [
+            Dialogue.createTextSlide(1, "Welcome, welcome!"),
+            Dialogue.createTextSlide(2, "Looking for knick-knacks or doodads?"),
+            Dialogue.createTextSlide(1, "I got 'em!")
+        ]
+    });
+
+    let clerkDialogue = new Dialogue("clerk", 1250, () => {
+        return [
+            Dialogue.createTextSlide(1, "'Got tools.")
+        ];
+    });
+
+    merchant.addStall("tools");
+    merchant.addCurrency(1000);
+    merchant.addItem("Debris", 1, "tools", 20);
+    merchant.addItem("Chisel", 100, "tools", 20);
+    merchant.addItem("Axe", 100, "tools", 20);
+    merchant.addItem("Fishing Rod", 100, "tools", 20);
+    merchant.addItem("Hammer", 100, "tools", 20);
+    merchant.addItem("Hoe", 100, "tools", 20);
+    merchant.addItem("Knife", 100, "tools", 20);
+</script>

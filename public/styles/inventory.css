@@ -41,7 +41,7 @@
 
 .item-card {
     width: var(--fillFromMargin);
-    height: 100px;
+    height: 70px;
     border-radius: var(--borderRadius);
     border: var(--standardBorder);
     padding: 0;
@@ -49,9 +49,27 @@
     background-color: var(--bgColor);
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     position: relative;
     margin: var(--margin);
+}
+
+.item-card h5 {
+    width: 70%;
+    text-align: left;
+}
+
+.item-card p {
+    width: 27%;
+    text-align: right;
+}
+
+.item-card hr {
+    border: none;
+    border-right: var(--standardBorder);
+    height: 100%;
+    width: 1px;
+    margin: 0;
 }
 
 .item-card button {
@@ -67,12 +85,6 @@
     display: none;
 }
 
-.item-card hr {
-    width: 100%;
-    height: 1px;
-    margin: 0;
-}
-
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1000px) {
 
 }

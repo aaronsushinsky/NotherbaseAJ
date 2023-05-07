@@ -1,4 +1,6 @@
 package-lock.json
+token.json
+credentials.json
 
 # Logs
 logs

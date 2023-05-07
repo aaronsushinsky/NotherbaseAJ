@@ -3,9 +3,9 @@ class Dialogue {
         if (typeof name === 'string') this.name = name;
         else console.log("Dialogue requires a string for name");
         this.$div = $(`.dialogue#${name}`);
-        this.$portrait = this.$div.find(".portrait");
-        this.$content = this.$div.find(".content");
-        this.$heart = this.$div.find(".heart");
+        this.$portrait = $('<img src="/img/npcs/anon.png" class="portrait">').appendTo(this.$div);
+        this.$heart = $('<div class="heart"></div>').appendTo(this.$div);
+        this.$content = $('<div class="content"></div>').appendTo(this.$div);
 
         if (typeof beatFrequency === 'number') this.beatFrequency = beatFrequency;
         else console.log("Dialogue requires a number for beat frequency");

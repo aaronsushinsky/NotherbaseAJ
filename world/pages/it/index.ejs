@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wyatt Sushinsky</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/it.css">
+</head>
+
+<body>
+    <main>
+        <h2>IT Request Tracker</h2>
+
+        <div class="login form">
+            <label>
+                Organization Email: <input type="text" id="email">
+            </label>
+            <label>
+                Password: <input type="password" id="password">
+                <input type="checkbox" id="unhide" onclick="tracker.toggleShowPassword()"> Show Password
+            </label>
+            <button onclick="tracker.attemptLogin()">Login</button>
+        </div>
+        
+        <div class="submit form invisible">
+            <h5>Submit a Request for <%= user ? user.username : "none" %></h5>
+            <label>
+                Title of Request:<input type="text" placeholder="title" id="title">
+            </label>
+            <label id="desc-label">
+                Description:
+                <textarea id="description" cols="30" rows="10" placeholder="description"></textarea>
+            </label>
+            <button id="submit" onclick="tracker.submitTicket()">Submit</button>
+            <button id="to-history" onclick="tracker.goToHistoryForm()">Request History</button>
+        </div>
+
+        <div class="history form invisible">
+            <h5>Request Ticket History</h5>
+            <label>
+                Start Date:
+                <input type="date" id="start-date">
+            </label>
+            <label>
+                End Date:
+                <input type="date" id="end-date">
+            </label>
+            <button id="request-history" onclick="tracker.viewHistory()">View Ticket History</button>
+            <button id="to-submit" onclick="tracker.goToSubmitForm()">Return</button>
+        </div>
+
+        <ul class="tickets invisible">
+            <button id="close" onclick="tracker.closeHistory()">&#60;</button>
+        </ul>
+
+        <button class="logout invisible" onclick="tracker.logout()">Logout</button>
+        <p id="alert"></p>
+    </main>
+
+    <footer>
+        <button id="ad-panel" onclick="tracker.toggleAdmin()"></button>
+        <p>This website created by Wyatt Lee Sushinsky</p>
+        <div class="admin-panel invisible">
+            <p>Admin: <input type="email" id="ad"> Password: <input type="password" id="ad-password"></p>
+            <p>Hours: <input type="number" id="ad-used"> Used | <input type="number" id="ad-quoted"> Quoted | <button onclick="tracker.setHours()">Set</button></p>
+            <p>Resolve on Date: <input type="date" id="ad-date"> <button onclick="tracker.resolveTicket()">Resolve</button></p>
+            <button onclick="tracker.deleteTicket()">Delete</button>
+        </div>
+    </footer>
+</body>
+
+<script>
+    class Tracker {
+        static commune = async (route, data = null, options = null) => {
+            let body = { data, ...options };
+        
+            let response = null;
+
+            await $.post(route, JSON.stringify(body), (res) => {
+                response = res;
+                if (res.status != "success") console.log(`${route} - ${res.message}`);
+            });
+        
+            return response;
+        }
+
+        constructor() {
+            this.state = "login";
+            this.admin = false;
+            this.selectedTicket = -1;
+            this.tickets = [];
+
+            //general
+            this.$alert = $("#alert");
+            this.$logout = $(".logout");
+
+            //login
+            this.$loginForm = $(".login.form");
+            this.$email = $("#email");
+            this.$password = $("#password");
+
+            //submit
+            this.$submitForm = $(".submit.form");
+            this.$title = $("#title");
+            this.$description = $("#description");
+
+            //history
+            this.$historyForm = $(".history");            
+            this.$dateStart = $("#start-date");
+            this.$dateEnd = $("#end-date");
+
+            //tickets
+            this.$ticketsList = $("ul.tickets");
+
+            //admin
+            this.$adminPanel = $(".admin-panel");
+            this.$admin = $("#ad");
+            this.$adPassword = $("#ad-password");
+            this.$adUsed = $("#ad-used");
+            this.$adQuoted = $("#ad-quoted");
+            this.$adDate = $("#ad-date");
+
+            <% if (user) { %>
+                this.goToSubmitForm();
+                this.$logout.removeClass("invisible");
+            <% } %>
+        }
+
+        toggleShowPassword() {
+            let hidden = this.$password.attr("type");
+            if (hidden === "password") this.$password.attr("type", "text");
+            else this.$password.attr("type", "password");
+        }
+
+        attemptLogin = async () => {
+            let response = await Tracker.commune("/s/user/login", {
+                email: this.$email.val(),
+                password: this.$password.val()
+            });
+
+            if (response.status === "success") {
+                location.reload();
+            }
+            else {
+                this.$alert.text(response.message);
+            }
+        }
+
+        logout = async () => {
+            let response = await Tracker.commune("/s/user/logout");
+
+            if (response.status === "success") {
+                location.reload();
+            }
+            else {
+                this.$alert.text(response.message);
+            }
+        }
+
+        goToSubmitForm() {
+            this.$loginForm.addClass("invisible");
+            this.$historyForm.addClass("invisible");
+            this.$ticketsList.addClass("invisible");
+
+            this.state = "submit";
+            this.$submitForm.removeClass("invisible");
+        }
+
+        goToHistoryForm() {
+            this.$loginForm.addClass("invisible");
+            this.$submitForm.addClass("invisible");
+            this.$ticketsList.addClass("invisible");
+
+            this.state = "history";
+            this.$historyForm.removeClass("invisible");
+        }
+
+        submitTicket = async () => {
+            let response = await Tracker.commune("/s/serve", {
+                script: "submit-ticket",
+                ticket: {
+                    title: this.$title.val(),
+                    description: this.$description.val()
+                },
+                route: "/pages/it"
+            });
+
+            if (response.status === "success") {
+                this.$title.val("");
+                this.$description.val("");
+                this.$alert.text(response.data);
+            }
+            else {
+                this.$alert.text(response.message);
+            }
+        }
+
+        viewHistory = async () => {
+            if (this.$dateStart[0].valueAsNumber && this.$dateEnd[0].valueAsNumber && this.$dateStart[0].valueAsNumber < this.$dateEnd[0].valueAsNumber) {
+                let response = await Tracker.commune("/s/serve", {
+                    script: "view-history",
+                    dateStart: this.$dateStart[0].value,
+                    dateEnd: this.$dateEnd[0].value,
+                    route: "/pages/it"
+                });
+
+                if (response.status === "success") {
+                    this.tickets = response.data;
+    
+                    this.$ticketsList.empty();
+                    this.$ticketsList.append(`<button id="close" onclick="tracker.closeHistory()">&#60; Close Request History</button>`);
+
+                    if (this.tickets.length > 0) {
+                        let total = 0;
+
+                        for (let i = 0; i < this.tickets.length; i++) {
+                            total += this.tickets[i].used;
+                            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+
+                            this.$ticketsList.append(`<li class="history-ticket" id="${i}" onclick="tracker.selectTicket(${i})">
+                                <h4 id="title">Request: ${this.tickets[i].title}</h4>
+                                <p>Ticket Number: ${this.tickets[i].id}</p>
+                                <p id="date">Created On: ${(new Date(this.tickets[i].date)).toDateString()}</p>
+                                <p id="quoted">Hours Quoted: ${this.tickets[i].quoted}</p>
+                                <p id="date">Resolved On: ${this.tickets[i].resolved ? (new Date(this.tickets[i].resolved)).toLocaleDateString('en-US', options) : "Unresolved"}</p>
+                                <p id="used">Hours Used: ${this.tickets[i].used}</p>
+                                <p id="desc">Description: ${this.tickets[i].description}</p>
+                                </li>`);
+                        }
+
+                        this.$ticketsList.append(`<h3>Total Hours Used: ${total}</h3>`);
+                    }
+                    else {
+                        this.$ticketsList.append(`<p>No history found for the specified time period!</p>`);
+                    }
+
+                    this.$loginForm.addClass("invisible");
+                    this.$submitForm.addClass("invisible");
+                    this.$historyForm.addClass("invisible");
+                    this.$ticketsList.removeClass("invisible");
+                    this.$alert.text("");
+
+                    this.state = "tickets";
+                    this.selectTicket(-1);
+                }
+                else {
+                    this.$alert.text(response.message);
+                }
+            }
+            else {
+                this.$alert.text("Please fix dates!");
+            }
+        }
+
+        closeHistory() {
+            this.selectTicket(-1);
+            this.tickets = [];
+            this.$ticketsList.empty();
+            
+            this.goToHistoryForm();
+
+            if (this.admin) this.toggleAdmin();
+        }
+    
+        toggleAdmin() {
+            if (this.state === "tickets") {
+                this.admin = !this.admin;
+                this.$adminPanel.toggleClass("invisible");
+                $(".history-ticket").toggleClass("selectable");
+            } 
+            else {
+                this.admin = false;
+                this.$adminPanel.addClass("invisible");
+                $(".history-ticket").removeClass("selectable");
+            }
+        }
+
+        deleteTicket = async () => {
+            if (this.selectedTicket >= 0 && this.selectedTicket < this.tickets.length) {
+                let response = await Tracker.commune("/s/serve", {
+                    script: "delete-ticket",
+                    org: "<%= user ? user.username : "" %>",
+                    admin: this.$admin.val(),
+                    adPassword: this.$adPassword.val(),
+                    ticketID: this.tickets[this.selectedTicket].id,
+                    route: "/pages/it"
+                });
+
+                this.viewHistory();
+            }
+        }
+
+        setHours = async () => {
+            if (this.selectedTicket >= 0 && this.selectedTicket < this.tickets.length ) {
+                let response = await Tracker.commune("/s/serve", {
+                    script: "set-hours",
+                    org: "<%= user ? user.username : "" %>",
+                    admin: this.$admin.val(),
+                    adPassword: this.$adPassword.val(),
+                    ticketID: this.tickets[this.selectedTicket].id,
+                    used: this.$adUsed.val(),
+                    quoted: this.$adQuoted.val(),
+                    route: "/pages/it"
+                });
+
+                this.viewHistory();
+            }
+        }
+
+        resolveTicket = async () => {
+            if (this.selectedTicket >= 0 && this.selectedTicket < this.tickets.length) {
+                let response = await Tracker.commune("/s/serve", {
+                    script: "resolve-ticket",
+                    org: "<%= user ? user.username : "" %>",
+                    admin: this.$admin.val(),
+                    adPassword: this.$adPassword.val(),
+                    ticketID: this.tickets[this.selectedTicket].id,
+                    resolveDate: this.$adDate.val() + "T00:00:00",
+                    route: "/pages/it"
+                });
+
+                this.viewHistory();
+            }
+        }
+
+        selectTicket(which) {
+            if (this.admin) {
+                this.selectedTicket = which;
+    
+                $(".history-ticket").removeClass("selected");
+                if (this.selectedTicket > -1) $(`.history-ticket#${which}`).addClass("selected");
+            }
+        }
+    }
+
+    let tracker = new Tracker();
+</script>
+</html>
