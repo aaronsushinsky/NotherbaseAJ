@@ -387,6 +387,15 @@ ul.selector p {
     color: rgb(78, 78, 78);
 }
 
+.painting {
+    border: 3px solid var(--darkWoodColor);
+    background: var(--hoverColor);
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    align-self: flex-start;
+}
+
 .door {
     border: var(--standardBorder);
     width: 150px;
@@ -401,10 +410,10 @@ ul.selector p {
 
 .knob {
     position: absolute;
-    width: var(--pSize);
-    height: var(--pSize);
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    right: var(--padding);
+    right: 15%;
     top: 50%;
     background-color: var(--darkWoodColor);
 }
@@ -533,6 +542,29 @@ iframe {
 .conchu {
     border: 3px dotted var(--textColor) !important;
     background: url("/img/misc/conchu.jpg") !important;
+}
+
+.basic {
+    border: var(--standardBorder);
+    background: var(--darkBgColor);
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding);
+    text-align: center;
+}
+
+.floor {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-around;
+    align-content: flex-end;
+    width: 100%;
+    min-height: 300px;
+    gap: 10px 10px;
 }
 
 .browser {
