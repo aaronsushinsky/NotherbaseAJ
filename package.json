@@ -23,8 +23,10 @@
   },
   "homepage": "https://github.com/Mosshide/NotherBase#readme",
   "dependencies": {
+    "@google-cloud/local-auth": "^2.1.1",
     "@minescope/mineping": "^1.0.4",
-    "notherbase-fs": "^3.0.8"
+    "googleapis": "^118.0.0",
+    "notherbase-fs": "^3.0.10"
   },
   "type": "module",
   "engines": {

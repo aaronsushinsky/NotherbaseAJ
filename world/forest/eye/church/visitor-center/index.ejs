@@ -1,0 +1,32 @@
+<style>
+    <%- include("./table.css"); %>
+</style>
+
+<p>
+    Welcome to the Visitor Center. The table is 
+    still under construnction.
+</p>
+
+<hr>
+
+<div class="table" id="square">
+    <div class="chair top left" id="tl"></div>
+    <div class="chair bottom left"></div>
+    <div class="surface">
+
+    </div>
+    <div class="chair top right"></div>
+    <div class="chair bottom right"></div>
+</div>
+
+<hr>
+
+<a class="return" href="/forest/eye/church/sanctuary">
+    Return to the Sanctuary
+</a>
+
+<script>
+    <%- include("./table.js"); %>
+
+    const table = new Table("square");
+</script>

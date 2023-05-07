@@ -1,5 +1,5 @@
 .billboard {
-    width: 50%;
+    width: 30%;
     height: 500px;
     border: var(--standardBorder);
 }
@@ -18,7 +18,7 @@
 .billboard .delete {
     position: absolute;
     right: 0;
-    top: 0;
+    bottom: 0;
     padding: 0;
     margin: 0;
 }
@@ -26,7 +26,7 @@
 .billboard .flip {
     position: absolute;
     right: 0;
-    top: -20px;
+    top: 0;
     padding: 0;
     margin: 0;
 }

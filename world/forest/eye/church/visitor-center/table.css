@@ -1,0 +1,54 @@
+:root {
+    --tableTop: rgb(107, 63, 42);
+    --tableChair: rgb(165, 125, 106);
+    --tableShadow: rgb(44, 20, 9);
+}
+
+.table {
+    width: 100%;
+    height: 700px;
+    background: var(--tableShadow);
+    position: relative;
+}
+
+.table>.surface {
+    width: 50%;
+    height: 90%;
+    background: var(--tableTop);
+    position: absolute;
+    left: 25%;
+    top: 5%;
+    z-index: 2;
+}
+
+.table>.chair {
+    width: 20%;
+    height: 200px;
+    background: var(--tableChair);
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table>.chair.left {
+    left: 25px;
+}
+
+.table>.chair.right {
+    right: 25px;
+}
+
+.table>.chair.top {
+    top: 5%;
+}
+
+.table>.chair.bottom {
+    bottom: 15%;
+}
+
+.table>.chair>* {
+    color: black;
+    text-align: center;
+}

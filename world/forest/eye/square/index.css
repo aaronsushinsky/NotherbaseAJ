@@ -1,0 +1,84 @@
+:root {
+    --wood: rgb(87, 62, 32);
+    --woodDark: rgb(29, 23, 17);
+}
+
+.sign#index {
+    height: 520px;
+    width: 500px;
+}
+
+.sign#index ul {
+    position: relative;
+}
+
+.sign#index li {
+    height: 30px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+.sign#index li:hover {
+    background: var(--lightBgColor);
+}
+
+.sign#index .detail {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.sign#index button#close {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.well {
+    background: url("/img/forest/eotf/well.png");
+    background-position: cover;
+    height: 520px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 500px;
+    padding: 20px;
+}
+
+.well * {
+    background: var(--bgColor);
+}
+
+#pile {
+    min-width: 100px;
+    width: 47%;
+    height: 100px;
+    border-bottom: 1px solid gray;
+    margin: 20px;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+}
+
+#debris {
+    position: absolute;
+    left: calc(50% - 50px);
+    top: 0;
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+    user-select: none;
+    cursor: pointer;
+}

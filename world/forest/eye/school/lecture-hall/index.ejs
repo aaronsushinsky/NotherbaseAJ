@@ -1,0 +1,24 @@
+<p>
+    This is the lecture hall.
+</p>
+
+<div class="chat-box" id="eotf-lecture-hall"></div>
+
+<hr>
+
+<a class="return" href="/forest/eye/school/lobby">
+    Exit the Lecture Hall
+</a>
+
+<a class="return" href="/forest/eye/school/lobby">
+    Exit the Lecture Hall
+</a>
+
+<script src="/js/chat-box.js"></script>
+<script>
+    <% if (user) { %>
+        let chat = new ChatBox("<%= user.username %>", "eotf-lecture-hall");
+    <% } else { %>
+        let chat = new ChatBox("An Unknown Person", "eotf-lecture-hall");
+    <% } %>
+</script>
