@@ -96,9 +96,9 @@
 <script src="/js/chat-box.js"></script>
 <script>
     <% if (user) { %>
-        let chat = new ChatBox("<%= user.username %>", "the-front-stage");
+        const chat = new ChatBox("<%= user.username %>", "the-front-stage");
     <% } else { %>
-        let chat = new ChatBox("An Unknown Person", "the-front-stage");
+        const chat = new ChatBox("An Unknown Person", "the-front-stage");
     <% } %>
 
     let color = 0;
