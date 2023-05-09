@@ -70,15 +70,7 @@
     <img src="/img/misc/pac.png" id="pac4" draggable="false">
 </div>
 
-<div class="dialogue" id="unkiel">
-    <div class="frame">
-        <img src="/img/npcs/unkiel.png" class="portrait">
-    </div>
-    <div class="heart"></div>
-    <div class="content">
-
-    </div>
-</div>
+<div class="dialogue" id="unkiel"></div>
 
 <hr>
 
@@ -139,11 +131,12 @@
     $("#pac4").click(rotate);
 
 
-    let unkielDialogue = new Dialogue("unkiel", 3500, (self) => {
+    let unkielTree = (self) => {
         return [
             Dialogue.createTextSlide(1, "Woah..."),
             Dialogue.createTextSlide(2, "I exist now."),
             Dialogue.createTextSlide(4, "Crazy.")
         ];
-    });
+    };
+    let unkielDialogue = new Dialogue("unkiel", 3500, unkielTree, "/img/npcs/unkiel.png");
 </script>

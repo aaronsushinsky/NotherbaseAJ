@@ -10,10 +10,16 @@
 <hr>
 
 <div class="stage conchu">
-    <div class="stream">
-        <div class="source"></div>
-        <a class="label" href="#">No Streamer</a>
-    </div>
+    <div class="stream" id="eotf-inn-stage"></div>
+</div>
+
+<div class="chat-box" id="eotf-inn-stage"></div>
+
+<div class="stream-signup">
+    <h4>Sign up for open mic night every night!</h4>
+    <input type="text" placeholder="your stream url">
+    <input type="datetime-local" id="date">
+    <button>Submit Application</button>
 </div>
 
 <hr>
@@ -21,3 +27,16 @@
 <a class="return" href="/forest/eye/inn/lobby">
     Back away from the Stage
 </a>
+
+<script src="/js/chat-box.js"></script>
+<script src="/js/stream.js"></script>
+<script>
+    const chat = new ChatBox("<%= user.username %>", "eotf-inn-stage");
+
+    let stream = null;
+
+    base.load("eotf-inn-stage").then((res) => {
+        console.log(res);
+        stream = new Stream("eotf-inn-stage", res);
+    });
+</script>

@@ -45,7 +45,7 @@
             <h2>notherbase-fs</h2>
 
             <section>
-                <h3>About</h3>
+                <h4>About</h4>
                 <p>
                     notherbase-fs is the engine running NotherBase. It is an npm package
                     that includes basic content which enables testing. 
@@ -55,7 +55,7 @@
             </section>
 
             <section>
-                <h3>How to get started</h3>
+                <h4>How to get started</h4>
                 <p>
                     By installing notherbase-fs to an npm package, one can easily setup 
                     an Express.js server with automatic routes and a MongoDB connection.
@@ -99,7 +99,7 @@
             </section>
 
             <section>
-                <h3>Explorer</h3>
+                <h4>Explorer</h4>
                 <p>
                     The server now needs some content. Create a new directory in the package directory
                     and name it "world." 
@@ -144,7 +144,7 @@
             </section>
 
             <section>
-                <h3>Pages and the Void</h3>
+                <h4>Pages and the Void</h4>
                 <p>
                     Add a /pages directory at the same level as /the-front. 
                     Create an "/void/index.ejs" directory and file in the void directory. This directory 
@@ -164,8 +164,62 @@
             </section>
 
             <section>
-                <h3>Server Scripts and Database Access</h3>
-                <p></p>
+                <h4>Server Scripts and Database Access</h4>
+
+                <h5>base</h5>
+                <p>
+                    An object called "base" is included automatically in "the-front" and "world"
+                    client renders. Use base.load() to quickly grab the data from the 
+                    specified service. Use .then() to avoid await at top-level.
+                </p>
+                <div class="code">
+                    base.load(service).then((res) => {});
+                </div>
+                <p>
+                    Many scripts need to be ran on the server to enable features like multiplayer
+                    interaction and data security. Use base.do() to run "script-name.js", a file
+                    that should be in the same directory as the client render that's calling it.
+                </p>
+                <div class="code">
+                    let res = await base.do("script-name", data);
+                </div>
+
+                <h5>Server Scripts</h5>
+                <p>
+                    Scripts that are run on the server should follow the format below
+                    for compatibility.
+                </p>
+                <div class="code">
+                    export default async (req, user) => {<br>
+                    }
+                </div>
+
+                <h5>database Access</h5>
+                <h6>What are Spirits?</h6>
+                <p>
+                    Technically, a spirit in NotherBase is a document in the database. In practice,
+                    commune (use the notherbase-fs API) with a spirit (a Mongoose model) to receive 
+                    its word (document data) and manifest it (process and render).
+                </p>
+                <p>
+                    In your server script, recall a spirit in the database via its service,
+                    parent, matching data and _id. 
+                </p>
+                <div class="code">
+                        let spirit = await req.db.Spirit.recallOne(service, parent = null, data = {}, id = null);<br>
+                        spirit.memory.data.items.push(req.body.data);<br>
+                        await spirit.commit(data = null);<br>
+                </div>
+                <p>
+                    In your server script, access special spirits and their useful functions
+                    at req.db.*. The "user" parameter is actually an instance of the angel 
+                    req.db.User, in which the player's spirit is already recalled. The 
+                    user.offsetItem() function allows changes to be made to the player's 
+                    inventory in a single line. Be sure the item name is spelled correctly.
+                </p>
+                <div class="code">
+                    await user.offsetItem("Item Name", 1);<br><br>
+                </div>
             </section>
         </article>
 
@@ -174,12 +228,22 @@
 
             <section>
                 <h3>Spirit of NotherBase</h3>
-                <p></p>
+                <p>This will detail the direction of design for NotherBase.</p>
+
+                <h4>Goals</h4>
+                <h4>Major Products</h4>
+                <h4>Aesthetic</h4>
             </section>
 
             <section>
                 <h3>Spirits in NotherBase</h3>
-                <p></p>
+                <p>
+                    This will detail the direction of design for the various spirits 
+                    in NotherBase.
+                </p>
+
+                <h4>Streams</h4>
+                <h4>Games</h4>
             </section>
         </article>
     </main>
