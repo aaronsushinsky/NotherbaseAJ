@@ -1,9 +1,10 @@
 class Dialogue {
-    constructor(name, beatFrequency, tree) {
+    constructor(name, beatFrequency, tree, portrait = "/img/npcs/anon.png") {
         if (typeof name === 'string') this.name = name;
         else console.log("Dialogue requires a string for name");
         this.$div = $(`.dialogue#${name}`);
-        this.$portrait = $('<img src="/img/npcs/anon.png" class="portrait">').appendTo(this.$div);
+        this.$div.empty();
+        this.$portrait = $(`<img src="${portrait}" class="portrait">`).appendTo(this.$div);
         this.$heart = $('<div class="heart"></div>').appendTo(this.$div);
         this.$content = $('<div class="content"></div>').appendTo(this.$div);
 
