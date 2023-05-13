@@ -13,15 +13,16 @@
 * {
     box-sizing: border-box;
     font-family: 'Chela One', cursive;
-    color: var(--voidColor);
+    color: var(--brickColor);
 }
 
 body {
-    background-color: var(--voidColor);
+    background: var(--voidColor);
 }
 
 main {
-    background-color: var(--darkVoidColor);
+    background: var(--darkVoidColor);
+    
 }
 
 h1 {
@@ -29,7 +30,8 @@ h1 {
 }
 
 a {
-    background-color: var(--darkVoidColor);
+    background: var(--darkVoidColor);
+    font-size: 50px;
 }
 
 a:hover {
