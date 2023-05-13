@@ -11,57 +11,64 @@
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="/styles/doc.css">
 </head>
 
 <body>
+    <style>
+        <%- include("./index.css"); %>
+    </style>
+
     <main>
         <h1>NotherBase Documentation</h1>
+        <h2>notherbase-fs Version: 3.0.</h2>
 
-        <article>
-            <h2>Table of Contents</h2>
+        <details open>
+            <summary><h3>Table of Contents</h3></summary>
+            <article>
+                <details class="compact">
+                    <summary><h5>notherbase-fs</h5></summary>
+                    <ul>
+                        <li>About</li>
+                        <li>How to get started</li>
+                        <li>Explorer</li>
+                        <li>Pages and the Void</li>
+                        <li>Server Scripts and Database Access</li>
+                        <li>Base</li>
+                        <li>Spirits</li>
+                    </ul>
+                </details>
+        
+                <details class="compact">
+                    <summary><h5>notherbase</h5></summary>
+                    <ul>
+                        <li>Spirit of NotherBase</li>
+                        <li>Spirits in NotherBase</li>
+                    </ul>
+                </details>
+            </article>
+        </details>
 
-            <section>
-                <h3>notherbase-fs</h3>
-                <ul>
-                    <li>About</li>
-                    <li>How to get started</li>
-                    <li>Explorer</li>
-                    <li>Pages and the Void</li>
-                    <li>Server Scripts and Database Access</li>
-                </ul>
-            </section>
+        <details open>
+            <summary><h3>notherbase-fs</h3></summary>
 
-            <section>
-                <h3>notherbase</h3>
-                <ul>
-                    <li>Spirit of NotherBase</li>
-                    <li>Spirits in NotherBase</li>
-                </ul>
-            </section>
-        </article>
-
-        <article>
-            <h2>notherbase-fs</h2>
-
-            <section>
-                <h4>About</h4>
+            <details>
+                <summary><h5>About</h5></summary>
                 <p>
                     notherbase-fs is the engine running NotherBase. It is an npm package
                     that includes basic content which enables testing. 
                     Install in another package to create a simple server and database
                     quickly.
                 </p>
-            </section>
+            </details>
 
-            <section>
-                <h4>How to get started</h4>
+            <details>
+                <summary><h5>How to get started</h5></summary>
                 <p>
                     By installing notherbase-fs to an npm package, one can easily setup 
                     an Express.js server with automatic routes and a MongoDB connection.
                 </p>
 
-                <h4>Install notherbase-fs</h4>
+                <h6>Install notherbase-fs</h6>
                 <p>
                     notherbase-fs uses ES Modules. Enusre the npm package type is "module."
                 </p>
@@ -73,7 +80,7 @@
                     to install the latest version of notherbase-fs to your package.
                 </p>
 
-                <h4>Create a Base</h4>
+                <h6>Create a Base</h6>
                 <p>
                     The code below imports notherbase-fs, grabs the local directory
                     and initializes the server. Insert it in the package's main file.
@@ -96,16 +103,16 @@
                     MONGODB_URI="mongodb+srv://user:password@examplebase.compd.mongodb.net/examplebase?retryWrites=true&w=majority"<br>
                     SECRET="somesecret"
                 </div>
-            </section>
+            </details>
 
-            <section>
-                <h4>Explorer</h4>
+            <details>
+                <summary><h5>Explorer</h5></summary>
                 <p>
                     The server now needs some content. Create a new directory in the package directory
                     and name it "world." 
                 </p>
 
-                <h4>The Front</h4>
+                <h6>The Front</h6>
                 <p>
                     Create a new directory in the world directory
                     and name it "the-front." This is the region
@@ -131,7 +138,7 @@
                     create a route.
                 </p>
 
-                <h4>Inside the Base</h4>
+                <h6>Inside the Base</h6>
                 <p>
                     Regions inside the base work similarly to the Front. The automatic route creation
                     follows this pattern: http://localhost:PORT/region/area/poi/detail. Points of interest and details get
@@ -141,10 +148,10 @@
                 <p>
                     Add these region directories at the same level as /the-front.
                 </p>
-            </section>
+            </details>
 
-            <section>
-                <h4>Pages and the Void</h4>
+            <details>
+                <summary><h5>Pages and the Void</h5></summary>
                 <p>
                     Add a /pages directory at the same level as /the-front. 
                     Create an "/void/index.ejs" directory and file in the void directory. This directory 
@@ -161,17 +168,12 @@
                     These pages are not meant to be part of normal base navigation, but rather are
                     for one-off needed functionality with a short route. 
                 </p>
-            </section>
+            </details>
 
-            <section>
-                <h4>Server Scripts and Database Access</h4>
-
-                <h5>base</h5>
-                <p>
-                    An object called "base" is included automatically in "the-front" and "world"
-                    client renders. Use base.load() to quickly grab the data from the 
-                    specified service. Use .then() to avoid await at top-level.
-                </p>
+            <details>
+                <summary><h5>Server Scripts and Database Access</h5></summary>
+                
+                <p>Use load() to grab a save file from the specified spirit.</p>
                 <div class="code">
                     base.load(service).then((res) => {});
                 </div>
@@ -184,7 +186,7 @@
                     let res = await base.do("script-name", data);
                 </div>
 
-                <h5>Server Scripts</h5>
+                <h6>Server Scripts</h6>
                 <p>
                     Scripts that are run on the server should follow the format below
                     for compatibility.
@@ -194,13 +196,7 @@
                     }
                 </div>
 
-                <h5>database Access</h5>
-                <h6>What are Spirits?</h6>
-                <p>
-                    Technically, a spirit in NotherBase is a document in the database. In practice,
-                    commune (use the notherbase-fs API) with a spirit (a Mongoose model) to receive 
-                    its word (document data) and manifest it (process and render).
-                </p>
+                <h6>database Access</h6>
                 <p>
                     In your server script, recall a spirit in the database via its service,
                     parent, matching data and _id. 
@@ -220,23 +216,330 @@
                 <div class="code">
                     await user.offsetItem("Item Name", 1);<br><br>
                 </div>
-            </section>
-        </article>
+            </details>
 
-        <article>
-            <h2>notherbase</h2>
+            <details>
+                <summary><h5>Base</h5></summary>
 
-            <section>
-                <h3>Spirit of NotherBase</h3>
+                <h6>base</h6>
+                <p>
+                    An object called "base" is included automatically in "the-front" and "world"
+                    client renders. Use base.load() to quickly grab the data from the 
+                    specified service. Use .then() to avoid await at top-level.
+                </p>
+
+                <article>
+                    <details>
+                        <summary>class Base {}</summary>
+
+                        <article>
+                            <details>
+                                <summary>Properties</summary>
+                                this.playerInventory = new this.#Inventory();<br>
+                                this.playerAttributes = new this.#PlayerAttributes();<br>
+                                this.playerAccount = new this.#AccountServices();<br>
+                                this.menuClosing = false;<br>
+                            </details>
+
+                            <details>
+                                <summary>static commune = async (route, data = null, options = null) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Sends a POST to the spirit world.
+                                    </div>
+                                    <div class="input">
+                                        route (String): The route to send the POST request to.
+                                        <ul>
+                                            <li>"/s/serve": Run a script on the server.</li>
+                                            <li>"/s/load": Load a spirit.</li>
+                                            <li>"/s/user": Access special server functions for user spirits.</li>
+                                            <li>"/s/contact-nother": Access special server functions for contacting Nother.</li>
+                                        </ul>
+                                    </div>
+                                    <div class="input">
+                                        data (Object): Data sent in the POST body.
+                                    </div>
+                                    <div class="input">
+                                        options (Object): Options appended to data, sent in the POST body.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the response object returned from the POST.
+                                    </div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>closeMenu = () => {}</summary>
+                                <article>
+                                    <div class="purpose">Closes the player's menu.</div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>openMenu = () => {}</summary>
+                                <article>
+                                    <div class="purpose">Opens the player's menu.</div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>switchTab = function switchTab(id) {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Switches between the menu's various tabs.
+                                    </div>
+                                    <div class="input">
+                                        id: The id of the tab to switch to.
+                                        <ul>
+                                            <li>"inventory"</li>
+                                            <li>"player"</li>
+                                            <li>"account"</li>
+                                            <li>"more"</li>
+                                        </ul>
+                                    </div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>logout = async () => {}</summary>
+                                <article>
+                                    <div class="purpose">Communes with the spirit world to compel the user to logout.</div>
+                                    <div class="output">Returns: response from communion.</div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>sendMessageToNother = async () => {}</summary>
+                                <article>
+                                    <div class="purpose">Communion to send a message to the developers.</div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>attemptRegister = async (email, username, password) => {}</summary>
+                                <article>
+                                    <div class="purpose">Communes to create a new account.</div>
+                                    <div class="input">
+                                        email
+                                    </div>
+                                    <div class="input">
+                                        username
+                                    </div>
+                                    <div class="input">
+                                        password
+                                    </div>
+                                    <div class="output">
+                                        Returns: Response from communion.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>attemptLogin = async (email, password) => {};</summary>
+                                <article>
+                                    <div class="purpose">Communes to login.</div>
+                                    <div class="input">
+                                        email
+                                    </div>
+                                    <div class="input">
+                                        password
+                                    </div>
+                                    <div class="output">
+                                        Returns: Response from communion.
+                                    </div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>resetPassword = async (email, test = false) => {}</summary>
+                                <article>
+                                    <div class="purpose">Communes to reset password.</div>
+                                    <div class="input">
+                                        email
+                                    </div>
+                                    <div class="input">
+                                        test: Whether this password reset is a development test.
+                                    </div>
+                                    <div class="output">
+                                        Returns: Response from communion.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>changePassword = async (token, email, password, confirmation) => {}</summary>
+                                <article>
+                                    <div class="purpose">Communes to change a user's password.</div>
+                                    <div class="input">
+                                        token
+                                    </div>
+                                    <div class="input">
+                                        email
+                                    </div>
+                                    <div class="input">
+                                        password
+                                    </div>
+                                    <div class="input">
+                                        confirmation
+                                    </div>
+                                    <div class="output">Returns: Response from communion.</div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>do = async (what, data = null) => {}</summary>
+                                <article>
+                                    <div class="purpose">Communes to run a server script.</div>
+                                    <div class="input">
+                                        what (String): the script to run.
+                                    </div>
+                                    <div class="input">
+                                        data: input data passed to the sript that gets run.
+                                    </div>
+                                    <div class="output">Returns: Response from the script that was run.</div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>load = async (service, scope = "local") => {}</summary>
+                                <article>
+                                    <div class="purpose"></div>
+                                    <div class="input">
+                                        service (String): the name of the spirit to load
+                                    </div>
+                                    <div class="input">
+                                        scope (String): "local" or "global". Load the user's personal spirit or
+                                        the spirit shared by all users.
+                                    </div>
+                                    <div class="output">Returns: the data of the spirit that was loaded.</div>
+                                </article>
+                            </details>
+                        </article>
+                    </details>
+
+                    <details>
+                        <summary>#Inventory = class Inventory {}</summary>
+
+                        <article>
+                            <details>
+                                <summary>Properties</summary>
+                                this.items = [];
+                                this.lastUpdate = 0;
+                            </details>
+
+                            <details>
+                                <summary>async refresh() {}</summary>
+                            </details>
+    
+                            <details>
+                                <summary>clearError() {}</summary>
+                            </details>
+    
+                            <details>
+                                <summary>setError(text) {}</summary>
+                            </details>
+                        </article>
+                    </details>
+
+                    <details>
+                        <summary>#PlayerAttributes = class PlayerAttributes {}</summary>
+
+                        <article>
+                            <details>
+                                <summary>Properties</summary>
+                                this.attributes = [];
+                                this.lastUpdate = 0;
+                            </details>
+    
+                            <details>
+                                <summary>async refresh() {}</summary>
+                            </details>
+    
+                            <details>
+                                <summary>render() {}</summary>
+                            </details>
+                        </article>
+                    </details>
+
+                    <details>
+                        <summary>#AccountServices = class AccountServices {}</summary>
+
+                        <article>
+                            <details>
+                                <summary>Properties</summary>
+                                this.username = "";
+                                this.email = "";
+                            </details>
+
+                            <details>
+                                <summary>refresh() {}</summary>
+                                
+                            </details>
+
+                            <details>
+                                <summary>editEmail() {}</summary>
+                                
+                            </details>
+
+                            <details>
+                                <summary>cancelEmail() {}</summary>
+                                
+                            </details>
+
+                            <details>
+                                <summary>async updateEmail() {}</summary>
+                                
+                            </details>
+
+                            <details>
+                                <summary>editUsername() {}</summary>
+                                
+                            </details>
+
+                            <details>
+                                <summary>cancelUsername() {}</summary>
+                                
+                            </details>
+
+                            <details>
+                                <summary>async updateUsername() {}</summary>
+                                
+                            </details>
+                        </article>
+                    </details>
+                </article>
+            </details>
+
+            <details>
+                <summary><h5>Spirits</h5></summary> 
+
+                <h6>What are Spirits?</h6>
+                <p>
+                    Technically, a spirit in NotherBase is a document in the database. In practice,
+                    commune (use the notherbase-fs API) with a spirit (a Mongoose model) to receive 
+                    its word (document data) and manifest it (process and render).
+                </p>
+
+                <article>
+
+                </article>
+            </details>
+        </details>
+
+
+        <details open>
+            <summary><h3>notherbase</h3></summary>
+
+            <details>
+                <summary><h5>Spirit of NotherBase</h5></summary>
                 <p>This will detail the direction of design for NotherBase.</p>
-
                 <h4>Goals</h4>
                 <h4>Major Products</h4>
                 <h4>Aesthetic</h4>
-            </section>
+            </details>
 
-            <section>
-                <h3>Spirits in NotherBase</h3>
+            <details>
+                <summary><h5>Spirits in NotherBase</h5></summary>
                 <p>
                     This will detail the direction of design for the various spirits 
                     in NotherBase.
@@ -244,8 +547,8 @@
 
                 <h4>Streams</h4>
                 <h4>Games</h4>
-            </section>
-        </article>
+            </details>
+        </details>
     </main>
 
     <footer>

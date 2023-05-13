@@ -7,7 +7,7 @@ export default async function submitTicket(req, user) {
         comments: [],
         attachments: [],
         id: Date.now(),
-        ...req.body.data.ticket
+        ...req.body.ticket
     }
 
     let page = await req.db.Spirit.recallOne("it", user.id);
