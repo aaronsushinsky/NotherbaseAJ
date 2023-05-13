@@ -151,6 +151,7 @@ section {
     color: rgb(191, 170, 145);
     font-family: 'Courier New', Courier, monospace;
     font-size: 15px;
+    overflow: auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
