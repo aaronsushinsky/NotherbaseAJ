@@ -1,0 +1,48 @@
+details {
+    width: 100%;
+    border: var(--standardBorder);
+    padding: var(--padding);
+    margin: var(--margin);
+}
+
+details.compact {
+    width: 300px;
+}
+
+details summary { 
+    cursor: pointer;
+    border-bottom: var(--standardBorder);
+}
+
+details summary > * {
+    display: inline;
+}
+
+details>article {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+details .purpose {
+    width: 100%;
+    border: var(--standardBorder);
+    padding: var(--padding);
+}
+
+details .input {
+    width: 100%;
+    padding: var(--thickPadding);
+}
+
+details .input li {
+    width: 100%;
+    padding: var(--padding);
+}
+
+details .output {
+    width: 100%;
+    border: var(--standardBorder);
+    padding: var(--padding);
+}

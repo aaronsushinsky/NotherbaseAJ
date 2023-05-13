@@ -76,21 +76,11 @@
     </footer>
 </body>
 
+<script src="/js/base.js"></script>
 <script>
+    const base = new Base();
+
     class Tracker {
-        static commune = async (route, data = null, options = null) => {
-            let body = { data, ...options };
-        
-            let response = null;
-
-            await $.post(route, JSON.stringify(body), (res) => {
-                response = res;
-                if (res.status != "success") console.log(`${route} - ${res.message}`);
-            });
-        
-            return response;
-        }
-
         constructor() {
             this.state = "login";
             this.admin = false;
@@ -140,10 +130,7 @@
         }
 
         attemptLogin = async () => {
-            let response = await Tracker.commune("/s/user/login", {
-                email: this.$email.val(),
-                password: this.$password.val()
-            });
+            let response = await base.attemptLogin(this.$email.val(), this.$password.val());
 
             if (response.status === "success") {
                 location.reload();
@@ -154,7 +141,7 @@
         }
 
         logout = async () => {
-            let response = await Tracker.commune("/s/user/logout");
+            let response = await base.logout();
 
             if (response.status === "success") {
                 location.reload();
@@ -183,8 +170,7 @@
         }
 
         submitTicket = async () => {
-            let response = await Tracker.commune("/s/serve", {
-                script: "submit-ticket",
+            let response = await base.do("submit-ticket", {
                 ticket: {
                     title: this.$title.val(),
                     description: this.$description.val()
@@ -204,8 +190,7 @@
 
         viewHistory = async () => {
             if (this.$dateStart[0].valueAsNumber && this.$dateEnd[0].valueAsNumber && this.$dateStart[0].valueAsNumber < this.$dateEnd[0].valueAsNumber) {
-                let response = await Tracker.commune("/s/serve", {
-                    script: "view-history",
+                let response = await base.do("view-history", {
                     dateStart: this.$dateStart[0].value,
                     dateEnd: this.$dateEnd[0].value,
                     route: "/pages/it"
@@ -284,8 +269,7 @@
 
         deleteTicket = async () => {
             if (this.selectedTicket >= 0 && this.selectedTicket < this.tickets.length) {
-                let response = await Tracker.commune("/s/serve", {
-                    script: "delete-ticket",
+                let response = await base.do("delete-ticket", {
                     org: "<%= user ? user.username : "" %>",
                     admin: this.$admin.val(),
                     adPassword: this.$adPassword.val(),
@@ -299,8 +283,7 @@
 
         setHours = async () => {
             if (this.selectedTicket >= 0 && this.selectedTicket < this.tickets.length ) {
-                let response = await Tracker.commune("/s/serve", {
-                    script: "set-hours",
+                let response = await base.do("set-hours", {
                     org: "<%= user ? user.username : "" %>",
                     admin: this.$admin.val(),
                     adPassword: this.$adPassword.val(),
@@ -310,14 +293,15 @@
                     route: "/pages/it"
                 });
 
+                console.log(response);
+
                 this.viewHistory();
             }
         }
 
         resolveTicket = async () => {
             if (this.selectedTicket >= 0 && this.selectedTicket < this.tickets.length) {
-                let response = await Tracker.commune("/s/serve", {
-                    script: "resolve-ticket",
+                let response = await base.do("resolve-ticket", {
                     org: "<%= user ? user.username : "" %>",
                     admin: this.$admin.val(),
                     adPassword: this.$adPassword.val(),
