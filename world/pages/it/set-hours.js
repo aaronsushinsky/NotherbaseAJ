@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 
 export default async function setHours(req, user) {
-    let admin = await req.db.User.recallOne(req.body.data.admin);
+    let admin = await req.db.User.recallOne(req.body.admin);
 
     if (admin) {
-        let passed = await bcrypt.compare(req.body.data.adPassword, admin.memory.data.password);
+        let passed = await bcrypt.compare(req.body.adPassword, admin.memory.data.password);
 
         if (passed) {
             if (admin.memory.data.authLevels.includes("ITAD")) {
@@ -13,9 +13,9 @@ export default async function setHours(req, user) {
                 let pageData = page.memory.data;
 
                 for (let i = 0; i < pageData.length; i++) {
-                    if (pageData[i].id == req.body.data.ticketID) {
-                        pageData[i].used = parseInt(req.body.data.used);
-                        pageData[i].quoted = parseInt(req.body.data.quoted);
+                    if (pageData[i].id == req.body.ticketID) {
+                        pageData[i].used = parseInt(req.body.used);
+                        pageData[i].quoted = parseInt(req.body.quoted);
 
                         await page.commit();
 

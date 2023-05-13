@@ -137,8 +137,20 @@ footer a {
     width: 50%;
 }
 
-article {
+section {
     width: 100%;
+}
+
+.code {
+    width: 80%;
+    margin: 10px 10%;
+    padding: 20px;
+    background: rgb(18, 18, 18);
+    border-radius: 2px;
+    border: 1px solid rgb(58, 58, 58);
+    color: rgb(191, 170, 145);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
 }
 
 h1, h2, h3, h4, h5, h6 {
