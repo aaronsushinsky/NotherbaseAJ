@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NotherBase Documentation</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+
+<body>
+    <style>
+        <%- include("./index.css"); %>
+    </style>
+
+    <main>
+        <h1>NotherBase Documentation</h1>
+        <h2>notherbase-fs Version: 3.1.2</h2>
+
+        <details open>
+            <summary><h3>notherbase-fs</h3></summary>
+
+            <details>
+                <summary><h5>About</h5></summary>
+                <p>
+                    notherbase-fs is the engine running NotherBase. It is an npm package
+                    that includes basic content which enables testing. 
+                    Install in another package to create a simple server and database
+                    quickly.
+                </p>
+            </details>
+
+            <details>
+                <summary><h5>How to get started</h5></summary>
+                <p>
+                    By installing notherbase-fs to an npm package, one can easily setup 
+                    an Express.js server with automatic routes and a MongoDB connection.
+                </p>
+
+                <h6>Install notherbase-fs</h6>
+                <p>
+                    notherbase-fs uses ES Modules. Enusre the npm package type is "module."
+                </p>
+<pre class="code">
+npm i notherbase-fs
+</pre>
+                <p>
+                    Use the above code in the directory of your npm package in order
+                    to install the latest version of notherbase-fs to your package.
+                </p>
+
+                <h6>Create a Base</h6>
+                <p>
+                    The code below imports notherbase-fs, grabs the local directory
+                    and initializes the server. Insert it in the package's main file.
+                </p>
+<pre class="code">
+import NotherBaseFS from "notherbase-fs";
+import { fileURLToPath } from 'node:url';
+const __dirname = fileURLToPath(new URL('./world', import.meta.url));
+const notherBaseFS = new NotherBaseFS(__dirname);
+</pre>
+                <p>
+                    Create a file named .env and provide the environment variables below.
+                    The PORT variable is needed for testing. Hosting platforms like Heroku
+                    may provide their own. The MONGODB_URI and SECRET variables are 
+                    needed to connect to a MongoDB database, which is needed for the 
+                    server to start.
+                </p>
+<pre class="code">
+PORT=4567
+MONGODB_URI="mongodb+srv://user:password@examplebase.compd.mongodb.net/examplebase?retryWrites=true&w=majority"
+SECRET="somesecret"
+</pre>
+            </details>
+
+            <details>
+                <summary><h5>Explorer</h5></summary>
+                <p>
+                    The server now needs some content. Create a new directory in the package directory
+                    and name it "world." 
+                </p>
+
+                <h6>The Front</h6>
+                <p>
+                    Create a new directory in the world directory
+                    and name it "the-front." This is the region
+                    where users who are not logged in can access
+                    the base. Create a file named "index.ejs" in the new directory.
+                    Insert the code below, save and restart the server.
+                </p>
+<pre class="code">
+&lt;p&gt;Hello World&lt;/p&gt;
+</pre>
+                <p>
+                    The content should now be available at http://localhost:PORT. Where PORT
+                    should be the port number specified in the .env file. It will automatically
+                    redirect to http://localhost:PORT/the-front. The "index.ejs" file created earlier gets inserted
+                    automatically into the body element of the rendered html, so feel free to
+                    add any styles, scripts or other elements that can go in an html body.
+                </p>
+                <p>
+                    Add more directories in /the-front to automatically create new routes.
+                    The routes will automatically try to render "index.ejs" files. For example,
+                    to add another page at http://localhost:PORT/the-front/example, create the file "/the-front/example/index.ejs".
+                    Automatic route creation only goes one level deep, so /the-front/example/test would not
+                    create a route.
+                </p>
+
+                <h6>Inside the Base</h6>
+                <p>
+                    Regions inside the base work similarly to the Front. The automatic route creation
+                    follows this pattern: http://localhost:PORT/region/area/poi/detail. Points of interest and details get
+                    routes, so for example these files will get automatically rendered: 
+                    /a-region/some-area/old-poi/index.ejs or /a-region/some-area/old-poi/a-detail/index.ejs
+                </p>
+                <p>
+                    Add these region directories at the same level as /the-front.
+                </p>
+            </details>
+
+            <details>
+                <summary><h5>Pages and the Void</h5></summary>
+                <p>
+                    Add a /pages directory at the same level as /the-front. 
+                    Create an "/void/index.ejs" directory and file in the void directory. This directory 
+                    and others like it will automatically create the simple routes of http://localhost:PORT/name, 
+                    where name is the name of the directory.
+                </p>
+                <p>
+                    Creating this void page is very important, because attempts to access routes
+                    that do not exist will redirect to http://localhost:PORT/void. It is also important
+                    to note that for the /pages routes, the "index.ejs" files that get rendered are not
+                    inserted into an html body and so need to be full html documents.
+                </p>
+                <p>
+                    These pages are not meant to be part of normal base navigation, but rather are
+                    for one-off needed functionality with a short route. 
+                </p>
+            </details>
+
+            <details>
+                <summary><h5>Server Scripts and Database Access</h5></summary>
+                
+                <p>Use load() to grab a save file from the specified spirit.</p>
+<pre class="code">
+base.load(service).then((res) => {});
+</pre>
+                <p>
+                    Many scripts need to be ran on the server to enable features like multiplayer
+                    interaction and data security. Use base.do() to run "script-name.js", a file
+                    that should be in the same directory as the client render that's calling it.
+                </p>
+<pre class="code">
+let res = await base.do("script-name", data);
+</pre>
+
+                <h6>Server Scripts</h6>
+                <p>
+                    Scripts that are run on the server should follow the format below
+                    for compatibility.
+                </p>
+<pre class="code">
+export default async (req, user) => {
+}
+</pre>
+
+                <h6>database Access</h6>
+                <p>
+                    In your server script, recall a spirit in the database via its service,
+                    parent, matching data and _id. 
+                </p>
+<pre class="code">
+export default async (req, user) => {
+    let spirit = await req.db.Spirit.recallOne(service, parent = null, data = {}, id = null);
+    spirit.memory.data.items.push(req.body.data);
+    await spirit.commit(data = null);
+}
+</pre>
+                <p>
+                    In your server script, access special spirits and their useful functions
+                    at req.db.*. The "user" parameter is actually an instance of the angel 
+                    req.db.User, in which the player's spirit is already recalled. The 
+                    user.offsetItem() function allows changes to be made to the player's 
+                    inventory in a single line. Be sure the item name is spelled correctly.
+                </p>
+<pre class="code">
+await user.offsetItem("Item Name", 1);
+</pre>
+            </details>
+
+            <details>
+                <summary><h5>Base</h5></summary>
+                <p>
+                    An object called "base" is included automatically in "the-front" and "world"
+                    client renders. Use base.load() to quickly grab the data from the 
+                    specified service. Use .then() to avoid await at top-level.
+                </p>
+
+                <article>
+                    <details>
+                        <summary>class Base {}</summary>
+
+                        <article>
+                            <details>
+                                <summary>Properties</summary>
+                                this.playerInventory = new this.#Inventory();<br>
+                                this.playerAttributes = new this.#PlayerAttributes();<br>
+                                this.playerAccount = new this.#AccountServices();<br>
+                                this.menuClosing = false;<br>
+                            </details>
+
+                            <details>
+                                <summary>static commune = async (route, data = null) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Sends a POST to the spirit world for "/s/user" functions.
+                                    </div>
+                                    <div class="input">
+                                        route (String): The user function you need to run.
+                                    </div>
+                                    <div class="input">
+                                        data (Object): Data sent in the POST body.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the response object returned from the POST.
+                                    </div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>closeMenu = () => {}</summary>
+                                <article>
+                                    <div class="purpose">Closes the player's menu.</div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>openMenu = () => {}</summary>
+                                <article>
+                                    <div class="purpose">Opens the player's menu.</div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>switchTab = function switchTab(id) {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Switches between the menu's various tabs.
+                                    </div>
+                                    <div class="input">
+                                        id: The id of the tab to switch to.
+                                        <ul>
+                                            <li>"inventory"</li>
+                                            <li>"player"</li>
+                                            <li>"account"</li>
+                                            <li>"more"</li>
+                                        </ul>
+                                    </div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>logout = async () => {}</summary>
+                                <article>
+                                    <div class="purpose">Communes with the spirit world to compel the user to logout.</div>
+                                    <div class="output">Returns: response from communion.</div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>attemptRegister = async (email, username, password) => {}</summary>
+                                <article>
+                                    <div class="purpose">Communes to create a new account.</div>
+                                    <div class="input">
+                                        email
+                                    </div>
+                                    <div class="input">
+                                        username
+                                    </div>
+                                    <div class="input">
+                                        password
+                                    </div>
+                                    <div class="output">
+                                        Returns: Response from communion.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>attemptLogin = async (email, password) => {};</summary>
+                                <article>
+                                    <div class="purpose">Communes to login.</div>
+                                    <div class="input">
+                                        email
+                                    </div>
+                                    <div class="input">
+                                        password
+                                    </div>
+                                    <div class="output">
+                                        Returns: Response from communion.
+                                    </div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>resetPassword = async (email, test = false) => {}</summary>
+                                <article>
+                                    <div class="purpose">Communes to reset password.</div>
+                                    <div class="input">
+                                        email
+                                    </div>
+                                    <div class="input">
+                                        test: Whether this password reset is a development test.
+                                    </div>
+                                    <div class="output">
+                                        Returns: Response from communion.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>changePassword = async (token, email, password, confirmation) => {}</summary>
+                                <article>
+                                    <div class="purpose">Communes to change a user's password.</div>
+                                    <div class="input">
+                                        token
+                                    </div>
+                                    <div class="input">
+                                        email
+                                    </div>
+                                    <div class="input">
+                                        password
+                                    </div>
+                                    <div class="input">
+                                        confirmation
+                                    </div>
+                                    <div class="output">Returns: Response from communion.</div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>do = async (what, data = null) => {}</summary>
+                                <article>
+                                    <div class="purpose">Runs a server script.</div>
+                                    <div class="input">
+                                        what (String): the script to run.
+                                    </div>
+                                    <div class="input">
+                                        data: input data passed to the sript that gets run. Can 
+                                        override "route."
+                                    </div>
+                                    <div class="output">Returns: Response from the script that was run.</div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>load = async (service, scope = "local") => {}</summary>
+                                <article>
+                                    <div class="purpose"></div>
+                                    <div class="input">
+                                        service (String): the name of the spirit to load
+                                    </div>
+                                    <div class="input">
+                                        scope (String): "local" or "global". Load the user's personal spirit or
+                                        the spirit shared by all users.
+                                    </div>
+                                    <div class="output">Returns: the data of the spirit that was loaded.</div>
+                                </article>
+                            </details>
+                        </article>
+                    </details>
+
+                    <details>
+                        <summary>#Inventory = class Inventory {}</summary>
+
+                        <article>
+                            <details>
+                                <summary>Properties</summary>
+                                this.items = [];
+                                this.lastUpdate = 0;
+                            </details>
+
+                            <details>
+                                <summary>async refresh() {}</summary>
+                            </details>
+    
+                            <details>
+                                <summary>clearError() {}</summary>
+                            </details>
+    
+                            <details>
+                                <summary>setError(text) {}</summary>
+                            </details>
+                        </article>
+                    </details>
+
+                    <details>
+                        <summary>#PlayerAttributes = class PlayerAttributes {}</summary>
+
+                        <article>
+                            <details>
+                                <summary>Properties</summary>
+                                this.attributes = [];
+                                this.lastUpdate = 0;
+                            </details>
+    
+                            <details>
+                                <summary>async refresh() {}</summary>
+                            </details>
+    
+                            <details>
+                                <summary>render() {}</summary>
+                            </details>
+                        </article>
+                    </details>
+
+                    <details>
+                        <summary>#AccountServices = class AccountServices {}</summary>
+
+                        <article>
+                            <details>
+                                <summary>Properties</summary>
+                                this.username = "";
+                                this.email = "";
+                                this.lastUpdate = 0;
+                            </details>
+
+                            <details>
+                                <summary>async refresh() {}</summary>
+                                
+                            </details>
+
+                            <details>
+                                <summary>editEmail() {}</summary>
+                                
+                            </details>
+
+                            <details>
+                                <summary>cancelEmail() {}</summary>
+                                
+                            </details>
+
+                            <details>
+                                <summary>async updateEmail() {}</summary>
+                                
+                            </details>
+
+                            <details>
+                                <summary>editUsername() {}</summary>
+                                
+                            </details>
+
+                            <details>
+                                <summary>cancelUsername() {}</summary>
+                                
+                            </details>
+
+                            <details>
+                                <summary>async updateUsername() {}</summary>
+                                
+                            </details>
+                        </article>
+                    </details>
+                </article>
+            </details>
+
+            <details>
+                <summary><h5>Spirits</h5></summary> 
+
+                <h6>What are Spirits?</h6>
+                <p>
+                    Technically, a spirit in NotherBase is a document in the database. In practice,
+                    commune (use the notherbase-fs API) with a spirit (a Mongoose model) to receive 
+                    its word (document data) and manifest it (process and render).
+                </p>
+                <p>
+                    Access spirits via "req.db.Spirit", "req.db.User", etc in your spirit world scripts.
+                </p>
+
+                <article>
+                    <details>
+                        <summary>class Spirit {}</summary>
+
+                        <article>
+                            <details>
+                                <summary>Properties</summary>
+<pre>
+this.memory = { data: {} };
+static db = mongoose.model('spirits', new mongoose.Schema({
+    _lastUpdate: Number,
+    service: String,
+    parent: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "spirits",
+        required: false
+    },
+    data: {}
+}));
+</pre>
+                            </details>
+
+                            <details>
+                                <summary>static buildQuery = (service, data = null, parent = null, id = null) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Builds a query object to find a spirit in the database.
+                                    </div>
+                                    <div class="input">
+                                        service (String): The name of the spirit.
+                                    </div>
+                                    <div class="input">
+                                        data (Object): Data to match.
+                                    </div>
+                                    <div class="input">
+                                        parent (ObjectId): The spirit's parent.
+                                    </div>
+                                    <div class="input">
+                                        id (ObjectId): The exact spirit by id.
+                                    </div>
+                                    <div class="output">
+                                        Returns: an object to use as input for Mongoose queries.
+                                    </div>
+                                </article>
+                            </details>
+    
+                            <details>
+                                <summary>static create = async (service, data = {}, parent = null) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Creates a spirit in the database.
+                                    </div>
+                                    <div class="input">
+                                        service (String): The name of the spirit.
+                                    </div>
+                                    <div class="input">
+                                        data (Object): Data to initialize with.
+                                    </div>
+                                    <div class="input">
+                                        parent (ObjectId): The spirit's parent.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the spirit created.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>static recallAll = async (service) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Recalls all spirits of a given service in the database.
+                                    </div>
+                                    <div class="input">
+                                        service (String): The name of the spirit.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the spirits found.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>static recallOne = async (service, parent = null, data = {}, id = null) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Recalls a spirit in the database.
+                                    </div>
+                                    <div class="input">
+                                        service (String): The name of the spirit.
+                                    </div>
+                                    <div class="input">
+                                        data (Object): Data to match.
+                                    </div>
+                                    <div class="input">
+                                        parent (ObjectId): The spirit's parent.
+                                    </div>
+                                    <div class="input">
+                                        id (ObjectId): The exact spirit by id.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the spirit found or a new spirit is created.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>static delete = async (service, data = {}, id = null) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Deletes spirits in the database.
+                                    </div>
+                                    <div class="input">
+                                        service (String): The name of the spirit.
+                                    </div>
+                                    <div class="input">
+                                        data (Object): Data to match.
+                                    </div>
+                                    <div class="input">
+                                        id (ObjectId): The exact spirit by id.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the number of spirits deleted.
+                                    </div>
+                                </article>
+                            </details>
+                        </article>
+                    </details>
+
+                    <details>
+                        <summary>class User extends Spirit {}</summary>
+
+                        <article>
+                            <details>
+                                <summary>Properties</summary>
+                                this.email = email;
+                                this.id = id;
+                            </details>
+    
+                            <details>
+                                <summary>static create = async (username, password, email) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Creates a user spirit in the database.
+                                    </div>
+                                    <div class="input">
+                                        username (String): The username of the user.
+                                    </div>
+                                    <div class="input">
+                                        password (String): The password of the user.
+                                    </div>
+                                    <div class="input">
+                                        email (String): The email of the user.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the user spirit created.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>static recallOne = async (email = null, username = null, id = null) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Recalls a user's spirit.
+                                    </div>
+                                    <div class="input">
+                                        email (String): The email of the user.
+                                    </div>
+                                    <div class="input">
+                                        username (String): The username of the user.
+                                    </div>
+                                    <div class="input">
+                                        id (ObjectId): The exact id of the user's spirit.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the user spirit that was found.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>static delete = async (email) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Deletes a user by email.
+                                    </div>
+                                    <div class="input">
+                                        email (String): The email of the user.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the number of spirits deleted.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>offsetItem = async (name, offset) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Offsets an item in the user's inventory.
+                                    </div>
+                                    <div class="input">
+                                        name (String): The name of the item.
+                                    </div>
+                                    <div class="input">
+                                        offset (Number): The amount to offset by.
+                                    </div>
+                                    <div class="output">
+                                        Returns: true if the offset was successful or false.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>checkAttribute = async (check, against) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Checks if a user's attribute is greater than or equal
+                                        to the given test.
+                                    </div>
+                                    <div class="input">
+                                        check (String): The name of the attribute to check.
+                                    </div>
+                                    <div class="input">
+                                        against (Number): The test.
+                                    </div>
+                                    <div class="output">
+                                        Returns: true if the attribute is greater than or equal
+                                        to the given test.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>setAttribute = async (change, to) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Sets a user's attribute.
+                                    </div>
+                                    <div class="input">
+                                        change (String): The name of the attribute to set.
+                                    </div>
+                                    <div class="input">
+                                        to (Number): The number to set the attribute to.
+                                    </div>
+                                    <div class="output">
+                                        Returns: confirmation.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>incrementAttribute = async (change, max) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Increase a user's attribute by one.
+                                    </div>
+                                    <div class="input">
+                                        change (String): The name of the attribute to increase.
+                                    </div>
+                                    <div class="input">
+                                        max (Number): The increment will only happen if the user's 
+                                        attribute is less than this number.
+                                    </div>
+                                    <div class="output">
+                                        Returns: new attribute value.
+                                    </div>
+                                </article>
+                            </details>
+                        </article>
+                    </details>
+
+                    <details>
+                        <summary>class Item extends Spirit {}</summary>
+
+                        <article>
+                            <details>
+                                <summary>Properties</summary>
+                                this.name = name;
+                            </details>
+    
+                            <details>
+                                <summary>static create = async (name, short, long) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Creates an item spirit in the database.
+                                    </div>
+                                    <div class="input">
+                                        name (String): The name of the item.
+                                    </div>
+                                    <div class="input">
+                                        short (String): The short description.
+                                    </div>
+                                    <div class="input">
+                                        long (String): The long description.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the item spirit created.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>static recallAll = async () => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Recalls all items.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the item spirits found.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>static recallOne = async (name) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Recalls an item spirit in the database.
+                                    </div>
+                                    <div class="input">
+                                        name (String): The name of the item.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the item spirit found.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>static delete = async (name) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Deletes an item spirit in the database.
+                                    </div>
+                                    <div class="input">
+                                        name (String): The name of the item.
+                                    </div>
+                                    <div class="output">
+                                        Returns: the number of spirits deleted.
+                                    </div>
+                                </article>
+                            </details>
+                        </article>
+                    </details>
+
+                    <details>
+                        <summary>class SendMail {}</summary>
+
+                        <article>    
+                            <details>
+                                <summary>const passwordReset = async (toEmail, resetToken) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Sends an email with a password reset code. WIP haha
+                                    </div>
+                                    <div class="input">
+                                        toEmail (String): The email of the user.
+                                    </div>
+                                    <div class="input">
+                                        resetToken (Number): The token that will be sent.
+                                    </div>
+                                    <div class="output">
+                                        Returns: hmm.
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
+                                <summary>const send = async (toEmail, subject, html) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Sends an email. WIP haha
+                                    </div>
+                                    <div class="input">
+                                        toEmail (String): The email address of the user.
+                                    </div>
+                                    <div class="input">
+                                        subject (String): The subject of the email.
+                                    </div>
+                                    <div class="input">
+                                        html (String): The html of the user.
+                                    </div>
+                                    <div class="output">
+                                        Returns: hmmm.
+                                    </div>
+                                </article>
+                            </details>
+                        </article>
+                    </details>
+                </article>
+            </details>
+
+            <details>
+                <summary><h5>Chat Boxes</h5></summary>
+
+                <p>
+                    Easily add a chat box:
+                </p>
+
+<pre class="code">
+&lt;div class="chat-box" id="element-id"&gt;&lt;/div&gt;
+&lt;script src="/js/chat-box.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    let chat = new ChatBox("&lt;%= user.username %&gt;", "element-id");
+&lt;/script&gt;
+</pre>
+
+                <p>
+                    The first input is the chatter's name, shown here using ejs to automatically
+                    render the user's username. The second input must match the id of the element
+                    with a class of "chat-box", like above.
+                </p>
+            </details>
+        </details>
+
+
+        <details open>
+            <summary><h3>notherbase</h3></summary>
+
+            <details>
+                <summary><h5>Spirit of NotherBase</h5></summary>
+                <p>This will detail the direction of design for NotherBase.</p>
+                <h6>Goals</h6>
+                <p>Here will be the goals of NotherBase.</p>
+                <h6>Major Products</h6>
+                <p>Here will be the major products of NotherBase.</p>
+                <h6>Aesthetic</h6>
+                <p>Here will be the aesthetic goals of NotherBase.</p>
+            </details>
+
+            <details>
+                <summary><h5>Spirits in NotherBase</h5></summary>
+                <p>
+                    This will detail the direction of design for the various spirits 
+                    in NotherBase.
+                </p>
+
+                <h6>Streams</h6>
+                <p>Here will be the direction for stream spirits.</p>
+            </details>
+        </details>
+    </main>
+
+    <footer></footer>
+</body>
+</html>
