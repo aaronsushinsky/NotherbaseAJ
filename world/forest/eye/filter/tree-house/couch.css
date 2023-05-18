@@ -1,0 +1,82 @@
+.couch {
+    width: 400px;
+    height: 200px;
+    position: relative;
+}
+
+@keyframes colorRange {
+    from {
+        background-color: rgb(172, 47, 47);
+    }
+    25% {
+        background-color: rgb(177, 175, 58);
+    }
+    50% {
+        background-color: rgb(49, 139, 56);
+    }
+    75% {
+        background-color: rgb(35, 104, 161);
+    }
+    to {
+        background-color: rgb(125, 26, 145)(0, 132, 255);
+    }
+}
+
+.couch-part{ 
+    position: absolute;
+    background-color: var(--couchColor);
+    border-radius: 5px;
+    border: 1px solid var(--couchSeamColor);
+    box-shadow: 2px 2px 2px var(--shadow);
+    animation-duration: 7s;
+    animation-name: colorRange;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.arm-rest {
+    width: 15%;
+    height: 50%;
+    left: 0;
+    bottom: 0;
+}
+
+.arm-rest:nth-of-type(even) {
+    left: 85%;
+}
+
+.base {
+    border-radius: 0px 0px 5px 5px;
+    width: 35%;
+    height: 20%;
+    left: 15%;
+    bottom: 0;
+}
+
+.base:nth-of-type(even) {
+    left: 50%;
+}
+
+.pillow {
+    border-radius: 0;
+    width: 35%;
+    height: 15%;
+    left: 15%;
+    bottom: 20%;
+}
+
+.pillow:nth-of-type(even) {
+    left: 50%;
+}
+
+.back-rest {
+    border-radius: 5px 5px 0px 0px;
+    width: 45%;
+    height: 50%;
+    left: 5%;
+    bottom: 35%;
+}
+
+.back-rest:nth-of-type(even) {
+    left: 50%;
+}
