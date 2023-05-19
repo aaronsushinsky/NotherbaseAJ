@@ -10,6 +10,7 @@
     backdrop-filter: blur(3px);
     border-radius: 5px;
     z-index: 500;
+    padding: 0;
 }
 
 .menu hr {
@@ -48,6 +49,7 @@
     height: 64px;
     border-radius: 5px;
     z-index: 100;
+    padding: var(--padding);
 }
 
 .menu button#close {
@@ -55,7 +57,7 @@
     right: 0;
     width: 32px;
     height: 30px;
-    position: absolute;
+    position: fixed;
     border-radius: 0;
     padding: 0 3px;
 }
@@ -65,6 +67,9 @@
     height: 30px;
     border: 1px solid var(--textColor);
     border-top: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
 }
 
 .menu .tabs button {
@@ -78,9 +83,20 @@
 }
 
 .menu #content-window {
-    width: 100%;
-    height: calc(100% - 30px);
+    width: var(--fillFromMargin);
+    height: calc(100% - 30px - 4 * var(--margin));
     border: 1px solid var(--textColor);
+    overflow: auto;
+    padding: 0;
+}
+
+.menu .content {
+    border: none;
+    color: var(--textColor);
+    width: var(--fillFromMargin);
+    height: var(--fillFromMargin);
+    padding: 0;
+    z-index: 500;
     overflow: auto;
 }
 
@@ -92,8 +108,8 @@
 .menu #logout {
     position: absolute;
     width: 50%;
-    height: 40px;
-    bottom: -40px;
+    height: 60px;
+    bottom: -60px;
     left: calc(25%);
     background-color: var(--bgColor);
     border: var(--standardBorder);

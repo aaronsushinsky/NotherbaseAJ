@@ -24,11 +24,12 @@
 
 <script src="/js/dialogue.js"></script>
 <script>
-    let bartenderDialogue = new Dialogue("bartender", 5000, (self) => {
+    let bartenderTree = (self) => {
         return [
             Dialogue.createTextSlide(1, "Howdy."),
             Dialogue.createTextSlide(2, "Hope you didn't come in here for a drink. Out of stock currently."),
             Dialogue.createTextSlide(4, "That being said, dishes still need to be cleaned. Head in the back if you're looking for work.")
         ];
-    });
+    };
+    let bartenderDialogue = new Dialogue("bartender", 5000, bartenderTree);
 </script>

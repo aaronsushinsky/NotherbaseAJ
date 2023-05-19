@@ -16,23 +16,9 @@
         A mailbox with the name "Sushinsky" on it.
     </div>
 
-    <div class="dialogue" id="berry">
-        <div class="frame">
-            <img src="/img/npcs/berry.png" class="portrait">
-        </div>
-        <div class="heart"></div>
-        <div class="content">
-        </div>
-    </div>
+    <div class="dialogue" id="berry"></div>
     
-    <div class="dialogue" id="zerry">
-        <div class="frame">
-            <img src="/img/npcs/zerry.png" class="portrait">
-        </div>
-        <div class="heart"></div>
-        <div class="content">
-        </div>
-    </div>
+    <div class="dialogue" id="zerry"></div>
 </div>
 
 <div class="house">
@@ -207,7 +193,7 @@
 <script src="/js/billboard.js"></script>
 <script>
     //npc dialogues
-    let berryDialogue = new Dialogue("berry", 3900, (self) => {
+    let berryTree = (self) => {
         if (Dialogue.checkGlobalFlag("longTalkWithBerry")) {
             return [
                 Dialogue.createTextSlide(1, `That was my answer too! But nooo....`)
@@ -253,9 +239,10 @@
                 ])
             ];
         }
-    });
+    };
+    let berryDialogue = new Dialogue("berry", 3900, berryTree, "/img/npcs/berry.png");
 
-    let zerryDialogue = new Dialogue("zerry", 4000, (self) => {
+    let zerryTree = (self) => {
         if (self.checkFlag("responded")) {
             return [
                 Dialogue.createTextSlide(1, "Nice to meet you!"),
@@ -280,7 +267,8 @@
                 ])
             ];
         }
-    });
+    };
+    let zerryDialogue = new Dialogue("zerry", 4000, zerryTree, "/img/npcs/zerry.png");
 
     //livingroom
     const openCloset = function openCloset() {

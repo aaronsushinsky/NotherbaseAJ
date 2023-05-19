@@ -25,6 +25,7 @@
     --standardBorder: 1px solid var(--textColor);
     --thickBorder: 5px solid var(--textColor);
     --brightBorder: 1px solid var(--textColorBright);
+    --darkBorder: 2px solid var(--veryDarkBgColorTransparent);
     /* font */
     --h1Size: 100px;
     --h2Size: 60px;
@@ -34,6 +35,7 @@
     --h6Size: 20px;
     --pSize: 20px;
     --tinyText: 17px;
+    --inputHeight: 50px;
     /* boxes */
     --padding: 5px;
     --thickPadding: 20px;
@@ -70,12 +72,13 @@
 
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    margin: var(--margin);
+    padding: var(--padding);
     color: var(--textColor);
     font-size: var(--pSize);
     font-family: 'Roboto', sans-serif;
     font-weight: lighter;
+    border-radius: var(--borderRadius);
 }
 
 .invisible {
@@ -138,12 +141,16 @@ footer a {
 }
 
 section {
-    width: 100%;
+    width: var(--fillFromMargin);
+    background: var(--darkBgColor);
+    border: var(--darkBorder);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .code {
-    width: 80%;
-    margin: 10px 10%;
+    width: var(--fillFromMargin);
     padding: 20px;
     background: rgb(18, 18, 18);
     border-radius: 2px;
@@ -158,8 +165,6 @@ h1, h2, h3, h4, h5, h6 {
     width: var(--fillFromMargin);
     text-align: center;
     text-shadow: 1px 1px var(--shadowColor);
-    padding: var(--padding);
-    margin: var(--margin);
 }
 
 h1 {
@@ -239,7 +244,7 @@ input {
     background-color: var(--bgColor);
     border-radius: 0;
     border: var(--standardBorder);
-    height: 50px;
+    height: var(--inputHeight);
     margin: var(--margin);
 }
 
@@ -267,7 +272,7 @@ input[type=checkbox] {
 }
 
 .sign {
-    width: 250px;
+    width: 85%;
     height: 400px;
     padding: var(--padding);
     border-radius: var(--borderRadius);
@@ -360,9 +365,8 @@ input[type=checkbox] {
 .search {
     width: var(--fillFromMargin);
     border: var(--standardBorder);
-    min-height: 300px;
+    height: 300px;
     background: rgb(25, 25, 25);
-    margin: var(--margin);
 }
 
 .search input {
@@ -373,16 +377,17 @@ input[type=checkbox] {
     border-bottom: var(--standardBorder);
 }
 
-.search ul {
-    border: 1px dotted var(--textColor);
-    height: calc(100% - 70px);
-    margin: var(--margin);
-    width: var(--fillFromMargin);
+.search section {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: calc(100% - var(--inputHeight));
+    overflow: auto;
 }
 
-ul.selector {
-    height: 250px;
-    overflow: auto;
+.search ul {
+    border: 1px dotted var(--textColor);
+    width: var(--fillFromMargin);
 }
 
 ul.selector li:hover {
@@ -445,9 +450,6 @@ iframe {
 .login-cover a {
     padding: var(--padding);
     margin: 40px;
-}
-
-.login-cover a h1 {
     border: none;
 }
 
@@ -552,7 +554,7 @@ iframe {
 .basic {
     border: var(--standardBorder);
     background: var(--darkBgColor);
-    width: 200px;
+    width: 90%;
     height: 200px;
     display: flex;
     align-items: center;
@@ -624,17 +626,5 @@ iframe {
         --fillQuarterFromThickMargin: calc(25% - (2 * var(--thickMargin)));
         --boxShadow: 5px 5px 5px 5px var(--shadowColor);
         --borderRadius: 3px;
-    }
-
-    .do, .door {
-        width: var(--fillHalfFromMargin);
-    }
-
-    .go, .to {
-        width: var(--fillFromMargin);
-    }
-
-    .merchant div {
-        width: var(--fillHalfFromMargin);
     }
 }
