@@ -3,6 +3,7 @@ class Foldable {
         this.$content = $content;
         this.folded = folded;
         this.folded ? this.fold() : this.unfold();
+        this.$button = null;
     }
 
     fold() {
@@ -15,8 +16,12 @@ class Foldable {
         this.$content.removeClass("invisible");
     }
 
-    toggle() {
+    toggle(button = null) {
         this.folded = !this.folded;
         this.folded ? this.fold() : this.unfold();
+        if (button) {
+            this.$button = $(button);
+            this.folded ? this.$button.text("V") : this.$button.text("^");
+        }
     }
 }

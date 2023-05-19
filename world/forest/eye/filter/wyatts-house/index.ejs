@@ -4,130 +4,132 @@
     <%- include("./wallet.css"); %>
 </style>
 
-<div class="floor porch">
-    <h4>The Porch</h4>
+<article>
+    <section class="upstairs">
+        <h4>Upstairs</h4>
+        <button class="folder" onclick="upstairs.toggle(this)">V</button>
 
-    <p>
-        On the porch sit two odd-looking cats who watch the steps
-        you take as you walk by.
-    </p>
+        <article>
+            <div class="billboard" id="today">
+                <h5>To Do Today</h5>
+            </div>
+            
+            <div class="billboard" id="week">
+                <h5>To Do This Week</h5>
+            </div>
+            
+            <div class="billboard" id="month">
+                <h5>To Do This Month</h5>
+            </div>
+            
+            <div class="billboard" id="year">
+                <h5>To Do This Year</h5>
+            </div>
+            
+            <div class="wallet conchu invisible">
+                <h4>Your Wallet</h4>
+                <div class="summary">
+                    <div class="spending">
+                        <h5>Spending Money Left</h5>
+                        <h6 id="week">This Week: $0</h6>
+                        <h6 id="month">This Month: $0</h6>
+                        <input type="text" id="item"><input type="number" id="spend"><button onclick="">Spend</button>
+                    </div>
+                    <div class="flow">
+                        <h5>Cash Flow Last Month</h5>
+                        <h6 id="income">Made: $0</h6>
+                        <h6 id="expenses">Spent: $0</h6>
+                        <h6 id="saved">Saved: $0</h6>
+                    </div>
+                </div>
+                <div class="settings invisible">
+                </div>
+                <button onclick="wallet.toggleView()">$$</button>
+            </div>
+        </article>
+    </section>
 
+    <section class="laylas-room">
+        <h4>Layla's Room</h4>
+        <button class="folder" onclick="laylasRoom.toggle(this)">V</button>
+
+        <article>
+            <div class="billboard" id="layla-skills">
+                <h5>My Skills</h5>
+            </div>
+    
+            <div class="basic">
+                A flat-screen television.
+            </div>
+        
+            <article>
+                <h3>Toy Box</h3>
+                <button class="folder" onclick="toyBox.toggle()">O</button>
+                <hr>
+                <div class="toy-box">
+                    <div class="toy">
+                        <img class="cat-idle" src="/img/misc/cat.png">
+                        <div class="pocket"></div>
+                    </div>
+                
+                    <div class="toy background-changer">
+                        <img src="/img/the-front/logo.png">
+                    </div>
+                
+                    <div class="toy">
+                        <img class="rotato" src="/img/the-front/logo.png">
+                    </div>
+                
+                    <div class="toy beautiful-button">
+                        <div class="beautiful-background"></div>
+                        <img class="beautiful-border" src="/img/the-front/logo-border.png">
+                        <img class="beautiful-icon" src="/img/the-front/logo.png">
+                    </div>
+                </div>
+            </article>
+        </article>
+
+    </section>
+
+    <section class="livingroom">
+        <h4>Livingroom</h4>
+        <button class="folder" onclick="livingroom.toggle(this)">V</button>
+
+        <article>
+            <div class="closet">
+                <div class="door">
+                    <div class="knob" onclick="openCloset()"></div>
+                </div>
+            </div>
+    
+            <div class="bookshelf">
+                <div class="shelf">
+            
+                </div>
+                <hr>
+                <div class="shelf">
+                    
+                </div>
+                <hr>
+                <div class="shelf">
+                    
+                </div>
+            </div>
+    
+            <img class="painting" src="/img/misc/stake.png">
+    
+            <div class="basic end-table">
+                A small table.
+            </div>
+        </article>
+    </section>
+</article>
+
+<section class="porch">
     <div class="basic">
         A mailbox with the name "Sushinsky" on it.
     </div>
-</div>
-
-<div class="house">
-    <div class="floor livingroom">
-        <h4>Livingroom</h4>
-
-        <div class="closet">
-            <div class="door">
-                <div class="knob" onclick="openCloset()"></div>
-            </div>
-        </div>
-
-        <div class="bookshelf">
-            <div class="shelf">
-        
-            </div>
-            <hr>
-            <div class="shelf">
-                
-            </div>
-            <hr>
-            <div class="shelf">
-                
-            </div>
-        </div>
-
-        <img class="painting" src="/img/misc/stake.png">
-
-        <div class="basic end-table">
-            A small table.
-        </div>
-    </div>
-    
-    <div class="floor laylas-room">
-        <h4>Layla's Room</h4>
-
-        <div class="billboard" id="layla-skills">
-            <h5>My Skills</h5>
-        </div>
-
-        <div class="basic">
-            A flat-screen television.
-        </div>
-    
-        <article>
-            <h3>Toy Box</h3>
-            <button onclick="toyBox.toggle()">O</button>
-            <hr>
-            <div class="toy-box">
-                <div class="toy">
-                    <img class="cat-idle" src="/img/misc/cat.png">
-                    <div class="pocket"></div>
-                </div>
-            
-                <div class="toy background-changer">
-                    <img src="/img/the-front/logo.png">
-                </div>
-            
-                <div class="toy">
-                    <img class="rotato" src="/img/the-front/logo.png">
-                </div>
-            
-                <div class="toy beautiful-button">
-                    <div class="beautiful-background"></div>
-                    <img class="beautiful-border" src="/img/the-front/logo-border.png">
-                    <img class="beautiful-icon" src="/img/the-front/logo.png">
-                </div>
-            </div>
-        </article>
-    </div>
-    
-    <div class="floor upstairs">
-        <h4>Upstairs</h4>
-
-        <div class="billboard" id="today">
-            <h5>To Do Today</h5>
-        </div>
-        
-        <div class="billboard" id="week">
-            <h5>To Do This Week</h5>
-        </div>
-        
-        <div class="billboard" id="month">
-            <h5>To Do This Month</h5>
-        </div>
-        
-        <div class="billboard" id="year">
-            <h5>To Do This Year</h5>
-        </div>
-        
-        <div class="wallet conchu invisible">
-            <h4>Your Wallet</h4>
-            <div class="summary">
-                <div class="spending">
-                    <h5>Spending Money Left</h5>
-                    <h6 id="week">This Week: $0</h6>
-                    <h6 id="month">This Month: $0</h6>
-                    <input type="text" id="item"><input type="number" id="spend"><button onclick="">Spend</button>
-                </div>
-                <div class="flow">
-                    <h5>Cash Flow Last Month</h5>
-                    <h6 id="income">Made: $0</h6>
-                    <h6 id="expenses">Spent: $0</h6>
-                    <h6 id="saved">Saved: $0</h6>
-                </div>
-            </div>
-            <div class="settings invisible">
-            </div>
-            <button onclick="wallet.toggleView()">$$</button>
-        </div>
-    </div>
-</div>
-
+</section>
 
 <div class="yard">
     <div class="sky">
@@ -188,10 +190,14 @@
 <script src="/js/billboard.js"></script>
 <script src="/js/util/foldable.js"></script>
 <script>
+    //porch
+
     //livingroom
     const openCloset = function openCloset() {
         $(".closet .door").addClass("invisible");
-    }
+    };
+
+    let livingroom = new Foldable($(".livingroom>article"));
 
     //backyard harvest game
     class HarvestGame {
@@ -364,6 +370,7 @@
     });
 
     let toyBox = new Foldable($(".toy-box"));
+    let laylasRoom = new Foldable($(".laylas-room>article"));
 
     $(".pocket").on("click", function() {
         $(".pocket").toggleClass("pocket-down");
@@ -401,6 +408,8 @@
     base.load("todo-year").then((res) => {
         year = new Billboard("year", res.items, { onSave: "save-todo" });
     });
+
+    let upstairs = new Foldable($(".upstairs>article"));
 
     <%- include("./wallet.js") %>
 </script>

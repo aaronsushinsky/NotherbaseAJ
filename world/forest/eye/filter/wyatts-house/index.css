@@ -23,10 +23,6 @@
     background: var(--woodColor);
 }
 
-.house {
-    width: 100%;
-}
-
 .livingroom {
     background: var(--yellowPastel);
 }
@@ -99,7 +95,6 @@
 }
 
 .billboard {
-    width: 400px;
     min-height: 100px;
     border: 5px solid var(--woodColor);
     background-color: var(--darkWoodColor);
@@ -237,18 +232,10 @@
     border-radius: 50%;
 }
 
-
 .red-bg {
     background-color: rgb(160, 76, 76);
 }
 
 .beautiful-background:hover {
     background-color: rgb(144, 42, 165);
-}
-
-
-@media only screen and (max-width: 800px) {
-    .billboard {
-        width: var(--fillFromMargin);
-    }
 }
