@@ -32,8 +32,8 @@
 }
 
 .closet {
-    width: 300px;
-    height: 600px;
+    width: calc(25vh * 36 / 80);
+    height: 25vh;
     overflow: auto;
     position: relative;
     background: var(--veryDarkBgColor);;
@@ -46,6 +46,7 @@
     left: 0;
     top: 0;
     background-color: var(--woodColor);
+    margin: 0;
 }
 
 .closet .door .knob {
@@ -61,7 +62,7 @@
 }
 
 .laylas-room article {
-    min-width: 45%;
+    width: 100%;
     border: 2px dotted var(--textColor);
     border-radius: 5px;
     box-shadow: 5px 5px 5px 5px var(--shadow);
@@ -75,8 +76,8 @@
 }
 
 .bookshelf {
-    width: 300px;
-    height: 500px;
+    width: 10vh;
+    height: 15vh;
     border: 5px solid var(--darkWoodColor);
     background-color: var(--woodColor);
 }

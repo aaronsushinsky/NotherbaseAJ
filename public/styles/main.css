@@ -72,10 +72,10 @@
 
 * {
     box-sizing: border-box;
-    margin: var(--margin);
-    padding: var(--padding);
     color: var(--textColor);
     font-size: var(--pSize);
+    margin: 0;
+    padding: 0;
     font-family: 'Roboto', sans-serif;
     font-weight: lighter;
     border-radius: var(--borderRadius);
@@ -408,8 +408,8 @@ ul.selector p {
 .painting {
     border: 3px solid var(--darkWoodColor);
     background: var(--hoverColor);
-    width: 200px;
-    height: 200px;
+    width: 5vh;
+    height: 5vh;
     object-fit: cover;
     align-self: flex-start;
 }
@@ -426,10 +426,10 @@ ul.selector p {
     padding-top: 30px;
 }
 
-.knob {
+.door>.knob {
     position: absolute;
-    width: 32px;
-    height: 32px;
+    width: 2vh;
+    height: 2vh;
     border-radius: 50%;
     right: 15%;
     top: 50%;
@@ -554,8 +554,8 @@ iframe {
 .basic {
     border: var(--standardBorder);
     background: var(--darkBgColor);
-    width: 90%;
-    height: 200px;
+    width: 25vh;
+    height: 25vh;
     display: flex;
     align-items: center;
     justify-content: center;
