@@ -1,0 +1,51 @@
+:root {
+    --cabinColor: rgb(109, 71, 41);
+    --cabinColorLight: rgb(161, 122, 92);
+    --cabinColorDark: rgb(90, 60, 36);
+    --cabinColorVeryDark: rgb(37, 26, 17);
+    --outsideColor: rgb(62, 62, 83);
+    --couchColor: rgb(128, 52, 2);
+    --couchSeamColor: rgb(17, 27, 37);
+    --shadow: black;
+    --tableColor: rgb(136, 103, 60);
+    --dominoShadow: rgba(0, 0, 0, 0.226);
+    --dominoSelection: rgb(212, 36, 154);
+    --dominoOption: rgb(31, 155, 31);
+    --dominoColor: rgb(224, 224, 224);
+    --dominoHighlightedColor: rgb(255, 253, 130);
+    --dominoHeldColor: rgb(130, 255, 249);
+}
+
+body {
+    background-color: var(--cabinColorVeryDark);
+}
+
+main {
+    background-color: var(--cabinColorDark);
+}
+
+.column {
+    width: 30%;
+    padding: 5px;
+    height: 500px;
+    margin-bottom: 40px;
+}
+
+a {
+    background-color: var(--outsideColor);
+}
+
+#exit {
+    width: 25%;
+    height: 100px;
+}
+
+#play {
+    margin: 5px;
+    width: 100%;
+    height: 50px;
+}
+
+.chat-box {
+    height: 400px;
+}
