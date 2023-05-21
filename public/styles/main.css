@@ -26,6 +26,7 @@
     --thickBorder: 5px solid var(--textColor);
     --brightBorder: 1px solid var(--textColorBright);
     --darkBorder: 2px solid var(--veryDarkBgColorTransparent);
+    --borderRadius: 5px;
     /* font */
     --h1Size: 100px;
     --h2Size: 60px;
@@ -51,7 +52,8 @@
     --fillQuarterFromMargin: calc(25% - (2 * var(--margin)));
     --fillQuarterFromThickMargin: calc(25% - (2 * var(--thickMargin)));
     --boxShadow: 5px 5px 5px 5px var(--shadowColor);
-    --borderRadius: 5px;
+    --goHeight: 150px;
+    --returnHeight: 75px;
 }
 
 ::-webkit-scrollbar {
@@ -159,6 +161,7 @@ section {
 article {
     width: 100%;
     position: relative;
+    border: var(--standardBorder);
 }
 
 .code {
@@ -336,7 +339,7 @@ input[type=checkbox] {
 
 .go {
     width: var(--fillHalfFromMargin);
-    height: 200px;
+    height: var(--goHeight);
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -346,7 +349,7 @@ input[type=checkbox] {
 
 .to {
     width: var(--fillFromMargin);
-    height: 200px;
+    height: var(--goHeight);
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -356,7 +359,7 @@ input[type=checkbox] {
 
 .return {
     width: var(--fillFromMargin);
-    height: 75px;
+    height: var(--returnHeight);
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -366,7 +369,7 @@ input[type=checkbox] {
 
 .do {
     width: var(--fillThirdFromMargin);
-    height: 100px;
+    height: var(--goHeight);
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -589,9 +592,10 @@ iframe {
 
 .folder {
     position: absolute;
-    right: 2px;
+    right: 0;
     top: 0;
-    padding: 1px;
+    padding: 5px 10px;
+    margin: 0;
 }
 
 @media only screen and (max-width: 1300px) {
@@ -610,6 +614,7 @@ iframe {
         --standardBorder: 1px solid var(--textColor);
         --thickBorder: 3px solid var(--textColor);
         --brightBorder: 1px solid var(--textColorBright);
+        --borderRadius: 3px;
         /* font */
         --h1Size: 35px;
         --h2Size: 32px;
@@ -633,6 +638,7 @@ iframe {
         --fillQuarterFromMargin: calc(25% - (2 * var(--margin)));
         --fillQuarterFromThickMargin: calc(25% - (2 * var(--thickMargin)));
         --boxShadow: 5px 5px 5px 5px var(--shadowColor);
-        --borderRadius: 3px;
+        --goHeight: 120px;
+        --returnHeight: 60px;
     }
 }

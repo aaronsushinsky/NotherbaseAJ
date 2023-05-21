@@ -21,7 +21,7 @@ class Foldable {
         this.folded ? this.fold() : this.unfold();
         if (button) {
             this.$button = $(button);
-            this.folded ? this.$button.text("V") : this.$button.text("^");
+            this.folded ? this.$button.text("v") : this.$button.text("^");
         }
     }
 }

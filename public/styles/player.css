@@ -10,10 +10,10 @@
     width: 100%;
     text-transform: capitalize;
     border: 1px solid var(--textColor);
-    padding: 10px 30px;
+    padding: 5px 30px;
     height: 100px;
     position: relative;
-    font-size: 35px;
+    font-size: 25px;
     display: flex;
     align-items: center;
 }

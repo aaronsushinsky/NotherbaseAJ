@@ -7,7 +7,7 @@
 <article>
     <section class="upstairs">
         <h4>Upstairs</h4>
-        <button class="folder" onclick="upstairs.toggle(this)">V</button>
+        <button class="folder" onclick="upstairs.toggle(this)">v</button>
 
         <article>
             <div class="billboard" id="today">
@@ -51,7 +51,7 @@
 
     <section class="laylas-room">
         <h4>Layla's Room</h4>
-        <button class="folder" onclick="laylasRoom.toggle(this)">V</button>
+        <button class="folder" onclick="laylasRoom.toggle(this)">v</button>
 
         <article>
             <div class="billboard" id="layla-skills">
@@ -62,11 +62,11 @@
                 A flat-screen television.
             </div>
         
-            <article>
+            <article class="toy-box">
                 <h3>Toy Box</h3>
                 <button class="folder" onclick="toyBox.toggle()">O</button>
                 <hr>
-                <div class="toy-box">
+                <article>
                     <div class="toy">
                         <img class="cat-idle" src="/img/misc/cat.png">
                         <div class="pocket"></div>
@@ -85,7 +85,7 @@
                         <img class="beautiful-border" src="/img/the-front/logo-border.png">
                         <img class="beautiful-icon" src="/img/the-front/logo.png">
                     </div>
-                </div>
+                </article>
             </article>
         </article>
 
@@ -93,7 +93,7 @@
 
     <section class="livingroom">
         <h4>Livingroom</h4>
-        <button class="folder" onclick="livingroom.toggle(this)">V</button>
+        <button class="folder" onclick="livingroom.toggle(this)">v</button>
 
         <article>
             <div class="closet">
@@ -126,7 +126,7 @@
 </article>
 
 <section class="porch">
-    <div class="basic">
+    <div class="basic mailbox">
         A mailbox with the name "Sushinsky" on it.
     </div>
 </section>
@@ -369,7 +369,7 @@
         lSkills = new Billboard("layla-skills", res.items, { onSave: "save-layla" });
     });
 
-    let toyBox = new Foldable($(".toy-box"));
+    let toyBox = new Foldable($(".toy-box article"));
     let laylasRoom = new Foldable($(".laylas-room>article"));
 
     $(".pocket").on("click", function() {
