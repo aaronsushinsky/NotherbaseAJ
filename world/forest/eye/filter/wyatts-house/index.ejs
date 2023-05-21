@@ -4,149 +4,132 @@
     <%- include("./wallet.css"); %>
 </style>
 
-<div class="floor porch">
-    <h4>The Porch</h4>
+<article>
+    <section class="upstairs">
+        <h4>Upstairs</h4>
+        <button class="folder" onclick="upstairs.toggle(this)">V</button>
 
-    <p>
-        On the porch sit two odd-looking cats who watch the steps
-        you take as you walk by.
-    </p>
+        <article>
+            <div class="billboard" id="today">
+                <h5>To Do Today</h5>
+            </div>
+            
+            <div class="billboard" id="week">
+                <h5>To Do This Week</h5>
+            </div>
+            
+            <div class="billboard" id="month">
+                <h5>To Do This Month</h5>
+            </div>
+            
+            <div class="billboard" id="year">
+                <h5>To Do This Year</h5>
+            </div>
+            
+            <div class="wallet conchu invisible">
+                <h4>Your Wallet</h4>
+                <div class="summary">
+                    <div class="spending">
+                        <h5>Spending Money Left</h5>
+                        <h6 id="week">This Week: $0</h6>
+                        <h6 id="month">This Month: $0</h6>
+                        <input type="text" id="item"><input type="number" id="spend"><button onclick="">Spend</button>
+                    </div>
+                    <div class="flow">
+                        <h5>Cash Flow Last Month</h5>
+                        <h6 id="income">Made: $0</h6>
+                        <h6 id="expenses">Spent: $0</h6>
+                        <h6 id="saved">Saved: $0</h6>
+                    </div>
+                </div>
+                <div class="settings invisible">
+                </div>
+                <button onclick="wallet.toggleView()">$$</button>
+            </div>
+        </article>
+    </section>
 
+    <section class="laylas-room">
+        <h4>Layla's Room</h4>
+        <button class="folder" onclick="laylasRoom.toggle(this)">V</button>
+
+        <article>
+            <div class="billboard" id="layla-skills">
+                <h5>My Skills</h5>
+            </div>
+    
+            <div class="basic">
+                A flat-screen television.
+            </div>
+        
+            <article>
+                <h3>Toy Box</h3>
+                <button class="folder" onclick="toyBox.toggle()">O</button>
+                <hr>
+                <div class="toy-box">
+                    <div class="toy">
+                        <img class="cat-idle" src="/img/misc/cat.png">
+                        <div class="pocket"></div>
+                    </div>
+                
+                    <div class="toy background-changer">
+                        <img src="/img/the-front/logo.png">
+                    </div>
+                
+                    <div class="toy">
+                        <img class="rotato" src="/img/the-front/logo.png">
+                    </div>
+                
+                    <div class="toy beautiful-button">
+                        <div class="beautiful-background"></div>
+                        <img class="beautiful-border" src="/img/the-front/logo-border.png">
+                        <img class="beautiful-icon" src="/img/the-front/logo.png">
+                    </div>
+                </div>
+            </article>
+        </article>
+
+    </section>
+
+    <section class="livingroom">
+        <h4>Livingroom</h4>
+        <button class="folder" onclick="livingroom.toggle(this)">V</button>
+
+        <article>
+            <div class="closet">
+                <div class="door">
+                    <div class="knob" onclick="openCloset()"></div>
+                </div>
+            </div>
+    
+            <div class="bookshelf">
+                <div class="shelf">
+            
+                </div>
+                <hr>
+                <div class="shelf">
+                    
+                </div>
+                <hr>
+                <div class="shelf">
+                    
+                </div>
+            </div>
+    
+            <img class="painting" src="/img/misc/stake.png">
+    
+            <div class="basic end-table">
+                A small table.
+            </div>
+        </article>
+    </section>
+</article>
+
+<section class="porch">
     <div class="basic">
         A mailbox with the name "Sushinsky" on it.
     </div>
-
-    <div class="dialogue" id="berry">
-        <div class="frame">
-            <img src="/img/npcs/berry.png" class="portrait">
-        </div>
-        <div class="heart"></div>
-        <div class="content">
-        </div>
-    </div>
-    
-    <div class="dialogue" id="zerry">
-        <div class="frame">
-            <img src="/img/npcs/zerry.png" class="portrait">
-        </div>
-        <div class="heart"></div>
-        <div class="content">
-        </div>
-    </div>
-</div>
-
-<div class="house">
-    <div class="floor livingroom">
-        <h4>Livingroom</h4>
-
-        <div class="closet">
-            <h6>H1 Tavern Lobby</h6>
-        
-            <div class="search">
-                <h4>Search h4</h4>
-                <input type="text" placeholder="search">
-                <h5>Selector List h5</h5>
-                <ul class="selector">
-                    <li id="0" onclick="selectItem(this)">A basic li</li>
-                    <li id="1" onclick="selectItem(this)">A basic li</li>
-                    <li id="2" onclick="selectItem(this)">A basic li</li>
-                    <li id="3" onclick="selectItem(this)">A basic li</li>
-                    <li id="4" onclick="selectItem(this)">A basic li</li>
-                    <li id="5" onclick="selectItem(this)">A basic li</li>
-                    <li id="6" onclick="selectItem(this)">A basic li</li>
-                    <li id="7" onclick="selectItem(this)">A basic li</li>
-                    <li id="8" onclick="selectItem(this)">A basic li</li>
-                    <li id="9" onclick="selectItem(this)">A basic li</li>
-                    <li id="10" onclick="selectItem(this)">A basic li</li>
-                    <li id="11" onclick="selectItem(this)">A basic li</li>
-                </ul>
-            </div>
-
-            <div class="door">
-                <div class="knob" onclick="openCloset()"></div>
-            </div>
-        </div>
-
-        <div class="bookshelf">
-            <div class="shelf">
-        
-            </div>
-            <hr>
-            <div class="shelf">
-                
-            </div>
-            <hr>
-            <div class="shelf">
-                
-            </div>
-        </div>
-
-        <img class="painting" src="/img/misc/stake.png">
-
-        <div class="basic end-table">
-            A small table.
-        </div>
-    </div>
-    
-    <div class="floor laylas-room">
-        <h4>Layla's Room</h4>
-
-        <div class="billboard" id="layla-skills">
-            <h5>My Skills</h5>
-        </div>
-
-        <div class="basic">
-            A flat-screen television.
-        </div>
-    
-        <article>
-            <h3>Toy Box</h3><hr>
-            <%- include("./toy-box.ejs"); %>
-        </article>
-    </div>
-    
-    <div class="floor upstairs">
-        <h4>Upstairs</h4>
-
-        <div class="billboard" id="today">
-            <h5>To Do Today</h5>
-        </div>
-        
-        <div class="billboard" id="week">
-            <h5>To Do This Week</h5>
-        </div>
-        
-        <div class="billboard" id="month">
-            <h5>To Do This Month</h5>
-        </div>
-        
-        <div class="billboard" id="year">
-            <h5>To Do This Year</h5>
-        </div>
-        
-        <div class="wallet conchu invisible">
-            <h4>Your Wallet</h4>
-            <div class="summary">
-                <div class="spending">
-                    <h5>Spending Money Left</h5>
-                    <h6 id="week">This Week: $0</h6>
-                    <h6 id="month">This Month: $0</h6>
-                    <input type="text" id="item"><input type="number" id="spend"><button onclick="">Spend</button>
-                </div>
-                <div class="flow">
-                    <h5>Cash Flow Last Month</h5>
-                    <h6 id="income">Made: $0</h6>
-                    <h6 id="expenses">Spent: $0</h6>
-                    <h6 id="saved">Saved: $0</h6>
-                </div>
-            </div>
-            <div class="settings invisible">
-            </div>
-            <button onclick="wallet.toggleView()">$$</button>
-        </div>
-    </div>
-</div>
-
+</section>
 
 <div class="yard">
     <div class="sky">
@@ -175,7 +158,7 @@
 
 <hr>
 
-<a class="to" href="/forest/eye/filter/tree-house">
+<a class="go" href="/forest/eye/filter/tree-house">
     Climb up the nearby Tree House
 </a>
 
@@ -205,87 +188,16 @@
 
 <script src="/js/dialogue.js"></script>
 <script src="/js/billboard.js"></script>
+<script src="/js/util/foldable.js"></script>
 <script>
-    //npc dialogues
-    let berryDialogue = new Dialogue("berry", 3900, (self) => {
-        if (Dialogue.checkGlobalFlag("longTalkWithBerry")) {
-            return [
-                Dialogue.createTextSlide(1, `That was my answer too! But nooo....`)
-            ];
-        }
-        else if (self.checkFlag("accepted")) {
-            return [
-                Dialogue.createTextSlide(3, `If a portal approached a cube at a certain velocity,
-                                             would the cube receive that velocity after completely passing through the portal?`),
-                Dialogue.createButtonSlide(3, [
-                    Dialogue.createButton("Yes.", "longTalkWithBerry", true),
-                    Dialogue.createButton("No.", "longTalkWithBerry", true)
-                ])
-            ];
-        }
-        else if (self.checkFlag("declined")) {
-            return [
-                Dialogue.createTextSlide(2, "Wow. I honestly didn't expect you to decline like that."),
-                Dialogue.createTextSlide(10, "To each their own I guess.")
-            ];
-        }
-        else if (self.checkFlag("responded")) {
-            return [
-                Dialogue.createTextSlide(2, "Great, I got your attention! Not many people come around here."),
-                Dialogue.createTextSlide(2, "Would you mind settling a debate I'm having with my acquaintance below?"),
-                Dialogue.createButtonSlide(3, [
-                    Dialogue.createButton("Sure.", "accepted"),
-                    Dialogue.createButton("No Way.", "declined")
-                ])
-            ];
-        }
-        else {
-            return [
-                Dialogue.createTextSlide(2, "Hey! Yeah, it's the talking cat on the porch!"),
-                Dialogue.createButtonSlide(3, [
-                    Dialogue.createButton("Hi!", "responded"),
-                    Dialogue.createButton("Hi?", "responded")
-                ]),
-                Dialogue.createTextSlide(1, "Hello?"),
-                Dialogue.createButtonSlide(3, [
-                    Dialogue.createButton("Hi!", "responded"),
-                    Dialogue.createButton("Hi?", "responded")
-                ])
-            ];
-        }
-    });
-
-    let zerryDialogue = new Dialogue("zerry", 4000, (self) => {
-        if (self.checkFlag("responded")) {
-            return [
-                Dialogue.createTextSlide(1, "Nice to meet you!"),
-                Dialogue.createTextSlide(10, "I don't know what else to say...")
-            ];
-        }
-        else if (Dialogue.checkGlobalFlag("longTalkWithBerry")) {
-            return [
-                Dialogue.createTextSlide(1, "I see you're not interested in talking to me...")
-            ];
-        }
-        else {
-            return [
-                Dialogue.createTextSlide(3, "..."),
-                Dialogue.createTextSlide(1, "Hello. My name is Zerry."),
-                Dialogue.createButtonSlide(2, [
-                    Dialogue.createButton("Hello.", "responded")
-                ]),
-                Dialogue.createTextSlide(1, "Hello?"),
-                Dialogue.createButtonSlide(5, [
-                    Dialogue.createButton("Hello.", "responded")
-                ])
-            ];
-        }
-    });
+    //porch
 
     //livingroom
     const openCloset = function openCloset() {
         $(".closet .door").addClass("invisible");
-    }
+    };
+
+    let livingroom = new Foldable($(".livingroom>article"));
 
     //backyard harvest game
     class HarvestGame {
@@ -457,6 +369,27 @@
         lSkills = new Billboard("layla-skills", res.items, { onSave: "save-layla" });
     });
 
+    let toyBox = new Foldable($(".toy-box"));
+    let laylasRoom = new Foldable($(".laylas-room>article"));
+
+    $(".pocket").on("click", function() {
+        $(".pocket").toggleClass("pocket-down");
+    });
+
+    $(".background-changer").hover(function() {
+        $(".background-changer").toggleClass("red-bg");
+    });
+
+    $(".beautiful-button").hover(function() {
+        $(".beautiful-background").toggleClass("red-bg");
+    });
+    $(".beautiful-button").on("mousedown", function() {
+        $(".beautiful-icon").addClass("beautiful-icon-pressed");
+    });
+    $(".beautiful-button").on("mouseup", function() {
+        $(".beautiful-icon").removeClass("beautiful-icon-pressed");
+    });
+
     //upstairs widgets
     let today, week, month, year = null;
 
@@ -475,6 +408,8 @@
     base.load("todo-year").then((res) => {
         year = new Billboard("year", res.items, { onSave: "save-todo" });
     });
+
+    let upstairs = new Foldable($(".upstairs>article"));
 
     <%- include("./wallet.js") %>
 </script>
