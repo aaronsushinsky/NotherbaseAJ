@@ -16,24 +16,42 @@
     --laylaPink: rgb(236, 169, 236);
     --white: rgb(236, 236, 236);
     --light: rgb(255, 255, 221);
-    --toySize: 128px;
+    --toySize: 100px;
+}
+
+section h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.folder {
+    background: rgba(0, 0, 0, 0.041);
+    height: 50px;
+    width: 50px;
 }
 
 .porch {
     background: var(--woodColor);
 }
 
-.house {
-    width: 100%;
-}
-
 .livingroom {
     background: var(--yellowPastel);
 }
 
+.livingroom article {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-around;
+    align-content: flex-end;
+}
+
 .closet {
-    width: 300px;
-    height: 600px;
+    width: calc(25vh * 36 / 80);
+    height: 25vh;
     overflow: auto;
     position: relative;
     background: var(--veryDarkBgColor);;
@@ -46,6 +64,7 @@
     left: 0;
     top: 0;
     background-color: var(--woodColor);
+    margin: 0;
 }
 
 .closet .door .knob {
@@ -60,8 +79,8 @@
     background-color: var(--pinkPastel);
 }
 
-.laylas-room article {
-    min-width: 45%;
+.laylas-room>article {
+    width: 100%;
     border: 2px dotted var(--textColor);
     border-radius: 5px;
     box-shadow: 5px 5px 5px 5px var(--shadow);
@@ -75,8 +94,8 @@
 }
 
 .bookshelf {
-    width: 300px;
-    height: 500px;
+    width: 10vh;
+    height: 15vh;
     border: 5px solid var(--darkWoodColor);
     background-color: var(--woodColor);
 }
@@ -98,7 +117,6 @@
 }
 
 .billboard {
-    width: 400px;
     min-height: 100px;
     border: 5px solid var(--woodColor);
     background-color: var(--darkWoodColor);
@@ -140,7 +158,7 @@
     width: 30px;
 }
 
-.toy-box {
+.toy-box article {
     display: flex;
     flex-wrap: wrap;
 }
@@ -236,7 +254,6 @@
     border-radius: 50%;
 }
 
-
 .red-bg {
     background-color: rgb(160, 76, 76);
 }
@@ -245,9 +262,7 @@
     background-color: rgb(144, 42, 165);
 }
 
-
-@media only screen and (max-width: 800px) {
-    .billboard {
-        width: var(--fillFromMargin);
-    }
+.mailbox {
+    height: 100px;
+    width: 90%;
 }

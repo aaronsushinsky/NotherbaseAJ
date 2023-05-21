@@ -1,5 +1,5 @@
 .billboard {
-    width: 30%;
+    width: 100%;
     height: 500px;
     border: var(--standardBorder);
 }
@@ -51,4 +51,10 @@
     width: 100%;
     height: 100%;
     margin: 0;
+}
+
+@media only screen and (min-width: 1280px) {
+    .billboard {
+        width: 50%;
+    }
 }
