@@ -1,5 +1,5 @@
 .inventory .item-list {
-    width: var(--fillFromMargin);
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     border: none;
@@ -29,6 +29,7 @@
 }
 
 .item-card {
+    margin: var(--margin);
     width: var(--fillFromMargin);
     height: 70px;
     border: var(--standardBorder);
@@ -41,6 +42,7 @@
 .item-card h5 {
     width: 70%;
     text-align: left;
+    padding: 5px;
 }
 
 .item-card p {

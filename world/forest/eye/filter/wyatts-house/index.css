@@ -16,7 +16,20 @@
     --laylaPink: rgb(236, 169, 236);
     --white: rgb(236, 236, 236);
     --light: rgb(255, 255, 221);
-    --toySize: 128px;
+    --toySize: 100px;
+}
+
+section h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.folder {
+    background: rgba(0, 0, 0, 0.041);
+    height: 50px;
+    width: 50px;
 }
 
 .porch {
@@ -25,6 +38,15 @@
 
 .livingroom {
     background: var(--yellowPastel);
+}
+
+.livingroom article {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-around;
+    align-content: flex-end;
 }
 
 .closet {
@@ -57,7 +79,7 @@
     background-color: var(--pinkPastel);
 }
 
-.laylas-room article {
+.laylas-room>article {
     width: 100%;
     border: 2px dotted var(--textColor);
     border-radius: 5px;
@@ -136,7 +158,7 @@
     width: 30px;
 }
 
-.toy-box {
+.toy-box article {
     display: flex;
     flex-wrap: wrap;
 }
@@ -238,4 +260,9 @@
 
 .beautiful-background:hover {
     background-color: rgb(144, 42, 165);
+}
+
+.mailbox {
+    height: 100px;
+    width: 90%;
 }
