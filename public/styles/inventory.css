@@ -1,22 +1,11 @@
-.inventory {
-    border: none;
-    color: var(--textColor);
-    width: 100%;
-    height: 100%;
-    padding: var(--thickPadding);
-    z-index: 500;
-    overflow: auto;
-}
-
 .inventory .item-list {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    overflow: auto;
     border: none;
     align-content: flex-start;
-    height: 100%;
     justify-content: center;
+    padding: 0;
 }
 
 .inventory .item-spawner {
@@ -40,23 +29,20 @@
 }
 
 .item-card {
+    margin: var(--margin);
     width: var(--fillFromMargin);
     height: 70px;
-    border-radius: var(--borderRadius);
     border: var(--standardBorder);
-    padding: 0;
-    position: relative;
     background-color: var(--bgColor);
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
-    position: relative;
-    margin: var(--margin);
 }
 
 .item-card h5 {
     width: 70%;
     text-align: left;
+    padding: 5px;
 }
 
 .item-card p {
