@@ -365,7 +365,7 @@
     //layla widgets
     let lSkills, lToDo, lRecipes = null;
 
-    base.load("layla-skills").then((res) => {
+    base.load("bb-layla-skills").then((res) => {
         lSkills = new Billboard("layla-skills", res.items, { onSave: "save-layla" });
     });
 
