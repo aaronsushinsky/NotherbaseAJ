@@ -97,10 +97,11 @@
 .clamp {
     background-color: rgb(155, 155, 155);
     width: 30%;
-    height: 10%;
+    height: 5%;
     position: absolute;
     left: 35%;
     top: 0;
+    border-radius: 1px;
 }
 
 .application * {
@@ -116,6 +117,8 @@
     justify-content: center;
     flex-wrap: wrap;
 }
+
+.auth-form h4
 
 .auth-form p {
     width: calc(100% - 20px);
