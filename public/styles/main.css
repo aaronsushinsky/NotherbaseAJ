@@ -287,8 +287,8 @@ input[type=checkbox] {
 }
 
 .sign {
-    width: 85%;
-    height: 400px;
+    width: var(--fillFromMargin);
+    min-height: 10vw;
     padding: var(--padding);
     border-radius: var(--borderRadius);
     border: var(--thickBorder);
@@ -398,6 +398,7 @@ input[type=checkbox] {
     padding: 0;
     height: calc(100% - var(--inputHeight));
     overflow: auto;
+    align-content: flex-start;
 }
 
 .search ul {
@@ -569,13 +570,14 @@ iframe {
 .basic {
     border: var(--standardBorder);
     background: var(--darkBgColor);
-    width: 25vh;
-    height: 25vh;
+    width: var(--fillFromMargin);
+    min-height: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--padding);
-    text-align: center;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 .browser {
@@ -640,5 +642,11 @@ iframe {
         --boxShadow: 5px 5px 5px 5px var(--shadowColor);
         --goHeight: 120px;
         --returnHeight: 60px;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    .basic, .sign {
+        width: 40%;
     }
 }

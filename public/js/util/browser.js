@@ -16,7 +16,7 @@ class Browser {
         this.$search.on("input", (e) => {
             return this.setFilter(e.currentTarget.value);
         });
-        this.$searchList = $(`<ul class="selector"></ul>`).appendTo(this.$searchBox);
+        this.$searchList = $(`<ul class="selector"></ul>`).appendTo($(`<section></section>`).appendTo(this.$searchBox));
 
         this.$read = {
             div: $(`<div class="read"></div>`).appendTo(this.$div)
