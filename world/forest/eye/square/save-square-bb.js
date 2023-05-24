@@ -4,4 +4,4 @@ export default async (req, user) => {
 
         await spirit.commit({ items: req.body.items });
     }
-}
+} //error here
