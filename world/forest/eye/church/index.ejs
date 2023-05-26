@@ -2,6 +2,8 @@
     You see an old church building.
 </p>
 
+<div class="dialogue" id="chryer"></div>
+
 <hr>
 
 <a class="go" href="/forest/eye/church/sanctuary">
@@ -25,3 +27,89 @@
 <a class="to" href="/forest/eye/filter/wyatts-house">
     Head into the Filter
 </a>
+
+<script src="/js/dialogue.js"></script>
+<script>
+    let chryerTree = function () {
+        if (this.checkFlag("who-jesus")) {
+            this.removeFlag("who-jesus");
+            this.removeFlag("jesus");
+            return [
+                Dialogue.textSlide("Jesus is the Son of God and the Messiah prophesied of in the Bible's Old Testament.")
+            ]
+        }
+        else if (this.checkFlag("now-jesus")) {
+            this.removeFlag("now-jesus");
+            this.removeFlag("jesus");
+            return [
+                Dialogue.textSlide("Right now Jesus is the lord and savior of all Christians.")
+            ]
+        }
+        else if (this.checkFlag("where-jesus")) {
+            this.removeFlag("where-jesus");
+            this.removeFlag("jesus");
+            return [
+                Dialogue.textSlide("Jesus is in a place we can't go yet.")
+            ]
+        }
+        else if (this.checkFlag("meet-jesus")) {
+            this.removeFlag("meet-jesus");
+            this.removeFlag("jesus");
+            return [
+                Dialogue.textSlide("I think everyone will meet Jesus eventually. On what terms will you meet him?")
+            ]
+        }
+        else if (this.checkFlag("church")) {
+            this.removeFlag("church");
+            return [
+                Dialogue.textSlide("The church doesn't have a name yet."),
+                Dialogue.textSlide("We hope to have Sunday services soon.")
+            ]
+        }
+        else if (this.checkFlag("me")) {
+            this.removeFlag("me");
+            return [
+                Dialogue.textSlide("Me? Oh I'm just an non-player charcacter."),
+                Dialogue.textSlide("Don't mind me.")
+            ]
+        }
+        else if (this.checkFlag("behind")) {
+            this.removeFlag("behind");
+            return [
+                Dialogue.textSlide("There's a cemetery behind the church building."),
+                Dialogue.textSlide("I try to be respectful, but that place gives me the creeps.")
+            ]
+        }
+        else if (this.checkFlag("jesus")) {
+            return [
+                Dialogue.textSlide("I'm no pastor, but I'll do my best to answer."),
+                Dialogue.textSlide("What would you like to know about Jesus?"),
+                Dialogue.buttonSlide([
+                    Dialogue.button("Who was he?", "who-jesus"),
+                    Dialogue.button("Who is he now?", "now-jesus"),
+                    Dialogue.button("Where is he?", "where-jesus"),
+                    Dialogue.button("Can I meet him?", "meet-jesus")
+                ])
+            ]
+        }
+        else if (this.checkFlag("greeted")) {
+            return [
+                Dialogue.textSlide("Can I help you with anything?"),
+                Dialogue.buttonSlide([
+                    Dialogue.button("This church?", "church"),
+                    Dialogue.button("Who are you?", "me"),
+                    Dialogue.button("Around back?", "behind"),
+                    Dialogue.button("Jesus?", "jesus")
+                ])
+            ]
+        }
+        else {
+            this.addFlag("greeted");
+            return [ 
+                Dialogue.textSlide("Hi. Welcome to the church."),
+                Dialogue.textSlide("Everyone is welcome.")
+            ];
+        }
+    }
+    const chryer = new Dialogue("chryer", 2000, chryerTree, "/img/npcs/anon.png");
+</script>

@@ -20,82 +20,83 @@
     Head into the Filter
 </a>
 
+<script src="/js/dialogue.js"></script>
 <script>
     //npc dialogues
-    let berryTree = (self) => {
+    let berryTree = function () {
         if (Dialogue.checkGlobalFlag("longTalkWithBerry")) {
             return [
-                Dialogue.createTextSlide(1, `That was my answer too! But nooo....`)
+                Dialogue.textSlide(`That was my answer too! But nooo....`)
             ];
         }
-        else if (self.checkFlag("accepted")) {
+        else if (this.checkFlag("accepted")) {
             return [
-                Dialogue.createTextSlide(3, `If a portal approached a cube at a certain velocity,
+                Dialogue.textSlide(`If a portal approached a cube at a certain velocity,
                                              would the cube receive that velocity after completely passing through the portal?`),
-                Dialogue.createButtonSlide(3, [
-                    Dialogue.createButton("Yes.", "longTalkWithBerry", true),
-                    Dialogue.createButton("No.", "longTalkWithBerry", true)
+                Dialogue.buttonSlide([
+                    Dialogue.button("Yes.", "longTalkWithBerry", true),
+                    Dialogue.button("No.", "longTalkWithBerry", true)
                 ])
             ];
         }
-        else if (self.checkFlag("declined")) {
+        else if (this.checkFlag("declined")) {
             return [
-                Dialogue.createTextSlide(2, "Wow. I honestly didn't expect you to decline like that."),
-                Dialogue.createTextSlide(10, "To each their own I guess.")
+                Dialogue.textSlide("Wow. I honestly didn't expect you to decline like that."),
+                Dialogue.textSlide("To each their own I guess.", 10)
             ];
         }
-        else if (self.checkFlag("responded")) {
+        else if (this.checkFlag("responded")) {
             return [
-                Dialogue.createTextSlide(2, "Great, I got your attention! Not many people come around here."),
-                Dialogue.createTextSlide(2, "Would you mind settling a debate I'm having with my acquaintance below?"),
-                Dialogue.createButtonSlide(3, [
-                    Dialogue.createButton("Sure.", "accepted"),
-                    Dialogue.createButton("No Way.", "declined")
+                Dialogue.textSlide("Great, I got your attention! Not many people come around here."),
+                Dialogue.textSlide("Would you mind settling a debate I'm having with my acquaintance below?"),
+                Dialogue.buttonSlide([
+                    Dialogue.button("Sure.", "accepted"),
+                    Dialogue.button("No Way.", "declined")
                 ])
             ];
         }
         else {
             return [
-                Dialogue.createTextSlide(2, "Hey! Yeah, it's the talking cat on the porch!"),
-                Dialogue.createButtonSlide(3, [
-                    Dialogue.createButton("Hi!", "responded"),
-                    Dialogue.createButton("Hi?", "responded")
+                Dialogue.textSlide("Hey! Yeah, it's the talking cat on the porch!"),
+                Dialogue.buttonSlide([
+                    Dialogue.button("Hi!", "responded"),
+                    Dialogue.button("Hi?", "responded")
                 ]),
-                Dialogue.createTextSlide(1, "Hello?"),
-                Dialogue.createButtonSlide(3, [
-                    Dialogue.createButton("Hi!", "responded"),
-                    Dialogue.createButton("Hi?", "responded")
+                Dialogue.textSlide("Hello?"),
+                Dialogue.buttonSlide([
+                    Dialogue.button("Hi!", "responded"),
+                    Dialogue.button("Hi?", "responded")
                 ])
             ];
         }
     };
-    let berryDialogue = new Dialogue("berry", 3900, berryTree, "/img/npcs/berry.png");
+    let berryDialogue = new Dialogue("berry", 1900, berryTree, "/img/npcs/berry.png");
 
-    let zerryTree = (self) => {
-        if (self.checkFlag("responded")) {
+    let zerryTree = function () {
+        if (this.checkFlag("responded")) {
             return [
-                Dialogue.createTextSlide(1, "Nice to meet you!"),
-                Dialogue.createTextSlide(10, "I don't know what else to say...")
+                Dialogue.textSlide("Nice to meet you!"),
+                Dialogue.textSlide("I don't know what else to say...", 10)
             ];
         }
         else if (Dialogue.checkGlobalFlag("longTalkWithBerry")) {
             return [
-                Dialogue.createTextSlide(1, "I see you're not interested in talking to me...")
+                Dialogue.textSlide("I see you're not interested in talking to me...")
             ];
         }
         else {
             return [
-                Dialogue.createTextSlide(3, "..."),
-                Dialogue.createTextSlide(1, "Hello. My name is Zerry."),
-                Dialogue.createButtonSlide(2, [
-                    Dialogue.createButton("Hello.", "responded")
+                Dialogue.textSlide("..."),
+                Dialogue.textSlide("Hello. My name is Zerry."),
+                Dialogue.buttonSlide([
+                    Dialogue.button("Hello.", "responded")
                 ]),
-                Dialogue.createTextSlide(1, "Hello?"),
-                Dialogue.createButtonSlide(5, [
-                    Dialogue.createButton("Hello.", "responded")
+                Dialogue.textSlide("Hello?"),
+                Dialogue.buttonSlide([
+                    Dialogue.button("Hello.", "responded")
                 ])
             ];
         }
     };
-    let zerryDialogue = new Dialogue("zerry", 4000, zerryTree, "/img/npcs/zerry.png");
+    let zerryDialogue = new Dialogue("zerry", 2050, zerryTree, "/img/npcs/zerry.png");
 </script>
