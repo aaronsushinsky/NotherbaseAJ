@@ -24,9 +24,9 @@
 
 <script src="/js/dialogue.js"></script>
 <script>
-    let pastorDialogue = new Dialogue("pastor", 2000, () => {
+    let pastorDialogue = new Dialogue("pastor", 2000, function () {
         return [
-            Dialogue.createTextSlide(1, "Welcome to the church.")
+            Dialogue.textSlide("Welcome to the church.")
         ];
     });
 </script>
