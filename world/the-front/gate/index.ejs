@@ -43,21 +43,21 @@
 
 <script src="/js/dialogue.js"></script>
 <script>
-    let wunder = new Dialogue("wunder", 3000, function tree(self) {
-        if (self.checkFlag("safe")) return [
-            Dialogue.createTextSlide(1, "You say that like you've been inside."),
-            Dialogue.createTextSlide(1, "Or what if it's safe for you, but not me?")
+    let wunder = new Dialogue("wunder", 3000, function tree() {
+        if (this.checkFlag("safe")) return [
+            Dialogue.textSlide("You say that like you've been inside."),
+            Dialogue.textSlide("Or what if it's safe for you, but not me?")
         ];
-        else if (self.checkFlag("sorry")) return [
-            Dialogue.createTextSlide(1, "That's what I was thinking."),
-            Dialogue.createTextSlide(1, "But I can't just sit here forever.")
+        else if (this.checkFlag("sorry")) return [
+            Dialogue.textSlide("That's what I was thinking."),
+            Dialogue.textSlide("But I can't just sit here forever.")
         ];
         else return [
-            Dialogue.createTextSlide(1, "NotherBase..."),
-            Dialogue.createTextSlide(1, "I wonder if it's safe to enter..."),
-            Dialogue.createButtonSlide(2, [
-                Dialogue.createButton("Of course it's safe.", "safe"),
-                Dialogue.createButton("Better to be safe than sorry.", "sorry")
+            Dialogue.textSlide("NotherBase..."),
+            Dialogue.textSlide("I wonder if it's safe to enter..."),
+            Dialogue.buttonSlide([
+                Dialogue.button("Of course it's safe.", "safe"),
+                Dialogue.button("Better to be safe than sorry.", "sorry")
             ])
         ]
     }, "/img/npcs/wunder.png");

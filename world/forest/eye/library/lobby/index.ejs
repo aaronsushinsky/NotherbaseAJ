@@ -4,8 +4,7 @@
 
 <hr>
 
-<div class="dialogue" id="libby">
-</div>
+<div class="dialogue" id="libby"></div>
 
 <hr>
 
@@ -29,9 +28,9 @@
 
 <script src="/js/dialogue.js"></script>
 <script>
-    let libby = new Dialogue("libby", 2000, () => {
+    let libby = new Dialogue("libby", 2000, function () {
         return [
-            Dialogue.createTextSlide(1, "Hi.")
+            Dialogue.textSlide("Hi.")
         ];
     });
 </script>
