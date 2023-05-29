@@ -3,6 +3,8 @@
     box-shadow: var(--boxShadow);
     width: 100%;
     height: 400px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .chat-name {
@@ -11,7 +13,7 @@
 }
 
 .chat-log {
-    width: 100%;
+    width: 85%;
     height: calc(100% - (var(--h3Size) + 2 * var(--padding) + 2 * var(--margin)) - (var(--pSize) + 2 * var(--padding)));
     background-color: rgba(0, 0, 0, 0.534);
     overflow: auto;
@@ -54,4 +56,10 @@
     padding: 2px;
     line-height: 1em;
     text-align: left;
+}
+
+.chat-box>ul {
+    width: 15%;
+    margin: 0;
+    padding: 0;
 }
