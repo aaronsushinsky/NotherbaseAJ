@@ -226,6 +226,7 @@ ul {
     width: var(--fillFromMargin);
     list-style: none;
     margin: var(--margin);
+    padding: var(--padding);
 }
 
 li {
@@ -477,22 +478,28 @@ iframe {
 
 .dialogue {
     width: var(--fillFromMargin);
-    height: 250px;
-    padding: var(--thickPadding);
     border-radius: var(--borderRadius);
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    flex-wrap: wrap;
     margin: var(--margin);
+    border: var(--standardBorder);
+}
+
+.dialogue>h4 {
+    height: 75px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .dialogue .portrait {
-    width: calc(25% - 5px);
+    width: 75px;
     height: 100%;
-    border: var(--standardBorder);
     border-radius: var(--borderRadius);
     object-fit: cover;
-    image-rendering: pixelated;
 }
 
 .dialogue .heart {
@@ -500,12 +507,16 @@ iframe {
     height: 100%;
     background-color: var(--textColor);
     border-radius: var(--borderRadius);
+    margin: 0 5px;
+}
+
+.dialogue>h4 p {
+    width: auto;
 }
 
 .dialogue .content {
-    width: 75%;
-    height: 100%;
-    border: var(--standardBorder);
+    width: 100%;
+    height: 200px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;

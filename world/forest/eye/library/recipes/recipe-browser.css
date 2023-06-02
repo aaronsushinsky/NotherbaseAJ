@@ -45,6 +45,18 @@
     padding: 1px;
 }
 
+.ingredients li .amount {
+    width: 15%;
+}
+
+.ingredients li .measure {
+    width: 25%;
+}
+
+.ingredients li .ingredient {
+    width: 60%;
+}
+
 .browser .directions li {
     padding: 5px;
 }
