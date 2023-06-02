@@ -4,40 +4,38 @@
     <%- include("./dominoes.css"); %>
 </style>
 
-<p>
-    A modest cabin rests amidts the branches of a
-    thick oak. Finally, a chance to rest.
-</p>
-
-<hr>
-
-<div class="fireplace">
-    <div class="fire"></div>
-</div>
-
-<div class="couch">
-    <div class="couch-part back-rest" id="1"></div>
-    <div class="couch-part back-rest" id="2"></div>
-    <div class="couch-part base" id="1"></div>
-    <div class="couch-part base" id="2"></div>
-    <div class="couch-part pillow" id="1"></div>
-    <div class="couch-part pillow" id="2"></div>
-    <div class="couch-part arm-rest" id="1"></div>
-    <div class="couch-part arm-rest" id="2"></div>
-</div>
-
-<div class="table conchu">
-    <div class="opponent-hand"></div>
-    <div class="board"></div>
-    <div id="score1"></div>
-    <div class="bone-yard"></div>
-    <div id="score2"></div>
-    <div class="your-hand"></div>
-</div>
-
-<button id="play">
-    Play Dominoes
-</button>
+<section>
+    <p>
+        A modest cabin rests amidts the branches of a
+        thick oak. Finally, a chance to rest.
+    </p>
+    
+    <div class="chat-box" id="tree-house"></div>
+    
+    <div class="couch">
+        <div class="couch-part back-rest" id="1"></div>
+        <div class="couch-part back-rest" id="2"></div>
+        <div class="couch-part base" id="1"></div>
+        <div class="couch-part base" id="2"></div>
+        <div class="couch-part pillow" id="1"></div>
+        <div class="couch-part pillow" id="2"></div>
+        <div class="couch-part arm-rest" id="1"></div>
+        <div class="couch-part arm-rest" id="2"></div>
+    </div>
+    
+    <div class="table">
+        <div class="opponent-hand"></div>
+        <div class="board"></div>
+        <div id="score1"></div>
+        <div class="bone-yard"></div>
+        <div id="score2"></div>
+        <div class="your-hand"></div>
+    </div>
+    
+    <button id="play">
+        Play Dominoes
+    </button>
+</section>
 
 <hr>
 
@@ -45,6 +43,10 @@
     Return to Wyatt's House
 </a>
 
+<script src="/js/chat-box.js"></script>
 <script>
+    const chat = new ChatBox("<%= user.username %>", "tree-house");
+    console.log(chat);
+
     <%- include("./dominoes.js"); %> 
 </script>

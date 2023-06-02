@@ -77,10 +77,8 @@
     color: var(--textColor);
     font-size: var(--pSize);
     margin: 0;
-    padding: 0;
     font-family: 'Roboto', sans-serif;
     font-weight: lighter;
-    border-radius: var(--borderRadius);
 }
 
 .invisible {
@@ -479,17 +477,17 @@ iframe {
 
 .dialogue {
     width: var(--fillFromMargin);
-    height: 200px;
+    height: 250px;
     padding: var(--thickPadding);
     border-radius: var(--borderRadius);
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-end;
     margin: var(--margin);
 }
 
 .dialogue .portrait {
-    width: 30%;
+    width: calc(25% - 5px);
     height: 100%;
     border: var(--standardBorder);
     border-radius: var(--borderRadius);
@@ -498,14 +496,14 @@ iframe {
 }
 
 .dialogue .heart {
-    width: 3px;
+    width: 5px;
     height: 100%;
     background-color: var(--textColor);
     border-radius: var(--borderRadius);
 }
 
 .dialogue .content {
-    width: 65%;
+    width: 75%;
     height: 100%;
     border: var(--standardBorder);
     display: flex;

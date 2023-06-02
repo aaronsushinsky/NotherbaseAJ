@@ -1,5 +1,12 @@
 class Dialogue {
-    constructor(name, beatFrequency, tree, portrait = "/img/npcs/anon.png") {
+    /**
+     * 
+     * @param {String} name The id of the div.dialogue element.
+     * @param {Number} beatCooldown Milliseconds per beat.
+     * @param {Function} tree A function that returns slide objects.
+     * @param {String} portrait A url to the portrait image.
+     */
+    constructor(name, beatCooldown, tree, portrait = "/img/npcs/anon.png") {
         if (typeof name === 'string') this.name = name;
         else console.log("Dialogue requires a string for name");
         this.$div = $(`.dialogue#${name}`);
@@ -7,36 +14,48 @@ class Dialogue {
         this.$heart = $('<div class="heart"></div>').appendTo(this.$div);
         this.$content = $('<div class="content"></div>').appendTo(this.$div);
 
-        if (typeof beatFrequency === 'number') this.beatFrequency = beatFrequency;
+        if (typeof beatCooldown === 'number') this.beatCooldown = beatCooldown;
         else console.log("Dialogue requires a number for beat frequency");
         this.remainingBeats = 0;
         this.queue = [];
 
         this.flags = [];
+        this.buttonPressed = {
+            flag: "",
+            global: false
+        }
 
         if (typeof tree === 'function') this.tree = tree;
         else console.log("Dialogue requires a tree function");
 
         this.beat();
-        setInterval(() => {this.beat();}, this.beatFrequency);
+        setInterval(this.beat, this.beatCooldown);
     }
 
     static globalFlags = [];
 
-    static buttonPressed = {
-        name: "",
-        flag: "",
-        global: false
-    }
-
+    /**
+     * Checks for a global flag.
+     * @param {String} flag The flag to check for.
+     * @returns True if the flag was found. False otherwise.
+     */
     static checkGlobalFlag(flag) {
         return this.globalFlags.includes(flag);
     }
 
+    /**
+     * Adds a global flag.
+     * @param {String} flag The flag to add.
+     */
     static addGlobalFlag(flag) {
         if (!this.checkGlobalFlag(flag)) this.globalFlags.push(flag);
     }
 
+    /**
+     * Removes a global flag.
+     * @param {String} flag The flag to remove.
+     * @returns True if the flag was found. False otherwise.
+     */
     static removeGlobalFlag(flag) {
         for (let i = 0; i < this.globalFlags.length; i++) {
             if (this.globalFlags[i] === flag) {
@@ -48,7 +67,13 @@ class Dialogue {
         return false;
     }
 
-    static createTextSlide(beats, text) {
+    /**
+     * Creates a text slide.
+     * @param {String} text The text to render.
+     * @param {Number} beats Number of beats to persist for.
+     * @returns A slide object.
+     */
+    static textSlide(text, beats = 2) {
         return {
             type: "text",
             beats: beats,
@@ -56,7 +81,13 @@ class Dialogue {
         }
     }
     
-    static createButtonSlide(beats, buttons) {
+    /**
+     * Creates a dialogue slide.
+     * @param {Array} buttons An array of button objects.
+     * @param {Number} beats Number of beats to persist for.
+     * @returns A slide object.
+     */
+    static buttonSlide(buttons, beats = 4) {
         return {
             type: "buttons",
             beats: beats,
@@ -64,7 +95,14 @@ class Dialogue {
         }
     }
 
-    static createButton(text, flag, global = false) {
+    /**
+     * Creates a button object for button slides.
+     * @param {String} text Text to render in the button.
+     * @param {String} flag Flag to add.
+     * @param {Boolean} global Whether the flag affects all dialogues.
+     * @returns A button object.
+     */
+    static button(text, flag, global = false) {
         return {
             text: text,
             flag: flag,
@@ -72,29 +110,26 @@ class Dialogue {
         }
     }
 
-    static clickButton(name, which, flag, global) {
+    click(which, flag, global) {
         this.buttonPressed = {
-            name: name,
             flag: flag,
             global: global
         }
 
-        let $dialogueContent = $(`.dialogue#${name} .content`)
-        let $selected = $dialogueContent.find(`button#${which}`).clone();
-        $dialogueContent.empty();
+        let $selected = this.$content.find(`button#${which}`).clone();
+        this.clearContent();
         $selected.addClass("selected");
-        $dialogueContent.append($selected);
+        this.$content.append($selected);
     }
 
-    checkButtonClick() {
-        if (Dialogue.buttonPressed.name === this.name) {
-            if (Dialogue.buttonPressed.global) Dialogue.addGlobalFlag(Dialogue.buttonPressed.flag);
-            else this.addFlag(Dialogue.buttonPressed.flag);
+    checkClick() {
+        if (this.buttonPressed.flag) {
+            if (this.buttonPressed.global) Dialogue.addGlobalFlag(this.buttonPressed.flag);
+            else this.addFlag(this.buttonPressed.flag);
 
-            Dialogue.buttonPressed = {
-                name: "",
-                flag: "",
-                global: false
+            this.buttonPressed = {
+                flag: null,
+                global: null
             }
 
             return true;
@@ -133,7 +168,10 @@ class Dialogue {
         }
         else if (slide.type === "buttons") {
             for (let i = 0; i < slide.buttons.length; i++) {
-                this.$content.append(`<button id="${i}" onClick="Dialogue.clickButton('${this.name}', '${i}', '${slide.buttons[i].flag}', ${slide.buttons[i].global})">${slide.buttons[i].text}</button>`);
+                let button = $(`<button id="${i}">${slide.buttons[i].text}</button>`).appendTo(this.$content);
+                button.click(() => {
+                    this.click(i, slide.buttons[i].flag, slide.buttons[i].global);
+                });
             }
         }
     }
@@ -152,20 +190,20 @@ class Dialogue {
         }
     }
 
-    beat() {
+    beat = () => {
         this.$heart.animate({
             height: "10%",
             opacity: 0
-        }, 3*this.beatFrequency/4, () => {
+        }, 3*this.beatCooldown/4, () => {
             this.$heart.animate({
                 height: "100%",
                 opacity: 100
-            }, this.beatFrequency/4);
+            }, this.beatCooldown/4);
         });
 
         this.remainingBeats--;
 
-        if (this.checkButtonClick()) {
+        if (this.checkClick()) {
             this.queue = [];
             this.addToQueue(this.tree(this));
 
@@ -173,7 +211,7 @@ class Dialogue {
         }
         else if (this.remainingBeats <= 0) {
             if (this.queue.length <= 0) {
-                this.addToQueue(this.tree(this));
+                this.addToQueue(this.tree());
             }
             
             this.goToNextSlide();

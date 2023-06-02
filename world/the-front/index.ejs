@@ -125,11 +125,11 @@
     $("#pac4").click(rotate);
 
 
-    let unkielTree = (self) => {
+    let unkielTree = function () {
         return [
-            Dialogue.createTextSlide(1, "Woah..."),
-            Dialogue.createTextSlide(2, "I exist now."),
-            Dialogue.createTextSlide(4, "Crazy.")
+            Dialogue.textSlide("Woah..."),
+            Dialogue.textSlide("I exist now."),
+            Dialogue.textSlide("Crazy.")
         ];
     };
     let unkielDialogue = new Dialogue("unkiel", 3500, unkielTree, "/img/npcs/unkiel.png");
