@@ -3,6 +3,7 @@
     <%- include("./index.css"); %>
     <%- include("./wallet.css"); %>
 </style>
+<link rel="stylesheet" href="/styles/calendar.css">
 
 <article>
     <section class="upstairs">
@@ -10,6 +11,8 @@
         <button class="folder" onclick="upstairs.toggle(this)">v</button>
 
         <article>
+            <div class="calendar" id="upstairs"></div>
+
             <div class="billboard" id="today">
                 <h5>To Do Today</h5>
             </div>
@@ -189,6 +192,7 @@
 <script src="/js/dialogue.js"></script>
 <script src="/js/billboard.js"></script>
 <script src="/js/util/foldable.js"></script>
+<script src="/js/calendar.js"></script>
 <script>
     //porch
 
@@ -391,6 +395,8 @@
     });
 
     //upstairs widgets
+    const upstairsCalendar = new Calendar("upstairs");
+
     let today, week, month, year = null;
 
     base.load("todo-today").then((res) => {
