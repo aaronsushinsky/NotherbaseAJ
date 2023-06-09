@@ -2,8 +2,8 @@
     <%- include("./backyard.css"); %>
     <%- include("./index.css"); %>
     <%- include("./wallet.css"); %>
+    <%- include("./calendar.css"); %>
 </style>
-<link rel="stylesheet" href="/styles/calendar.css">
 
 <article>
     <section class="upstairs">
@@ -11,23 +11,142 @@
         <button class="folder" onclick="upstairs.toggle(this)">v</button>
 
         <article>
-            <div class="calendar" id="upstairs"></div>
+            <article class="today">
+                <h5 class="date">Today: Friday, June 9th 2023</h5>
+                <div class="weather">
+                    The weather outside.
+                </div>
+                <div class="billboard" id="today"></div>
+                <textarea name="notes" id="" cols="30" rows="10">notes</textarea>
+                <ul class="schedule">
+                    <li>
+                        <h4>Appointment</h4>
+                        <p>12:00</p>
+                        <p>Details...</p>
+                    </li>
+                </ul>
+            </article>
 
-            <div class="billboard" id="today">
-                <h5>To Do Today</h5>
-            </div>
+            <article class="week">
+                <h5>This Week</h5>
+                <div class="billboard" id="week"></div>
+                <textarea name="notes" id="" cols="30" rows="10">notes</textarea>
+                <div class="schedule">
+                    <ul class="day" id="monday">
+                        <li>
+                            <h4>Appointment</h4>
+                            <p>12:00</p>
+                            <p>Details...</p>
+                        </li>
+                    </ul>
+                    <ul class="day" id="tuesday">
+                        <li>
+                            <h4>Appointment</h4>
+                            <p>12:00</p>
+                            <p>Details...</p>
+                        </li>
+                    </ul>
+                    <ul class="day" id="wednesday">
+                        <li>
+                            <h4>Appointment</h4>
+                            <p>12:00</p>
+                            <p>Details...</p>
+                        </li>
+                    </ul>
+                    <ul class="day" id="thursday">
+                        <li>
+                            <h4>Appointment</h4>
+                            <p>12:00</p>
+                            <p>Details...</p>
+                        </li>
+                    </ul>
+                    <ul class="day" id="friday">
+                        <li>
+                            <h4>Appointment</h4>
+                            <p>12:00</p>
+                            <p>Details...</p>
+                        </li>
+                    </ul>
+                    <ul class="day" id="saturday">
+                        <li>
+                            <h4>Appointment</h4>
+                            <p>12:00</p>
+                            <p>Details...</p>
+                        </li>
+                    </ul>
+                    <ul class="day" id="sunday">
+                        <li>
+                            <h4>Appointment</h4>
+                            <p>12:00</p>
+                            <p>Details...</p>
+                        </li>
+                    </ul>
+                </div>
+            </article>
             
-            <div class="billboard" id="week">
-                <h5>To Do This Week</h5>
-            </div>
+            <article class="month">
+                <h5>This Month</h5>
+                <div class="billboard" id="month"></div>
+                <textarea name="notes" id="" cols="30" rows="10">notes</textarea>
+                <div class="calendar" id="upstairs"></div>
+            </article>
             
-            <div class="billboard" id="month">
-                <h5>To Do This Month</h5>
-            </div>
+            <article class="year">
+                <h5>This Year</h5>
+                <div class="billboard" id="year"></div>
+                <textarea name="notes" id="" cols="30" rows="10">notes</textarea>
+                <div class="schedule">
+                    <ul class="month" id="june">
+                        <h4>June</h4>
+                        <li>Appointment</li>
+                    </ul>
+                    <ul class="month" id="july">
+                        <h4>July</h4>
+                        <li>Appointment</li>
+                    </ul>
+                    <ul class="month" id="august">
+                        <h4>August</h4>
+                        <li>Appointment</li>
+                    </ul>
+                    <ul class="month" id="september">
+                        <h4>September</h4>
+                        <li>Appointment</li>
+                    </ul>
+                    <ul class="month" id="october">
+                        <h4>October</h4>
+                        <li>Appointment</li>
+                    </ul>
+                    <ul class="month" id="november">
+                        <h4>November</h4>
+                        <li>Appointment</li>
+                    </ul>
+                    <ul class="month" id="december">
+                        <h4>December</h4>
+                        <li>Appointment</li>
+                    </ul>
+                    <ul class="month" id="january">
+                        <h4>January</h4>
+                        <li>Appointment</li>
+                    </ul>
+                    <ul class="month" id="february">
+                        <h4>February</h4>
+                        <li>Appointment</li>
+                    </ul>
+                    <ul class="month" id="march">
+                        <h4>March</h4>
+                        <li>Appointment</li>
+                    </ul>
+                    <ul class="month" id="april">
+                        <h4>April</h4>
+                        <li>Appointment</li>
+                    </ul>
+                    <ul class="month" id="may">
+                        <h4>May</h4>
+                        <li>Appointment</li>
+                    </ul>
+                </div>
+            </article>
             
-            <div class="billboard" id="year">
-                <h5>To Do This Year</h5>
-            </div>
             
             <div class="wallet conchu invisible">
                 <h4>Your Wallet</h4>
@@ -192,7 +311,6 @@
 <script src="/js/dialogue.js"></script>
 <script src="/js/billboard.js"></script>
 <script src="/js/util/foldable.js"></script>
-<script src="/js/calendar.js"></script>
 <script>
     //porch
 
@@ -395,6 +513,22 @@
     });
 
     //upstairs widgets
+    let now = new Date();
+    const weekday = ["Sunday", "Monday"," Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    $(".today .date").text(`Today: ${weekday[now.getDay()]}, ${now.toLocaleString()}`);
+
+    $.get(`https://api.weather.gov/points/46.7253,-122.9534`, (data) => {
+        let forecast = data.properties.forecast;
+
+        if (forecast) $.get(forecast, (data) => {
+            let current = data.properties.periods[0];
+            console.log(current);
+            $(".today .weather").text(`${current.name}: ${current.temperature} °F, ${current.shortForecast}, ${current.windSpeed}`);
+        });
+    });
+    
+
+    <%- include("./calendar.js"); %>
     const upstairsCalendar = new Calendar("upstairs");
 
     let today, week, month, year = null;

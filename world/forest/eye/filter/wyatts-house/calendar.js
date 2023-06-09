@@ -15,11 +15,6 @@ class Calendar {
         this.setMonth();
     }
 
-    toggleMenu = () => {
-        if (this.menuIsOpen) this.closeMenu();
-        else this.openMenu();
-    }
-
     openMenu = () => {
         this.$menu.removeClass("invisible");
         this.menuIsOpen = true;
