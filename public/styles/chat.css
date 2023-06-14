@@ -58,8 +58,13 @@
     text-align: left;
 }
 
-.chat-box>ul {
+.chat-box>ul{
     width: 15%;
+    height: calc(100% - (var(--h3Size) + 2 * var(--padding) + 2 * var(--margin)) - (var(--pSize) + 2 * var(--padding)));
+    border: var(--standardBorder);
     margin: 0;
-    padding: 0;
+}
+
+.chat-box>ul li{
+    padding: var(--padding);
 }

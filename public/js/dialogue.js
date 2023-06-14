@@ -7,11 +7,16 @@ class Dialogue {
      * @param {String} portrait A url to the portrait image.
      */
     constructor(name, beatCooldown, tree, portrait = "/img/npcs/anon.png") {
-        if (typeof name === 'string') this.name = name;
+        if (typeof name === 'string') {
+            this.name = name;
+            this.properName = name[0].toUpperCase() + name.slice(1, name.length);
+        }
         else console.log("Dialogue requires a string for name");
         this.$div = $(`.dialogue#${name}`);
-        this.$portrait = $(`<img src="${portrait}" class="portrait">`).appendTo(this.$div);
-        this.$heart = $('<div class="heart"></div>').appendTo(this.$div);
+        this.$header = $(`<h4></h4>`).appendTo(this.$div);
+        this.$portrait = $(`<img src="${portrait}" class="portrait">`).appendTo(this.$header);
+        this.$heart = $('<div class="heart"></div>').appendTo(this.$header);
+        this.$name = $(`<p>${this.properName}</p>`).appendTo(this.$header);
         this.$content = $('<div class="content"></div>').appendTo(this.$div);
 
         if (typeof beatCooldown === 'number') this.beatCooldown = beatCooldown;

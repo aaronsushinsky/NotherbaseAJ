@@ -2,66 +2,93 @@
     --nonoColor: rgb(87, 61, 53);
     --nonoColorBright: rgb(187, 130, 113);
     --nonoBG: rgb(61, 61, 61);
+    --tileSize: 30px;
+    --uiSize: 25%;
 }
 
-#nono-board {
+.nono-board {
     border: 2px solid black;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
+    width: 100%;
+    height: 300px;
 }
 
-.nono {
+.nono-board ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.nono-board .nono {
     background-color: var(--nonoBG);
     user-select: none;
     image-rendering: pixelated;
+    width: 25%;
+    height: 25%;
 }
 
-.hints {
+.top.hints {
     background-color: var(--nonoBG);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
     user-select: none;
+    overflow: auto;
+    width: calc(100% - var(--uiSize));
+    height: var(--uiSize);
+    padding: var(--thickPadding);
+    display: flex;
+    align-items: center;
+}
+
+.side.hints {
+    background: var(--nonoBG);
+    user-select: none;
+    height: calc(100% - var(--uiSize));
+    width: var(--uiSize);
+    overflow: auto;
+    padding: var(--thickPadding);
 }
 
 .column {
     border: 1px solid var(--nonoColor);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
     user-select: none;
+    width: var(--tileSize);
+    text-orientation: upright;
 }
 
 .row {
     border: 1px solid var(--nonoColor);
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
     user-select: none;
+    height: var(--tileSize);
 }
 
 .hint {
-    width: 25px;
-    height: 25px;
+    width: var(--tileSize);
+    height: var(--tileSize);
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     user-select: none;
+    display: block;
 }
 
 .nono-field {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
+    width: calc(100% - var(--uiSize));
+    height: calc(100% - var(--uiSize));
+    overflow: auto;
+    padding: var(--thickPadding);
+    background: var(--nonoBG);
+}
+
+.nono-field .bar {
+    height: var(--tileSize);
+    width: max-content;
+    display: block;
 }
 
 .nono-tile {
     border: 1px solid var(--nonoColor);
     cursor: pointer;
+    width: var(--tileSize);
+    height: var(--tileSize);
+    display: inline-block;
 }
 
 .borderless {
