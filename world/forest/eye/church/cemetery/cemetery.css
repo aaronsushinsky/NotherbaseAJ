@@ -20,3 +20,10 @@
 .weed {
     transition: all 1s ease;
 }
+
+.pot {
+    width: 50%;
+    height: 200px;
+    background-color: brown;
+    position: relative;
+}

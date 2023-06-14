@@ -1,5 +1,3 @@
-<%- include("./plant.js") %>
-
 class Weed extends Plant {
     constructor(id, kind, ground) {
         super(id, kind, ground, {

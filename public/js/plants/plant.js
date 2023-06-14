@@ -1,5 +1,3 @@
-<%- include("../entity.js") %>
-
 class Fruit extends Limb {
     constructor(id, kind, $parent, imgs, behaviors) {
         super(id, kind, $parent);
@@ -105,8 +103,7 @@ class Branch extends Limb {
 
         this.branches = {
             amount: 0,
-            cooldown: 0,
-            part: Branch
+            cooldown: 0
         }
         if (this.behaviors.branch.children.branches.max > 0) {
             this.branches.cooldown = this.behaviors.branch.children.branches.spawnRate.cooldown + Math.random() * this.behaviors.branch.children.branches.spawnRate.potentialDelay;
@@ -114,8 +111,7 @@ class Branch extends Limb {
 
         this.leaves = {
             amount: 0,
-            cooldown: 0,
-            part: Leaf
+            cooldown: 0
         }
         if (this.behaviors.branch.children.leaves.max > 0) {
             this.leaves.cooldown = this.behaviors.branch.children.leaves.spawnRate.cooldown + Math.random() * this.behaviors.branch.children.leaves.spawnRate.potentialDelay;
@@ -123,8 +119,7 @@ class Branch extends Limb {
 
         this.fruits = {
             amount: 0,
-            cooldown: 0,
-            part: Fruit
+            cooldown: 0
         }
         if (this.behaviors.branch.children.fruits.max > 0) {
             this.fruits.cooldown = this.behaviors.branch.children.fruits.spawnRate.cooldown + Math.random() * this.behaviors.branch.children.fruits.spawnRate.potentialDelay;
@@ -134,7 +129,7 @@ class Branch extends Limb {
     }
 
     beat = () => {
-        this.attemptSpawn("branches");
+        //this.attemptSpawn("branches");
         this.attemptSpawn("leaves");
         this.attemptSpawn("fruits");
         this.grow();
@@ -155,12 +150,24 @@ class Branch extends Limb {
         }
     }
 
-    attemptSpawn(partType) {
+    attemptSpawn = (partType) => {
         if (this[partType].amount < this.behaviors.stem.children[partType].max) {
             this[partType].cooldown -= this.beatCooldown;
 
             if (this[partType].cooldown <= 0) {
-                this.addChild(new this[partType].part(this.id, this.kind, this.$div, this.imgs, this.behaviors));
+                let newPart = null;
+                switch (partType) {
+                    case "branches":
+                        newPart = new Branch(this.id, this.kind, this.$div, this.imgs, this.behaviors);
+                        break;
+                    case "leaves":
+                        newPart = new Leaf(this.id, this.kind, this.$div, this.imgs, this.behaviors);
+                        break;
+                    case "fruits":
+                        newPart = new Fruit(this.id, this.kind, this.$div, this.imgs, this.behaviors);
+                        break;
+                }
+                this.addChild(newPart);
                 this[partType].amount++;
                 if (this.behaviors.stem.children[partType].max > 0) {
                     this[partType].cooldown = this.behaviors.stem.children[partType].spawnRate.cooldown + Math.random() * this.behaviors.stem.children[partType].spawnRate.potentialDelay;
@@ -191,8 +198,7 @@ class Stem extends Limb {
 
         this.branches = {
             amount: 0,
-            cooldown: 0,
-            part: Branch
+            cooldown: 0
         }
         if (this.behaviors.stem.children.branches.max > 0) {
             this.branches.cooldown = this.behaviors.stem.children.branches.spawnRate.cooldown + Math.random() * this.behaviors.stem.children.branches.spawnRate.potentialDelay;
@@ -200,8 +206,7 @@ class Stem extends Limb {
 
         this.leaves = {
             amount: 0,
-            cooldown: 0,
-            part: Leaf
+            cooldown: 0
         }
         if (this.behaviors.stem.children.leaves.max > 0) {
             this.leaves.cooldown = this.behaviors.stem.children.leaves.spawnRate.cooldown + Math.random() * this.behaviors.stem.children.leaves.spawnRate.potentialDelay;
@@ -209,8 +214,7 @@ class Stem extends Limb {
 
         this.fruits = {
             amount: 0,
-            cooldown: 0,
-            part: Fruit
+            cooldown: 0
         }
         if (this.behaviors.stem.children.fruits.max > 0) {
             this.fruits.cooldown = this.behaviors.stem.children.fruits.spawnRate.cooldown + Math.random() * this.behaviors.stem.children.fruits.spawnRate.potentialDelay;
@@ -241,12 +245,25 @@ class Stem extends Limb {
         }
     }
 
-    attemptSpawn(partType) {
+    attemptSpawn = (partType) => {
         if (this[partType].amount < this.behaviors.stem.children[partType].max) {
             this[partType].cooldown -= this.beatCooldown;
             
             if (this[partType].cooldown <= 0) {
-                this.addChild(new this[partType].part(this.id, this.kind, this.$div, this.imgs, this.behaviors));
+                let newPart = null;
+                switch (partType) {
+                    case "branches":
+                        newPart = new Branch(this.id, this.kind, this.$div, this.imgs, this.behaviors);
+                        break;
+                    case "leaves":
+                        newPart = new Leaf(this.id, this.kind, this.$div, this.imgs, this.behaviors);
+                        break;
+                    case "fruits":
+                        newPart = new Fruit(this.id, this.kind, this.$div, this.imgs, this.behaviors);
+                        break;
+                }
+                console.log(newPart);
+                this.addChild(newPart);
                 this[partType].amount++;
                 if (this.behaviors.stem.children[partType].max > 0) {
                     this[partType].cooldown = this.behaviors.stem.children[partType].spawnRate.cooldown + Math.random() * this.behaviors.stem.children[partType].spawnRate.potentialDelay;

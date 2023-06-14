@@ -12,7 +12,7 @@ class Limb {
     }
 
     css(prop, val) {
-        if (this.$div) this.$div[0].style[prop] = val;
+        if (this.$div) this.$div.css(prop, val);
     }
 
     update = () => {
@@ -27,15 +27,14 @@ class Limb {
 
     }
 
-    render() {
+    render = () => {
         if (this.$div) this.$div.remove();
-        this.$div = $(`<div class="limb ${this.kind}" id="${this.id}"></div>`);
+        this.$div = $(`<div class="limb ${this.kind}" id="${this.id}"></div>`).appendTo(this.$parent);
         this.css("background", `url("${this.img}")`);
         this.css("left", `${this.position[0]}%`);
         this.css("bottom", `${this.position[1]}%`);
         this.moveTo(this.position);
         this.rotateTo(this.rotation);
-        this.$parent.append(this.$div);
 
         for (let i = 0; i < this.children.length; i++) {
             this.children[i].$parent = this.$div;
@@ -54,7 +53,7 @@ class Limb {
         this.css("background", `url("${imgPath}")`);
     }
 
-    addChild(limb) {
+    addChild = (limb) => {
         limb.setBeat(this.beatCooldown);
         this.children.push(limb);
         this.children[this.children.length - 1].render();
@@ -94,7 +93,7 @@ class Entity {
         this.body.rotateTo(angle);
     }
 
-    addBody(limb) {
+    addBody = (limb) => {
         limb.setBeat(this.beatCooldown);
         this.bodies.push(limb);
         this.bodies[this.bodies.length - 1].render();
