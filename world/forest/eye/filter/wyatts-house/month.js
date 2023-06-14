@@ -1,4 +1,4 @@
-class Calendar {
+class Month {
     constructor(id) {
         this.id = id;
         this.$div = $(`.calendar#${this.id}`);

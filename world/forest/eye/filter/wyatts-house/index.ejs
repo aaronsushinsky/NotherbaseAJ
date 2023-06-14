@@ -4,171 +4,13 @@
     <%- include("./wallet.css"); %>
     <%- include("./calendar.css"); %>
 </style>
+<link rel="stylesheet" href="/styles/billboard.css">
 
 <article>
     <section class="upstairs">
         <h4>Upstairs</h4>
         <button class="folder" onclick="upstairs.toggle(this)">v</button>
-
-        <article>
-            <article class="today">
-                <h5 class="date">Today: Friday, June 9th 2023</h5>
-                <div class="weather">
-                    The weather outside.
-                </div>
-                <div class="billboard" id="today"></div>
-                <textarea name="notes" id="" cols="30" rows="10">notes</textarea>
-                <ul class="schedule">
-                    <li>
-                        <h4>Appointment</h4>
-                        <p>12:00</p>
-                        <p>Details...</p>
-                    </li>
-                </ul>
-            </article>
-
-            <article class="week">
-                <h5>This Week</h5>
-                <div class="billboard" id="week"></div>
-                <textarea name="notes" id="" cols="30" rows="10">notes</textarea>
-                <div class="schedule">
-                    <ul class="day" id="monday">
-                        <li>
-                            <h4>Appointment</h4>
-                            <p>12:00</p>
-                            <p>Details...</p>
-                        </li>
-                    </ul>
-                    <ul class="day" id="tuesday">
-                        <li>
-                            <h4>Appointment</h4>
-                            <p>12:00</p>
-                            <p>Details...</p>
-                        </li>
-                    </ul>
-                    <ul class="day" id="wednesday">
-                        <li>
-                            <h4>Appointment</h4>
-                            <p>12:00</p>
-                            <p>Details...</p>
-                        </li>
-                    </ul>
-                    <ul class="day" id="thursday">
-                        <li>
-                            <h4>Appointment</h4>
-                            <p>12:00</p>
-                            <p>Details...</p>
-                        </li>
-                    </ul>
-                    <ul class="day" id="friday">
-                        <li>
-                            <h4>Appointment</h4>
-                            <p>12:00</p>
-                            <p>Details...</p>
-                        </li>
-                    </ul>
-                    <ul class="day" id="saturday">
-                        <li>
-                            <h4>Appointment</h4>
-                            <p>12:00</p>
-                            <p>Details...</p>
-                        </li>
-                    </ul>
-                    <ul class="day" id="sunday">
-                        <li>
-                            <h4>Appointment</h4>
-                            <p>12:00</p>
-                            <p>Details...</p>
-                        </li>
-                    </ul>
-                </div>
-            </article>
-            
-            <article class="month">
-                <h5>This Month</h5>
-                <div class="billboard" id="month"></div>
-                <textarea name="notes" id="" cols="30" rows="10">notes</textarea>
-                <div class="calendar" id="upstairs"></div>
-            </article>
-            
-            <article class="year">
-                <h5>This Year</h5>
-                <div class="billboard" id="year"></div>
-                <textarea name="notes" id="" cols="30" rows="10">notes</textarea>
-                <div class="schedule">
-                    <ul class="month" id="june">
-                        <h4>June</h4>
-                        <li>Appointment</li>
-                    </ul>
-                    <ul class="month" id="july">
-                        <h4>July</h4>
-                        <li>Appointment</li>
-                    </ul>
-                    <ul class="month" id="august">
-                        <h4>August</h4>
-                        <li>Appointment</li>
-                    </ul>
-                    <ul class="month" id="september">
-                        <h4>September</h4>
-                        <li>Appointment</li>
-                    </ul>
-                    <ul class="month" id="october">
-                        <h4>October</h4>
-                        <li>Appointment</li>
-                    </ul>
-                    <ul class="month" id="november">
-                        <h4>November</h4>
-                        <li>Appointment</li>
-                    </ul>
-                    <ul class="month" id="december">
-                        <h4>December</h4>
-                        <li>Appointment</li>
-                    </ul>
-                    <ul class="month" id="january">
-                        <h4>January</h4>
-                        <li>Appointment</li>
-                    </ul>
-                    <ul class="month" id="february">
-                        <h4>February</h4>
-                        <li>Appointment</li>
-                    </ul>
-                    <ul class="month" id="march">
-                        <h4>March</h4>
-                        <li>Appointment</li>
-                    </ul>
-                    <ul class="month" id="april">
-                        <h4>April</h4>
-                        <li>Appointment</li>
-                    </ul>
-                    <ul class="month" id="may">
-                        <h4>May</h4>
-                        <li>Appointment</li>
-                    </ul>
-                </div>
-            </article>
-            
-            
-            <div class="wallet conchu invisible">
-                <h4>Your Wallet</h4>
-                <div class="summary">
-                    <div class="spending">
-                        <h5>Spending Money Left</h5>
-                        <h6 id="week">This Week: $0</h6>
-                        <h6 id="month">This Month: $0</h6>
-                        <input type="text" id="item"><input type="number" id="spend"><button onclick="">Spend</button>
-                    </div>
-                    <div class="flow">
-                        <h5>Cash Flow Last Month</h5>
-                        <h6 id="income">Made: $0</h6>
-                        <h6 id="expenses">Spent: $0</h6>
-                        <h6 id="saved">Saved: $0</h6>
-                    </div>
-                </div>
-                <div class="settings invisible">
-                </div>
-                <button onclick="wallet.toggleView()">$$</button>
-            </div>
-        </article>
+        <article class="agenda" id="upstairs"></article>
     </section>
 
     <section class="laylas-room">
@@ -312,244 +154,60 @@
 <script src="/js/billboard.js"></script>
 <script src="/js/util/foldable.js"></script>
 <script>
-    //porch
+    //yard
+    <%- include("./harvest.js"); %>
+    let harvestGame = new HarvestGame();
+
+
 
     //livingroom
+    let livingroom = new Foldable($(".livingroom>article"));
     const openCloset = function openCloset() {
         $(".closet .door").addClass("invisible");
     };
 
-    let livingroom = new Foldable($(".livingroom>article"));
 
-    //backyard harvest game
-    class HarvestGame {
-        #Tree = class Tree {
-            constructor($OGtree, $ground) {
-                this.$div = $OGtree.clone();
-                this.$leaves = this.$div.find(".leaves");
-                this.$trunk = this.$div.find(".trunk");
-                this.cut = false;
-                this.maxYield = 5;
-                this.age = 0;
-                this.timeToGrow = 100000;
-                this.clicksToDie = 10;
-                this.maxWidth = 200;
-                this.maxHeight = 300;
-                this.position = [Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)];
-
-                $ground.append(this.$div);
-                this.$div.css("display", "initial");
-                this.updateCSS();
-
-                this.$trunk.on("click", this.click);
-            }
-
-            click = () => {
-                this.clicksToDie--;
-                this.$trunk.addClass("shake");
-                this.$leaves.addClass("shake");
-                this.$trunk[0].addEventListener('animationend', () => {
-                    this.$trunk.removeClass("shake");
-                    this.$leaves.removeClass("shake");
-                });
-
-                if (this.clicksToDie <= 0) {
-                    this.$div.remove();
-                    this.cut = true;
-                }
-            }
-
-            update(delta) {
-                this.age += delta;
-                if (this.age >= this.timeToGrow) this.age = this.timeToGrow;
-
-                this.updateCSS();
-            }
-            
-            updateCSS() {
-                let size = this.age / this.timeToGrow;
-                if (size > 1) size = 1;
-                this.$div.css("width", `${size * this.maxWidth}px`);
-                this.$div.css("height", `${size * this.maxHeight}px`);
-
-                this.$div.css("left", `calc(${this.position[0]}% - ${size * this.maxWidth / 2}px)`);
-                this.$div.css("bottom", `${this.position[1] - 5}%`);
-                this.$div.css("z-index", (100 - this.position[1]) + 25);
-            }
-        }
-
-        #Weed = class Weed {
-            constructor($OGweed, $ground) {
-                this.$div = $OGweed.clone();
-                this.$leaves = this.$div.find(".leaf");
-                this.cut = false;
-                this.age = 0;
-                this.timeToGrow = 100;
-                this.maxWidth = 20;
-                this.maxHeight = 30;
-
-                $ground.append(this.$div);
-                this.$div.css("display", "initial");
-                this.$div.css("left", `${Math.floor(Math.random() * 110) - 5}%`);
-                let z = Math.floor(Math.random() * 100) - 5;
-                this.$div.css("bottom", `${z}%`);
-                this.$div.css("z-index", (100 - z) + 25);
-                this.updateCSS();
-
-                this.$leaves.on("click", this.click);
-            }
-
-            click = () => {
-                this.$div.remove();
-
-                this.cut = true;
-            }
-
-            update(delta) {
-                this.age += delta;
-
-                this.updateCSS();
-            }
-            
-            updateCSS() {
-                let size = this.age / this.timeToGrow;
-                if (size > 1) size = 1;
-                this.$div.css("width", `${size * this.maxWidth}px`);
-                this.$div.css("height", `${size * this.maxHeight}px`);
-            }
-        }
-
-        constructor() {
-            this.$ground = $(".ground");
-            this.$OGtree = $(".tree");
-            this.$OGweed = $(".weed");
-            this.$OGtree.css("display", "none");
-            this.$OGweed.css("display", "none");
-            this.trees = [];
-            this.maxTrees = 10;
-            this.weeds = [];
-            this.maxWeeds = 100;
-            this.fps = 5;
-            setInterval(this.update, 1000 / this.fps);
-        }
-
-        update = () => {
-            this.checkForCuts();
-            this.attemptSpawn();
-            this.updateGrowth(1000 / this.fps);
-        }
-
-        checkForCuts() {
-            for (let i = 0; i < this.trees.length; i++) {
-                if (this.trees[i].cut) {
-                    this.trees.splice(i, 1);
-                    base.do("cut-tree");
-                }
-            }
-
-            for (let i = 0; i < this.weeds.length; i++) {
-                if (this.weeds[i].cut) {
-                    this.weeds.splice(i, 1);
-                    base.do("pull-weed");
-                }
-            }
-        }
-
-        attemptSpawn() {
-            if (Math.floor(Math.random() * 10) < 3) {
-                if (this.trees.length < this.maxTrees) {
-                    let newTree = new this.#Tree(this.$OGtree, this.$ground);
-
-                    this.trees.push(newTree);
-                }
-            }
-            else if (Math.floor(Math.random() * 10) < 3) {
-                if (this.weeds.length < this.maxWeeds) {
-                    let newWeed = new this.#Weed(this.$OGweed, this.$ground);
-
-                    this.weeds.push(newWeed);
-                }
-            }
-        }
-
-        updateGrowth(delta) {
-            for (let i = 0; i < this.trees.length; i++) {
-                this.trees[i].update(delta);
-            }
-
-            for (let i = 0; i < this.weeds.length; i++) {
-                this.weeds[i].update(delta);
-            }
-        }
-    }
-    let harvestGame = new HarvestGame();
 
     //layla widgets
     let lSkills, lToDo, lRecipes = null;
-
-    base.load("bb-layla-skills").then((res) => {
-        lSkills = new Billboard("layla-skills", res.items, { onSave: "save-layla" });
-    });
-
     let toyBox = new Foldable($(".toy-box article"));
     let laylasRoom = new Foldable($(".laylas-room>article"));
 
-    $(".pocket").on("click", function() {
-        $(".pocket").toggleClass("pocket-down");
-    });
+    base.load("bb-layla-skills").then((res) => { lSkills = new Billboard("layla-skills", res.items, { onSave: "save-layla" }); });
 
-    $(".background-changer").hover(function() {
-        $(".background-changer").toggleClass("red-bg");
-    });
+    $(".pocket").on("click", function() { $(".pocket").toggleClass("pocket-down"); });
+    $(".background-changer").hover(function() { $(".background-changer").toggleClass("red-bg"); });
+    $(".beautiful-button").hover(function() { $(".beautiful-background").toggleClass("red-bg"); });
+    $(".beautiful-button").on("mousedown", function() { $(".beautiful-icon").addClass("beautiful-icon-pressed"); });
+    $(".beautiful-button").on("mouseup", function() { $(".beautiful-icon").removeClass("beautiful-icon-pressed"); });
 
-    $(".beautiful-button").hover(function() {
-        $(".beautiful-background").toggleClass("red-bg");
-    });
-    $(".beautiful-button").on("mousedown", function() {
-        $(".beautiful-icon").addClass("beautiful-icon-pressed");
-    });
-    $(".beautiful-button").on("mouseup", function() {
-        $(".beautiful-icon").removeClass("beautiful-icon-pressed");
-    });
+
 
     //upstairs widgets
+    let upstairs = new Foldable($(".upstairs>article"));
+    
+    let monthFolder = new Foldable($(".upstairs .month>article"));
+    let yearFolder = new Foldable($(".upstairs .year>article"));
+
     let now = new Date();
     const weekday = ["Sunday", "Monday"," Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    $(".today .date").text(`Today: ${weekday[now.getDay()]}, ${now.toLocaleString()}`);
+    $(".today .date").text(`${weekday[now.getDay()]}: ${now.toLocaleDateString()}`);
 
     $.get(`https://api.weather.gov/points/46.7253,-122.9534`, (data) => {
-        let forecast = data.properties.forecast;
-
-        if (forecast) $.get(forecast, (data) => {
+        if (data.properties.forecast) $.get(data.properties.forecast, (data) => {
             let current = data.properties.periods[0];
-            console.log(current);
-            $(".today .weather").text(`${current.name}: ${current.temperature} °F, ${current.shortForecast}, ${current.windSpeed}`);
+            $(".week .day#0 .weather").text(`${current.name}: ${current.temperature} °F, ${current.shortForecast}, ${current.windSpeed}`);
         });
     });
-    
 
-    <%- include("./calendar.js"); %>
-    const upstairsCalendar = new Calendar("upstairs");
+    <%- include("./agenda.js"); %>
+    const upstairsAgenda = new Agenda("upstairs");
 
     let today, week, month, year = null;
-
-    base.load("todo-today").then((res) => {
-        today = new Billboard("today", res.items, { onSave: "save-todo" });
-    });
-
-    base.load("todo-week").then((res) => {
-        week = new Billboard("week", res.items, { onSave: "save-todo" });
-    });
-
-    base.load("todo-month").then((res) => {
-        month = new Billboard("month", res.items, { onSave: "save-todo" });
-    });
-
-    base.load("todo-year").then((res) => {
-        year = new Billboard("year", res.items, { onSave: "save-todo" });
-    });
-
-    let upstairs = new Foldable($(".upstairs>article"));
+    //base.load("todo-today").then((res) => { today = new Billboard("today", res.items, { onSave: "save-todo" }); });
+    // base.load("todo-week").then((res) => { week = new Billboard("week", res.items, { onSave: "save-todo" }); });
+    // base.load("todo-month").then((res) => { month = new Billboard("month", res.items, { onSave: "save-todo" }); });
+    // base.load("todo-year").then((res) => { year = new Billboard("year", res.items, { onSave: "save-todo" }); });
 
     <%- include("./wallet.js") %>
 </script>
