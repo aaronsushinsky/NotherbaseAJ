@@ -7,34 +7,30 @@ class Agenda {
         this.days = [];
         this.months = [];
         this.schedule = [];
+        this.date = new Date();
         
-        this.loading = this.load();
         this.render();
-        await this.loading;
-        this.renderDays();
-        this.renderMonths();
+        this.load();
     }
 
     render = () => {
         this.$div = $(`.agenda#${this.id}`);
         this.$week = $(`<section class="week"></section>`).appendTo(this.$div);
-        this.$weekHeader = $(`<h4>This Week</h4>`).appendTo(this.$week);
+        for (let i = 0; i < 7; i++) {
+            this.days.push(new Day(this.$week, this.date, i));       
+        }
 
         this.$year = $(`<section class="year"></section>`).appendTo(this.$div);
-        this.$yearHeader = $(`<h4>This Year</h4>`).appendTo(this.$year);
+        for (let i = 0; i < 12; i++) {
+            this.months.push(new Month(this.$year, this.date, i));       
+        }
     }
 
     load = async () => {
         base.load(`${this.id}-agenda`).then((res) => { 
             this.schedule = res.schedule;
+
+            console.log("Agenda Loaded");
         });
-    }
-
-    renderDays = () => {
-
-    }
-
-    renderMonths = () => {
-        
     }
 }

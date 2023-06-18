@@ -2,7 +2,7 @@
     <%- include("./backyard.css"); %>
     <%- include("./index.css"); %>
     <%- include("./wallet.css"); %>
-    <%- include("./calendar.css"); %>
+    <%- include("./agenda.css"); %>
 </style>
 <link rel="stylesheet" href="/styles/billboard.css">
 
@@ -185,29 +185,9 @@
 
     //upstairs widgets
     let upstairs = new Foldable($(".upstairs>article"));
-    
-    let monthFolder = new Foldable($(".upstairs .month>article"));
-    let yearFolder = new Foldable($(".upstairs .year>article"));
-
-    let now = new Date();
-    const weekday = ["Sunday", "Monday"," Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    $(".today .date").text(`${weekday[now.getDay()]}: ${now.toLocaleDateString()}`);
-
-    $.get(`https://api.weather.gov/points/46.7253,-122.9534`, (data) => {
-        if (data.properties.forecast) $.get(data.properties.forecast, (data) => {
-            let current = data.properties.periods[0];
-            $(".week .day#0 .weather").text(`${current.name}: ${current.temperature} °F, ${current.shortForecast}, ${current.windSpeed}`);
-        });
-    });
 
     <%- include("./agenda.js"); %>
     const upstairsAgenda = new Agenda("upstairs");
-
-    let today, week, month, year = null;
-    //base.load("todo-today").then((res) => { today = new Billboard("today", res.items, { onSave: "save-todo" }); });
-    // base.load("todo-week").then((res) => { week = new Billboard("week", res.items, { onSave: "save-todo" }); });
-    // base.load("todo-month").then((res) => { month = new Billboard("month", res.items, { onSave: "save-todo" }); });
-    // base.load("todo-year").then((res) => { year = new Billboard("year", res.items, { onSave: "save-todo" }); });
 
     <%- include("./wallet.js") %>
 </script>

@@ -1,0 +1,67 @@
+.agenda .week, .agenda .year {
+    gap: 0px;
+}
+
+.agenda .weather {
+    padding: 20px;
+}
+
+.agenda .day {
+    border-radius: 3px;
+}
+
+.agenda .day.small {
+    width: 33%;
+}
+
+.agenda .day.small h4, .agenda .month.small h4 {
+    font-size: var(--pSize);
+    height: var(--h4Size);
+    margin: 0;
+    width: 100%;
+}
+
+.agenda .year>.month {
+    border-radius: 3px;
+}
+
+.agenda .month.small {
+    width: 33%;
+}
+
+.agenda .month .grid {
+    width: 100%;
+    height: 400px;
+    background: var(--darkBgColor);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.agenda .month .day {
+    width: calc(100% / 7);
+    height: 80px;
+    background: var(--bgColor);
+}
+
+.agenda .month .day.current {
+    background: var(--hoverColor);
+    border: var(--standardBorder);
+}
+
+.agenda .month .ui {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.agenda .month .ui #toggler {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+
+.agenda .schedule {
+    border: none;
+}

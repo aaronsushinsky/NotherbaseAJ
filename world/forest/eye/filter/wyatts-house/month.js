@@ -1,43 +1,45 @@
 class Month {
-    constructor(id) {
-        this.id = id;
-        this.$div = $(`.calendar#${this.id}`);
-        this.$header = $(`<h4>${this.id} Calendar</h4>`).appendTo(this.$div);
-        this.$grid = $(`<div class="grid"></div>`).appendTo(this.$div);
-        this.$days = [];
-        this.$ui = $(`<div></div>`).appendTo(this.$div);
-        this.$toggle = $(`<button>#</button>`).appendTo(this.$ui);
-        this.$toggle.click(this.toggleMenu);
-        this.$menu = $(`<div class="invisible">Options</div>`).appendTo(this.$ui);
+    constructor($parent, date, month = 0) {
+        this.month = month;
+        this.date = date;
+        this.offsetDate = new Date(this.date.getTime());
+        this.$parent = $parent;
 
         this.menuIsOpen = false;
 
-        this.setMonth();
+        this.render();
+        if (month === 0) this.renderCalendar();
     }
 
-    openMenu = () => {
-        this.$menu.removeClass("invisible");
-        this.menuIsOpen = true;
-    }
-
-    closeMenu = () => {
-        this.$menu.addClass("invisible");
-        this.menuIsOpen = false;
-    }
-
-    setMonth = (month = null, year = null) => {
+    renderCalendar = () => {
         this.$grid.empty();
         this.$days = [];
 
-        let currentDate = new Date();
-        if (!month) month = currentDate.getMonth();
-        if (!year) year = currentDate.getFullYear();
-        
-        let daysInMonth = new Date(year, month + 1, 0).getDate();
+        let daysInMonth = new Date(this.date.getYear(), this.date.getMonth() + this.month, 0).getDate();
 
         for (let i = 0; i < daysInMonth; i++) {
-            let newDay = $(`<div class="day">${i + 1}</div>`).appendTo(this.$grid);
+            let newDay = null;
+            if (this.date.getDate() - 1 == i) newDay = $(`<div class="day current">${i + 1}</div>`).appendTo(this.$grid);
+            else newDay = $(`<div class="day">${i + 1}</div>`).appendTo(this.$grid);;
             this.$days.push(newDay);
         }
+    }
+
+    render = () => {
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        if (this.month === 0) this.$div = $(`<article class="month" id="${this.month}"></article>`).appendTo(this.$parent);
+        else this.$div = $(`<article class="month small" id="${this.month}"></article>`).appendTo(this.$parent);
+        let whichMonth = this.date.getMonth() + this.month;
+        if (whichMonth > 11) whichMonth -= 12;
+        this.$header = $(`<h4>${months[whichMonth]}</h4>`).appendTo(this.$div);
+        if (this.month === 0) {
+            this.$grid = $(`<div class="grid"></div>`).appendTo(this.$div);
+            this.$days = [];
+            this.$ui = $(`<div class="ui"></div>`).appendTo(this.$div);
+            this.$toggle = $(`<button id="toggler">#</button>`).appendTo(this.$ui);
+            this.$toggle.click(this.toggleMenu);
+            this.$menu = $(`<div class="invisible">Options</div>`).appendTo(this.$ui);
+        }
+        this.$schedule = $(`<ul class="schedule"></ul>`).appendTo(this.$div);
     }
 }

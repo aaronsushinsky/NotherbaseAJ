@@ -123,10 +123,6 @@ article h4, h5 {
     background: var(--yellowPastel);
 }
 
-.upstairs .weather {
-    padding: 40px;
-}
-
 .toy-box article {
     display: flex;
     flex-wrap: wrap;
