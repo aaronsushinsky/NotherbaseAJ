@@ -15,12 +15,16 @@ class Month {
         this.$grid.empty();
         this.$days = [];
 
-        let daysInMonth = new Date(this.date.getYear(), this.date.getMonth() + this.month, 0).getDate();
+        let daysInMonth = new Date(1900 + this.date.getYear(), this.date.getMonth() + this.month - 1, 0).getDate();
+        let startDay = new Date(1900 + this.date.getYear(), this.date.getMonth() + this.month, 1).getDay();
 
+        for (let i = 0; i < startDay; i++) {
+            $(`<div class="calendummy"></div>`).appendTo(this.$grid);
+        }
         for (let i = 0; i < daysInMonth; i++) {
             let newDay = null;
-            if (this.date.getDate() - 1 == i) newDay = $(`<div class="day current">${i + 1}</div>`).appendTo(this.$grid);
-            else newDay = $(`<div class="day">${i + 1}</div>`).appendTo(this.$grid);;
+            if (this.date.getDate() - 1 == i) newDay = $(`<div class="calenday current">${i + 1}</div>`).appendTo(this.$grid);
+            else newDay = $(`<div class="calenday">${i + 1}</div>`).appendTo(this.$grid);
             this.$days.push(newDay);
         }
     }

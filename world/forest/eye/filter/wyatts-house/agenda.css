@@ -1,9 +1,5 @@
-.agenda .week, .agenda .year {
-    gap: 0px;
-}
-
 .agenda .weather {
-    padding: 20px;
+    padding: 10px;
 }
 
 .agenda .day {
@@ -16,7 +12,7 @@
 
 .agenda .day.small h4, .agenda .month.small h4 {
     font-size: var(--pSize);
-    height: var(--h4Size);
+    min-height: var(--h4Size);
     margin: 0;
     width: 100%;
 }
@@ -37,13 +33,24 @@
     flex-wrap: wrap;
 }
 
-.agenda .month .day {
+.agenda .month .calendummy {
+    width: calc(100% / 7);
+    height: 80px;
+    background: none;
+    border-bottom: 1px dashed rgba(255, 255, 186, 0.12);
+    border-right: 1px dashed rgba(255, 255, 186, 0.12);
+}
+
+.agenda .month .calenday {
     width: calc(100% / 7);
     height: 80px;
     background: var(--bgColor);
+    border-bottom: 1px dashed rgba(255, 255, 186, 0.12);
+    border-right: 1px dashed rgba(255, 255, 186, 0.12);
+    padding: 2px;
 }
 
-.agenda .month .day.current {
+.agenda .month .calenday.current {
     background: var(--hoverColor);
     border: var(--standardBorder);
 }

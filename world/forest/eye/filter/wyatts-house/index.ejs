@@ -3,6 +3,7 @@
     <%- include("./index.css"); %>
     <%- include("./wallet.css"); %>
     <%- include("./agenda.css"); %>
+    <%- include("./scheduler.css"); %>
 </style>
 <link rel="stylesheet" href="/styles/billboard.css">
 
@@ -11,6 +12,12 @@
         <h4>Upstairs</h4>
         <button class="folder" onclick="upstairs.toggle(this)">v</button>
         <article class="agenda" id="upstairs"></article>
+    </section>
+
+    <section class="office">
+        <h4>Office</h4>
+        <button class="folder" onclick="office.toggle(this)">v</button>
+        <article class="scheduler" id="office"></article>
     </section>
 
     <section class="laylas-room">
@@ -190,4 +197,12 @@
     const upstairsAgenda = new Agenda("upstairs");
 
     <%- include("./wallet.js") %>
+
+
+
+    //office
+    let office = new Foldable($(".office>article"));
+
+    <%- include("./scheduler.js"); %>
+    let scheduler = new Scheduler("office");
 </script>

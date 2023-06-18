@@ -153,7 +153,6 @@ section {
     justify-content: space-around;
     align-content: flex-end;
     min-height: 30px;
-    gap: 10px 10px;
     position: relative;
 }
 
@@ -161,6 +160,8 @@ article {
     width: 100%;
     position: relative;
     border: var(--standardBorder);
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .code {
@@ -382,6 +383,8 @@ input[type=checkbox] {
     border: var(--standardBorder);
     height: 300px;
     background: rgb(25, 25, 25);
+    align-content: flex-start;
+    gap: 0;
 }
 
 .search input {
@@ -392,18 +395,14 @@ input[type=checkbox] {
     border-bottom: var(--standardBorder);
 }
 
-.search section {
+.search ul {
     width: 100%;
     margin: 0;
     padding: 0;
     height: calc(100% - var(--inputHeight));
     overflow: auto;
     align-content: flex-start;
-}
-
-.search ul {
     border: 1px dotted var(--textColor);
-    width: var(--fillFromMargin);
 }
 
 ul.selector li:hover {

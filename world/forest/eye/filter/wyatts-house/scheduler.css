@@ -1,0 +1,41 @@
+.scheduler {
+    height: 300px;
+}
+
+.scheduler>ul {
+    height: 100%;
+    width: 30%;
+    overflow: auto;
+    margin: 0;
+}
+
+.scheduler .content {
+    width: 70%;
+    height: 100%;
+    margin: 0;
+}
+
+.scheduler .filters {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    align-content: flex-start;
+}
+
+.scheduler .read {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    align-content: flex-start;
+}
+
+.scheduler .read h5 {
+    height: 40px;
+}
+
+.scheduler .edit {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    align-content: flex-start;
+}
