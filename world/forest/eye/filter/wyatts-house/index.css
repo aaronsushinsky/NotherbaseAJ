@@ -6,6 +6,7 @@
     --bluePastel: rgb(148, 191, 219);
     --greenPastel: rgb(130, 226, 189);
     --woodColor: rgb(95, 68, 43);
+    --houseColor: rgb(70, 62, 48);
     --darkWoodColor: rgb(70, 50, 32);
     --metalColor: rgb(104, 101, 100);
     --darkMetalColor: rgb(75, 71, 70);
@@ -44,7 +45,7 @@ article h4, h5 {
 }
 
 .livingroom {
-    background: var(--yellowPastel);
+    background: var(--houseColor);
 }
 
 .livingroom article {
@@ -120,7 +121,7 @@ article h4, h5 {
 }
 
 .upstairs {
-    background: var(--yellowPastel);
+    background: var(--houseColor);
 }
 
 .toy-box article {

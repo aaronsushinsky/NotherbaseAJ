@@ -1,0 +1,31 @@
+.browser {
+    width: 100%;
+}
+
+.browser .search {
+    width: 30%;
+}
+
+.browser .edit {
+    width: 70%;
+    height: 300px;
+    position: relative;
+}
+
+.browser .read {
+    width: 70%;
+    height: 300px;
+    position: relative;
+}
+
+.browser .filter {
+    width: 70%;
+    height: 300px;
+    position: relative;
+}
+
+.browser .create {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}

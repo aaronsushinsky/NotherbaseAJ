@@ -3,8 +3,8 @@
     <%- include("./index.css"); %>
     <%- include("./wallet.css"); %>
     <%- include("./agenda.css"); %>
-    <%- include("./scheduler.css"); %>
 </style>
+<link rel="stylesheet" href="/styles/browser.css">
 <link rel="stylesheet" href="/styles/billboard.css">
 
 <article>
@@ -17,7 +17,7 @@
     <section class="office">
         <h4>Office</h4>
         <button class="folder" onclick="office.toggle(this)">v</button>
-        <article class="scheduler" id="office"></article>
+        <article class="browser" id="office"></article>
     </section>
 
     <section class="laylas-room">
@@ -160,6 +160,7 @@
 <script src="/js/dialogue.js"></script>
 <script src="/js/billboard.js"></script>
 <script src="/js/util/foldable.js"></script>
+<script src="/js/util/browser.js"></script>
 <script>
     //yard
     <%- include("./harvest.js"); %>

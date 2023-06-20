@@ -9,22 +9,54 @@ class Browser {
         this.onSave = onSave;
         this.prefixes = {};
 
-        this.$div = $(`.browser#${id}`);
+        this.render();
+    }
+
+    render = () => {
+        this.$div = $(`.browser#${this.id}`);
 
         this.$searchBox = $(`<div class="search"></div>`).appendTo(this.$div);
         this.$search = $(`<input type="text" placeholder="search">`).appendTo(this.$searchBox);
-        this.$search.on("input", (e) => {
-            return this.setFilter(e.currentTarget.value);
-        });
+        this.$search.on("input", (e) => { return this.setFilter(e.currentTarget.value); });
         this.$searchList = $(`<ul class="selector"></ul>`).appendTo($(`<section></section>`).appendTo(this.$searchBox));
 
-        this.$read = {
-            div: $(`<div class="read"></div>`).appendTo(this.$div)
-        };
+        this.$read = $(`<div class="read"></div>`).appendTo(this.$div);
+        this.$read.$create = $(`<button class="create">+</button>`).appendTo(this.$read);
+        this.$read.$create.click(this.create);
+        this.$read.$items = [];
 
-        this.$edit = {
-            div: $(`<div class="edit invisible"></div>`).appendTo(this.$div)
-        };
+        this.$edit = $(`<div class="edit invisible"></div>`).appendTo(this.$div);
+        this.$edit.$cancel = $(`<button class="cancel">Cancel</button>`).appendTo(this.$edit);
+        this.$edit.$cancel.click(this.cancel);
+        this.$edit.$items = [];
+
+        this.renderFields();
+    }
+
+    renderFields = () => {
+        for (let i = 0; i < this.fields.length; i++) {
+            if (this.fields[i].type == String) {
+                let $readItem = $(`<p>${this.fields[i].label}: ${this.fields[i].placeholder}</p>`).appendTo(this.$read);
+                this.$read.$items.push($readItem);
+
+                let $editItem = $(`<input type="text" placeholder="${this.fields[i].placeholder}">`).appendTo(this.$edit);
+                this.$edit.$items.push($editItem);
+            }
+            else if (this.fields[i].type == Date) {
+                let $readItem = $(`<p>${this.fields[i].label}: ${this.fields[i].placeholder.toLocaleString()}</p>`).appendTo(this.$read);
+                this.$read.$items.push($readItem);
+
+                let $editItem = $(`<input type="date-time" placeholder="${this.fields[i].placeholder}">`).appendTo(this.$edit);
+                this.$edit.$items.push($editItem);
+            }
+            else if (this.fields[i].type == Boolean) {
+                let $readItem = $(`<p>${this.fields[i].label}: ${this.fields[i].placeholder}</p>`).appendTo(this.$read);
+                this.$read.$items.push($readItem);
+
+                let $editItem = $(`<input type="checkbox" checked="${this.fields[i].placeholder}">`).appendTo(this.$edit);
+                this.$edit.$items.push($editItem);
+            }
+        }
     }
 
     renderSearchResults = () => {
@@ -76,15 +108,6 @@ class Browser {
         this.select(this.selected);
     }
 
-    checkIfTextField($div) {
-        return ($div.is("h1") || $div.is("h2") || $div.is("h3") || $div.is("h4") ||
-            $div.is("h5") || $div.is("h6") || $div.is("p") || $div.is("div"));
-    }
-
-    checkIfImageField($div) {
-        return $div.is("img");
-    }
-
     prefix(field, postfix) {
         if (this.prefixes[field]) return (this.prefixes[field] + postfix).replace(/(?:\r\n|\r|\n)/g, '<br />');
         else return postfix.replace(/(?:\r\n|\r|\n)/g, '<br />');
@@ -96,16 +119,7 @@ class Browser {
         if (this.selected > -1 && this.selected < this.items.length) {
             let item = this.items[this.selected];
             
-            for (let i = 0; i < this.fields.length; i++) {
-                let $div = this.$read[this.fields[i]];
-                if (typeof item[this.fields[i]] == "array") {
-                    for (let j = 0; j < item[this.fields[i]].length; j++) {
-                        $ul.append(`<li>${this.prefix(this.fields[i], item[this.fields[i]])}</li>`);
-                    }
-                }
-                else if (this.checkIfTextField($div)) $div.html(this.prefix(this.fields[i], item[this.fields[i]]));
-                else if (this.checkIfImageField($div)) $div.attr("src", this.prefix(this.fields[i], item[this.fields[i]]));
-            }
+            
         }
         else {
             for (let i = 0; i < this.fields.length; i++) {
@@ -117,8 +131,8 @@ class Browser {
     }
 
     edit = () => {
-        this.$read.div.addClass("invisible");
-        this.$edit.div.removeClass("invisible");
+        this.$read.addClass("invisible");
+        this.$edit.removeClass("invisible");
 
         if (this.selected >= 0) {
             let item = this.items[this.selected];
@@ -135,8 +149,8 @@ class Browser {
     }
 
     cancel = () => {
-        this.$edit.div.addClass("invisible");
-        this.$read.div.removeClass("invisible");
+        this.$edit.addClass("invisible");
+        this.$read.removeClass("invisible");
     }
 
     delete = async () => {
@@ -155,8 +169,8 @@ class Browser {
         }
     }
 
-    new = () => {
-        this.selected = -1;
+    create = () => {
+        this.select(-1);
         
         this.edit();
     }
