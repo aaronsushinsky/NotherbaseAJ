@@ -6,7 +6,7 @@
     width: 30%;
 }
 
-.browser .edit {
+.browser div.edit {
     width: 70%;
     height: 300px;
     position: relative;
@@ -28,4 +28,16 @@
     position: absolute;
     bottom: 5px;
     right: 5px;
+}
+
+.browser button.edit {
+    position: absolute;
+    bottom: 5px;
+    right: 45px;
+}
+
+.browser button.delete {
+    position: absolute;
+    bottom: 5px;
+    right: 145px;
 }

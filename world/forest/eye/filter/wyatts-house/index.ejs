@@ -17,7 +17,7 @@
     <section class="office">
         <h4>Office</h4>
         <button class="folder" onclick="office.toggle(this)">v</button>
-        <article class="browser" id="office"></article>
+        <article class="browser" id="scheduler"></article>
     </section>
 
     <section class="laylas-room">
@@ -205,5 +205,8 @@
     let office = new Foldable($(".office>article"));
 
     <%- include("./scheduler.js"); %>
-    let scheduler = new Scheduler("office");
+    let scheduler = new Scheduler("scheduler");
+    base.load("scheduler-browser").then((res) => {
+        scheduler.load(res);
+    })
 </script>

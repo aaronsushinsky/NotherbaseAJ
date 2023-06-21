@@ -21,11 +21,17 @@ class Browser {
         this.$searchList = $(`<ul class="selector"></ul>`).appendTo($(`<section></section>`).appendTo(this.$searchBox));
 
         this.$read = $(`<div class="read"></div>`).appendTo(this.$div);
+        this.$read.$edit = $(`<button class="edit">Edit</button>`).appendTo(this.$read);
+        this.$read.$edit.click(this.edit);
         this.$read.$create = $(`<button class="create">+</button>`).appendTo(this.$read);
         this.$read.$create.click(this.create);
         this.$read.$items = [];
 
         this.$edit = $(`<div class="edit invisible"></div>`).appendTo(this.$div);
+        this.$edit.$delete = $(`<button class="delete">Delete</button>`).appendTo(this.$edit);
+        this.$edit.$delete.click(this.delete);
+        this.$edit.$save = $(`<button class="save">Save</button>`).appendTo(this.$edit);
+        this.$edit.$save.click(this.save);
         this.$edit.$cancel = $(`<button class="cancel">Cancel</button>`).appendTo(this.$edit);
         this.$edit.$cancel.click(this.cancel);
         this.$edit.$items = [];
@@ -46,7 +52,7 @@ class Browser {
                 let $readItem = $(`<p>${this.fields[i].label}: ${this.fields[i].placeholder.toLocaleString()}</p>`).appendTo(this.$read);
                 this.$read.$items.push($readItem);
 
-                let $editItem = $(`<input type="date-time" placeholder="${this.fields[i].placeholder}">`).appendTo(this.$edit);
+                let $editItem = $(`<input type="datetime-local" value="${this.fields[i].placeholder}">`).appendTo(this.$edit);
                 this.$edit.$items.push($editItem);
             }
             else if (this.fields[i].type == Boolean) {
@@ -65,7 +71,8 @@ class Browser {
         for (let i = 0; i < this.items.length; i++) {
             let label = this.items[i].name || this.items[i].title || this.items[i].header || this.items[i].whenSearched || Object.values(this.items[i])[0];
             if (label.toLowerCase().includes(this.filter.toLowerCase())) {
-                $(`<li id="${i}">${label}</li>`).appendTo(this.$searchList).on("click", () => { this.select(i); });
+                let $result = $(`<li id="${i}">${label}</li>`).appendTo(this.$searchList);
+                $result.on("click", () => { this.select(i); });
             }
         };
         if (this.items.length < 1) {
@@ -93,13 +100,19 @@ class Browser {
         let newItem = {};
 
         for (let i = 0; i < this.fields.length; i++) {
-            newItem[this.fields[i]] = this.$edit[this.fields[i]].val();
+            if (this.fields[i].type == Boolean) newItem[this.fields[i].name] = this.$edit.$items[i].prop("checked");
+            else newItem[this.fields[i].name] = this.$edit.$items[i].val();
         }
+        console.log(newItem);
 
-        if (this.selected < 0) this.items.push(newItem);
+        if (this.selected < 0) {
+            this.selected = this.items.length;
+            this.items.push(newItem);
+        }
         else this.items[this.selected] = newItem;
 
         if (this.onSave) await base.do(this.onSave, {
+            id: this.id,
             items: this.items
         });
         
@@ -113,19 +126,19 @@ class Browser {
         else return postfix.replace(/(?:\r\n|\r|\n)/g, '<br />');
     }
 
-    read = async () => {
+    read = () => {
         this.cancel();
 
         if (this.selected > -1 && this.selected < this.items.length) {
             let item = this.items[this.selected];
             
-            
+            for (let i = 0; i < this.fields.length; i++) {
+                this.$read.$items[i].text(`${this.fields[i].label}: ${item[this.fields[i].name]}`);
+            }
         }
         else {
             for (let i = 0; i < this.fields.length; i++) {
-                let $div = this.$read[this.fields[i]];
-                if (this.checkIfTextField($div)) $div.text("None");
-                else if (this.checkIfImageField($div)) $div.attr("src", "/img/food/default.jpg");
+                this.$read.$items[i].text(`${this.fields[i].label}: ${this.fields[i].placeholder}`);
             }
         }
     }
@@ -138,12 +151,28 @@ class Browser {
             let item = this.items[this.selected];
 
             for (let i = 0; i < this.fields.length; i++) {
-                this.$edit[this.fields[i]].val(item[this.fields[i]]);
+                if (this.fields[i].type == String) {
+                    this.$edit.$items[i].val(item[this.fields[i].name]);
+                }
+                else if (this.fields[i].type == Date) {
+                    this.$edit.$items[i].val(item[this.fields[i].name]);
+                }
+                else if (this.fields[i].type == Boolean) {
+                    this.$edit.$items[i].prop("checked", item[this.fields[i].name]);
+                }
             }
         }
         else {
             for (let i = 0; i < this.fields.length; i++) {
-                this.$edit[this.fields[i]].val("");
+                if (this.fields[i].type == String) {
+                    this.$edit.$items[i].val("");
+                }
+                else if (this.fields[i].type == Date) {
+                    this.$edit.$items[i].val("");
+                }
+                else if (this.fields[i].type == Boolean) {
+                    this.$edit.$items[i].prop("checked", this.fields[i].placeholder);
+                }
             }
         }
     }
@@ -159,14 +188,15 @@ class Browser {
     
             if (this.onSave) {
                 await base.do(this.onSave, {
+                    id: this.id,
                     items: this.items
                 });
             }
-            
-            this.renderSearchResults();
-            this.cancel();
-            this.select(-1);
         }
+
+        this.renderSearchResults();
+        this.cancel();
+        this.select(-1);
     }
 
     create = () => {
