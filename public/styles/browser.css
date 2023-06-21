@@ -1,9 +1,22 @@
 .browser {
     width: 100%;
+    position: relative;
 }
 
 .browser .search {
     width: 30%;
+    position: relative;
+}
+
+.browser button.filters {
+    position: absolute;
+    left: 5px;
+    bottom: 0;
+    width: calc(100% - 10px);
+    height: 30px;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: none;
 }
 
 .browser div.edit {
@@ -16,28 +29,64 @@
     width: 70%;
     height: 300px;
     position: relative;
+    padding-bottom: 40px;
 }
 
 .browser .filter {
     width: 70%;
     height: 300px;
-    position: relative;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: var(--bgColor);
 }
 
-.browser .create {
+.browser button.create {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
+    bottom: 0;
+    left: 60px;
+    height: 30px;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: none;
 }
 
 .browser button.edit {
     position: absolute;
-    bottom: 5px;
-    right: 45px;
+    bottom: 0;
+    left: 5px;
+    height: 30px;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: none;
 }
 
 .browser button.delete {
     position: absolute;
-    bottom: 5px;
-    right: 145px;
+    bottom: 0;
+    right: 5px;
+    height: 30px;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: none;
+}
+
+.browser button.save {
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    height: 30px;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: none;
+}
+
+.browser button.cancel {
+    position: absolute;
+    bottom: 0;
+    left: 65px;
+    height: 30px;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: none;
 }

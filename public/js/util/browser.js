@@ -16,8 +16,8 @@ class Browser {
         this.$div = $(`.browser#${this.id}`);
 
         this.$searchBox = $(`<div class="search"></div>`).appendTo(this.$div);
-        this.$search = $(`<input type="text" placeholder="search">`).appendTo(this.$searchBox);
-        this.$search.on("input", (e) => { return this.setFilter(e.currentTarget.value); });
+        this.$searchBox.$toFilter = $(`<button class="filters">Filter</button>`).appendTo(this.$searchBox);
+        this.$searchBox.$toFilter.click(this.toggleFilters);
         this.$searchList = $(`<ul class="selector"></ul>`).appendTo($(`<section></section>`).appendTo(this.$searchBox));
 
         this.$read = $(`<div class="read"></div>`).appendTo(this.$div);
@@ -36,27 +36,31 @@ class Browser {
         this.$edit.$cancel.click(this.cancel);
         this.$edit.$items = [];
 
+        this.$filter = $(`<div class="filter invisible"></div>`).appendTo(this.$div);
+        this.$search = $(`<input type="text" placeholder="search">`).appendTo(this.$filter);
+        this.$search.on("input", (e) => { return this.setFilter(e.currentTarget.value); });
+
         this.renderFields();
     }
 
     renderFields = () => {
         for (let i = 0; i < this.fields.length; i++) {
             if (this.fields[i].type == String) {
-                let $readItem = $(`<p>${this.fields[i].label}: ${this.fields[i].placeholder}</p>`).appendTo(this.$read);
+                let $readItem = $(`<p>${this.fields[i].label}: no item</p>`).appendTo(this.$read);
                 this.$read.$items.push($readItem);
 
                 let $editItem = $(`<input type="text" placeholder="${this.fields[i].placeholder}">`).appendTo(this.$edit);
                 this.$edit.$items.push($editItem);
             }
             else if (this.fields[i].type == Date) {
-                let $readItem = $(`<p>${this.fields[i].label}: ${this.fields[i].placeholder.toLocaleString()}</p>`).appendTo(this.$read);
+                let $readItem = $(`<p>${this.fields[i].label}: no item</p>`).appendTo(this.$read);
                 this.$read.$items.push($readItem);
 
                 let $editItem = $(`<input type="datetime-local" value="${this.fields[i].placeholder}">`).appendTo(this.$edit);
                 this.$edit.$items.push($editItem);
             }
             else if (this.fields[i].type == Boolean) {
-                let $readItem = $(`<p>${this.fields[i].label}: ${this.fields[i].placeholder}</p>`).appendTo(this.$read);
+                let $readItem = $(`<p>${this.fields[i].label}: no item</p>`).appendTo(this.$read);
                 this.$read.$items.push($readItem);
 
                 let $editItem = $(`<input type="checkbox" checked="${this.fields[i].placeholder}">`).appendTo(this.$edit);
@@ -177,6 +181,10 @@ class Browser {
         }
     }
 
+    toggleFilters = () => {
+        this.$filter.toggleClass("invisible");
+    }
+
     cancel = () => {
         this.$edit.addClass("invisible");
         this.$read.removeClass("invisible");
@@ -211,7 +219,8 @@ class Browser {
         $searchResults.removeClass("selected");
 
         if (which > -1) {
-            $searchResults.find(`#${which}`).addClass("selected");
+            if ($searchResults.length > 1) $searchResults.find(`#${which}`).addClass("selected");
+            else $searchResults.addClass("selected");
         }
         
         this.read();
