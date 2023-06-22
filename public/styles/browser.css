@@ -7,13 +7,15 @@
 .browser .search {
     width: 30%;
     position: relative;
+    overflow: auto;
+    padding-bottom: 40px;
 }
 
 .browser button.filters {
-    position: sticky;
+    position: absolute;
     left: 5px;
     bottom: 0;
-    width: calc(100% - 10px);
+    width: calc(30% - 10px);
     height: 30px;
     margin: 0;
     border-radius: 2px 2px 0 0;
@@ -50,9 +52,9 @@
 }
 
 .browser button.create {
-    position: sticky;
+    position: absolute;
     bottom: 0;
-    left: 60px;
+    left: calc(30% + 60px);
     height: 30px;
     margin: 0;
     border-radius: 2px 2px 0 0;
@@ -62,7 +64,7 @@
 .browser button.edit {
     position: absolute;
     bottom: 0;
-    left: 5px;
+    left: calc(30% + 5px);
     height: 30px;
     margin: 0;
     border-radius: 2px 2px 0 0;
@@ -70,7 +72,7 @@
 }
 
 .browser button.delete {
-    position: sticky;
+    position: absolute;
     bottom: 0;
     right: 5px;
     height: 30px;
@@ -80,9 +82,9 @@
 }
 
 .browser button.save {
-    position: sticky;
+    position: absolute;
     bottom: 0;
-    left: 5px;
+    left: calc(30% + 5px);
     height: 30px;
     margin: 0;
     border-radius: 2px 2px 0 0;
@@ -90,9 +92,9 @@
 }
 
 .browser button.cancel {
-    position: sticky;
+    position: absolute;
     bottom: 0;
-    left: 65px;
+    left: calc(30% + 65px);
     height: 30px;
     margin: 0;
     border-radius: 2px 2px 0 0;

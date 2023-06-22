@@ -16,24 +16,24 @@ class Browser {
         this.$div = $(`.browser#${this.id}`);
 
         this.$searchBox = $(`<div class="search"></div>`).appendTo(this.$div);
-        this.$searchBox.$toFilter = $(`<button class="filters">Filter</button>`).appendTo(this.$searchBox);
-        this.$searchBox.$toFilter.click(this.toggleFilters);
+        this.$toFilter = $(`<button class="filters">Filter</button>`).appendTo(this.$div);
+        this.$toFilter.click(this.toggleFilters);
         this.$searchList = $(`<ul class="selector"></ul>`).appendTo($(`<section></section>`).appendTo(this.$searchBox));
 
         this.$read = $(`<div class="read"></div>`).appendTo(this.$div);
-        this.$read.$edit = $(`<button class="edit">Edit</button>`).appendTo(this.$read);
-        this.$read.$edit.click(this.edit);
-        this.$read.$create = $(`<button class="create">+</button>`).appendTo(this.$read);
-        this.$read.$create.click(this.create);
+        this.$toEdit = $(`<button class="edit">Edit</button>`).appendTo(this.$div);
+        this.$toEdit.click(this.edit);
+        this.$create = $(`<button class="create">+</button>`).appendTo(this.$div);
+        this.$create.click(this.create);
         this.$read.$items = [];
 
         this.$edit = $(`<div class="edit invisible"></div>`).appendTo(this.$div);
-        this.$edit.$delete = $(`<button class="delete">Delete</button>`).appendTo(this.$edit);
-        this.$edit.$delete.click(this.delete);
-        this.$edit.$save = $(`<button class="save">Save</button>`).appendTo(this.$edit);
-        this.$edit.$save.click(this.save);
-        this.$edit.$cancel = $(`<button class="cancel">Cancel</button>`).appendTo(this.$edit);
-        this.$edit.$cancel.click(this.cancel);
+        this.$delete = $(`<button class="delete invisible">Delete</button>`).appendTo(this.$div);
+        this.$delete.click(this.delete);
+        this.$save = $(`<button class="save invisible">Save</button>`).appendTo(this.$div);
+        this.$save.click(this.save);
+        this.$cancel = $(`<button class="cancel invisible">Cancel</button>`).appendTo(this.$div);
+        this.$cancel.click(this.cancel);
         this.$edit.$items = [];
 
         this.$filter = $(`<div class="filter invisible"></div>`).appendTo(this.$div);
@@ -149,7 +149,13 @@ class Browser {
 
     edit = () => {
         this.$read.addClass("invisible");
+        this.$toEdit.addClass("invisible");
+        this.$create.addClass("invisible");
+
         this.$edit.removeClass("invisible");
+        this.$cancel.removeClass("invisible");
+        this.$save.removeClass("invisible");
+        this.$delete.removeClass("invisible");
 
         if (this.selected >= 0) {
             let item = this.items[this.selected];
@@ -187,7 +193,13 @@ class Browser {
 
     cancel = () => {
         this.$edit.addClass("invisible");
+        this.$cancel.addClass("invisible");
+        this.$save.addClass("invisible");
+        this.$delete.addClass("invisible");
+
         this.$read.removeClass("invisible");
+        this.$toEdit.removeClass("invisible");
+        this.$create.removeClass("invisible");
     }
 
     delete = async () => {
