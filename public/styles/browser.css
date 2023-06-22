@@ -11,7 +11,7 @@
     padding-bottom: 40px;
 }
 
-.browser button.filters {
+.browser button.filter-toggle {
     position: absolute;
     left: 5px;
     bottom: 0;
@@ -31,6 +31,11 @@
     overflow: auto;
 }
 
+.browser .nested {
+    position: static !important;
+    height: auto !important;
+}
+
 .browser .read {
     width: 70%;
     height: 300px;
@@ -41,7 +46,7 @@
     overflow: auto;
 }
 
-.browser .filter {
+.browser .filters {
     width: 70%;
     height: 300px;
     position: absolute;

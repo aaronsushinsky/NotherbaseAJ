@@ -1,5 +1,5 @@
 export default async (req, user) => {
-    let spirit = await req.db.Spirit.recallOne("recipes", user.id);
+    let spirit = await req.db.Spirit.recallOne("recipe-browser", user.id);
 
-    await spirit.commit({ recipes: req.body.recipes });
+    await spirit.commit(req.body.items);
 }
