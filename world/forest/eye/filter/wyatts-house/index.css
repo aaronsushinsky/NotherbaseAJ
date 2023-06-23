@@ -32,6 +32,8 @@ article h4, h5 {
     justify-content: center;
     align-items: center;
     height: 50px;
+    margin: 0;
+    width: 100%;
 }
 
 .folder {

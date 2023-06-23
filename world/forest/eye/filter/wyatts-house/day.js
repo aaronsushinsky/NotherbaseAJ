@@ -28,9 +28,11 @@ class Day {
                 });
             });
             this.$billboard = $(`<div class="billboard" id="today"></div>`).appendTo(this.$div);
+            this.$billboard.append(`<h4>To Do</h4>`);
             base.load("todo-today").then((res) => { this.billboard = new Billboard("today", res.items, { onSave: "save-todo" }); });
         }
 
         this.$schedule = $(`<ul class="schedule"></ul>`).appendTo(this.$div);
+        this.$schedule.append(`<h6>Schedule</h6>`);
     }
 }

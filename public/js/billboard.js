@@ -35,8 +35,8 @@ class Billboard {
         }
 
         this.flipToLoading();
-        this.renderItems();
         await saving;
+        this.renderItems();
         this.flipToMain();
     }
 
@@ -66,6 +66,7 @@ class Billboard {
     }
 
     newItem = () => {
+        this.creatingNew = true;
         this.editItem(-1);
     }
 
@@ -91,7 +92,12 @@ class Billboard {
             this.$edit.append(`<h6>Submit a new item:</h6>`);
             this.$input = $(`<input type="text" id="task">`).appendTo(this.$edit);
             this.$input.keyup((e) => {
-                if (e.which == 13) this.submit(this.items[this.currentItem].type);
+                if (e.which == 13) {
+                    if (!this.creatingNew) {
+                        this.submit(this.items[this.currentItem].type);
+                    }
+                    else this.submit();
+                } 
             });
             this.$submit = $(`<button id="submit">Submit Text</button>`).appendTo(this.$edit);
             this.$submit.click(() => this.submit());
@@ -122,6 +128,7 @@ class Billboard {
     }
 
     flipToMain = () => {
+        this.creatingNew = false;
         this.currentItem = -1;
         this.$loading.addClass("invisible");
         if (this.settings.free) {

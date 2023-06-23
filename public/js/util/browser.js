@@ -97,8 +97,8 @@ class ReadBox extends ViewBox {
 }
 
 class EditBox extends ViewBox {
-    constructor() {
-        super();
+    constructor(fields, nested = false) {
+        super(fields, nested);
     }
 
     render = () => {
@@ -312,11 +312,11 @@ class Browser {
     }
 
     edit = () => {
-        this.read.hide();
+        this.readBox.hide();
         this.$toEdit.addClass("invisible");
         this.$create.addClass("invisible");
 
-        this.edit.show();
+        this.editBox.show();
         this.$cancel.removeClass("invisible");
         this.$save.removeClass("invisible");
         this.$delete.removeClass("invisible");
@@ -331,12 +331,12 @@ class Browser {
     }
 
     cancel = () => {
-        this.edit.show();
+        this.editBox.show();
         this.$cancel.addClass("invisible");
         this.$save.addClass("invisible");
         this.$delete.addClass("invisible");
 
-        this.read.hide();
+        this.readBox.hide();
         this.$toEdit.removeClass("invisible");
         this.$create.removeClass("invisible");
     }
