@@ -29,11 +29,13 @@
     right: 0;
     top: 0;
     overflow: auto;
+    padding-bottom: 40px;
 }
 
 .browser .nested {
     position: static !important;
     height: auto !important;
+    padding: 5px;
 }
 
 .browser .read {
@@ -54,6 +56,7 @@
     top: 0;
     background: var(--bgColor);
     overflow: auto;
+    padding-bottom: 40px;
 }
 
 .browser button.create {
@@ -64,6 +67,7 @@
     margin: 0;
     border-radius: 2px 2px 0 0;
     border-bottom: none;
+    z-index: 5;
 }
 
 .browser button.edit {
