@@ -34,63 +34,38 @@ class ReadBox extends ViewBox {
         super(fields, nested);
     }
 
-    render = () => { 
-        if (this.nested) this.$div = $(`<div class="read nested"></div>`);
-        else this.$div = $(`<div class="read"></div>`);
-
-        let keys = Object.keys(this.fields);
-
-        for (let i = 0; i < keys.length; i++) {
-            let field = this.fields[keys[i]];
-
-            if (Array.isArray(field)) {
-                let newBox = new ReadBox(field[0], true);
-                newBox.render().appendTo(this.$div);
-                this.$items.push(newBox);
-            }
-            else if (field.type == "image") {
-                let $newItem = $(`<img src="${field.placeholder}">`).appendTo(this.$div);
-                this.$items.push($newItem);
-            }
-            else {
-                let $newItem = $(`<p>${field.label}: no item</p>`).appendTo(this.$div);
-                this.$items.push($newItem);
-            }
-        }
-
-        return this.$div;
-    }
-
-    render = () => {
+    render = (item = null) => {
         if (this.nested) {
             this.$div = $(`<div class="read nested"></div>`);
         }
         else {
-            this.$div = $(`<div class="edit"></div>`);
-            this.renderFieldsTo(this.$div, this.$items)
+            this.$div = $(`<div class="read"></div>`);
+            this.renderFieldsTo();
         }
 
         return this.$div;
     }
 
-    renderFieldsTo = ($parent, $items) => {
+    renderFieldsTo = ($parent = this.$div, item) => {
         let keys = Object.keys(this.fields);
-
+    
         for (let i = 0; i < keys.length; i++) {
             let field = this.fields[keys[i]];
+            let toLoad = null;
+            if (item) toLoad = item[keys[i]];
 
             if (Array.isArray(field)) {
                 let newBox = new ReadBox(field[0], true);
-                newBox.render().appendTo($parent);
-                $items.push(newBox);
+                newBox.render().appendTo(this.$div);
+                if (toLoad) newBox.load(toLoad);
             }
-            else if (field.type === "image") {
-                let $newItem = $(`<img src="${field.placeholder}">`).appendTo($parent);
-                $items.push($newItem);
+            else if (field.type == "image") {
+                if (toLoad) $(`<img src="${toLoad}">`).appendTo($parent);
+                else $(`<img src="/img/food/default.jpg">`).appendTo($parent);
             }
             else {
-                let $newItem = $(`<p>${field.label}: no item</p>`).appendTo($parent);
-                $items.push($editItem);
+                if (toLoad) $(`<p>${field.label}${toLoad.replace(/(?:\r\n|\r|\n)/g, '<br />')}</p>`).appendTo($parent);
+                else $(`<p>${field.label}no item</p>`).appendTo($parent);
             }
         }
     }
@@ -109,42 +84,17 @@ class ReadBox extends ViewBox {
         return newItem;
     }
 
-    load = (item) => {
+    load = (items = []) => {
+        this.$div.empty();
+
         if (this.nested) {
-            for (let i = 0; i < this.$items.length; i++) {
-                this.loadFieldsTo(item[i], this.$items[i]);
+            for (let i = 0; i < items.length; i++) {
+                let $newLi = $(`<li></li>`).appendTo(this.$div);
+                this.renderFieldsTo($newLi, items[i]);
             }
         }
         else {
-            this.loadFieldsTo(item, this.$items);
-        }
-    }
-
-    loadFieldsTo = (item, $inputs) => {
-        let keys = Object.keys(this.fields);
-    
-        for (let i = 0; i < keys.length; i++) {
-            let field = this.fields[keys[i]];
-            let toLoad = null;
-            if (item) toLoad = item[keys[i]];
-
-            if (Array.isArray(field)) {
-                $inputs[i].load(toLoad);
-            }
-            else if (field.type == "image") {
-                $inputs[i].val(toLoad);
-            }
-            else if (field.type == "date") {
-                $inputs[i].val(toLoad);
-            }
-            else if (field.type == "boolean") {
-                $inputs[i].prop("checked", toLoad);
-            }
-            else {
-                console.log($inputs[i]);
-                if (toLoad) $inputs[i].text(`${field.label}: ${toLoad.replace(/(?:\r\n|\r|\n)/g, '<br />')}`);
-                else $inputs[i].text(`${field.label}: no item`);
-            }
+            this.renderFieldsTo(this.$div, items);
         }
     }
 }
@@ -159,33 +109,39 @@ class EditBox extends ViewBox {
             this.$div = $(`<div class="edit nested"></div>`);
             this.$add = $(`<button>Add</button>`).appendTo(this.$div);
             this.$add.click(this.add);
-            this.add();
         }
         else {
             this.$div = $(`<div class="edit"></div>`);
-            this.renderFieldsTo(this.$div, this.$items)
+            this.renderFieldsTo();
         }
 
         return this.$div;
     }
 
-    renderFieldsTo = ($parent, $items) => {
+    renderFieldsTo = ($parent = this.$div, $items = this.$items, item = null) => {
         let keys = Object.keys(this.fields);
 
         for (let i = 0; i < keys.length; i++) {
             let field = this.fields[keys[i]];
+            let toLoad = null;
+            if (item) toLoad = item[keys[i]];
 
             if (Array.isArray(field)) {
                 let newBox = new EditBox(field[0], true);
                 newBox.render().appendTo($parent);
                 $items.push(newBox);
+                if (toLoad) newBox.load(toLoad);
             }
             else if (field.type === "number") {
-                let $editItem = $(`<input type="number" placeholder="${field.placeholder}">`).appendTo($parent);
+                let $editItem = null;
+                if (toLoad) $editItem = $(`<input type="number" value="${toLoad}" placeholder="${field.placeholder}">`).appendTo($parent);
+                else $editItem = $(`<input type="number" placeholder="${field.placeholder}">`).appendTo($parent);
                 $items.push($editItem);
             }
             else {
-                let $editItem = $(`<input type="text" placeholder="${field.placeholder}">`).appendTo($parent);
+                let $editItem = null;
+                if (toLoad) $editItem = $(`<input type="text" placeholder="${field.placeholder}" value="${toLoad}">`).appendTo($parent);
+                else $editItem = $(`<input type="text" placeholder="${field.placeholder}">`).appendTo($parent);
                 $items.push($editItem);
             }
         }
@@ -236,56 +192,35 @@ class EditBox extends ViewBox {
         return toGo;
     }
 
-    load = (item) => {
+    load = (item = null) => {
+        this.$div.empty();
+        this.$items = [];
+        
         if (this.nested) {
-            for (let i = 0; i < this.$items.length; i++) {
-                this.loadFieldsTo(item[i], this.$items[i]);
+            this.$add = $(`<button>Add</button>`).appendTo(this.$div);
+            this.$add.click(this.add);
+            for (let i = 0; i < item.length; i++) {
+                this.add(item[i]);
             }
         }
         else {
-            this.loadFieldsTo(item, this.$items);
+            this.renderFieldsTo(this.$div, this.$items, item);
         }
     }
 
-    loadFieldsTo = (item, $inputs) => {
-        let keys = Object.keys(this.fields);
-    
-        for (let i = 0; i < keys.length; i++) {
-            let field = this.fields[keys[i]];
-            let toLoad = null;
-            if (item) toLoad = item[keys[i]];
-
-            if (Array.isArray(field.type)) {
-                $inputs[i].load(toLoad);
-            }
-            else if (field.type == "string") {
-                $inputs[i].val(toLoad);
-            }
-            else if (field.type == "image") {
-                $inputs[i].val(toLoad);
-            }
-            else if (field.type == "date") {
-                $inputs[i].val(toLoad);
-            }
-            else if (field.type == "boolean") {
-                $inputs[i].prop("checked", toLoad);
-            }
-        }
-    }
-
-    add = () => {
-        let $newLI = $(`<li></li>`).appendTo(this.$div);
+    add = (item = null) => {
         this.$items.push([]);
+        let $newLI = $(`<li id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
 
-        this.renderFieldsTo($newLI, this.$items[this.$items.length - 1]);
+        this.renderFieldsTo($newLI, this.$items[this.$items.length - 1], item);
 
         let $remove = $(`<button>X</button>`).appendTo($newLI);
-        $remove.click(() => { this.remove($newLI); });
+        $remove.click(() => { this.remove(this.$items.length - 1); });
     }
 
-    remove = ($which) => {
-        $which.remove();
-        this.$lis.splice(this.$lis.findIndex((e) => { return e === $which; }));
+    remove = (which) => {
+        this.$div.find(`#${which}`).remove();
+        this.$items.splice(which, 1);
     }
 }
 
@@ -379,9 +314,6 @@ class Browser {
             this.$create = $(`<button class="create">+</button>`).appendTo(this.$div);
             this.$create.click(this.create);
 
-            this.$delete = $(`<button class="delete invisible">Delete</button>`).appendTo(this.$div);
-            this.$delete.click(this.delete);
-
             let $filters = this.filtersBox.render().appendTo(this.$div);
             this.filtersBox.hide();
             $filters.appendTo(this.$div);
@@ -400,8 +332,14 @@ class Browser {
             this.$save = $(`<button class="save invisible">Save</button>`).appendTo(this.$div);
             this.$save.click(this.save);
             this.$cancel = $(`<button class="cancel invisible">Cancel</button>`).appendTo(this.$div);
-            this.$cancel.click(this.cancel);       
+            this.$cancel.click(this.cancel);  
+
+            if (this.mode === "multiple") {
+                this.$delete = $(`<button class="delete invisible">Delete</button>`).appendTo(this.$div);
+                this.$delete.click(this.delete);
+            }
         }
+
     }
 
     renderSearchResults = () => {
