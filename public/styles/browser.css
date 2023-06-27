@@ -2,6 +2,9 @@
     width: 100%;
     position: relative;
     border: var(--standardBorder);
+    display: flex;
+    flex-wrap: wrap;
+    height: ;
 }
 
 .browser .search {
@@ -25,9 +28,6 @@
 .browser div.edit {
     width: 70%;
     height: 300px;
-    position: absolute;
-    right: 0;
-    top: 0;
     overflow: auto;
     padding-bottom: 40px;
     background: var(--bgColor);
@@ -44,9 +44,6 @@
     width: 70%;
     height: 300px;
     padding-bottom: 40px;
-    position: absolute;
-    right: 0;
-    top: 0;
     overflow: auto;
     padding-bottom: 40px;
     background: var(--bgColor);
@@ -61,7 +58,7 @@
     background: var(--bgColor);
     overflow: auto;
     padding-bottom: 40px;
-    background: var(--bgColor);
+    z-index: 6;
 }
 
 .browser button.create {

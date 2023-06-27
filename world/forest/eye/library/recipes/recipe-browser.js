@@ -1,17 +1,20 @@
 class RecipeBrowser extends Browser {
     constructor(id) {
-        super(id, [{
-            name: Browser.str("Recipe: ", "Recipe Name"),
-            img: Browser.img("Image URL: ", "/img/food/default.jpg"),
-            source: Browser.str("From: ", "Recipe Source"),
-            ingredients: [{
-                amount: Browser.num(),
-                measure: Browser.str("", "tbsp"),
-                ingredient: Browser.str("", "ingredient")
-            }],
-            directions: [{
-                direction: Browser.str("", "Recipe Directions")
-            }]
-        }], true, "save-recipes");
+        let fields = [ 
+            NBField("Recipe Browser", { //rb1
+                name: NBField("Recipe: ", "string", "Recipe Name"),
+                img: NBField("Image URL: ", "string", "/img/food/default.jpg"),
+                source: NBField("From: ", "string", "Recipe Source"),
+                ingredients: NBField("Ingredients: ", [ { //rb2 nested
+                    amount: NBField("", "number", 0),
+                    measure: NBField("", "string", "tbsp"),
+                    ingredient: NBField("", "string", "ingredient")
+                }], "No Ingredients"),
+                directions: NBField("Directions: ", [ {
+                    direction: NBField("", "string", "Recipe Directions")
+                }], "No Directions") 
+            }, "No Recipe") 
+        ];
+        super(id, fields, true, "save-recipes");
     }
 }
