@@ -1,3 +1,9 @@
+class NBField {
+    constructor(settings, children) {
+
+    }
+}
+
 class ViewBox {
     constructor(fields, nested = false) {
         this.$div = null;
@@ -128,7 +134,7 @@ class EditBox extends ViewBox {
         return this.$div;
     }
 
-    renderFieldTo = (field, $parent = this.$div, item = null, $domCapture = []) => {
+    renderFieldTo = (field, $parent = this.$div, item = null, $domCapture = this.$items) => {
         if (field.fields === "number") {
             let $editItem = null;
             if (item) $editItem = $(`<input type="number" value="${item}" placeholder="${field.placeholder}">`).appendTo($parent);
@@ -144,45 +150,51 @@ class EditBox extends ViewBox {
     }
 
     save = () => {
-        let toGo = [];
-        for (let i = 0; i < this.$items.length; i++) {
-            toGo.push(this.saveFields(this.$items[i]));
-        }
-
-        return toGo;
-    }
-
-    saveFields = ($inputs) => {
         let toGo = {};
-        let keys = Object.keys(this.fields);
-    
-        for (let i = 0; i < keys.length; i++) {
-            let field = this.fields[keys[i]];
 
-            if (Array.isArray(field)) {
-                toGo[keys[i]] = $inputs[i].save();
+        if (Array.isArray(this.fields.fields)) {
+            if (Array.isArray(this.fields.fields)){}
+            for (let i = 0; i < this.$items.length; i++) {
             }
-            else if (field.type == "string") {
-                toGo[keys[i]] = $inputs[i].val();
+            let keys = Object.keys(this.fields.fields);
+            let newObject = {};
+
+            for (let i = 0; i < keys.length; i++) {
+                let field = this.fields.fields[keys[i]];
+
+                if (Array.isArray(field)) {
+                    newObject[keys[i]] = $inputs[i].save();
+                }
+                else newObject[keys[i]] = this.saveField(field, this.$items[i]);
             }
-            else if (field.type == "number") {
-                toGo[keys[i]] = $inputs[i].val();
-            }
-            else if (field.type == "image") {
-                toGo[keys[i]] = $inputs[i].val();
-            }
-            else if (field.type == "date") {
-                toGo[keys[i]] = $inputs[i].val();
-            }
-            else if (field.type == "boolean") {
-                toGo[keys[i]] = $inputs[i].prop("checked");
-            }
+
+            toGo.push(newObject);
         }
+        else toGo[this.fields](this.saveField(this.fields.fields, this.$items[i]));
+        
 
         return toGo;
     }
 
-    nestObjectOrRenderField = (fields, item = null, $parent = this.$div, $domCapture = [], arrayPiercer = false) => {
+    saveField = (field, $input) => {
+        if (field.type == "string") {
+            return $input.val();
+        }
+        else if (field.type == "number") {
+            return $input.val();
+        }
+        else if (field.type == "image") {
+            return $input.val();
+        }
+        else if (field.type == "date") {
+            return $input.val();
+        }
+        else if (field.type == "boolean") {
+            return $input.prop("checked");
+        }
+    }
+
+    nestObjectOrRenderField = (fields, item = null, $parent = this.$div, $domCapture = this.$items, arrayPiercer = false) => {
         let field = fields.fields;
         if (arrayPiercer) field = field[0];
 
@@ -196,6 +208,7 @@ class EditBox extends ViewBox {
                 let newBox = new EditBox(field[keys[j]], true);
                 newBox.render().appendTo($parent);
                 newBox.load(toLoad);
+                $domCapture.push(newBox);
             }
         }
         else this.renderFieldTo(fields, $parent, item, $domCapture);
@@ -363,7 +376,7 @@ class Browser {
         for (let i = 0; i < this.items.length; i++) {
             let label = this.items[i].name || this.items[i].title || this.items[i].header || this.items[i].whenSearched || Object.values(this.items[i])[0];
 
-            if (label) {
+            if (label?.toLowerCase) {
                 if (label.toLowerCase().includes(this.filtersBox.getFilter())) {
                     let $result = $(`<li id="${i}">${label}</li>`).appendTo(this.$searchList);
                     $result.on("click", () => { this.select(i); });
@@ -396,6 +409,8 @@ class Browser {
 
     save = async () => {
         let newItem = this.editBox.save();
+
+        console.log(newItem);
 
         if (this.mode === "multiple") {
             if (this.selected < 0) {
@@ -496,5 +511,3 @@ class Browser {
         this.read();
     }
 }
-
-let NBField = Browser.field;

@@ -1,20 +1,56 @@
 class RecipeBrowser extends Browser {
     constructor(id) {
-        let fields = [ 
-            NBField("Recipe Browser", { //rb1
-                name: NBField("Recipe: ", "string", "Recipe Name"),
-                img: NBField("Image URL: ", "string", "/img/food/default.jpg"),
-                source: NBField("From: ", "string", "Recipe Source"),
-                ingredients: NBField("Ingredients: ", [ { //rb2 nested
-                    amount: NBField("", "number", 0),
-                    measure: NBField("", "string", "tbsp"),
-                    ingredient: NBField("", "string", "ingredient")
-                }], "No Ingredients"),
-                directions: NBField("Directions: ", [ {
-                    direction: NBField("", "string", "Recipe Directions")
-                }], "No Directions") 
-            }, "No Recipe") 
-        ];
+        let fields = NBField({
+            name: "recipe",
+            label: "",
+            placeholder: "No Recipe",
+            multiple: true
+        }, [
+            NBField({
+                name: "name",
+                label: "Recipe: ",
+                placeholder: "Recipe Name"
+            }, "string"),
+            NBField({
+                name: "img",
+                label: "Image URL: ",
+                placeholder: "/img/food/default.jpg"
+            }, "img"),
+            NBField({
+                name: "source",
+                label: "From: ",
+                placeholder: "Recipe Source"
+            }, "string"),
+            NBField({
+                name: "recipe",
+                label: "Recipe: ",
+                placeholder: "Recipe Name",
+                multiple: true
+            }, [
+                NBField({
+                    name: "amount",
+                    label: "From: ",
+                    placeholder: 0
+                }, "number"),
+                NBField({
+                    name: "measure",
+                    label: "From: ",
+                    placeholder: "tbsp"
+                }, "string"),
+                NBField({
+                    name: "ingredient",
+                    label: "From: ",
+                    placeholder: "ingredient"
+                }, "string")
+            ]),
+            NBField({
+                name: "recipe",
+                label: "Recipe: ",
+                placeholder: "Recipe Name",
+                multiple: true
+            }, "string") 
+        ]);
+        
         super(id, fields, true, "save-recipes");
     }
 }
