@@ -145,7 +145,7 @@ class EditBox extends ViewBox {
 
         for (let i = 0; i < this.fields.children.length; i++) {
             if (this.fields.children[i] instanceof NBField) {
-                toGo[this.fields.children[i]] = this.fields.children[i].save();
+                toGo[this.fields.children[i].name] = this.$items[i].save();
             }
             else toGo[this.fields.children[i]] = this.saveField(this.fields.children[i], this.$items[i])
         }
@@ -198,7 +198,7 @@ class EditBox extends ViewBox {
         let $parent = this.$div;
         let $domCapture = this.$items;
 
-        if (this.nested) {
+        if (this.nested && this.multiple) {
             this.$items.push([]);
             $domCapture = this.$items[this.$items.length - 1];
             let $newLI = $(`<li id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
