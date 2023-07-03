@@ -4,7 +4,7 @@
     border: var(--standardBorder);
     display: flex;
     flex-wrap: wrap;
-    height: ;
+    height: 60vh;
 }
 
 .browser .search {
@@ -12,6 +12,7 @@
     position: relative;
     overflow: auto;
     padding-bottom: 40px;
+    height: 60vh;
 }
 
 .browser button.filter-toggle {
@@ -27,7 +28,7 @@
 
 .browser div.edit {
     width: 70%;
-    height: 300px;
+    height: 60vh;
     overflow: auto;
     padding-bottom: 40px;
     background: var(--bgColor);
@@ -42,7 +43,7 @@
 
 .browser .read {
     width: 70%;
-    height: 300px;
+    height: 60vh;
     padding-bottom: 40px;
     overflow: auto;
     padding-bottom: 40px;
@@ -51,7 +52,7 @@
 
 .browser .filters {
     width: 70%;
-    height: 300px;
+    height: 60vh;
     position: absolute;
     right: 0;
     top: 0;
@@ -110,4 +111,8 @@
     margin: 0;
     border-radius: 2px 2px 0 0;
     border-bottom: none;
+}
+
+.browser input {
+    width: 100%;
 }
