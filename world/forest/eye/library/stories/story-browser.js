@@ -13,7 +13,7 @@ class StoryBrowser extends Browser {
             }, "string"),
             new NBField({
                 name: "img",
-                label: "",
+                label: "Image: ",
                 placeholder: "/img/food/default.jpg"
             }, "image"),
             new NBField({
@@ -25,7 +25,7 @@ class StoryBrowser extends Browser {
                 name: "content",
                 label: "Content: ",
                 placeholder: "Recipe Name"
-            }, "string")
+            }, "long-string")
         ]);
         super(id, fields, true, "save-stories");
     }

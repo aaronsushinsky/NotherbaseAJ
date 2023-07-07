@@ -15,7 +15,7 @@ class NoteBrowser extends Browser {
                 name: "content",
                 label: "Content: ",
                 placeholder: "No Content",
-            }, "string")
+            }, "long-string")
         ]);
         super(id, fields, true, "save-notes"); 
     }
