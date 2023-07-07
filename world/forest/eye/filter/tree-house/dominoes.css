@@ -1,7 +1,7 @@
 .table {
     margin-top: 40px;
     background-color: var(--tableColor);
-    background-image: url("/img/wood.jpg");
+    background-image: url("/img/textures/wood.jpg");
     background-size: 80px 80px;
     image-rendering: pixelated;
     width: 600px;

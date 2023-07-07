@@ -6,6 +6,7 @@
     --bluePastel: rgb(148, 191, 219);
     --greenPastel: rgb(130, 226, 189);
     --woodColor: rgb(95, 68, 43);
+    --houseColor: rgb(70, 62, 48);
     --darkWoodColor: rgb(70, 50, 32);
     --metalColor: rgb(104, 101, 100);
     --darkMetalColor: rgb(75, 71, 70);
@@ -26,6 +27,15 @@ section h4 {
     height: 50px;
 }
 
+article h4, h5 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin: 0;
+    width: 100%;
+}
+
 .folder {
     background: rgba(0, 0, 0, 0.041);
     height: 50px;
@@ -37,7 +47,7 @@ section h4 {
 }
 
 .livingroom {
-    background: var(--yellowPastel);
+    background: var(--houseColor);
 }
 
 .livingroom article {
@@ -113,49 +123,7 @@ section h4 {
 }
 
 .upstairs {
-    background: var(--yellowPastel);
-}
-
-.billboard {
-    min-height: 100px;
-    border: 5px solid var(--woodColor);
-    background-color: var(--darkWoodColor);
-    margin: var(--margin);
-    border-radius: var(--borderRadius);
-    padding: var(--padding);
-    box-shadow: 2px 2px 5px 5px var(--shadow);
-    overflow: auto;
-    position: relative;
-}
-
-.billboard #flip {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    margin: 0;
-    padding: 5px;
-}
-
-.billboard li {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    border-radius: 5px;
-    border: 2px solid var(--veryDarkWoodColor);
-    padding: 5px;
-    margin: 0px;
-    background-color: var(--veryDarkWoodColor);
-    position: relative;
-}
-
-.billboard li button {
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 30px;
+    background: var(--houseColor);
 }
 
 .toy-box article {

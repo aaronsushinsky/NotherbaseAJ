@@ -1,4 +1,11 @@
-<%- include("./recipe-browser.ejs"); %>
+<style>
+    <%- include("./recipe-browser.css"); %>
+</style>
+<link rel="stylesheet" href="/styles/browser.css">
+
+<h3>Recipes for Food</h3>
+
+<div class="browser" id="recipes"></div>
 
 <hr>
 
@@ -6,3 +13,12 @@
     Return to the Lobby
 </a>
 
+<script src="/js/util/browser.js"></script>
+<script>
+    <%- include("./recipe-browser.js"); %>
+    let recipeBrowser = new RecipeBrowser("recipes");
+
+    base.load("recipes").then((res) => {
+        recipeBrowser.load(res);
+    });
+</script>

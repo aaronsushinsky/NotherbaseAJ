@@ -1,0 +1,119 @@
+.browser {
+    width: 100%;
+    position: relative;
+    border: var(--standardBorder);
+    display: flex;
+    flex-wrap: wrap;
+    height: 60vh;
+}
+
+.browser .search {
+    width: 30%;
+    position: relative;
+    overflow: auto;
+    padding-bottom: 40px;
+    height: 60vh;
+}
+
+.browser button.filter-toggle {
+    position: absolute;
+    left: 5px;
+    bottom: 0;
+    width: calc(30% - 10px);
+    height: 30px;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: none;
+}
+
+.browser div.edit {
+    width: 70%;
+    height: 60vh;
+    overflow: auto;
+    padding-bottom: 40px;
+    background: var(--bgColor);
+}
+
+.browser .nested {
+    position: static !important;
+    height: auto !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+.browser .read {
+    width: 70%;
+    height: 60vh;
+    padding-bottom: 40px;
+    overflow: auto;
+    padding-bottom: 40px;
+    background: var(--bgColor);
+}
+
+.browser .filters {
+    width: 70%;
+    height: 60vh;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: var(--bgColor);
+    overflow: auto;
+    padding-bottom: 40px;
+    z-index: 6;
+}
+
+.browser button.create {
+    position: absolute;
+    bottom: 0;
+    left: calc(30% + 60px);
+    height: 30px;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: none;
+    z-index: 5;
+}
+
+.browser button.edit {
+    position: absolute;
+    bottom: 0;
+    left: calc(30% + 5px);
+    height: 30px;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: none;
+}
+
+.browser button.delete {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    height: 30px;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: none;
+}
+
+.browser button.save {
+    position: absolute;
+    bottom: 0;
+    left: calc(30% + 5px);
+    height: 30px;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: none;
+}
+
+.browser button.cancel {
+    position: absolute;
+    bottom: 0;
+    left: calc(30% + 65px);
+    height: 30px;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: none;
+}
+
+.browser input {
+    width: 100%;
+    margin: 0;
+}

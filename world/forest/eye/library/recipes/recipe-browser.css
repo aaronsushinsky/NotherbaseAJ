@@ -1,72 +1,9 @@
-.browser {
+.browser li {
+    list-style: none;
     display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-}
+    padding: 0;
+}   
 
-.browser .search {
-    width: 100%;
-    height: 300PX;
-}
-
-.browser .search ul {
-    height: calc(100% - 50px);
-    width: 100%;
+.browser li input {
     margin: 0;
-    overflow: auto;
 }
-
-.browser .content {
-    width: 100%;
-}
-
-.browser .read {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.browser .read img {
-    width: 100px;
-    height: 100px;
-}
-
-.browser .ingredients {
-    width: 40%;
-    margin: 2px;
-}
-
-.browser .directions {
-    width: 55%;
-    margin: 2px;
-}
-
-.browser .ingredients li {
-    display: flex;
-    padding: 1px;
-}
-
-.browser .directions li {
-    padding: 5px;
-}
-
-.browser .edit {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.browser .title {
-    width: calc(100% - 100px);
-    height: 100px;
-}
-
-@media only screen and (max-width: 1000px) {
-    .browser .ingredients {
-        width: 100%;
-        margin: 2px;
-    }
-    
-    .browser .directions {
-        width: 100%;
-        margin: 2px;
-    }
-  }

@@ -1,11 +1,10 @@
 <style>
     <%- include("./index.css") %>
 </style>
+<link rel="stylesheet" href="/styles/browser.css">
 
-<div class="browser" id="notes">
-    <h2>Notes</h2>
-
-</div>
+<h2>Notes</h2>
+<div class="browser" id="notes"></div>
 
 <hr>
 
@@ -13,4 +12,12 @@
     Return to the Lobby
 </a>
 
-<%- include("./note-browser.ejs"); %>
+<script src="/js/util/browser.js"></script>
+<script>
+    <%- include("./note-browser.js"); %>
+
+    let noteBrowser = new NoteBrowser("notes");
+    base.load("notes").then((res) => {
+        noteBrowser.load(res);
+    });
+</script>
