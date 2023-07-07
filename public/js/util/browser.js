@@ -141,14 +141,28 @@ class EditBox extends ViewBox {
     }
 
     save = () => {
+        console.log(this.$items);
+        let toGo = [];
+
+        if (this.fields.settings.multiple && this.nested) {
+            for (let i = 0; i < this.$items.length; i++) {
+                toGo.push(this.saveFields(this.$items[i]));
+            }
+        }
+        else toGo = this.saveFields();
+
+        return toGo;
+    }
+
+    saveFields = ($items = this.$items) => {
         let toGo = {};
 
-        for (let i = 0; i < this.fields.children.length; i++) {
-            if (this.fields.children[i] instanceof NBField) {
-                toGo[this.fields.children[i].name] = this.$items[i].save();
+        if (Array.isArray(this.fields.children)) {
+            for (let i = 0; i < this.fields.children.length; i++) {
+                toGo[this.fields.children[i].name] = $items[i].save();
             }
-            else toGo[this.fields.children[i]] = this.saveField(this.fields.children[i], this.$items[i])
         }
+        else toGo = this.saveField(this.fields.children, $items[0]);
 
         return toGo;
     }
@@ -176,52 +190,57 @@ class EditBox extends ViewBox {
         this.$items = [];
 
         if (this.fields.settings.label) this.$header = $(`<h5>${this.fields.settings.label}</h5>`).appendTo(this.$div);
-        
-        if (this.nested && this.fields.settings.multiple) {
-            this.$add = $(`<button>Add</button>`).appendTo(this.$div);
-            this.$add.click(() => {
-                this.add();
-            });
-        }
 
-        if (this.fields.settings.multiple) {
-            if (Array.isArray(item)) for (let i = 0; i < item.length; i++) {
-                this.add(item[i]);
+        if (this.fields.settings.multiple && this.nested) {
+            this.$add = $(`<button>Add</button>`).appendTo(this.$div);
+            this.$add.click(() => { this.add(); });
+
+            if (Array.isArray(item)) {
+                for (let i = 0; i < item.length; i++) {
+                    this.add(item[i]);
+                }
             }
 
             this.add();
         }
-        else this.add(item);
+        else this.set(item);
     }
 
     add = (item = null) => {
-        let $parent = this.$div;
-        let $domCapture = this.$items;
+        this.$items.push([]);
+        let $domCapture = this.$items[this.$items.length - 1];
+        let $newLI = $(`<li id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
 
-        if (this.nested && this.multiple) {
-            this.$items.push([]);
-            $domCapture = this.$items[this.$items.length - 1];
-            let $newLI = $(`<li id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
-            $parent = $newLI;
-        }
-
-        for (let i = 0; i < this.fields.children.length; i++) {
-            if (this.fields.children[i] instanceof NBField) {
+        if (Array.isArray(this.fields.children)) {
+            for (let i = 0; i < this.fields.children.length; i++) {
                 let toLoad = null;
                 if (item) toLoad = item[this.fields.children[i].name];
 
                 let newBox = new EditBox(this.fields.children[i], true);
-                newBox.render().appendTo($parent);
+                newBox.render().appendTo($newLI);
                 newBox.load(toLoad);
                 $domCapture.push(newBox);
             }
-            else this.renderFieldTo(this.fields, $parent, item, $domCapture);
         }
+        else this.renderFieldTo(this.fields, $newLI, item, $domCapture);
 
-        if (this.nested && this.multiple) {
-            let $remove = $(`<button>X</button>`).appendTo($parent);
-            $remove.click(() => { this.remove(this.$items.length - 1); });
+        let $remove = $(`<button>X</button>`).appendTo($newLI);
+        $remove.click(() => { this.remove(this.$items.length - 1); });
+    }
+
+    set = (item) => {
+        if (Array.isArray(this.fields.children)) {
+            for (let i = 0; i < this.fields.children.length; i++) {
+                let toLoad = null;
+                if (item) toLoad = item[this.fields.children[i].name];
+
+                let newBox = new EditBox(this.fields.children[i], true);
+                newBox.render().appendTo(this.$div);
+                newBox.load(toLoad);
+                this.$items.push(newBox);
+            }
         }
+        else this.renderFieldTo(this.fields, this.$div, item, this.$itemse);
     }
 
     remove = (which) => {

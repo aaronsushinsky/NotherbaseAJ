@@ -10,17 +10,17 @@ class RecipeBrowser extends Browser {
                 name: "name",
                 label: "Name: ",
                 placeholder: "Recipe Name"
-            }, [ "string" ]),
+            }, "string"),
             new NBField({
                 name: "img",
                 label: "Image URL: ",
                 placeholder: "/img/food/default.jpg"
-            }, [ "img" ]),
+            }, "img"),
             new NBField({
                 name: "source",
                 label: "From: ",
                 placeholder: "Recipe Source"
-            }, [ "string" ]),
+            }, "string"),
             new NBField({
                 name: "ingredients",
                 label: "Ingredients: ",
@@ -31,24 +31,24 @@ class RecipeBrowser extends Browser {
                     name: "amount",
                     label: "",
                     placeholder: 0
-                }, [ "number" ]),
+                }, "number"),
                 new NBField({
                     name: "measure",
                     label: "",
                     placeholder: "tbsp"
-                }, [ "string" ]),
+                }, "string"),
                 new NBField({
                     name: "ingredient",
                     label: "",
                     placeholder: "ingredient"
-                }, [ "string" ])
+                }, "string")
             ]),
             new NBField({
                 name: "directions",
                 label: "Directions: ",
                 placeholder: "No Directions",
                 multiple: true
-            }, [ "string" ]) 
+            }, "string") 
         ]);
         
         super(id, fields, true, "save-recipes");
