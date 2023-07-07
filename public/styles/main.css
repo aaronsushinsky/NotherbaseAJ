@@ -399,10 +399,14 @@ input[type=checkbox] {
     width: 100%;
     margin: 0;
     padding: 0;
-    height: calc(100% - var(--inputHeight));
-    overflow: auto;
     align-content: flex-start;
     border: 1px dotted var(--textColor);
+}
+
+ul.selector li {
+    width: 100%;
+    overflow: hidden;
+    font-size: 1.5vh;
 }
 
 ul.selector li:hover {
