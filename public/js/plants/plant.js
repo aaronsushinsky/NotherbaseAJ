@@ -1,6 +1,4 @@
-<%- include("../entity.js") %>
-
-class Fruit extends Limb {
+class Fruit extends Entity {
     constructor(id, kind, $parent, imgs, behaviors) {
         super(id, kind, $parent);
         this.imgs = imgs;
@@ -42,7 +40,7 @@ class Fruit extends Limb {
     }
 }
 
-class Leaf extends Limb {
+class Leaf extends Entity {
     constructor(id, kind, $parent, imgs, behaviors) {
         super(id, kind, $parent);
         this.imgs = imgs;
@@ -64,7 +62,7 @@ class Leaf extends Limb {
         this.setImage(this.imgs.leafImages[0]);
     }
 
-    beat = () => {
+    onUpdate = () => {
         this.grow();
     }
 
@@ -84,7 +82,7 @@ class Leaf extends Limb {
     }
 }
 
-class Branch extends Limb {
+class Branch extends Entity {
     constructor(id, kind, $parent, imgs, behaviors) {
         super(id, kind, $parent);
         this.imgs = imgs;
@@ -105,8 +103,7 @@ class Branch extends Limb {
 
         this.branches = {
             amount: 0,
-            cooldown: 0,
-            part: Branch
+            cooldown: 0
         }
         if (this.behaviors.branch.children.branches.max > 0) {
             this.branches.cooldown = this.behaviors.branch.children.branches.spawnRate.cooldown + Math.random() * this.behaviors.branch.children.branches.spawnRate.potentialDelay;
@@ -114,8 +111,7 @@ class Branch extends Limb {
 
         this.leaves = {
             amount: 0,
-            cooldown: 0,
-            part: Leaf
+            cooldown: 0
         }
         if (this.behaviors.branch.children.leaves.max > 0) {
             this.leaves.cooldown = this.behaviors.branch.children.leaves.spawnRate.cooldown + Math.random() * this.behaviors.branch.children.leaves.spawnRate.potentialDelay;
@@ -123,8 +119,7 @@ class Branch extends Limb {
 
         this.fruits = {
             amount: 0,
-            cooldown: 0,
-            part: Fruit
+            cooldown: 0
         }
         if (this.behaviors.branch.children.fruits.max > 0) {
             this.fruits.cooldown = this.behaviors.branch.children.fruits.spawnRate.cooldown + Math.random() * this.behaviors.branch.children.fruits.spawnRate.potentialDelay;
@@ -134,7 +129,7 @@ class Branch extends Limb {
     }
 
     beat = () => {
-        this.attemptSpawn("branches");
+        //this.attemptSpawn("branches");
         this.attemptSpawn("leaves");
         this.attemptSpawn("fruits");
         this.grow();
@@ -155,12 +150,24 @@ class Branch extends Limb {
         }
     }
 
-    attemptSpawn(partType) {
+    attemptSpawn = (partType) => {
         if (this[partType].amount < this.behaviors.stem.children[partType].max) {
             this[partType].cooldown -= this.beatCooldown;
 
             if (this[partType].cooldown <= 0) {
-                this.addChild(new this[partType].part(this.id, this.kind, this.$div, this.imgs, this.behaviors));
+                let newPart = null;
+                switch (partType) {
+                    case "branches":
+                        newPart = new Branch(this.id, this.kind, this.$div, this.imgs, this.behaviors);
+                        break;
+                    case "leaves":
+                        newPart = new Leaf(this.id, this.kind, this.$div, this.imgs, this.behaviors);
+                        break;
+                    case "fruits":
+                        newPart = new Fruit(this.id, this.kind, this.$div, this.imgs, this.behaviors);
+                        break;
+                }
+                this.addChild(newPart);
                 this[partType].amount++;
                 if (this.behaviors.stem.children[partType].max > 0) {
                     this[partType].cooldown = this.behaviors.stem.children[partType].spawnRate.cooldown + Math.random() * this.behaviors.stem.children[partType].spawnRate.potentialDelay;
@@ -170,110 +177,113 @@ class Branch extends Limb {
     }
 }
 
-class Stem extends Limb {
+class Stem extends Entity {
     constructor(id, kind, $parent, imgs, behaviors) {
         super(id, kind, $parent);
         this.imgs = imgs;
         this.behaviors = behaviors;
+
         let spawn = Math.floor(Math.random() * this.behaviors.stem.spawns.length);
-        this.rotation = this.behaviors.stem.spawns[spawn].rotation.minAngle + Math.random() * (this.behaviors.stem.spawns[spawn].rotation.maxAngle - this.behaviors.stem.spawns[spawn].rotation.minAngle);
-        this.position = [
-            this.behaviors.stem.spawns[spawn].position.minX + Math.random() * (this.behaviors.stem.spawns[spawn].position.maxX - this.behaviors.stem.spawns[spawn].position.minX),
-            this.behaviors.stem.spawns[spawn].position.minY + Math.random() * (this.behaviors.stem.spawns[spawn].position.maxY - this.behaviors.stem.spawns[spawn].position.minY)
-        ];
+        this.rotateTo(this.behaviors.stem.spawns[spawn].rotation.minAngle + Math.random() * (this.behaviors.stem.spawns[spawn].rotation.maxAngle - this.behaviors.stem.spawns[spawn].rotation.minAngle));
+        
+        this.moveTo(this.behaviors.stem.spawns[spawn].position.minX + Math.random() * (this.behaviors.stem.spawns[spawn].position.maxX - this.behaviors.stem.spawns[spawn].position.minX),
+                    this.behaviors.stem.spawns[spawn].position.minY + Math.random() * (this.behaviors.stem.spawns[spawn].position.maxY - this.behaviors.stem.spawns[spawn].position.minY));
+        
         this.size = [0, 0];
         this.maxSize = [
             this.behaviors.stem.size.minX + Math.random() * this.behaviors.stem.size.maxX,
             this.behaviors.stem.size.minY + Math.random() * this.behaviors.stem.size.maxY
         ];
+        
         this.age = 0;
         this.maxAge = this.behaviors.stem.growth.minTime + Math.random() * this.behaviors.stem.growth.maxTime;
 
         this.branches = {
             amount: 0,
-            cooldown: 0,
-            part: Branch
-        }
-        if (this.behaviors.stem.children.branches.max > 0) {
-            this.branches.cooldown = this.behaviors.stem.children.branches.spawnRate.cooldown + Math.random() * this.behaviors.stem.children.branches.spawnRate.potentialDelay;
-        }
-
+            last: Date.now()
+        };
         this.leaves = {
             amount: 0,
-            cooldown: 0,
-            part: Leaf
-        }
-        if (this.behaviors.stem.children.leaves.max > 0) {
-            this.leaves.cooldown = this.behaviors.stem.children.leaves.spawnRate.cooldown + Math.random() * this.behaviors.stem.children.leaves.spawnRate.potentialDelay;
-        }
-
+            last: Date.now()
+        };
         this.fruits = {
             amount: 0,
-            cooldown: 0,
-            part: Fruit
-        }
-        if (this.behaviors.stem.children.fruits.max > 0) {
-            this.fruits.cooldown = this.behaviors.stem.children.fruits.spawnRate.cooldown + Math.random() * this.behaviors.stem.children.fruits.spawnRate.potentialDelay;
-        }
+            last: Date.now()
+        };
 
         this.setImage(this.imgs.stemImages[0]);
     }
 
-    beat = () => {
-        this.attemptSpawn("branches");
-        this.attemptSpawn("leaves");
-        this.attemptSpawn("fruits");
-        this.grow();
+    onUpdate = (interval) => {
+        this.attemptSpawnBranches();
+        this.attemptSpawnLeaves();
+        this.attemptSpawnFruits();
+        this.grow(interval);
     }
 
-    grow = () => {
+    grow = (interval) => {
         if (this.age < this.maxAge) {
-            this.age += this.beatCooldown;
+            this.age += interval;
 
             if (this.age >= this.maxAge) {
                 this.age = this.maxAge;
             }
 
-            this.size = [(this.age / this.maxAge) * this.maxSize[0], (this.age / this.maxAge) * this.maxSize[1]];
-
+            let ageRatio = this.age / this.maxAge;
+            this.size = [ageRatio * this.maxSize[0], ageRatio * this.maxSize[1]];
+            console.log(this.updateInterval);
             this.css("width", `${this.size[0]}px`);
             this.css("height", `${this.size[1]}px`);
         }
     }
 
-    attemptSpawn(partType) {
-        if (this[partType].amount < this.behaviors.stem.children[partType].max) {
-            this[partType].cooldown -= this.beatCooldown;
-            
-            if (this[partType].cooldown <= 0) {
-                this.addChild(new this[partType].part(this.id, this.kind, this.$div, this.imgs, this.behaviors));
-                this[partType].amount++;
-                if (this.behaviors.stem.children[partType].max > 0) {
-                    this[partType].cooldown = this.behaviors.stem.children[partType].spawnRate.cooldown + Math.random() * this.behaviors.stem.children[partType].spawnRate.potentialDelay;
-                }
+    attemptSpawnBranches = () => {
+        if (this.behaviors.stem.children.branches.max > 0 && this.branches.amount < this.behaviors.stem.children.branches.max) {
+            if (Date.now() - this.branches.last >= this.behaviors.stem.children.branches.spawnRate.cooldown + Math.random() * this.behaviors.stem.children.branches.spawnRate.potentialDelay) {
+                this.addChild(new Branch(this.id, this.kind, this.$div, this.imgs, this.behaviors));
+                this.branches.amount++;
+                this.branches.last = Date.now();
+            }
+        }
+    }
+
+    attemptSpawnLeaves = () => {
+        if (this.behaviors.stem.children.leaves.max > 0 && this.leaves.amount < this.behaviors.stem.children.leaves.max) {
+            if (Date.now() - this.leaves.last >= this.behaviors.stem.children.leaves.spawnRate.cooldown + Math.random() * this.behaviors.stem.children.leaves.spawnRate.potentialDelay) {
+                this.addChild(new Leaf(this.id, this.kind, this.$div, this.imgs, this.behaviors));
+                this.leaves.amount++;
+                this.leaves.last = Date.now();
+            }
+        }
+    }
+
+    attemptSpawnFruits = () => {
+        if (this.behaviors.stem.children.fruits.max > 0 && this.fruits.amount < this.behaviors.stem.children.fruits.max) {
+            if (Date.now() - this.fruits.last >= this.behaviors.stem.children.fruits.spawnRate.cooldown + Math.random() * this.behaviors.stem.children.fruits.spawnRate.potentialDelay) {
+                this.addChild(new Fruit(this.id, this.kind, this.$div, this.imgs, this.behaviors));
+                this.fruits.amount++;
+                this.fruits.last = Date.now();
             }
         }
     }
 }
 
-class Plant extends Entity {
+class Plant extends Ground {
     constructor(id, kind, ground, imgs, behaviors) {
-        super(id, kind, ground);
-
-        this.animation = "none";
+        super(ground);
+        this.id = id;
+        this.kind = kind;
         this.behaviors = behaviors;
         this.imgs = imgs;
 
-        this.newStemCooldown = 0;
+        this.lastStem = Date.now();
     }
 
-    beat = () => {
-        if (this.bodies.length < this.behaviors.stem.max) {
-            this.newStemCooldown -= this.beatCooldown;
-
-            if (this.newStemCooldown <= 0) {
-                this.addBody(new Stem(this.id, this.kind, this.$ground, this.imgs, this.behaviors));
-                this.newStemCooldown = this.behaviors.stem.spawnRate.cooldown + Math.random() * this.behaviors.stem.spawnRate.potentialDelay;
+    onUpdate = () => {
+        if (this.entities.length < this.behaviors.stem.max) {
+            if (Date.now() - this.lastStem >= this.behaviors.stem.spawnRate.cooldown + Math.random() * this.behaviors.stem.spawnRate.potentialDelay) {
+                this.spawn(new Stem(this.id, this.kind, this.$ground, this.imgs, this.behaviors));
+                this.lastStem = Date.now();
             }
         }
     }

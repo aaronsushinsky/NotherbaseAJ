@@ -1,19 +1,17 @@
 class Billboard {
     constructor(id, items = [], settings) {
-        this.defaultSettings = {
+        this.settings = {
             maxItems: 999,
             itemTypes: ["img", "txt"],
             onSave: null,
-            free: true
-        }
-        this.settings = {
-            ...this.defaultSettings,
+            free: true,
             ...settings
         }
         this.items = items;
         this.id = id;
         this.$div = $(`.billboard#${id}`);
         this.$init = this.$div.clone();
+        this.currentItem = -1;
 
         this.render();
         this.load(items);
@@ -26,40 +24,56 @@ class Billboard {
         this.flipToMain();
     }
 
-    save = () => {
+    save = async () => {
+        let saving = null;
+
         if (this.settings.onSave) {
-            return base.do(this.settings.onSave, {
+            saving = base.do(this.settings.onSave, {
                 id: this.id,
                 items: this.items
             });
         }
+
+        this.flipToLoading();
+        await saving;
+        this.renderItems();
+        this.flipToMain();
     }
 
     submit = async (type = "txt") => {
-        if (this.items.length < this.settings.maxItems) {
+        if (this.currentItem >= 0) {
+            this.items[this.currentItem] = {
+                type: type,
+                value: this.$input.val()
+            };
+    
+            this.save();
+        }
+        else if (this.items.length < this.settings.maxItems) {
             this.items.push({
                 type: type,
-                value: this.$txt.val()
+                value: this.$input.val()
             });
     
-            let saving = this.save();
-            this.flipToLoading();
-            
-            this.renderItems();
-            await saving;
-            this.flipToMain();
+            this.save();
         }
     }
 
-    deleteItem = async (e) => {
-        this.items.splice(parseInt(e.currentTarget.id), 1);
+    editItem = (which = this.currentItem) => {
+        this.currentItem = which;
+        this.flipToEdit();
+        if (this.currentItem > -1) this.$input.val(this.items[this.currentItem].value);
+    }
 
-        let saving = this.save();
-        this.flipToLoading();
+    newItem = () => {
+        this.creatingNew = true;
+        this.editItem(-1);
+    }
 
-        this.renderItems();
-        await saving;
-        this.flipToMain();
+    deleteItem = async (which = this.currentItem) => {
+        if (which >= 0) this.items.splice(which, 1);
+
+        this.save();
     }
 
     render() {
@@ -71,21 +85,28 @@ class Billboard {
         this.$items = $(`<ul></ul>`).appendTo(this.$main);
 
         if (this.settings.free) {
-            this.$flipToNew = $(`<button class="flip">#</button>`).appendTo(this.$main);
-            this.$flipToNew.click(this.flipToNew);
+            this.$new = $(`<button class="new">+</button>`).appendTo(this.$main);
+            this.$new.click(this.newItem);
 
-            this.$new = $(`<div class="new invisible"></div>`).appendTo(this.$div);
-            this.$new.append(`<h6>Submit a new item:</h6>`);
-            this.$txt = $(`<input type="text" id="task">`).appendTo(this.$new);
-            this.$txt.keyup((e) => {
-                if (e.which == 13) this.submit();
+            this.$edit = $(`<div class="edit invisible"></div>`).appendTo(this.$div);
+            this.$edit.append(`<h6>Submit a new item:</h6>`);
+            this.$input = $(`<input type="text" id="task">`).appendTo(this.$edit);
+            this.$input.keyup((e) => {
+                if (e.which == 13) {
+                    if (!this.creatingNew) {
+                        this.submit(this.items[this.currentItem].type);
+                    }
+                    else this.submit();
+                } 
             });
-            this.$submit = $(`<button id="submit">Submit Text</button>`).appendTo(this.$new);
+            this.$submit = $(`<button id="submit">Submit Text</button>`).appendTo(this.$edit);
             this.$submit.click(() => this.submit());
-            this.$submitImg = $(`<button id="submit-img">Submit Image URL</button>`).appendTo(this.$new);
+            this.$submitImg = $(`<button id="submit-img">Submit Image URL</button>`).appendTo(this.$edit);
             this.$submitImg.click(() => { this.submit("img"); });
-            this.$flipToMain = $(`<button class="flip">#</button>`).appendTo(this.$new);
-            this.$flipToMain.click(this.flipToMain);
+            this.$delete = $(`<button id="delete">Delete</button>`).appendTo(this.$edit);
+            this.$delete.click(() => { this.deleteItem(); });
+            this.$cancel = $(`<button class="cancel">Cancel</button>`).appendTo(this.$edit);
+            this.$cancel.click(this.flipToMain);
         }
     }
 
@@ -97,12 +118,9 @@ class Billboard {
 
             if (this.settings.itemTypes.includes(item.type)) {
                 let out = $('<li></li>');
-                if (item.type === "txt") out.append(item.value);
-                else if (item.type === "img") out.append(`<img src="${item.value}"></img>`);
-                if (this.settings.free) {
-                    let deleteButton = $(`<button class="delete" id="${i}">X</button>`).appendTo(out);
-                    deleteButton.click(this.deleteItem);
-                }
+                if (this.settings.free) out.click(() => { this.editItem(i); });
+                if (item.type === "img") out.append(`<img src="${item.value}"></img>`);
+                else out.append(item.value);
                 
                 this.$items.append(out);
             }
@@ -110,24 +128,26 @@ class Billboard {
     }
 
     flipToMain = () => {
+        this.creatingNew = false;
+        this.currentItem = -1;
         this.$loading.addClass("invisible");
         if (this.settings.free) {
-            this.$txt.val("");
-            this.$new.addClass("invisible");
+            this.$input.val("");
+            this.$edit.addClass("invisible");
         }
         this.$main.removeClass("invisible");
     }
 
-    flipToNew = () => {
+    flipToEdit = () => {
         this.$loading.addClass("invisible");
-        this.$new.removeClass("invisible");
+        this.$edit.removeClass("invisible");
         this.$main.addClass("invisible");
-        this.$txt.focus();
+        this.$input.focus();
     }
 
     flipToLoading = () => {
         this.$main.addClass("invisible");
-        if (this.settings.free) this.$new.addClass("invisible");
+        if (this.settings.free) this.$edit.addClass("invisible");
         this.$loading.removeClass("invisible");
     }
 }

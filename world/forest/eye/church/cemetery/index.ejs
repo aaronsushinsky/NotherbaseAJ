@@ -34,15 +34,22 @@
     </div>
 </div>
 
+<div class="pot">
+
+</div>
+
 <hr>
 
 <a class="return" href="/forest/eye/church">
     Back to the Church Front
 </a>
 
-<!-- <script src="/js/plants/weed.js"></script> -->
+<script src="/js/entity.js"></script>
+<script src="/js/plants/plant.js"></script>
 <script>
-    <%- include("../../../../../public/js/plants/weed.js") %>
+    <%- include("./weed.js") %>
+    <%- include("./apple-tree.js") %>
 
-    let weed = new Weed(`og-weed`, "weed", ".ground");
+    let weed = new Weed(`og-weed`, "weed", $(".ground"));
+    let apple = new AppleTree("apple-tree", "apple-tree", $(".pot"));
 </script>

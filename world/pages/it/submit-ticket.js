@@ -12,10 +12,8 @@ export default async function submitTicket(req, user) {
 
     let page = await req.db.Spirit.recallOne("it", user.id);
 
-    let pageData = page.memory.data;
-
-    pageData.push(newTicket);
-    await page.commit();
+    if (Array.isArray(page.memory.data)) await page.commit([...page.memory.data, newTicket]);
+    else await page.commit([newTicket]);
 
     await req.db.SendMail.send("wyattsushi@gmail.com", `New IT Request from ${user.memory.data.username}`, `
         <h1>Request: ${newTicket.title}</h1> <br>

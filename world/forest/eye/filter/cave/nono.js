@@ -1,16 +1,12 @@
-let tileSize = 30;
-
 class NonoTile {
-    constructor (game, $field, position, modifier) {
-        this.$div = $field.append(`<div class="nono-tile" id="${position[0]},${position[1]}"></div>`).children().last();
-        this.$div.css("width", tileSize);
-        this.$div.css("height", tileSize);
+    constructor (tryFinishGame, $parent, position, modifier) {
+        this.$div = $(`<div class="nono-tile" id="${position[0]},${position[1]}"></div>`).appendTo($parent);
         this.position = position;
         this.state = "blank";
         this.$div.addClass(this.state);
         this.correctState = this.getRandomState(modifier);
         this.solved = this.checkIfSolved();
-        this.game = game;
+        this.tryFinishGame = tryFinishGame;
 
         this.$div.on("click", this.clicked);
     }
@@ -37,7 +33,7 @@ class NonoTile {
         this.$div.addClass(this.state);
 
         this.solved = this.checkIfSolved();
-        this.game.tryFinishGame();
+        this.tryFinishGame();
     }
 }
 
@@ -45,130 +41,113 @@ class NonoGame {
     constructor () {
         this.difficulty = 0;
         this.level = 2;
-        this.$board = $("#nono-board");
-        this.$field = null;
+        this.nonoSize = 100;
+        this.maxNonoId = 4;
+
         this.dimensions = [this.level, this.level];
         this.hints = [[], []];
         this.tiles = [];
-        this.nonoSize = 100;
-        this.maxNonoId = 4;
-        this.goldItem = "Gold Coin";
+
+        this.$board = $(".nono-board");
+        this.$bars = [];
+        this.$columns = [];
+        this.$rows = [];
+        this.$nono = $(`<img class="nono" src="/img/nono/nono-${Math.floor(Math.random() * (this.maxNonoId + 1))}.png">`).appendTo(this.$board);
+        this.$topHints = $(`<div class="top hints"></div>`).appendTo(this.$board);
+        this.$sideHints = $(`<div class="side hints"></div>`).appendTo(this.$board);
+        this.$field = $(`<div class="nono-field"></div>`).appendTo(this.$board);
+        this.$field.on("scroll", (event) => {
+            // event.currentTarget.scrollLeft;
+            // event.currentTarget.scrollWidth; //max
+            // event.currentTarget.scrollTop;
+            // event.currentTarget.scrollHeight; //max
+        });
     }
 
-    startNew(level = null, difficulty = null) {
-        if (level) this.level = level;
-        if (difficulty) this.difficulty = difficulty;
-        
+    startNew(level = this.level, difficulty = this.difficulty) {
+        this.level = level;
+        this.difficulty = difficulty;
         this.dimensions = [this.level, this.level];
 
-        this.$board.empty();
-        this.$board.css("width", this.dimensions[0] * (tileSize) + this.nonoSize + 5);
-        this.$board.css("height", this.dimensions[1] * (tileSize) + this.nonoSize + 5);
+        this.generateTiles();
+        this.generateHints();
+    }
 
-        let $nono = this.$board.append(`<img class="nono" src="/img/nono/nono-${Math.floor(Math.random() * (this.maxNonoId + 1))}.png">`).children().last();
-        $nono.css("width", this.nonoSize);
-        $nono.css("height", this.nonoSize);
+    generateTiles() {
+        do {
+            this.$field.empty();
+            this.tiles = [];
+            this.$bars = [];
 
-        let $topHints = this.$board.append(`<div class="top hints"></div>`).children().last();
-        $topHints.css("width", this.dimensions[0] * tileSize);
-        $topHints.css("height", this.nonoSize);
+            for (let i = 0; i < this.dimensions[0]; i++) {
+                let $currentBar = $(`<div class="bar"></div>`).appendTo(this.$field);
+                this.$bars.push($currentBar);
 
-        let $columns = [];
+                for (let j = 0; j < this.dimensions[1]; j++) {
+                    this.tiles.push(new NonoTile(this.tryFinishGame, $currentBar, [i, j], 1 - (this.difficulty / 10)));
+                }
+            }
+        } while (this.checkForSolve());
+    }
+
+    generateHints() {
+        this.$topHints.empty();
+        this.$columns = [];
         for (let i = 0; i < this.dimensions[0]; i++) {
-            let $newColumn = $topHints.append(`<div class="column"></div>`).children().last();
-            $newColumn.css("width", tileSize);
-            $columns.push($newColumn);
+            this.$columns.push($(`<div class="column"></div>`).appendTo(this.$topHints));
         }
-
-        let $sideHints = this.$board.append(`<div class="side hints"></div>`).children().last();
-        $sideHints.css("width", this.nonoSize);
-        $sideHints.css("height", this.dimensions[1] * tileSize);
-
-        let $rows = [];
+        
+        this.$sideHints.empty;
+        this.$rows = [];
         for (let i = 0; i < this.dimensions[1]; i++) {
-            let $newRow = $sideHints.append(`<div class="row"></div>`).children().last();
-            $newRow.css("height", tileSize);
-            $rows.push($newRow);
+            this.$rows.push($(`<div class="row"></div>`).appendTo(this.$sideHints));
         }
 
-        this.$field = this.$board.append(`<div class="nono-field"></div>`).children().last();
-        this.$field.css("width", this.dimensions[0] * tileSize);
-        this.$field.css("height", this.dimensions[1] * tileSize);
+        this.hints = [[], []];
 
-        this.tiles = this.generateTiles();
-        this.hints = this.generateHints();
+        for (let i = 0; i < this.dimensions[0]; i++) {
+            let current = 0;
+            this.hints[0].push([]);
+
+            for (let j = 0; j < this.dimensions[1]; j++) {
+                if (this.tiles[j * this.dimensions[0] + i].correctState === "punched") current++;
+                else if (current > 0) {
+                    this.hints[0][i].push(current);
+                    current = 0;
+                }
+            }
+
+            if (current > 0 || this.hints[0][i].length < 1) {
+                this.hints[0][i].push(current);
+            }
+        }
+
+        for (let i = 0; i < this.dimensions[1]; i++) {
+            let current = 0;
+            this.hints[1].push([]);
+
+            for (let j = 0; j < this.dimensions[0]; j++) {
+                if (this.tiles[i * this.dimensions[0] + j].correctState === "punched") current++;
+                else if (current > 0) {
+                    this.hints[1][i].push(current);
+                    current = 0;
+                }
+            }
+
+            if (current > 0 || this.hints[1][i].length < 1) this.hints[1][i].push(current);
+        }
 
         for (let i = 0; i < this.dimensions[0]; i++) {
             for (let j = 0; j < this.hints[0][i].length; j++) {
-                $columns[i].append(`<p class="hint">${this.hints[0][i][j]}</p>`);
+                this.$columns[i].append(`<p class="hint">${this.hints[0][i][j]}</p>`);
             }
         }
 
         for (let i = 0; i < this.dimensions[1]; i++) {
             for (let j = 0; j < this.hints[1][i].length; j++) {
-                $rows[i].append(`<p class="hint">${this.hints[1][i][j]}</p>`);
+                this.$rows[i].append(`<p class="hint">${this.hints[1][i][j]}</p>`);
             }
         }
-
-        if (this.checkForSolve()) {
-            console.log("Randomly generated nothing!");
-            this.startNew();
-        }
-    }
-
-    generateTiles() {
-        let tiles = [];
-
-        for (let i = 0; i < this.dimensions[0]; i++) {
-            for (let j = 0; j < this.dimensions[1]; j++) {
-                tiles.push(new NonoTile(
-                    this, 
-                    this.$field, 
-                    [i, j],
-                    1 - (this.difficulty / 10)
-                ));
-            }
-        }
-
-        return tiles;
-    }
-
-    generateHints() {
-        let hints = [[], []];
-
-        for (let i = 0; i < this.dimensions[0]; i++) {
-            let current = 0;
-            hints[0].push([]);
-
-            for (let j = 0; j < this.dimensions[1]; j++) {
-                if (this.tiles[j * this.dimensions[0] + i].correctState === "punched") current++;
-                else if (current > 0) {
-                    hints[0][i].push(current);
-                    current = 0;
-                }
-            }
-
-            if (current > 0 || hints[0][i].length < 1) {
-                hints[0][i].push(current);
-            }
-        }
-
-        for (let i = 0; i < this.dimensions[1]; i++) {
-            let current = 0;
-            hints[1].push([]);
-
-            for (let j = 0; j < this.dimensions[0]; j++) {
-                if (this.tiles[i * this.dimensions[0] + j].correctState === "punched") current++;
-                else if (current > 0) {
-                    hints[1][i].push(current);
-                    current = 0;
-                }
-            }
-
-            if (current > 0 || hints[1][i].length < 1) hints[1][i].push(current);
-        }
-
-        return hints;
     }
 
     checkForSolve() {
