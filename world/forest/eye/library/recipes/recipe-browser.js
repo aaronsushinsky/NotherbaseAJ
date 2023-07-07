@@ -13,7 +13,7 @@ class RecipeBrowser extends Browser {
             }, "string"),
             new NBField({
                 name: "img",
-                label: "Image URL: ",
+                label: "Image: ",
                 placeholder: "/img/food/default.jpg"
             }, "image"),
             new NBField({
@@ -48,7 +48,7 @@ class RecipeBrowser extends Browser {
                 label: "Directions: ",
                 placeholder: "No Directions",
                 multiple: true
-            }, "string") 
+            }, "long-string") 
         ]);
         
         super(id, fields, true, "save-recipes");

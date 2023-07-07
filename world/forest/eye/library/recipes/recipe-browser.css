@@ -1,9 +1,0 @@
-.browser li {
-    list-style: none;
-    display: flex;
-    padding: 0;
-}   
-
-.browser li input {
-    margin: 0;
-}

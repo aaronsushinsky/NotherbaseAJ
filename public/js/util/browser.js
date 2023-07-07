@@ -49,14 +49,27 @@ class ReadBox extends ViewBox {
     }
 
     render = () => {
-        if (this.nested) this.$div = $(`<div class="read nested"></div>`);
+        if (this.nested) {
+            if (this.fields.settings.multiple) this.$div = $(`<div class="read nested multiple"></div>`);
+            else this.$div = $(`<div class="read nested"></div>`);
+        }
         else this.$div = $(`<div class="read"></div>`);
 
-        if (this.fields.settings.label) this.$header = $(`<h5>${this.fields.settings.label}</h5>`).appendTo(this.$div);
+        this.renderHeader();
 
         this.load(null);
 
         return this.$div;
+    }
+
+    renderHeader = () => {
+        if (this.fields.settings.label) {
+            if (this.nested) {
+                if (this.multiple) this.$header = $(`<h6>${this.fields.settings.label}</h6>`).appendTo(this.$div);
+                else this.$header = $(`<h6>${this.fields.settings.label}</h6>`).appendTo(this.$div);
+            } 
+            else this.$header = $(`<h4>${this.fields.settings.label}</h4>`).appendTo(this.$div);
+        }
     }
 
     renderFieldTo = (field, $parent = this.$div, item = null) => {
@@ -72,7 +85,8 @@ class ReadBox extends ViewBox {
 
     load = (item = null) => {
         this.$div.empty();
-        if (this.fields.settings.label) this.$header = $(`<h5>${this.fields.settings.label}</h5>`).appendTo(this.$div);
+        
+        this.renderHeader();
 
         if (item) {
             if (this.fields.settings.multiple && this.nested) {
@@ -123,13 +137,14 @@ class EditBox extends ViewBox {
 
     render = () => {
         if (this.nested) {
-            this.$div = $(`<div class="edit nested"></div>`);
+            if (this.fields.settings.multiple) this.$div = $(`<div class="edit nested multiple"></div>`);
+            else this.$div = $(`<div class="edit nested"></div>`);
             this.$add = $(`<button>Add</button>`).appendTo(this.$div);
             this.$add.click(this.add);
         }
         else this.$div = $(`<div class="edit"></div>`);
 
-        if (this.fields.settings.label) this.$header = $(`<h5>${this.fields.settings.label}</h5>`).appendTo(this.$div);
+        this.renderHeader();
 
         this.load(null);
 
@@ -143,11 +158,27 @@ class EditBox extends ViewBox {
             else $editItem = $(`<input type="number" placeholder="${field.settings.placeholder}">`).appendTo($parent);
             $domCapture.push($editItem);
         }
+        else if (field.children === "long-string") {
+            let $editItem = null;
+            if (item) $editItem = $(`<textarea rows="4" placeholder="${field.settings.placeholder}">${item}</textarea>`).appendTo($parent);
+            else $editItem = $(`<textarea rows="4" placeholder="${field.settings.placeholder}"></textarea>`).appendTo($parent);
+            $domCapture.push($editItem);
+        }
         else {
             let $editItem = null;
             if (item) $editItem = $(`<input type="text" placeholder="${field.settings.placeholder}" value="${item}">`).appendTo($parent);
             else $editItem = $(`<input type="text" placeholder="${field.settings.placeholder}">`).appendTo($parent);
             $domCapture.push($editItem);
+        }
+    }
+
+    renderHeader = () => {
+        if (this.fields.settings.label) {
+            if (this.nested) {
+                if (this.multiple) this.$header = $(`<h6>${this.fields.settings.label}</h6>`).appendTo(this.$div);
+                else this.$header = $(`<h6>${this.fields.settings.label}</h6>`).appendTo(this.$div);
+            } 
+            else this.$header = $(`<h4>${this.fields.settings.label}</h4>`).appendTo(this.$div);
         }
     }
 
@@ -193,6 +224,9 @@ class EditBox extends ViewBox {
         if (field == "string") {
             return $input.val();
         }
+        else if (field == "long-string") {
+            return $input.val();
+        }
         else if (field == "number") {
             return $input.val();
         }
@@ -211,7 +245,7 @@ class EditBox extends ViewBox {
         this.$div.empty();
         this.$items = [];
 
-        if (this.fields.settings.label) this.$header = $(`<h5>${this.fields.settings.label}</h5>`).appendTo(this.$div);
+        this.renderHeader();
 
         if (this.fields.settings.multiple && this.nested) {
             this.$add = $(`<button>Add</button>`).appendTo(this.$div);
@@ -324,7 +358,7 @@ class Browser {
             this.$searchBox = $(`<div class="search"></div>`).appendTo(this.$div);
             this.$toFilter = $(`<button class="filter-toggle">Filter</button>`).appendTo(this.$div);
             this.$toFilter.click(this.toggleFilters);
-            this.$searchList = $(`<ul class="selector"></ul>`).appendTo($(`<section></section>`).appendTo(this.$searchBox));
+            this.$searchList = $(`<ul class="selector"></ul>`).appendTo(this.$searchBox);
 
             this.$create = $(`<button class="create">+</button>`).appendTo(this.$div);
             this.$create.click(this.create);
