@@ -19,6 +19,7 @@
 
 .agenda .year>.month {
     border-radius: 3px;
+    position: relative;
 }
 
 .agenda .month.small {
@@ -27,7 +28,7 @@
 
 .agenda .month .grid {
     width: 100%;
-    height: 400px;
+    height: auto;
     background: var(--darkBgColor);
     display: flex;
     flex-wrap: wrap;

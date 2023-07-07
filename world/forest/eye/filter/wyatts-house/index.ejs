@@ -206,7 +206,8 @@
 
     <%- include("./scheduler.js"); %>
     let scheduler = new Scheduler("scheduler");
-    base.load("scheduler-browser").then((res) => {
+    base.load("schedule").then((res) => {
+        console.log(res);
         scheduler.load(res);
     })
 </script>

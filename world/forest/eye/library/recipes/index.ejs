@@ -18,8 +18,7 @@
     <%- include("./recipe-browser.js"); %>
     let recipeBrowser = new RecipeBrowser("recipes");
 
-    base.load("recipe-browser").then((res) => {
-        console.log(res);
+    base.load("recipes").then((res) => {
         recipeBrowser.load(res);
     });
 </script>

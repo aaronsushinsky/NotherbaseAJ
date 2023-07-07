@@ -1,30 +1,32 @@
 class StoryBrowser extends Browser {
     constructor(id) {
-        super(id, [
-            {
+        let fields = new NBField({
+            name: "story",
+            label: "Story: ",
+            placeholder: "No Story",
+            multiple: true
+        }, [
+            new NBField({
                 name: "title",
-                type: String,
-                label: "Title",
+                label: "Title: ",
                 placeholder: "Story Title"
-            }, 
-            {
+            }, "string"),
+            new NBField({
                 name: "img",
-                type: String,
-                label: "Image",
-                placeholder: "/img/default.jpg"
-            }, 
-            {
+                label: "",
+                placeholder: "/img/food/default.jpg"
+            }, "image"),
+            new NBField({
                 name: "source",
-                type: String,
-                label: "Source",
-                placeholder: "Story Source"
-            }, 
-            {
+                label: "Source: ",
+                placeholder: "Recipe Name"
+            }, "string"),
+            new NBField({
                 name: "content",
-                type: String,
-                label: "Content",
-                placeholder: "Your Story Here"
-            }
-        ], "save-stories");
+                label: "Content: ",
+                placeholder: "Recipe Name"
+            }, "string")
+        ]);
+        super(id, fields, true, "save-stories");
     }
 }

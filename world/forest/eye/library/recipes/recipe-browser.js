@@ -15,7 +15,7 @@ class RecipeBrowser extends Browser {
                 name: "img",
                 label: "Image URL: ",
                 placeholder: "/img/food/default.jpg"
-            }, "img"),
+            }, "image"),
             new NBField({
                 name: "source",
                 label: "From: ",

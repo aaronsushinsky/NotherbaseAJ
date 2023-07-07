@@ -1,30 +1,32 @@
 class Scheduler extends Browser {
     constructor(id) {
-        super(id, [ 
-            {
-                type: String,
-                name: "title",
-                label: "Title",
-                placeholder: "Task"
-            },
-            {
-                type: Date,
+        let fields = new NBField({
+            name: "task",
+            label: "Task: ",
+            placeholder: "No task",
+            multiple: true
+        }, [
+            new NBField({
+                name: "name",
+                label: "Name: ",
+                placeholder: "Name"
+            }, "string"),
+            new NBField({
                 name: "date",
-                label: "Date",
-                placeholder: new Date()
-            },
-            {
-                type: String,
-                name: "desc",
-                label: "Description",
+                label: "Date: ",
+                placeholder: "1/1/2023"
+            }, "string"),
+            new NBField({
+                name: "recurring",
+                label: "Recurring: ",
+                placeholder: "false"
+            }, "string"),
+            new NBField({
+                name: "description",
+                label: "Description: ",
                 placeholder: "Description"
-            },
-            {
-                type: Boolean,
-                name: "complete",
-                label: "Task Complete",
-                placeholder: false
-            }
-        ], "save-schedule");
+            }, "string")
+        ]);
+        super(id, fields, true, "save-schedule");
     }
 }
