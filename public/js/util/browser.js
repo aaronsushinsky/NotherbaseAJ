@@ -77,6 +77,10 @@ class ReadBox extends ViewBox {
             if (item) $(`<img src="${item}">`).appendTo($parent);
             else $(`<img src="${field.settings.placeholder}">`).appendTo($parent);
         }
+        else if (field.children === "date-time") {
+            if (item) $(`<time datetime="${item}">${(new Date(item)).toLocaleString()}</time>`).appendTo($parent);
+            else $(`<time></time>`).appendTo($parent);
+        }
         else {
             if (item) $(`<p>${item.replace(/(?:\r\n|\r|\n)/g, '<br />')}</p>`).appendTo($parent);
             else $(`<p></p>`).appendTo($parent);
@@ -158,6 +162,13 @@ class EditBox extends ViewBox {
             else $editItem = $(`<input type="number" placeholder="${field.settings.placeholder}">`).appendTo($parent);
             $domCapture.push($editItem);
         }
+        else if (field.children === "date-time") {
+            let $editItem = null;
+            let placeholder = (new Date(field.settings.placeholder.getTime() - field.settings.placeholder.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+            if (item) $editItem = $(`<input type="datetime-local" value="${item}">`).appendTo($parent);
+            else $editItem = $(`<input type="datetime-local" value="${placeholder}">`).appendTo($parent);
+            $domCapture.push($editItem);
+        }
         else if (field.children === "long-string") {
             let $editItem = null;
             if (item) $editItem = $(`<textarea rows="4" placeholder="${field.settings.placeholder}">${item}</textarea>`).appendTo($parent);
@@ -233,7 +244,7 @@ class EditBox extends ViewBox {
         else if (field == "image") {
             return $input.val();
         }
-        else if (field == "date") {
+        else if (field == "date-time") {
             return $input.val();
         }
         else if (field == "boolean") {
@@ -424,8 +435,6 @@ class Browser {
 
     save = async () => {
         let newItem = this.editBox.save();
-
-        console.log(newItem);
 
         if (this.fields.settings.multiple) {
             if (this.selected < 0) {
