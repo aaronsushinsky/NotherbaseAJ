@@ -14,7 +14,7 @@ class Scheduler extends Browser {
             new NBField({
                 name: "date",
                 label: "Date: ",
-                placeholder: new Date()
+                placeholder: Date.now()
             }, "date-time"),
             new NBField({
                 name: "recurring",

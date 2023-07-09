@@ -34,45 +34,20 @@ footer input, footer p {
     font-size: small;
     width: auto;
     margin: 0;
+    margin-right: 5px;
     height: 15px;
     background-color: rgba(240, 248, 255, 0);
+    padding: 0;
+}
+
+footer a, footer a:hover {
+    color: var(--footerTextColor);
+    border: none;
+    font-size: small;
 }
 
 .form {
     border: none;
-}
-
-#ad-panel {
-    background-color: rgba(237, 237, 237, 0.226);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 50px;
-    height: 100%;
-    margin: 0;
-    border: none;
-    border-radius: 0px 0px 0px 5px;
-    padding: 0;
-}
-
-.admin-panel {
-    width: 90%;
-    height: auto;
-    margin-left: 10%;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.admin-panel p {
-    width: 100%;
-    height: auto;
-}
-
-.admin-panel button {
-    height: 25px;
-    padding: 2px;
-    font-size: small;
-    margin: 0;
 }
 
 .form #to-history {
@@ -144,4 +119,8 @@ footer input, footer p {
     width: 100%;
     text-align: center;
     margin: 10px;
+}
+
+.search {
+    background: none;
 }
