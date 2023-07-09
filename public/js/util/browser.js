@@ -77,6 +77,23 @@ class ReadBox extends ViewBox {
             if (item) $(`<img src="${item}">`).appendTo($parent);
             else $(`<img src="${field.settings.placeholder}">`).appendTo($parent);
         }
+        else if (field.children === "date-time") {
+            if (item) $(`<time datetime="${item}">${(new Date(item)).toLocaleString()}</time>`).appendTo($parent);
+            else $(`<time></time>`).appendTo($parent);
+        }
+        else if (field.children === "date") {
+            if (item) $(`<time datetime="${item}">${(new Date(item)).toLocaleDateString()}</time>`).appendTo($parent);
+            else $(`<time></time>`).appendTo($parent);
+        }
+        else if (field.children === "time") {
+            console.log((new Date(item)).toLocaleTimeString());
+            if (item) $(`<time">${(new Date(item)).toLocaleTimeString()}</time>`).appendTo($parent);
+            else $(`<time></time>`).appendTo($parent);
+        }
+        else if (field.children === "number") {
+            if (item) $(`<p>${item}</p>`).appendTo($parent);
+            else $(`<p></p>`).appendTo($parent);
+        }
         else {
             if (item) $(`<p>${item.replace(/(?:\r\n|\r|\n)/g, '<br />')}</p>`).appendTo($parent);
             else $(`<p></p>`).appendTo($parent);
@@ -158,6 +175,56 @@ class EditBox extends ViewBox {
             else $editItem = $(`<input type="number" placeholder="${field.settings.placeholder}">`).appendTo($parent);
             $domCapture.push($editItem);
         }
+        else if (field.children === "date-time") {
+            let date = new Date(item);
+            let $editItem = null;
+            if (item) {
+                $editItem = $(`<input type="datetime-local" value="${date}">`).appendTo($parent);
+            }
+            else {
+                let placeholder = (new Date(field.settings.placeholder.getTime() - field.settings.placeholder.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+                $editItem = $(`<input type="datetime-local" value="${placeholder}">`).appendTo($parent);
+            }
+            $domCapture.push($editItem);
+        }
+        else if (field.children === "date") {
+            let $editItem = null;
+            if (item) {
+                let date = new Date(item);
+                let day = ("0" + date.getDate()).slice(-2);
+                let month = ("0" + (date.getMonth() + 1)).slice(-2);
+                let out = `${date.getFullYear()}-${month}-${day}`;
+                $editItem = $(`<input type="date" value="${out}">`).appendTo($parent);
+            }
+            else {
+                let date = new Date(field.settings.placeholder);
+                let day = ("0" + date.getDate()).slice(-2);
+                let month = ("0" + (date.getMonth() + 1)).slice(-2);
+                let placeholder = `${date.getFullYear()}-${month}-${day}`;
+                $editItem = $(`<input type="date" value="${placeholder}">`).appendTo($parent);
+            }
+            $domCapture.push($editItem);
+        }
+        else if (field.children === "time") {
+            let $editItem = null;
+            if (item) {
+                let date = new Date(item);
+                let hours = ("0" + date.getHours()).slice(-2);
+                let minutes = ("0" + date.getMinutes()).slice(-2);
+                let seconds = ("0" + date.getSeconds()).slice(-2);
+                let out = `${hours}:${minutes}:${seconds}`;
+                $editItem = $(`<input type="time" value="${out}">`).appendTo($parent);
+            }
+            else {
+                let date = new Date(field.settings.placeholder);
+                let hours = ("0" + date.getHours()).slice(-2);
+                let minutes = ("0" + date.getMinutes()).slice(-2);
+                let seconds = ("0" + date.getSeconds()).slice(-2);
+                let placeholder = `${hours}:${minutes}:${seconds}`;
+                $editItem = $(`<input type="time" value="${placeholder}">`).appendTo($parent);
+            }
+            $domCapture.push($editItem);
+        }
         else if (field.children === "long-string") {
             let $editItem = null;
             if (item) $editItem = $(`<textarea rows="4" placeholder="${field.settings.placeholder}">${item}</textarea>`).appendTo($parent);
@@ -233,8 +300,20 @@ class EditBox extends ViewBox {
         else if (field == "image") {
             return $input.val();
         }
+        else if (field == "date-time") {
+            return new Date($input.val()).getTime();
+        }
         else if (field == "date") {
-            return $input.val();
+            let date = $input.val().split("-");
+            return new Date(date[0], date[1] - 1, date[2]).getTime();
+        }
+        else if (field == "time") {
+            let time = $input.val().split(" ")[0].split(":");
+            let date = new Date();
+            date.setHours(time[0]);
+            date.setMinutes(time[1]);
+            date.setSeconds(time[2]);
+            return date.getTime();
         }
         else if (field == "boolean") {
             return $input.prop("checked");
@@ -334,7 +413,7 @@ class FiltersBox extends ViewBox {
 }
 
 class Browser {
-    constructor(id, fields, editable = true, onSave = null) {
+    constructor(id, fields, editable = true, onSave = null, otherSettings) {
         this.id = id;
         this.items = [];
         this.filter = "";
@@ -343,6 +422,10 @@ class Browser {
         this.onSave = onSave;
         this.mode = "single";
         this.editable = editable;
+        this.otherSettings = {
+            onSaveRoute: null,
+            ...otherSettings
+        };
 
         this.readBox = new ReadBox(this.fields);
         this.editBox = new EditBox(this.fields);
@@ -425,8 +508,6 @@ class Browser {
     save = async () => {
         let newItem = this.editBox.save();
 
-        console.log(newItem);
-
         if (this.fields.settings.multiple) {
             if (this.selected < 0) {
                 this.selected = this.items.length;
@@ -437,10 +518,15 @@ class Browser {
         else this.items = newItem;
 
 
-        if (this.onSave) await base.do(this.onSave, {
-            id: this.id,
-            items: this.items
-        });
+        if (this.onSave) {
+            let toGo = {
+                id: this.id,
+                items: this.items
+            };
+            if (this.otherSettings.onSaveRoute) toGo.route = this.otherSettings.onSaveRoute;
+
+            await base.do(this.onSave, toGo);
+        }
         
         this.cancel();
         this.renderSearchResults();
