@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wyatt Sushinsky</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/it.css">
+    <link rel="stylesheet" href="/styles/browser.css">
+</head>
+
+<main>
+    <% if (user && user.authLevels.includes("ITAD")) { %>
+        <input type="text" id="filter">
+        <button onclick="loadBrowser()">Load</button>
+        <div class="browser" id="it-admin"></div>
+    <% } else { %>
+        <div class="login form">
+            <label>
+                Organization Email: <input type="text" id="email">
+            </label>
+            <label>
+                Password: <input type="password" id="password">
+                <input type="checkbox" id="unhide" onclick="tracker.toggleShowPassword()"> Show Password
+            </label>
+            <button onclick="tracker.attemptLogin()">Login</button>
+        </div>
+    <% } %>
+
+    <button class="logout invisible" onclick="tracker.logout()">Logout</button>
+    <p id="alert"></p>
+
+    <footer></footer>
+</main>
+
+<script src="/js/base.js"></script>
+<script src="/js/util/browser.js"></script>
+<script>
+    const base = new Base();
+
+    <% if (user && user.authLevels.includes("ITAD")) { %>
+        const fields = new NBField({
+            name: "ticket",
+            label: "Ticket: ",
+            placeholder: "No Ticket",
+            multiple: true
+        }, [
+            new NBField({
+                name: "title",
+                label: "Title: ",
+                placeholder: "Ticket Title"
+            }, "string"),
+            new NBField({
+                name: "id",
+                label: "id: ",
+                placeholder: 0
+            }, "number"),
+            new NBField({
+                name: "date",
+                label: "Created On: ",
+                placeholder: Date.now()
+            }, "date"),
+            new NBField({
+                name: "quoted",
+                label: "Hours Quoted: ",
+                placeholder: 0
+            }, "number"),
+            new NBField({
+                name: "resolved",
+                label: "Resolved On: ",
+                placeholder: Date.now()
+            }, "date"),
+            new NBField({
+                name: "used",
+                label: "Hours Used: ",
+                placeholder: 0
+            }, "number"),
+            new NBField({
+                name: "description",
+                label: "Description: ",
+                placeholder: "Description"
+            }, "long-string")
+        ]);
+
+        const itAdmin = new Browser("it-admin", fields, true, "save-it", {
+            onSaveRoute: "/pages/it-admin"
+        });
+
+        let loadBrowser = () => {
+            console.log($("#filter").val());
+            base.do("load-it", {
+                which: $("#filter").val(),
+                route: "/pages/it-admin"
+            }).then((res) => {
+                console.log(res);
+                itAdmin.load(res.data);
+            });
+        }
+    <% } %>
+
+    class Tracker {
+        constructor() {
+            //general
+            this.$alert = $("#alert");
+            this.$logout = $(".logout");
+
+            //login
+            this.$loginForm = $(".login.form");
+            this.$email = $("#email");
+            this.$password = $("#password");
+
+            <% if (user) { %>
+                this.$logout.removeClass("invisible");
+            <% } %>
+        }
+
+        toggleShowPassword() {
+            let hidden = this.$password.attr("type");
+            if (hidden === "password") this.$password.attr("type", "text");
+            else this.$password.attr("type", "password");
+        }
+
+        attemptLogin = async () => {
+            let response = await base.attemptLogin(this.$email.val(), this.$password.val());
+
+            if (response.status === "success") {
+                location.reload();
+            }
+            else {
+                this.$alert.text(response.message);
+            }
+        }
+
+        logout = async () => {
+            let response = await base.logout();
+
+            if (response.status === "success") {
+                location.reload();
+            }
+            else {
+                this.$alert.text(response.message);
+            }
+        }
+    }
+
+    let tracker = new Tracker();
+</script>
+</html>

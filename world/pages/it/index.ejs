@@ -65,14 +65,7 @@
     </main>
 
     <footer>
-        <button id="ad-panel" onclick="tracker.toggleAdmin()"></button>
-        <p>This website created by Wyatt Lee Sushinsky</p>
-        <div class="admin-panel invisible">
-            <p>Admin: <input type="email" id="ad"> Password: <input type="password" id="ad-password"></p>
-            <p>Hours: <input type="number" id="ad-used"> Used | <input type="number" id="ad-quoted"> Quoted | <button onclick="tracker.setHours()">Set</button></p>
-            <p>Resolve on Date: <input type="date" id="ad-date"> <button onclick="tracker.resolveTicket()">Resolve</button></p>
-            <button onclick="tracker.deleteTicket()">Delete</button>
-        </div>
+        <p>This website created by</p><a href="/portfolio">Wyatt Lee Sushinsky</a>
     </footer>
 </body>
 
@@ -108,14 +101,6 @@
 
             //tickets
             this.$ticketsList = $("ul.tickets");
-
-            //admin
-            this.$adminPanel = $(".admin-panel");
-            this.$admin = $("#ad");
-            this.$adPassword = $("#ad-password");
-            this.$adUsed = $("#ad-used");
-            this.$adQuoted = $("#ad-quoted");
-            this.$adDate = $("#ad-date");
 
             <% if (user) { %>
                 this.goToSubmitForm();
@@ -252,75 +237,6 @@
             this.goToHistoryForm();
 
             if (this.admin) this.toggleAdmin();
-        }
-    
-        toggleAdmin() {
-            if (this.state === "tickets") {
-                this.admin = !this.admin;
-                this.$adminPanel.toggleClass("invisible");
-                $(".history-ticket").toggleClass("selectable");
-            } 
-            else {
-                this.admin = false;
-                this.$adminPanel.addClass("invisible");
-                $(".history-ticket").removeClass("selectable");
-            }
-        }
-
-        deleteTicket = async () => {
-            if (this.selectedTicket >= 0 && this.selectedTicket < this.tickets.length) {
-                let response = await base.do("delete-ticket", {
-                    org: "<%= user ? user.username : "" %>",
-                    admin: this.$admin.val(),
-                    adPassword: this.$adPassword.val(),
-                    ticketID: this.tickets[this.selectedTicket].id,
-                    route: "/pages/it"
-                });
-
-                this.viewHistory();
-            }
-        }
-
-        setHours = async () => {
-            if (this.selectedTicket >= 0 && this.selectedTicket < this.tickets.length ) {
-                let response = await base.do("set-hours", {
-                    org: "<%= user ? user.username : "" %>",
-                    admin: this.$admin.val(),
-                    adPassword: this.$adPassword.val(),
-                    ticketID: this.tickets[this.selectedTicket].id,
-                    used: this.$adUsed.val(),
-                    quoted: this.$adQuoted.val(),
-                    route: "/pages/it"
-                });
-
-                console.log(response);
-
-                this.viewHistory();
-            }
-        }
-
-        resolveTicket = async () => {
-            if (this.selectedTicket >= 0 && this.selectedTicket < this.tickets.length) {
-                let response = await base.do("resolve-ticket", {
-                    org: "<%= user ? user.username : "" %>",
-                    admin: this.$admin.val(),
-                    adPassword: this.$adPassword.val(),
-                    ticketID: this.tickets[this.selectedTicket].id,
-                    resolveDate: this.$adDate.val() + "T00:00:00",
-                    route: "/pages/it"
-                });
-
-                this.viewHistory();
-            }
-        }
-
-        selectTicket(which) {
-            if (this.admin) {
-                this.selectedTicket = which;
-    
-                $(".history-ticket").removeClass("selected");
-                if (this.selectedTicket > -1) $(`.history-ticket#${which}`).addClass("selected");
-            }
         }
     }
 

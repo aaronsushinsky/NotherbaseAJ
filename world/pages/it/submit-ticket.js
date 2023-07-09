@@ -15,10 +15,17 @@ export default async function submitTicket(req, user) {
     if (Array.isArray(page.memory.data)) await page.commit([...page.memory.data, newTicket]);
     else await page.commit([newTicket]);
 
+    await req.db.SendMail.send(user.memory.data.email, `New IT Request Submitted Successfully`, `
+        <h1>Request: ${newTicket.title}</h1> <br>
+        Ticket ID: ${newTicket.id} <br>
+        Submitted On: ${new Date(newTicket.date).toLocaleDateString()} <br>
+        Description: ${newTicket.description}
+    `);
+
     await req.db.SendMail.send("wyattsushi@gmail.com", `New IT Request from ${user.memory.data.username}`, `
         <h1>Request: ${newTicket.title}</h1> <br>
         Ticket ID: ${newTicket.id} <br>
-        Submitted On: ${new Date(newTicket.date).getDate()} <br>
+        Submitted On: ${new Date(newTicket.date).toLocaleString()} <br>
         From: ${user.memory.data.username} <br>
         Description: ${newTicket.description}
     `);

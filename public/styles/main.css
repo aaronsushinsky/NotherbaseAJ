@@ -137,8 +137,8 @@ footer a {
     text-decoration: none;
     height: 100%;
     margin: 0;
-    padding: var(--padding);
-    width: 50%;
+    padding: 0;
+    background: none;
 }
 
 section {
