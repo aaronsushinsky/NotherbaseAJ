@@ -5,6 +5,7 @@ export default async (req, user) => {
         let userData = [];
     
         for (let i = 0; i < spirit.memory.length; i++) {
+            spirit.memory[i].data.id = spirit.memory[i]._id;
             userData.push(spirit.memory[i].data);
         }
     

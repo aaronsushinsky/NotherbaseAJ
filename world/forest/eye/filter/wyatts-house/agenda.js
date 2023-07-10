@@ -10,7 +10,6 @@ class Agenda {
         this.date = new Date();
         
         this.render();
-        this.load();
     }
 
     render = () => {
@@ -26,11 +25,15 @@ class Agenda {
         }
     }
 
-    load = async () => {
-        base.load(`${this.id}-agenda`).then((res) => { 
-            this.schedule = res.schedule;
+    load = (tasks) => {
+        this.tasks = tasks;
 
-            console.log("Agenda Loaded");
-        });
+        for (let i = 0; i < 7; i++) {
+            this.days[i].load(this.tasks);        
+        }
+
+        for (let i = 0; i < 12; i++) {
+            this.months[i].load(this.tasks);        
+        }
     }
 }

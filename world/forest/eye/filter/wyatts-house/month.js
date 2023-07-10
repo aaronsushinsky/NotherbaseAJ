@@ -46,4 +46,29 @@ class Month {
         }
         this.$schedule = $(`<ul class="schedule"></ul>`).appendTo(this.$div);
     }
+
+    load = (tasks) => {
+        this.tasks = tasks;
+
+        // let dayStart = new Date(this.date.getTime());
+        // dayStart.setHours(0);
+        // dayStart.setMinutes(0);
+        // dayStart.setSeconds(0);
+        // dayStart.setMilliseconds(0);
+
+        // let dayEnd = new Date(this.date.getTime());
+        // dayEnd.setHours(23);
+        // dayEnd.setMinutes(59);
+        // dayEnd.setSeconds(59);
+        // dayEnd.setMilliseconds(999);
+
+        // this.$schedule.empty();
+        // this.$schedule.append(`<h6>Schedule</h6>`);
+
+        // for (let i = 0; i < this.tasks.length; i++) {
+        //     if (this.tasks[i].date >= dayStart.getTime() && this.tasks[i].date < dayEnd.getTime()) {
+        //         this.$schedule.append(`<p>${this.tasks[i].name}</p>`);
+        //     }
+        // }
+    }
 }
