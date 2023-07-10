@@ -1,8 +1,6 @@
+<link rel="stylesheet" href="/styles/browser.css">
 <style>
     <%- include("./wizard-tower.css"); %>
-    <%- include("./items-floor.css"); %>
-    <%- include("./user-floor.css"); %>
-    <%- include("./frog-floor.css"); %>
 </style>
 
 <p>
@@ -15,43 +13,7 @@
         <button id="toggle">Toggle</button>
     
         <div class="content invisible">
-            <div class="left">
-                <input type="text" id="search" placeholder="filter list">
-                <ul class="items">
-            </div>
-    
-            </ul>
-        
-            <div class="editor">
-                <div class="edit invisible">
-                    <h5>Item Name:</h5>
-                    <input type="text" id="name">
-                
-                    <h5>Short Item Description:</h5>
-                    <textarea id="short" name="short" cols="30" rows="3"></textarea>
-                
-                    <h5>Full Item Description:</h5>
-                    <textarea id="full" name="full" cols="30" rows="10"></textarea>
-    
-                    <button id="cancel" onclick="itemFloor.cancelEdit()">Cancel</button>
-                    <button id="save" onclick="itemFloor.saveSelectedItem()">Save</button>
-                </div>
-    
-                <div class="read">
-                    <h5 id="name">Item Name</h5>
-                
-                    <h5>Short Item Description:</h5>
-                    <p id="short"></p>
-                
-                    <h5>Full Item Description:</h5>
-                    <p id="full"></p>
-    
-                    <button id="new" onclick="itemFloor.createNewItem()">Create New</button>
-                    <button id="edit" onclick="itemFloor.editSelectedItem()">Edit</button>
-                    <button id="delete" onclick="itemFloor.deleteSelectedItem()">Delete</button>
-                    <button id="refresh" onclick="itemFloor.updateItems()">Refresh List</button>
-                </div>
-            </div>
+            <div class="browser" id="items"></div>
         </div>
     </section>
     
@@ -60,38 +22,7 @@
         <button id="toggle">Toggle</button>
     
         <div class="content invisible">
-            <div class="global-info">
-                <h5 id="population">Population: 0</h5>
-                <h5>Active Today: -</h5>
-            </div>
-        
-            <ul class="selector" id="user-list">
-        
-            </ul>
-        
-            <div class="user-info">
-                <div class="read">
-                    <p class="name">Username: -</p>
-                    <p class="coin">Coin: -</p>
-                    <p class="auth">Auth Levels: -</p>
-                    <p class="home">Home: -</p>
-                    <p class="location">Location: -</p>
-                    <p class="attributes">Attributes: -</p>
-                    <p class="email">Email: -</p>
-                    <button id="edit" onclick="userFloor.edit()">Edit</button>
-                </div>
-                <div class="edit invisible">
-                    <h4>Username:</h4>
-                    <input type="text" class="name">
-    
-                    <h4>Auth Levels:</h4>
-                    <button onclick="userFloor.addAuth()">+</button>
-                    <ul id="auth"></ul>
-    
-                    <button id="save" onclick="userFloor.save()">Save</button>
-                    <button id="cancel"  onclick="userFloor.cancel()">Cancel</button>
-                </div>
-            </div>
+            <div class="browser" id="users"></div>
         </div>
     </section>
 
@@ -137,6 +68,7 @@
     Return to the Inn
 </a>
 
+<script src="/js/util/browser.js"></script>
 <script>
     $("#knock").on("click", function knock() {
         $("#extra").text("You knocked on the tower's door. Surely you've been heard.");
@@ -149,7 +81,68 @@
         $(".floor button#toggle").on("click", function (e) {
             $(e.target.parentElement).find(".content").toggleClass("invisible");
         });
-        <%- include("./items.js"); %> 
-        <%- include("./users.js"); %> 
+        
+        let itemFields = new NBField({
+            name: "item",
+            label: "Item: ",
+            placeholder: "No item",
+            multiple: true
+        }, [
+            new NBField({
+                name: "name",
+                label: "Name: ",
+                placeholder: "Name"
+            }, "string"),
+            new NBField({
+                name: "short",
+                label: "Short Description: ",
+                placeholder: "No Description"
+            }, "string"),
+            new NBField({
+                name: "long",
+                label: "Long Description: ",
+                placeholder: "No Description"
+            }, "long-string")
+        ]);
+        const itemBrowser = new Browser("items", itemFields, true, null, {
+            onSaveOne: "save-item",
+            onDeleteOne: "delete-item"
+        });
+
+        let userFields = new NBField({
+            name: "user",
+            label: "User: ",
+            placeholder: "No user",
+            multiple: true
+        }, [
+            new NBField({
+                name: "username",
+                label: "Username: ",
+                placeholder: "No Username"
+            }, "string"),
+            new NBField({
+                name: "authLevels",
+                label: "Auth Levels: ",
+                placeholder: "No Auth",
+                multiple: true
+            }, "string"),
+            new NBField({
+                name: "email",
+                label: "Email: ",
+                placeholder: "No Email"
+            }, "string")
+        ]);
+        const userBrowser = new Browser("users", userFields, true, null, {
+            onSaveOne: "save-user",
+            onDeleteOne: "delete-user"
+        });
+
+        base.do("get-items").then((res) => {
+            itemBrowser.load(res.data);
+        });
+
+        base.do("get-users").then((res) => {
+            userBrowser.load(res.data);
+        });
     <% } %>
 </script>

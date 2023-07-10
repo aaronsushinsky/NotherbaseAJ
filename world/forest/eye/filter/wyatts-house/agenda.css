@@ -2,6 +2,10 @@
     padding: 10px;
 }
 
+.agenda .week {
+    align-items: flex-start;
+}
+
 .agenda .day {
     border-radius: 3px;
 }
