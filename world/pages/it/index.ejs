@@ -76,7 +76,6 @@
     class Tracker {
         constructor() {
             this.state = "login";
-            this.admin = false;
             this.selectedTicket = -1;
             this.tickets = [];
 
@@ -191,16 +190,16 @@
                         let total = 0;
 
                         for (let i = 0; i < this.tickets.length; i++) {
-                            total += this.tickets[i].used;
+                            if (this.tickets[i].used) total += this.tickets[i].used;
                             const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
 
-                            this.$ticketsList.append(`<li class="history-ticket" id="${i}" onclick="tracker.selectTicket(${i})">
+                            this.$ticketsList.append(`<li class="history-ticket">
                                 <h4 id="title">Request: ${this.tickets[i].title}</h4>
                                 <p>Ticket Number: ${this.tickets[i].id}</p>
                                 <p id="date">Created On: ${(new Date(this.tickets[i].date)).toDateString()}</p>
-                                <p id="quoted">Hours Quoted: ${this.tickets[i].quoted}</p>
+                                <p id="quoted">Hours Quoted: ${this.tickets[i].quoted ? this.tickets[i].quoted : "none"}</p>
                                 <p id="date">Resolved On: ${this.tickets[i].resolved ? (new Date(this.tickets[i].resolved)).toLocaleDateString('en-US', options) : "Unresolved"}</p>
-                                <p id="used">Hours Used: ${this.tickets[i].used}</p>
+                                <p id="used">Hours Used: ${this.tickets[i].used ? this.tickets[i].used : "none"}</p>
                                 <p id="desc">Description: ${this.tickets[i].description}</p>
                                 </li>`);
                         }
@@ -218,7 +217,6 @@
                     this.$alert.text("");
 
                     this.state = "tickets";
-                    this.selectTicket(-1);
                 }
                 else {
                     this.$alert.text(response.message);
@@ -230,13 +228,10 @@
         }
 
         closeHistory() {
-            this.selectTicket(-1);
             this.tickets = [];
             this.$ticketsList.empty();
             
             this.goToHistoryForm();
-
-            if (this.admin) this.toggleAdmin();
         }
     }
 

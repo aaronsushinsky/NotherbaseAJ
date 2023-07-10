@@ -33,6 +33,45 @@ class Day {
         }
 
         this.$schedule = $(`<ul class="schedule"></ul>`).appendTo(this.$div);
-        this.$schedule.append(`<h6>Schedule</h6>`);
+        if (this.day === 0) this.$schedule.append(`<h6>Schedule</h6>`);
+    }
+
+    load = (tasks) => {
+        this.tasks = tasks;
+
+        let dayStart = new Date(this.offsetDate.getTime());
+        dayStart.setHours(0);
+        dayStart.setMinutes(0);
+        dayStart.setSeconds(0);
+        dayStart.setMilliseconds(0);
+
+        let dayEnd = new Date(this.offsetDate.getTime());
+        dayEnd.setHours(23);
+        dayEnd.setMinutes(59);
+        dayEnd.setSeconds(59);
+        dayEnd.setMilliseconds(999);
+
+        this.$schedule.empty();
+        if (this.day === 0) this.$schedule.append(`<h6>Schedule</h6>`);
+
+        for (let i = 0; i < this.tasks.length; i++) {
+            let testDate = this.tasks[i].date;
+            if (this.tasks[i].recurring) {
+                let newDate = new Date(testDate);
+                if (this.tasks[i].frequency === "weekly") while (newDate.getTime() < dayStart.getTime()) {
+                    newDate.setDate(newDate.getDate() + 7);
+                }
+                else if (this.tasks[i].frequency === "monthly") {
+                    while (testDate < dayEnd.getTime()) testDate += 1000 * 60 * 60 * 24 * 7;
+                }
+                else if (this.tasks[i].frequency === "yearly") {
+                    while (testDate < dayEnd.getTime()) testDate += 1000 * 60 * 60 * 24 * 7;
+                }
+                testDate = newDate.getTime();
+            }
+            if (testDate >= dayStart.getTime() && testDate < dayEnd.getTime()) {
+                this.$schedule.append(`<p>${this.tasks[i].name}</p>`);
+            }
+        }
     }
 }

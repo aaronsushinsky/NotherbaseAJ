@@ -15,17 +15,33 @@ class Scheduler extends Browser {
                 name: "date",
                 label: "Date: ",
                 placeholder: Date.now()
-            }, "date-time"),
+            }, "date"),
+            new NBField({
+                name: "time",
+                label: "Time: ",
+                placeholder: Date.now()
+            }, "time"),
             new NBField({
                 name: "recurring",
                 label: "Recurring: ",
-                placeholder: "false"
-            }, "string"),
+                placeholder: false
+            }, "boolean"),
+            new NBField({
+                name: "frequency",
+                label: "Recurs: ",
+                placeholder: " ",
+                options: [
+                    " ",
+                    "weekly",
+                    "monthly",
+                    "yearly"
+                ]
+            }, "options"),
             new NBField({
                 name: "description",
                 label: "Description: ",
                 placeholder: "Description"
-            }, "string")
+            }, "long-string")
         ]);
         super(id, fields, true, "save-schedule");
     }

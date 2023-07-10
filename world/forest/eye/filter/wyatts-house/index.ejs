@@ -207,6 +207,7 @@
     <%- include("./scheduler.js"); %>
     let scheduler = new Scheduler("scheduler");
     base.load("schedule").then((res) => {
+        scheduler.otherSettings.onRefresh = upstairsAgenda.load;
         scheduler.load(res);
     })
 </script>

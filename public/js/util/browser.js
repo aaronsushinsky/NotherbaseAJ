@@ -86,13 +86,15 @@ class ReadBox extends ViewBox {
             else $(`<time></time>`).appendTo($parent);
         }
         else if (field.children === "time") {
-            console.log((new Date(item)).toLocaleTimeString());
             if (item) $(`<time">${(new Date(item)).toLocaleTimeString()}</time>`).appendTo($parent);
             else $(`<time></time>`).appendTo($parent);
         }
         else if (field.children === "number") {
             if (item) $(`<p>${item}</p>`).appendTo($parent);
             else $(`<p></p>`).appendTo($parent);
+        }
+        else if (field.children === "boolean") {
+            $(`<p>${item}</p>`).appendTo($parent);
         }
         else {
             if (item) $(`<p>${item.replace(/(?:\r\n|\r|\n)/g, '<br />')}</p>`).appendTo($parent);
@@ -171,8 +173,24 @@ class EditBox extends ViewBox {
     renderFieldTo = (field, $parent = this.$div, item = null, $domCapture = this.$items) => {
         if (field.children === "number") {
             let $editItem = null;
-            if (item) $editItem = $(`<input type="number" value="${item}" placeholder="${field.settings.placeholder}">`).appendTo($parent);
-            else $editItem = $(`<input type="number" placeholder="${field.settings.placeholder}">`).appendTo($parent);
+            if (item) $editItem = $(`<input type="number" step="any" value="${item}" placeholder="${field.settings.placeholder}">`).appendTo($parent);
+            else $editItem = $(`<input type="number" step="any" placeholder="${field.settings.placeholder}">`).appendTo($parent);
+            $domCapture.push($editItem);
+        }
+        else if (field.children === "options") {            
+            let $editItem = $(`<select id="pet-select"></select>`).appendTo($parent);
+            for (let i = 0; i < field.settings.options.length; i++) {
+                $(`<option value="${field.settings.options[i]}">${field.settings.options[i]}</option>`).appendTo($editItem);
+            }
+            if (item) $editItem.find(`option:contains("${item}")`).prop('selected', true);
+            else $editItem.find(`option:contains("${field.settings.placeholder}")`).prop('selected', true);
+            $domCapture.push($editItem);
+        }
+        else if (field.children === "boolean") {
+            let $editItem = $(`<input type="checkbox">`).appendTo($parent);
+            if (item === null) $editItem.prop('checked', field.settings.placeholder);
+            else $editItem.prop('checked', item);
+             
             $domCapture.push($editItem);
         }
         else if (field.children === "date-time") {
@@ -182,7 +200,7 @@ class EditBox extends ViewBox {
                 $editItem = $(`<input type="datetime-local" value="${date}">`).appendTo($parent);
             }
             else {
-                let placeholder = (new Date(field.settings.placeholder.getTime() - field.settings.placeholder.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+                let placeholder = (new Date(field.settings.placeholder - (new Date()).getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
                 $editItem = $(`<input type="datetime-local" value="${placeholder}">`).appendTo($parent);
             }
             $domCapture.push($editItem);
@@ -256,7 +274,7 @@ class EditBox extends ViewBox {
             for (let i = 0; i < this.$items.length; i++) {
                 if (this.$items[i]) {
                     let saved = this.saveFields(this.$items[i]);
-                    if (saved) toGo.push(saved);
+                    toGo.push(saved);
                 }
             }
         }
@@ -267,35 +285,30 @@ class EditBox extends ViewBox {
 
     saveFields = ($items = this.$items) => {
         let toGo = {};
-        let dataExists = false;
 
         if (Array.isArray(this.fields.children)) {
             for (let i = 0; i < this.fields.children.length; i++) {
                 let saved = $items[i].save();
-                if (saved) {
-                    toGo[this.fields.children[i].settings.name] = saved;
-                    dataExists = true;
-                }
+                toGo[this.fields.children[i].settings.name] = saved;
             }
         }
-        else {
-            toGo = this.saveField(this.fields.children, $items[0]);
-            dataExists = true;
-        }
+        else toGo = this.saveField(this.fields.children, $items[0]);
 
-        if (dataExists) return toGo;
-        else return null;
+        return toGo;
     }
 
     saveField = (field, $input) => {
         if (field == "string") {
             return $input.val();
         }
+        else if (field === "options") {
+            return $input.val();
+        }
         else if (field == "long-string") {
             return $input.val();
         }
         else if (field == "number") {
-            return $input.val();
+            return parseFloat($input.val());
         }
         else if (field == "image") {
             return $input.val();
@@ -316,7 +329,8 @@ class EditBox extends ViewBox {
             return date.getTime();
         }
         else if (field == "boolean") {
-            return $input.prop("checked");
+            console.log($input.prop("checked"), $input.prop("checked") ? true : false);
+            return $input.prop("checked") ? true : false;
         }
     }
 
@@ -424,6 +438,7 @@ class Browser {
         this.editable = editable;
         this.otherSettings = {
             onSaveRoute: null,
+            onRefresh: null,
             ...otherSettings
         };
 
@@ -501,6 +516,10 @@ class Browser {
     load = (res) => {
         this.items = res;
 
+        if (this.otherSettings.onRefresh) {
+            this.otherSettings.onRefresh(this.items);
+        }
+
         if (this.fields.settings.multiple) this.renderSearchResults();
         else this.read();
     }
@@ -526,6 +545,10 @@ class Browser {
             if (this.otherSettings.onSaveRoute) toGo.route = this.otherSettings.onSaveRoute;
 
             await base.do(this.onSave, toGo);
+        }
+
+        if (this.otherSettings.onRefresh) {
+            this.otherSettings.onRefresh(this.items);
         }
         
         this.cancel();
