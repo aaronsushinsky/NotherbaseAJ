@@ -329,7 +329,6 @@ class EditBox extends ViewBox {
             return date.getTime();
         }
         else if (field == "boolean") {
-            console.log($input.prop("checked"), $input.prop("checked") ? true : false);
             return $input.prop("checked") ? true : false;
         }
     }

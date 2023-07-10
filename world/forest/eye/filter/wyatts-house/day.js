@@ -61,11 +61,11 @@ class Day {
                 if (this.tasks[i].frequency === "weekly") while (newDate.getTime() < dayStart.getTime()) {
                     newDate.setDate(newDate.getDate() + 7);
                 }
-                else if (this.tasks[i].frequency === "monthly") {
-                    while (testDate < dayEnd.getTime()) testDate += 1000 * 60 * 60 * 24 * 7;
+                else if (this.tasks[i].frequency === "monthly") while (newDate.getTime() < dayStart.getTime()) {
+                    newDate.setMonth(newDate.getMonth() + 1);
                 }
-                else if (this.tasks[i].frequency === "yearly") {
-                    while (testDate < dayEnd.getTime()) testDate += 1000 * 60 * 60 * 24 * 7;
+                else if (this.tasks[i].frequency === "yearly") while (newDate.getTime() < dayStart.getTime()) {
+                    newDate.setFullYear(newDate.getFullYear() + 1);
                 }
                 testDate = newDate.getTime();
             }
