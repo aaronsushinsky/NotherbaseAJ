@@ -438,6 +438,8 @@ class Browser {
         this.otherSettings = {
             onSaveRoute: null,
             onRefresh: null,
+            onSaveOne: null,
+            onDeleteOne: null,
             ...otherSettings
         };
 
@@ -497,7 +499,9 @@ class Browser {
             if (label?.toLowerCase) {
                 if (label.toLowerCase().includes(this.filtersBox.getFilter())) {
                     let $result = $(`<li id="${i}">${label}</li>`).appendTo(this.$searchList);
-                    $result.on("click", () => { this.select(i); });
+                    $result.on("click", (e) => { 
+                        this.select(i);
+                    });
                 }
             }
             else {
@@ -531,19 +535,37 @@ class Browser {
                 this.selected = this.items.length;
                 this.items.push(newItem);
             }
-            else this.items[this.selected] = newItem;
+            else this.items[this.selected] = {
+                ...this.items[this.selected],
+                ...newItem
+            };
+            newItem = this.items[this.selected];
         }
-        else this.items = newItem;
-
-
+        else {
+            this.items = {
+                ...this.items,
+                ...newItem
+            };
+            newItem = this.items;
+        }
+        
         if (this.onSave) {
             let toGo = {
                 id: this.id,
                 items: this.items
             };
             if (this.otherSettings.onSaveRoute) toGo.route = this.otherSettings.onSaveRoute;
-
+            
             await base.do(this.onSave, toGo);
+        }
+        else if (this.otherSettings.onSaveOne) {
+            let toGo = {
+                id: this.id,
+                item: newItem
+            };
+            if (this.otherSettings.onSaveRoute) toGo.route = this.otherSettings.onSaveRoute;
+            
+            await base.do(this.otherSettings.onSaveOne, toGo);
         }
 
         if (this.otherSettings.onRefresh) {
@@ -603,15 +625,26 @@ class Browser {
 
     delete = async () => {
         if (this.selected > -1 && this.selected < this.items.length) {
-            this.items.splice(this.selected, 1);
+            let deleted = this.items.splice(this.selected, 1)[0];
     
             if (this.onSave) {
-                await base.do(this.onSave, {
+                let toGo = {
                     id: this.id,
                     items: this.items
-                });
+                };
+                if (this.otherSettings.onSaveRoute) toGo.route = this.otherSettings.onSaveRoute;
+                await base.do(this.onSave, toGo);
+            }
+            else if (this.otherSettings.onDeleteOne) {
+                let toGo = {
+                    id: this.id,
+                    item: deleted
+                };
+                if (this.otherSettings.onSaveRoute) toGo.route = this.otherSettings.onSaveRoute;
+                await base.do(this.otherSettings.onDeleteOne, toGo);
             }
         }
+        
 
         this.renderSearchResults();
         this.cancel();
