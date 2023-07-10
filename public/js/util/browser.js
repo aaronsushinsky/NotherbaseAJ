@@ -644,6 +644,10 @@ class Browser {
                 await base.do(this.otherSettings.onDeleteOne, toGo);
             }
         }
+
+        if (this.otherSettings.onRefresh) {
+            this.otherSettings.onRefresh(this.items);
+        }
         
 
         this.renderSearchResults();
