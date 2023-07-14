@@ -3,6 +3,7 @@ class Month {
         this.month = month;
         this.date = date;
         this.offsetDate = new Date(this.date.getTime());
+        this.offsetDate.setMonth(this.date.getMonth() + this.month);
         this.$parent = $parent;
 
         this.menuIsOpen = false;
@@ -37,38 +38,68 @@ class Month {
         if (whichMonth > 11) whichMonth -= 12;
         this.$header = $(`<h4>${months[whichMonth]}</h4>`).appendTo(this.$div);
         if (this.month === 0) {
+            this.$legend = $(`<div class="legend"></div>`).appendTo(this.$div);
+            $(`<p>Sun</p>`).appendTo(this.$legend);
+            $(`<p>Mon</p>`).appendTo(this.$legend);
+            $(`<p>Tues</p>`).appendTo(this.$legend);
+            $(`<p>Wed</p>`).appendTo(this.$legend);
+            $(`<p>Thur</p>`).appendTo(this.$legend);
+            $(`<p>Fri</p>`).appendTo(this.$legend);
+            $(`<p>Sat</p>`).appendTo(this.$legend);
             this.$grid = $(`<div class="grid"></div>`).appendTo(this.$div);
             this.$days = [];
-            this.$ui = $(`<div class="ui"></div>`).appendTo(this.$div);
-            this.$toggle = $(`<button id="toggler">#</button>`).appendTo(this.$ui);
-            this.$toggle.click(this.toggleMenu);
-            this.$menu = $(`<div class="invisible">Options</div>`).appendTo(this.$ui);
+            // this.$ui = $(`<div class="ui"></div>`).appendTo(this.$div);
+            // this.$toggle = $(`<button id="toggler">#</button>`).appendTo(this.$ui);
+            // this.$toggle.click(this.toggleMenu);
+            // this.$menu = $(`<div class="invisible">Options</div>`).appendTo(this.$ui);
         }
-        this.$schedule = $(`<ul class="schedule"></ul>`).appendTo(this.$div);
+        else this.$schedule = $(`<ul class="schedule"></ul>`).appendTo(this.$div);
     }
 
     load = (tasks) => {
         this.tasks = tasks;
 
-        // let dayStart = new Date(this.date.getTime());
-        // dayStart.setHours(0);
-        // dayStart.setMinutes(0);
-        // dayStart.setSeconds(0);
-        // dayStart.setMilliseconds(0);
+        let monthStart = new Date(this.offsetDate.getTime());
+        monthStart.setDate(1);
+        monthStart.setHours(0);
+        monthStart.setMinutes(0);
+        monthStart.setSeconds(0);
+        monthStart.setMilliseconds(0);
 
-        // let dayEnd = new Date(this.date.getTime());
-        // dayEnd.setHours(23);
-        // dayEnd.setMinutes(59);
-        // dayEnd.setSeconds(59);
-        // dayEnd.setMilliseconds(999);
+        let monthEnd = new Date(this.offsetDate.getTime());
+        monthEnd.setMonth(monthEnd.getMonth() + 1);
+        monthEnd.setDate(0);
+        monthEnd.setHours(23);
+        monthEnd.setMinutes(59);
+        monthEnd.setSeconds(59);
+        monthEnd.setMilliseconds(999);
 
-        // this.$schedule.empty();
-        // this.$schedule.append(`<h6>Schedule</h6>`);
+        if (this.month === 0) {
+            for (let i = 0; i < this.$days.length; i++) {
+                this.$days[i].empty();
+                this.$days[i].append(`${i + 1}`);
+            }
+        }
+        else this.$schedule.empty();
 
-        // for (let i = 0; i < this.tasks.length; i++) {
-        //     if (this.tasks[i].date >= dayStart.getTime() && this.tasks[i].date < dayEnd.getTime()) {
-        //         this.$schedule.append(`<p>${this.tasks[i].name}</p>`);
-        //     }
-        // }
+        for (let i = 0; i < this.tasks.length; i++) {
+            let testDate = this.tasks[i].date;
+
+            if (this.tasks[i].recurring) {
+                let newDate = new Date(testDate);
+
+                if (this.tasks[i].frequency === "yearly") while (newDate.getTime() < monthStart.getTime()) {
+                    newDate.setFullYear(newDate.getFullYear() + 1);
+                    testDate = newDate.getTime();
+                }
+            }
+
+            if (testDate >= monthStart.getTime() && testDate < monthEnd.getTime()) {
+                if (this.month === 0) {
+                    this.$days[(new Date(testDate)).getDate() - 1].append(`<p>${this.tasks[i].name}</p>`);
+                }
+                else this.$schedule.append(`<p>${this.tasks[i].name}</p>`);
+            }
+        }
     }
 }

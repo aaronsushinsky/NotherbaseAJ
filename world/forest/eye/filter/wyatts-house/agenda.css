@@ -21,59 +21,6 @@
     width: 100%;
 }
 
-.agenda .year>.month {
-    border-radius: 3px;
-    position: relative;
-}
-
-.agenda .month.small {
-    width: 33%;
-}
-
-.agenda .month .grid {
-    width: 100%;
-    height: auto;
-    background: var(--darkBgColor);
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.agenda .month .calendummy {
-    width: calc(100% / 7);
-    height: 80px;
-    background: none;
-    border-bottom: 1px dashed rgba(255, 255, 186, 0.12);
-    border-right: 1px dashed rgba(255, 255, 186, 0.12);
-}
-
-.agenda .month .calenday {
-    width: calc(100% / 7);
-    height: 80px;
-    background: var(--bgColor);
-    border-bottom: 1px dashed rgba(255, 255, 186, 0.12);
-    border-right: 1px dashed rgba(255, 255, 186, 0.12);
-    padding: 2px;
-}
-
-.agenda .month .calenday.current {
-    background: var(--hoverColor);
-    border: var(--standardBorder);
-}
-
-.agenda .month .ui {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.agenda .month .ui #toggler {
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
-}
-
 .agenda .schedule {
     border: none;
 }
