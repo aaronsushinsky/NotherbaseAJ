@@ -40,7 +40,8 @@ class NonoTile {
 class NonoGame {
     constructor () {
         this.difficulty = 0;
-        this.level = 2;
+        this.level = 0;
+        this.levelMax = 5;
         this.nonoSize = 100;
         this.maxNonoId = 4;
 
@@ -67,7 +68,7 @@ class NonoGame {
     startNew(level = this.level, difficulty = this.difficulty) {
         this.level = level;
         this.difficulty = difficulty;
-        this.dimensions = [this.level, this.level];
+        this.dimensions = [this.level + 2, this.level + 3];
 
         this.generateTiles();
         this.generateHints();
@@ -93,59 +94,52 @@ class NonoGame {
     generateHints() {
         this.$topHints.empty();
         this.$columns = [];
-        for (let i = 0; i < this.dimensions[0]; i++) {
-            this.$columns.push($(`<div class="column"></div>`).appendTo(this.$topHints));
-        }
-        
-        this.$sideHints.empty;
+        this.$sideHints.empty();
         this.$rows = [];
-        for (let i = 0; i < this.dimensions[1]; i++) {
-            this.$rows.push($(`<div class="row"></div>`).appendTo(this.$sideHints));
-        }
 
         this.hints = [[], []];
 
+
         for (let i = 0; i < this.dimensions[0]; i++) {
+            this.$rows.push($(`<div class="row"></div>`).appendTo(this.$sideHints));
+
             let current = 0;
             this.hints[0].push([]);
 
             for (let j = 0; j < this.dimensions[1]; j++) {
-                if (this.tiles[j * this.dimensions[0] + i].correctState === "punched") current++;
+                if (this.tiles[i * this.dimensions[1] + j].correctState === "punched") current++;
                 else if (current > 0) {
-                    this.hints[0][i].push(current);
+                    let last = this.hints[0][i].push(current);
                     current = 0;
+                    this.$rows[i].append(`<p class="hint">${this.hints[0][i][last - 1]}</p>`);
                 }
             }
 
             if (current > 0 || this.hints[0][i].length < 1) {
-                this.hints[0][i].push(current);
+                let last = this.hints[0][i].push(current);
+                this.$rows[i].append(`<p class="hint">${this.hints[0][i][last - 1]}</p>`);
             }
         }
-
+        
+        
         for (let i = 0; i < this.dimensions[1]; i++) {
+            this.$columns.push($(`<div class="column"></div>`).appendTo(this.$topHints));
+
             let current = 0;
             this.hints[1].push([]);
 
             for (let j = 0; j < this.dimensions[0]; j++) {
-                if (this.tiles[i * this.dimensions[0] + j].correctState === "punched") current++;
+                if (this.tiles[j * this.dimensions[1] + i].correctState === "punched") current++;
                 else if (current > 0) {
-                    this.hints[1][i].push(current);
+                    let last = this.hints[1][i].push(current);
                     current = 0;
+                    this.$columns[i].append(`<p class="hint">${this.hints[1][i][last - 1]}</p>`);
                 }
             }
 
-            if (current > 0 || this.hints[1][i].length < 1) this.hints[1][i].push(current);
-        }
-
-        for (let i = 0; i < this.dimensions[0]; i++) {
-            for (let j = 0; j < this.hints[0][i].length; j++) {
-                this.$columns[i].append(`<p class="hint">${this.hints[0][i][j]}</p>`);
-            }
-        }
-
-        for (let i = 0; i < this.dimensions[1]; i++) {
-            for (let j = 0; j < this.hints[1][i].length; j++) {
-                this.$rows[i].append(`<p class="hint">${this.hints[1][i][j]}</p>`);
+            if (current > 0 || this.hints[1][i].length < 1) {
+                let last = this.hints[1][i].push(current);
+                this.$columns[i].append(`<p class="hint">${this.hints[1][i][last - 1]}</p>`);
             }
         }
     }
@@ -166,10 +160,10 @@ class NonoGame {
     tryFinishGame = async () => {
         if (this.checkForSolve()) {
             this.level++;
-            if (this.level > 10) {
-                this.difficulty += this.level - 10;
-                if (this.difficulty > 10) this.difficulty = 10;
-                this.level -= 10;
+            if (this.level > this.levelMax) {
+                this.difficulty += this.level - this.levelMax;
+                if (this.difficulty > 7) this.difficulty = 7;
+                this.level -= this.levelMax + 1;
             }
 
             let response = await base.do("complete-nono", {
