@@ -45,11 +45,7 @@
 }
 
 .chat-log > p {
-    color: var(--textColor);
     margin: 0;
-    padding: 2px;
-    line-height: 1em;
-    text-align: left;
 }
 
 .chat-box>ul {

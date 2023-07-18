@@ -107,7 +107,7 @@ main {
     width: var(--mainWidth);
     min-height: 500px;
     box-shadow: var(--boxShadow);
-    padding: var(--thickPadding);
+    padding: var(--padding);
     border-radius: 5px 5px 0px 0px;
     margin-top: var(--thickMargin);
     display: flex;
