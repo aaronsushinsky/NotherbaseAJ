@@ -2,8 +2,8 @@ class Fish {
     constructor(id) {
         this.$pond = $(".pond");
         this.id = id;
-        this.$div = $(`<div class="fish" id="${id}"><div class="tail"></div></div>`).appendTo(this.$pond);
-        this.$tail = this.$div.find(".tail");
+        this.$div = $(`<div class="fish" id="${id}"></div>`).appendTo(this.$pond);
+        this.$tail = $('<div class="tail"></div>').appendTo(this.$div);
         this.color = [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)];
         this.$div.css("background-color", `rgb(${this.color[0]}, ${this.color[1]}, ${this.color[2]})`);
         this.darkColor = [this.color[0] / 2, this.color[2], this.color[1]];
@@ -87,7 +87,6 @@ class Fish {
             queue: false
         });
 
-        
         this.$tail.addClass("wag");
 
         if (this.direction > 270 || this.direction < 90) this.$div.css("transform", `rotate(${this.direction}deg) scaleX(${this.xSize}) scaleY(${this.ySize})`);

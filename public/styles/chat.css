@@ -1,19 +1,13 @@
 .chat-box {
     position: relative;
-    box-shadow: var(--boxShadow);
     width: 100%;
-    height: 400px;
+    height: 40vh;
     display: flex;
     flex-wrap: wrap;
 }
 
-.chat-name {
-    color: var(--textColor);
-    padding: 10px;
-}
-
 .chat-log {
-    width: 85%;
+    width: 100%;
     height: calc(100% - (var(--h3Size) + 2 * var(--padding) + 2 * var(--margin)) - (var(--pSize) + 2 * var(--padding)));
     background-color: rgba(0, 0, 0, 0.534);
     overflow: auto;
@@ -58,13 +52,31 @@
     text-align: left;
 }
 
-.chat-box>ul{
-    width: 15%;
-    height: calc(100% - (var(--h3Size) + 2 * var(--padding) + 2 * var(--margin)) - (var(--pSize) + 2 * var(--padding)));
+.chat-box>ul {
+    position: absolute;
+    left: 0;
+    top: 4vh;
+    height: 0;
+    width: 100%;
     border: var(--standardBorder);
     margin: 0;
+    background: var(--bgColor);
+    transition: all .25s ease;
+    overflow: hidden;
+    padding: 0;
+}
+
+.chat-box>ul.shown {
+    height: calc(100% - 4vh);
 }
 
 .chat-box>ul li{
     padding: var(--padding);
+}
+
+.chat-box #chatting {
+    width: 100%;
+    height: 4vh;
+    margin: 0;
+    padding: 0;
 }
