@@ -20,9 +20,10 @@
     <nav class="nav-closed">
         <h1>Wyatt Sushinsky</h1>
 
-        <div>
+        <div class="buttons">
             <a href="https://www.linkedin.com/in/wyatt-sushinsky/"><i class="fab fa-linkedin"></i></a>
             <a href="https://github.com/Mosshide"><i class="fab fa-github-square"></i></a>
+            <button id="message" onclick="messager.open()">Contact Wyatt</button>
         </div>
     </nav>
 
@@ -38,6 +39,7 @@
         <div class="external-links">
             <a href="https://www.linkedin.com/in/wyatt-sushinsky/"><i class="fab fa-linkedin"></i></a>
             <a href="https://github.com/Mosshide"><i class="fab fa-github-square"></i></a>
+            <button id="message" onclick="messager.open()">Contact Wyatt</button>
         </div>
     </header>
 
@@ -123,6 +125,8 @@
                 </p>
             </div>
         </section>
+
+        <div class="fade invisible messager"></div>
     </main>
 
     <script>
@@ -134,6 +138,28 @@
                 $("nav").addClass("nav-closed");
             }
         });
+
+        class Messager {
+            constructor() {
+                this.$div = $(".messager");
+                this.$div.click(this.close());
+                this.$form = $(`<div class="form"></div>`).appendTo(this.$div);
+            }
+
+            open = () => {
+                this.$div.removeClass("invisible");
+            }
+
+            close = () => {
+                this.$div.addClass("invisible");
+            }
+
+            toggle = () => {
+                this.$div.toggleClass("invisible");
+            }
+        }
+
+        const messager = new Messager();
     </script>
 </body>
 </html>

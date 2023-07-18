@@ -59,6 +59,7 @@
     moveNono();
     setInterval(moveNono, 2000);
 
+    //base.do("reset-nono");
     base.load("filter-cave-nono").then((res) => {
         nonoGame.startNew(res.level, res.difficulty);
     });

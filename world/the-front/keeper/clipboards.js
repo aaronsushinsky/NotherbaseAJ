@@ -48,9 +48,7 @@ $changeButton.on("click", function () {
 });
 
 $resetButton.on("click", async function () {
-    let response = await base.resetPassword(
-        $("#reset-email").val()
-    );
+    let response = await base.resetPassword($("#reset-email").val());
 
     if (response.status === "success") {
         $registerInfo.text("A reset token has been sent to your email.");

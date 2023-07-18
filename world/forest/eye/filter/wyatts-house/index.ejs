@@ -3,6 +3,7 @@
     <%- include("./index.css"); %>
     <%- include("./wallet.css"); %>
     <%- include("./agenda.css"); %>
+    <%- include("./calendar.css"); %>
 </style>
 <link rel="stylesheet" href="/styles/browser.css">
 <link rel="stylesheet" href="/styles/billboard.css">
@@ -14,24 +15,12 @@
         <article class="agenda" id="upstairs"></article>
     </section>
 
-    <section class="office">
-        <h4>Office</h4>
-        <button class="folder" onclick="office.toggle(this)">v</button>
-        <article class="browser" id="scheduler"></article>
-    </section>
-
     <section class="laylas-room">
         <h4>Layla's Room</h4>
         <button class="folder" onclick="laylasRoom.toggle(this)">v</button>
 
-        <article>
-            <div class="billboard" id="layla-skills">
-                <h5>My Skills</h5>
-            </div>
-    
-            <div class="basic">
-                A flat-screen television.
-            </div>
+        <article>    
+            <article class="calendar" id="layla"></article>
         
             <article class="toy-box">
                 <h3>Toy Box</h3>
@@ -59,7 +48,12 @@
                 </article>
             </article>
         </article>
+    </section>
 
+    <section class="office">
+        <h4>Office</h4>
+        <button class="folder" onclick="office.toggle(this)">v</button>
+        <article class="browser" id="scheduler"></article>
     </section>
 
     <section class="livingroom">
@@ -168,6 +162,21 @@
 
 
 
+    //office
+    let office = new Foldable($(".office>article"));
+
+    <%- include("./scheduler.js"); %>
+    let scheduler = new Scheduler("scheduler");
+    base.load("schedule").then((res) => {
+        scheduler.otherSettings.onRefresh = (tasks) => {
+            upstairsAgenda.load(tasks);
+            laylaCalendar.load(tasks);
+        }
+        scheduler.load(res);
+    });
+
+
+
     //livingroom
     let livingroom = new Foldable($(".livingroom>article"));
     const openCloset = function openCloset() {
@@ -181,7 +190,8 @@
     let toyBox = new Foldable($(".toy-box article"));
     let laylasRoom = new Foldable($(".laylas-room>article"));
 
-    base.load("bb-layla-skills").then((res) => { lSkills = new Billboard("layla-skills", res.items, { onSave: "save-layla" }); });
+    <%- include("./calendar.js"); %>
+    const laylaCalendar = new Calendar("layla");
 
     $(".pocket").on("click", function() { $(".pocket").toggleClass("pocket-down"); });
     $(".background-changer").hover(function() { $(".background-changer").toggleClass("red-bg"); });
@@ -198,16 +208,4 @@
     const upstairsAgenda = new Agenda("upstairs");
 
     <%- include("./wallet.js") %>
-
-
-
-    //office
-    let office = new Foldable($(".office>article"));
-
-    <%- include("./scheduler.js"); %>
-    let scheduler = new Scheduler("scheduler");
-    base.load("schedule").then((res) => {
-        scheduler.otherSettings.onRefresh = upstairsAgenda.load;
-        scheduler.load(res);
-    })
 </script>

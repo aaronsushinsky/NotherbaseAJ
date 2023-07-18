@@ -26,23 +26,24 @@
     --thickBorder: 5px solid var(--textColor);
     --brightBorder: 1px solid var(--textColorBright);
     --darkBorder: 2px solid var(--veryDarkBgColorTransparent);
-    --borderRadius: 5px;
+    --borderRadius: .5vh;
     /* font */
-    --h1Size: 100px;
-    --h2Size: 60px;
-    --h3Size: 40px;
-    --h4Size: 30px;
-    --h5Size: 25px;
-    --h6Size: 20px;
-    --pSize: 20px;
-    --tinyText: 17px;
-    --inputHeight: 50px;
+    --h1Size: 7vh;
+    --h2Size: 5vh;
+    --h3Size: 4vh;
+    --h4Size: 4vh;
+    --h5Size: 3vh;
+    --h6Size: 2.5vh;
+    --pSize: 2.5vh;
+    --tinyText: 2vh;
+    --inputHeight: 4vh;
     /* boxes */
     --padding: 5px;
     --thickPadding: 20px;
     --margin: 5px;
     --thickMargin: 20px;
-    --mainWidth: 1280px;
+    --mainWidth: 50vw;
+    --minMainWidth: 500px;
     --fillFromMargin: calc(100% - (2 * var(--margin)));
     --fillFromThickMargin: calc(100% - (2 * var(--thickMargin)));
     --fillHalfFromMargin: calc(50% - (2 * var(--margin)));
@@ -53,7 +54,7 @@
     --fillQuarterFromThickMargin: calc(25% - (2 * var(--thickMargin)));
     --boxShadow: 5px 5px 5px 5px var(--shadowColor);
     --goHeight: 150px;
-    --returnHeight: 75px;
+    --returnHeight: 10vh;
 }
 
 ::-webkit-scrollbar {
@@ -105,9 +106,10 @@ body {
 
 main {
     width: var(--mainWidth);
+    min-width: var(--minMainWidth);
     min-height: 500px;
     box-shadow: var(--boxShadow);
-    padding: var(--thickPadding);
+    padding: var(--padding);
     border-radius: 5px 5px 0px 0px;
     margin-top: var(--thickMargin);
     display: flex;
@@ -125,6 +127,7 @@ footer {
     align-items: flex-start;
     min-height: 25px;
     width: var(--mainWidth);
+    min-width: var(--minMainWidth);
     background-color: var(--veryDarkBgColor);
     border-radius: 0px 0px 5px 5px;
     box-shadow: var(--boxShadow);
@@ -264,9 +267,20 @@ input {
     margin: var(--margin);
 }
 
-input[type=submit], button, a {
+input[type=submit], a {
     background-color: var(--bgColor);
     padding: var(--thickPadding);
+    border-radius: var(--borderRadius);
+    border: var(--standardBorder);
+    color: var(--textColor);
+    text-decoration: none;
+    text-align: center;
+    margin: var(--margin);
+}
+
+button {
+    background-color: var(--bgColor);
+    padding: var(--padding);
     border-radius: var(--borderRadius);
     border: var(--standardBorder);
     color: var(--textColor);
@@ -364,8 +378,9 @@ input[type=checkbox] {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    padding: var(--thickPadding);
+    padding: var(--padding);
     margin: var(--margin);
+    overflow: hidden;
 }
 
 .do {
@@ -492,7 +507,7 @@ iframe {
 }
 
 .dialogue>h4 {
-    height: 75px;
+    height: 7vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -520,7 +535,7 @@ iframe {
 
 .dialogue .content {
     width: 100%;
-    height: 200px;
+    height: 20vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -610,53 +625,14 @@ iframe {
     margin: 0;
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 500px) {
     main {
+        min-width: 0;
         width: 100%;
     }
 
     footer {
+        min-width: 0;
         width: 100%;
-    }
-}
-
-@media only screen and (max-width: 800px) {
-    :root {
-        /* borders */
-        --standardBorder: 1px solid var(--textColor);
-        --thickBorder: 3px solid var(--textColor);
-        --brightBorder: 1px solid var(--textColorBright);
-        --borderRadius: 3px;
-        /* font */
-        --h1Size: 35px;
-        --h2Size: 32px;
-        --h3Size: 28px;
-        --h4Size: 25px;
-        --h5Size: 22px;
-        --h6Size: 20px;
-        --pSize: 18px;
-        /* boxes */
-        --padding: 3px;
-        --thickPadding: 6px;
-        --margin: 3px;
-        --thickMargin: 6px;
-        --mainWidth: 1280px;
-        --fillFromMargin: calc(100% - (2 * var(--margin)));
-        --fillFromThickMargin: calc(100% - (2 * var(--thickMargin)));
-        --fillHalfFromMargin: calc(50% - (2 * var(--margin)));
-        --fillHalfFromThickMargin: calc(50% - (2 * var(--thickMargin)));
-        --fillThirdFromMargin: calc((1 / 3) * 100% - (2 * var(--margin)));
-        --fillThirdFromThickMargin: calc((1 / 3) * 50% - (2 * var(--thickMargin)));
-        --fillQuarterFromMargin: calc(25% - (2 * var(--margin)));
-        --fillQuarterFromThickMargin: calc(25% - (2 * var(--thickMargin)));
-        --boxShadow: 5px 5px 5px 5px var(--shadowColor);
-        --goHeight: 120px;
-        --returnHeight: 60px;
-    }
-}
-
-@media only screen and (min-width: 800px) {
-    .basic, .sign {
-        width: 40%;
     }
 }
