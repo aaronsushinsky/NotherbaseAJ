@@ -8,14 +8,14 @@
 
 .chat-log {
     width: 100%;
-    height: calc(100% - (var(--h3Size) + 2 * var(--padding) + 2 * var(--margin)) - (var(--pSize) + 2 * var(--padding)));
+    height: calc(100% - 8vh);
     background-color: rgba(0, 0, 0, 0.534);
     overflow: auto;
     padding: 5px;
 }
 
 .chat-send {
-    height: calc(var(--pSize) + 2 * var(--padding));
+    height: 4vh;
     width: 5em;
     outline: none;
     background-color: var(--bgColor);
@@ -34,7 +34,7 @@
 }
 
 .chat-entry {
-    height: calc(var(--pSize) + 2 * var(--padding));
+    height: 4vh;
     width: calc(100% - 5em);
     outline: none;
     background-color: var(--bgColor);
@@ -70,8 +70,13 @@
     height: calc(100% - 4vh);
 }
 
+.chat-box>ul h4 {
+    border: none;
+}
+
 .chat-box>ul li{
     padding: var(--padding);
+    margin: var(--margin);
 }
 
 .chat-box #chatting {
@@ -79,4 +84,5 @@
     height: 4vh;
     margin: 0;
     padding: 0;
+    border-radius: 0;
 }
