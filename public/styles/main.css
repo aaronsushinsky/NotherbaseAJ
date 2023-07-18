@@ -26,16 +26,16 @@
     --thickBorder: 5px solid var(--textColor);
     --brightBorder: 1px solid var(--textColorBright);
     --darkBorder: 2px solid var(--veryDarkBgColorTransparent);
-    --borderRadius: 5px;
+    --borderRadius: 1vh;
     /* font */
-    --h1Size: 100px;
-    --h2Size: 60px;
-    --h3Size: 40px;
-    --h4Size: 30px;
-    --h5Size: 25px;
-    --h6Size: 20px;
-    --pSize: 3vh;
-    --tinyText: 17px;
+    --h1Size: 7vh;
+    --h2Size: 5vh;
+    --h3Size: 4vh;
+    --h4Size: 4vh;
+    --h5Size: 3vh;
+    --h6Size: 2.5vh;
+    --pSize: 2.5vh;
+    --tinyText: 2vh;
     --inputHeight: 4vh;
     /* boxes */
     --padding: 5px;

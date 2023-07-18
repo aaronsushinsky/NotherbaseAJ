@@ -12,6 +12,7 @@
     background-color: rgba(0, 0, 0, 0.534);
     overflow: auto;
     padding: 5px;
+    flex-grow: 1;
 }
 
 .chat-send {
@@ -78,6 +79,7 @@
 .chat-box #chatting {
     width: 100%;
     margin: 0;
-    padding: 0;
+    padding: var(--padding);
     border-radius: 0;
+    height: var(--inputHeight);
 }
