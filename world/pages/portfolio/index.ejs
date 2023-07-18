@@ -23,7 +23,7 @@
         <div class="buttons">
             <a href="https://www.linkedin.com/in/wyatt-sushinsky/"><i class="fab fa-linkedin"></i></a>
             <a href="https://github.com/Mosshide"><i class="fab fa-github-square"></i></a>
-            <button id="message" onclick="messager.open()">Contact Wyatt</button>
+            <button id="nav-message" onclick="messager.open()">Contact Wyatt</button>
         </div>
     </nav>
 
@@ -126,10 +126,13 @@
             </div>
         </section>
 
-        <div class="fade invisible messager"></div>
+        <div class="messager"></div>
     </main>
 
+    <script src="/js/base.js"></script>
     <script>
+        const base = new Base();
+
         $(window).scroll(function() {
             if (window.scrollY > (3 / 4) * parseInt($("header").css("height"))) {
                 $("nav").removeClass("nav-closed");
@@ -142,8 +145,34 @@
         class Messager {
             constructor() {
                 this.$div = $(".messager");
-                this.$div.click(this.close());
+                this.close();
+                this.render();
+            }
+
+            render = () => {
+                this.$fade = $(`<div class="fade"></div>`).appendTo(this.$div);
+                this.$fade.click(this.close);
+
                 this.$form = $(`<div class="form"></div>`).appendTo(this.$div);
+
+                this.$close = $(`<button class="close">X</button>`).appendTo(this.$form);
+                this.$close.click(this.close);
+
+                $(`<h4>Send Wyatt A Message</h4>`).appendTo(this.$form);
+
+                $(`<h6>Your Email:</h6>`).appendTo(this.$form);
+                this.$from = $(`<input type="email" class="from" placeholder="e@mail.com"></input>`).appendTo(this.$form);
+
+                $(`<h6>Your Message:</h6>`).appendTo(this.$form);
+                this.$message = $(`<textarea class="message" placeholder="Your Message"></textarea>`).appendTo(this.$form);
+
+                this.$send = $(`<button class="send">Send Message</button>`).appendTo(this.$form);
+                this.$send.click(this.send);
+
+                this.$info = $(`<p class="info"></p>`).appendTo(this.$form);
+
+                this.$loading = $(`<div class="loading">Please Wait...</div>`).appendTo(this.$form);
+                this.endLoading();
             }
 
             open = () => {
@@ -156,6 +185,37 @@
 
             toggle = () => {
                 this.$div.toggleClass("invisible");
+            }
+
+            startLoading = () => {
+                this.$loading.removeClass("invisible");
+            }
+
+            endLoading = () => {
+                this.$loading.addClass("invisible");
+            }
+
+            setInfo = (info) => {
+                this.$info.text(info);
+            }
+
+            send = () => {
+                this.startLoading();
+
+                base.do("send-message", {
+                    route: "/pages/portfolio",
+                    from: this.$from.val(),
+                    message: this.$message.val()
+                }).then((res) => {
+                    if (res.status === "success") {
+                        this.$from.val("");
+                        this.$message.val("");
+                        this.setInfo("Message sent successfully!");
+                    }
+                    else this.setInfo("Error: Message not sent! Please try again later.");
+
+                    this.endLoading();
+                });
             }
         }
 
