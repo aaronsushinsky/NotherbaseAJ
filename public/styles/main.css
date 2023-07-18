@@ -42,7 +42,8 @@
     --thickPadding: 20px;
     --margin: 5px;
     --thickMargin: 20px;
-    --mainWidth: 500px;
+    --mainWidth: 50vw;
+    --minMainWidth: 500px;
     --fillFromMargin: calc(100% - (2 * var(--margin)));
     --fillFromThickMargin: calc(100% - (2 * var(--thickMargin)));
     --fillHalfFromMargin: calc(50% - (2 * var(--margin)));
@@ -53,7 +54,7 @@
     --fillQuarterFromThickMargin: calc(25% - (2 * var(--thickMargin)));
     --boxShadow: 5px 5px 5px 5px var(--shadowColor);
     --goHeight: 150px;
-    --returnHeight: 75px;
+    --returnHeight: 10vh;
 }
 
 ::-webkit-scrollbar {
@@ -105,6 +106,7 @@ body {
 
 main {
     width: var(--mainWidth);
+    min-width: var(--minMainWidth);
     min-height: 500px;
     box-shadow: var(--boxShadow);
     padding: var(--padding);
@@ -125,6 +127,7 @@ footer {
     align-items: flex-start;
     min-height: 25px;
     width: var(--mainWidth);
+    min-width: var(--minMainWidth);
     background-color: var(--veryDarkBgColor);
     border-radius: 0px 0px 5px 5px;
     box-shadow: var(--boxShadow);
@@ -275,8 +278,7 @@ input[type=submit], a {
     margin: var(--margin);
 }
 
-button {
-    height: var(--inputHeight);
+button, a {
     background-color: var(--bgColor);
     padding: var(--thickPadding);
     border-radius: var(--borderRadius);
@@ -376,8 +378,9 @@ input[type=checkbox] {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    padding: var(--thickPadding);
+    padding: var(--padding);
     margin: var(--margin);
+    overflow: hidden;
 }
 
 .do {
@@ -624,10 +627,12 @@ iframe {
 
 @media only screen and (max-width: 500px) {
     main {
+        min-width: 0;
         width: 100%;
     }
 
     footer {
+        min-width: 0;
         width: 100%;
     }
 }

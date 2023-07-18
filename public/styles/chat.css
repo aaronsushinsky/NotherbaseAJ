@@ -57,7 +57,7 @@
     border: var(--standardBorder);
     margin: 0;
     background: var(--bgColor);
-    transition: all .25s ease;
+    transition: height .25s ease;
     overflow: hidden;
     padding: 0;
 }

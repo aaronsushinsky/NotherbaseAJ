@@ -85,5 +85,6 @@
     top: 20px;
     width: 60%;
     aspect-ratio: 1 / 1;
+    height: auto;
     border-radius: 30%;
 }
