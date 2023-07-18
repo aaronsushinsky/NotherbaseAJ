@@ -14,6 +14,7 @@
     --green: #709176;
     --blue: #00487C;
     --game-size: 500px;
+    --padding: 5px;
 }
 
 * {
@@ -99,27 +100,28 @@ header h3 {
 .external-links {
     position: absolute;
     left: 100px;
-    top: calc(35% + 125px);
+    top: calc(35% + 135px);
     font-size: 50px;
     background-color: var(--bgColor);
-    width: 110px;
-    height: 65px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     padding: 5px;
     border-radius: 5px;
+    height: 60px;
 }
 
 header a {
-    width: 50px;
-    height: 100%;
     margin: 5px;
 }
 
 header i:hover {
     cursor: pointer;
     color: var(--focusColor);
+}
+
+h1 {
+    font-size: 2.5vh;
 }
 
 nav {
@@ -149,6 +151,11 @@ nav i {
 .nav-closed {
     top: -50px;
     transition: all .2s ease;
+}
+
+nav .buttons {
+    display: flex;
+    gap: var(--padding);
 }
 
 main {
@@ -236,23 +243,34 @@ section iframe {
     color: var(--bgColor);
 }
 
-#cpd {
-    background-color: var(--bgColor);
-    flex-direction: row-reverse;
+/*  messager  */
+
+#message {
+    background: none;
+    padding: var(--padding);
+    border-radius: 5px;
 }
 
-#won-ventures {
-    background-color: var(--focusColor);
+#message:hover {
+    cursor: pointer;
 }
 
-#won-ventures * {
-    color: var(--altTextColor);
+.fade {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.205);
 }
 
-#wayfarer {
-    flex-direction: row-reverse;
-    background-color: var(--bgColor);
+.messager .form {
+    width: 300px;
+    height: 500px;
+    border-radius: 5px;
+    background: gray;
 }
+
 
 /* tamago watch styles */
 .watch {
@@ -455,9 +473,8 @@ section iframe {
     .external-links {
         left: 35px;
         font-size: 30px;
-        top: calc(65% + 95px);
+        top: calc(65% + 105px);
         height: 45px;
-        width: 75px;
     }
 
     section {
