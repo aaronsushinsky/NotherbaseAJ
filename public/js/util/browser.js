@@ -518,6 +518,10 @@ class Browser {
 
     load = (res) => {
         this.items = res;
+        if (this.fields.settings.multiple && !Array.isArray(this.items)) {
+            this.items = [];
+            console.log("items overridden due to multiple");
+        }
 
         if (this.otherSettings.onRefresh) {
             this.otherSettings.onRefresh(this.items);
@@ -666,7 +670,7 @@ class Browser {
         $searchResults.removeClass("selected");
 
         if (which > -1) {
-            if ($searchResults.length > 1) $searchResults.find(`#${which}`).addClass("selected");
+            if ($searchResults.length > 1) $($searchResults[which]).addClass("selected");
             else $searchResults.addClass("selected");
         }
         

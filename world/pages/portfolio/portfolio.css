@@ -14,38 +14,10 @@
     --green: #709176;
     --blue: #00487C;
     --game-size: 500px;
-    --padding: 5px;
-    --border: 1px solid black;
 }
 
 * {
-    color: var(--textColor);
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
     font-family: 'Chakra Petch', sans-serif;
-}
-
-.invisible {
-    display: none !important;
-}
-
-a {
-    font-weight: bold;
-}
-
-h4 a {
-    margin-right: 20px;
-}
-
-hr {
-    border: none;
-    border-bottom: 2px solid var(--altTextColor);
-    margin: 5px 20px;
-}
-
-hr.light {
-    border-bottom: 2px solid var(--textColor);
 }
 
 body {
@@ -82,26 +54,26 @@ header h2 {
     position: absolute;
     left: 100px;
     top: 35%;
-    font-size: 50px;
     background-color: var(--bgColor);
     padding: 15px;
     border-radius: 5px;
+    width: initial;
 }
 
 header h3 {
     position: absolute;
     left: 100px;
-    top: calc(35% + 75px);
-    font-size: 30px;
+    top: calc(35% + clamp(var(--littleH2), var(--h2Size), var(--littleH2) * 2) + 30px);
     background-color: var(--bgColor);
     padding: 15px;
     border-radius: 5px;
+    width: initial;
 }
 
 .external-links {
     position: absolute;
     left: 100px;
-    top: calc(35% + 135px);
+    top: calc(35% + clamp(var(--littleH2), var(--h2Size), var(--littleH2) * 2) + clamp(var(--littleH3), var(--h3Size), var(--littleH3) * 2) + 60px);
     font-size: 50px;
     background-color: var(--bgColor);
     display: flex;
@@ -119,10 +91,6 @@ header a {
 header i:hover {
     cursor: pointer;
     color: var(--focusColor);
-}
-
-h1 {
-    font-size: 2.5vh;
 }
 
 nav {
@@ -145,6 +113,12 @@ nav * {
     color: var(--altTextColor);
 }
 
+nav h1 {
+    font-size: 20px;
+    text-align: left;
+    border: none;
+}
+
 nav i {
     font-size: 30px;
 }
@@ -159,66 +133,22 @@ nav .buttons {
     gap: var(--padding);
 }
 
-main {
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-main img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-section {
-    width: 100%;
-    padding: 100px 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-section h3 {
-    margin: 20px;
-    font-size: 25px;
-}
-
-section h4 {
-    margin: 5px 20px;
-    font-size: 18px;
-}
-
-section h4 i {
-    margin: 5px 5px;
-}
-
-section p {
-    margin: 20px;
-}
-
-section>img {
-    width: 40%;
-    height: 400px;
-    object-fit: contain;
-}
-
-section iframe {
-    width: 50%;
-    height: 700px;
-    border: none;
-}
-
 .text {
-    width: 600px;
-    height: 100%;
+    min-width: 30vw;
+    min-height: 10vh;
     padding: 5px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 #notherbase {
     background-color: var(--bgColorLight);
+}
+
+#notherbase-examples {
+    background-color: var(--dark);
+    flex-wrap: wrap;
 }
 
 #notherbase-fs {
@@ -230,11 +160,6 @@ section iframe {
     flex-direction: row-reverse;
 }
 
-#notherbase-fs img {
-    width: 20%;
-    height: 200px;
-}
-
 #tamago-watch {
     background-color: var(--focusColor);
     color: var(--altTextColor);
@@ -244,309 +169,16 @@ section iframe {
     color: var(--bgColor);
 }
 
-/*  messager  */
-
-#message {
-    background: none;
-    padding: var(--padding);
-    border-radius: 5px;
+#tamago-watch a {
+    border-bottom: 1px solid var(--bgColor);
 }
 
-#message:hover {
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.377);
+#tamago-watch a {
+    border-bottom: 1px solid var(--bgColor);
 }
 
-#nav-message {
-    background: none;
-    padding: var(--padding);
-    border-radius: 5px;
-}
-
-#nav-message:hover {
-    cursor: pointer;
-    background: rgba(255, 252, 70, 0.253);
-}
-
-.messager {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.messager .fade {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.63);
-    backdrop-filter: blur(5px);
-    z-index: -1;
-}
-
-.messager .form {
-    position: relative;
-    width: 350px;
-    height: 400px;
-    border-radius: 5px;
-    background: var(--extreme-dark);
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    justify-content: center;
-    padding: 10px;
-}
-
-.messager .form .close {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
-    background: var(--dark);
-}
-
-.messager .form .close:hover {
-    cursor: pointer;
-    background: var(--very-dark);
-}
-
-.messager .form h4 {
-    width: 100%;
-    padding: 10px;
-    font-size: 20px;
-}
-
-.messager .form h6 {
-    padding: 5px;
-    font-size: 15px;
-}
-
-.messager .form .loading {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-color: var(--extreme-dark);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.messager .form input {
-    background: var(--dark);
-    width: 90%;
-    margin: 5px;
-    padding: 3px;
-}
-
-.messager .form .send {
-    background: var(--dark);
-    margin: 5px;
-    padding: 3px;
-    border-radius: 3px;
-}
-
-.messager .form .send:hover {
-    cursor: pointer;
-    background: var(--very-dark);
-}
-
-.messager .form .message {
-    background: var(--dark);
-    width: 90%;
-    margin: 5px;
-    height: 200px;
-    padding: 3px;
-}
-
-
-/* tamago watch styles */
-.watch {
-    width: var(--game-size);
-    min-height: 100;
-    image-rendering: pixelated;
-    position: relative;
-}
-
-.watch * {
-    image-rendering: pixelated;
-}
-
-.cartridge {
-    position: absolute;
-    left: 5%;
-    top: 30%;
-    background-image: url("/img/watch/cartridge.png");
-    background-size: cover;
-    transition: ease-out .15s;
-    z-index: 0;
-    width: 90%;
-    height: 90%;
-}
-
-.cartridge:hover {
-    top: 40%;
-}
-
-.name {
-    background-color: #70917600;
-    position: absolute;
-    top: 73%;
-    left: 32%;
-    width: 280px;
-    height: 80px;
-    transform: rotate(29deg);
-    text-align: center;
-    font-size: 50px;
-    border: none;
-    cursor: pointer;
-}
-
-.console {
-    width: 100%;
-}
-
-.screen {
-    position: absolute;
-    top: 6%;
-    left: 6.25%;
-    width: 87.5%;
-    height: 55%;
-    display: initial;
-}
-
-.bloom {
-    box-shadow: 0px 0px 10px #fff6d759, inset 0px 0px 10px #fff6d759;
-}
-
-.pet {
-    position: absolute;
-    top: 0%;
-    left: 10%;
-    width: 25%;
-    display: none;
-}
-
-#p1 {
-    top: auto;
-    bottom: 10%;
-    left: 40%;
-}
-
-#p2 {
-    top: 0%;
-    left: auto;
-    right: 10%;
-}
-
-.food {
-    position: absolute;
-    right: 0;
-    bottom: 20%;
-    width: 25%;
-    display: none;
-}
-
-.music {
-    position: absolute;
-    bottom: 20%;
-    left: 2%;
-    width: 25%;
-    display: none;
-}
-
-.detached-right {
-    float: right;
-}
-
-.dark {
-    filter: brightness(.5);
-}
-
-.hud {
-    position: absolute;
-    bottom: 5%;
-    left: 5%;
-    width: 90%;
-    height: 32%;
-}
-
-.clock-hand {
-    position: absolute;
-    top: 12.5%;
-    left: 4.10%;
-    height: 80%;
-    width: 25%;
-}
-
-.status {
-    position: absolute;
-    top: 10%;
-    right: 27.75%;
-    height: 16%;
-    width: 29%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-}
-
-#s1 {
-    top: 45%;
-}
-
-#s2 {
-    top: 78%;
-}
-
-.point {
-    border: 1px solid var(--dark);
-    background-color: var(--yellow);
-    display: none;
-}
-
-.button {
-    background-color: rgba(0, 0, 0, 0);
-    background-image: url("/img/watch/button_brown.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    border: none;
-    position: absolute;
-    top: 6%;
-    right: 5%;
-    height: 25%;
-    width: 20%;
-}
-
-.button:active {
-    background-image: url("/img/watch/button_brown_down.png");
-}
-
-#b1 {
-    background-image: url("/img/watch/button_blue.png");
-    top: 40%;
-}
-
-#b1:active {
-    background-image: url("/img/watch/button_blue_down.png");
-}
-
-#b2 {
-    background-image: url("/img/watch/button_green.png");
-    top: 75%;
-}
-
-#b2:active {
-    background-image: url("/img/watch/button_green_down.png");
+.chat-box {
+    margin: 20px;
 }
 
 @media only screen and (max-width: 900px) {
