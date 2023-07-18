@@ -1,15 +1,28 @@
-.menu {
-    width: 75%;
-    height: 50%;
-    border: 1px solid var(--textColor);
-    color: var(--textColor);
+.ui {
     position: fixed;
-    left: 12.5%;
-    top: 5%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 500;
+}
+
+.ui * {
+    pointer-events: all;
+}
+
+.menu {
+    width: var(--mainWidth);
+    min-width: var(--minMainWidth);
+    height: 80%;
+    border: var(--standardBorder);
     background-color: var(--bgColor);
     backdrop-filter: blur(3px);
     border-radius: 5px;
-    z-index: 500;
     padding: 0;
 }
 
@@ -25,14 +38,12 @@
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 400;
 }
 
 .ui button {
     background-color: var(--bgColor);
     border: 1px solid var(--textColor);
     margin: 0;
-
 }
 
 .ui button:hover {
@@ -48,7 +59,7 @@
     width: 64px;
     height: 64px;
     border-radius: 5px;
-    z-index: 100;
+    z-index: -1;
     padding: var(--padding);
 }
 
@@ -120,10 +131,10 @@
     padding: 5px;
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 500px) {
     .menu {
         width: 100%;
-        height: 80vh;
+        min-width: 0;
         top: 0;
         left: 0;
     }
