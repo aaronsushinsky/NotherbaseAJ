@@ -83,6 +83,9 @@
     position: absolute;
     right: 10px;
     top: 20px;
+    width: 60vw;
+    height: 60vw;
+    border-radius: 30%;
 }
 
 @media only screen and (max-width: 1000px) {
