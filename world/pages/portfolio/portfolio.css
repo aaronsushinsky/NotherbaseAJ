@@ -74,7 +74,7 @@ header h3 {
     position: absolute;
     left: 100px;
     top: calc(35% + clamp(var(--littleH2), var(--h2Size), var(--littleH2) * 2) + clamp(var(--littleH3), var(--h3Size), var(--littleH3) * 2) + 60px);
-    font-size: 50px;
+    font-size: clamp(var(--littleH5), var(--h5Size), var(--littleH5) * 2);
     background-color: var(--bgColor);
     display: flex;
     justify-content: space-evenly;
@@ -82,6 +82,10 @@ header h3 {
     padding: 5px;
     border-radius: 5px;
     height: 60px;
+}
+
+.external-links i {
+    font-size: clamp(var(--littleH5), var(--h5Size), var(--littleH5) * 2);
 }
 
 header a {
@@ -107,10 +111,6 @@ nav {
     transition: all .2s ease;
     z-index: 99;
     border-bottom: 1px solid var(--bgColorLight);
-}
-
-nav * {
-    color: var(--altTextColor);
 }
 
 nav h1 {
@@ -156,29 +156,20 @@ nav .buttons {
     padding: 10px;
     border: 5% solid var(--bgColor);
     border-radius: 0% 0% 50px 50px;
-    width: 75%;
+    width: 95%;
     flex-direction: row-reverse;
 }
 
 #tamago-watch {
     background-color: var(--focusColor);
-    color: var(--altTextColor);
-}
-
-#tamago-watch * {
-    color: var(--bgColor);
-}
-
-#tamago-watch a {
-    border-bottom: 1px solid var(--bgColor);
-}
-
-#tamago-watch a {
-    border-bottom: 1px solid var(--bgColor);
 }
 
 .chat-box {
     margin: 20px;
+}
+
+.browser {
+    height: clamp(200px, 40vh, 500px);
 }
 
 @media only screen and (max-width: 900px) {

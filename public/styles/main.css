@@ -88,6 +88,14 @@
     font-weight: lighter;
 }
 
+.alt * {
+    color: var(--bgColor);
+}
+
+.alt {
+    color: var(--bgColor);
+}
+
 .invisible {
     display: none !important;
 }
@@ -123,6 +131,7 @@ main {
     align-content: center;
     align-items: flex-end;
     background-color: var(--bgColor);
+
 }
 
 footer {
@@ -273,7 +282,7 @@ input {
     font-size: clamp(var(--littleP), var(--pSize), var(--littleP) * 2);
 }
 
-input[type=submit], a {
+input[type=submit] {
     background-color: var(--bgColor);
     padding: var(--thickPadding);
     border-radius: var(--borderRadius);
@@ -285,23 +294,7 @@ input[type=submit], a {
     font-size: clamp(var(--littleP), var(--pSize), var(--littleP) * 2);
 }
 
-a.subtle {
-    padding: 1px;
-    background: none;
-    border: none;
-    border-bottom: var(--standardBorder);
-    border-radius: 0;
-}
 
-a.subtle:hover {
-    border: none;
-    border-bottom: 1px solid var(--hoverTextColor);
-    border-radius: 0;
-}
-
-a i.space {
-    margin-right: 5px;
-}
 
 button {
     background-color: var(--bgColor);
@@ -315,11 +308,61 @@ button {
     font-size: clamp(var(--littleP), var(--pSize), var(--littleP) * 2);
 }
 
-input[type=submit]:hover, button:hover, a:hover {
+input[type=submit]:hover, button:hover {
     border: var(--brightBorder);
     color: var(--textColorBright);
     cursor: pointer;
 }
+
+/* links */
+a {
+    background-color: var(--bgColor);
+    padding: var(--thickPadding);
+    border-radius: var(--borderRadius);
+    border: var(--standardBorder);
+    color: var(--textColor);
+    text-decoration: none;
+    text-align: center;
+    margin: var(--margin);
+    font-size: clamp(var(--littleP), var(--pSize), var(--littleP) * 2);
+}
+
+a i.space {
+    margin-right: 5px;
+}
+
+a:hover {
+    border: var(--brightBorder);
+    color: var(--textColorBright);
+    cursor: pointer;
+}
+
+a:hover * {
+    color: var(--textColorBright);
+}
+
+a.alt {
+    border-bottom: 1px solid var(--bgColor) !important;
+}
+
+a.alt:hover {
+    border-bottom: 1px solid var(--textColorBright) !important;
+}
+
+a.subtle {
+    padding: 1px;
+    background: none;
+    border: none;
+    border-bottom: var(--standardBorder);
+    border-radius: 0;
+}
+
+a.subtle:hover {
+    border: none;
+    border-bottom: 1px solid var(--textColorBright);
+    border-radius: 0;
+}
+/*  */
 
 input[type=checkbox] {
     width: 30px;

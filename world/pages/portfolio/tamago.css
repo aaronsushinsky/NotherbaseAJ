@@ -3,6 +3,7 @@
     min-height: 100;
     image-rendering: pixelated;
     position: relative;
+    margin-top: 20px;
 }
 
 .watch * {
