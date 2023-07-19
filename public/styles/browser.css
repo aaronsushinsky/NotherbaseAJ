@@ -11,7 +11,7 @@
     position: relative;
     overflow: auto;
     padding-bottom: 40px;
-    height: 60vh;
+    height: 100%;
 }
 
 .browser button.filter-toggle {
@@ -28,7 +28,7 @@
 
 .browser div.edit {
     width: 70%;
-    height: 60vh;
+    height: 100%;
     overflow: auto;
     padding-bottom: 40px;
     background: var(--bgColor);
@@ -43,7 +43,7 @@
 
 .browser .read {
     width: 70%;
-    height: 60vh;
+    height: 100%;
     padding-bottom: 40px;
     overflow: auto;
     padding-bottom: 40px;
@@ -73,7 +73,7 @@
 
 .browser .filters {
     width: 70%;
-    height: 60vh;
+    height: 100%;
     position: absolute;
     right: 0;
     top: 0;
@@ -91,7 +91,6 @@
     margin: 0;
     border-radius: 2px 2px 0 0;
     border-bottom: none;
-    z-index: 5;
     padding: 5px;
 }
 
