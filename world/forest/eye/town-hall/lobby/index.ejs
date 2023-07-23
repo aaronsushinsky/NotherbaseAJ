@@ -9,14 +9,20 @@ Lobby
     <button id="submit" onclick="sendRequest()">Send Request</button>
 </div>
 
+<p class="info"></p>
+
 <hr>
+
+<a class="to" href="/forest/eye/town-hall/registry">
+    Enter the Registry Office
+</a>
 
 <a class="to" href="/forest/eye/town-hall/management">
     Enter the Management Office
 </a>
 
 <a class="to" href="/forest/eye/town-hall/conference-room">
-    Enter the Confrence Room
+    Enter the Conference Room
 </a>
 
 <hr>
@@ -28,12 +34,16 @@ Lobby
 <script>
     const $name = $("#group-name");
     const $note = $("#request-note");
-    const $submit = $("#submit");
+    const $info = $(".info");
 
     const sendRequest = () => {
         base.do("request-join", {
             name: $name.val(),
             note: $note.val()
         });
+
+        $name.val("");
+        $description.val("");
+        $info.text("Request sent!");
     }
 </script>

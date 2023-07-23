@@ -1,6 +1,6 @@
 Management
 
-<div class="browser" id="groups"></div>
+<div class="group-manager"></div>
 
 <hr>
 
@@ -10,26 +10,80 @@ Management
 
 <script src="/js/util/browser.js"></script>
 <script>
-    const groupBrowser = new Browser("groups", new NBField({
-        name: "group",
-        placeholder: "No Group",
-        label: "Group: "
-    }, [
-        new NBField({
-            name: "name",
-            label: "Name: ",
-            placeholder: "No Name"
-        }, "string"),
-        new NBField({
-            name: "about",
-            label: "About: ",
-            placeholder: "No Info"
-        }, "long-string"),
-        new NBField({
-            name: "members",
-            label: "Members: ",
-            placeholder: "No Members",
-            multiple: true
-        }, "spirit")
-    ]));
+    class GroupManager {
+        constructor() {
+            this.$div = $(".group-manager");
+
+            this.render();
+        }
+
+        render = () => {
+            this.$groups = $("<ul></ul>").appendTo(this.$div);
+            this.$settings = $(`<div class="settings"></div>`).appendTo(this.$div);
+            this.$options = $(`<div class="options"></div>`).appendTo(this.$div);
+            this.$info = $(`<p></p>`).appendTo(this.$div);
+
+            this.renderGroups();
+            this.selectGroup();
+        }
+
+        loadGroups = (groups) => {
+            this.groups = groups;
+            this.renderGroups(groups);
+        }
+
+        renderGroups = (groups = []) => {
+            for (let i = 0; i < groups.length; i++) {
+                let $group = $(`<li id="${i}">${groups[i].name}</li>`)
+                this.$groups.append($group);
+                $group.click(() => {
+                    this.selectGroup(i);
+                });
+            }
+        }
+
+        selectGroup = (which = null) => {
+            if (which) {
+                this.selected = which;
+                this.renderSettings(this.groups[which]);
+                this.renderOptions(this.groups[which]);
+            }
+            else {
+                this.selected = -1;
+                this.renderSettings();
+                this.renderOptions();
+            }
+        }
+
+        renderSettings = (group = null) => {
+            this.$settings.empty();
+
+            this.$members = $(`<ul></ul>`).appendTo(this.$settings);
+            this.renderMembers(group?.members);
+        }
+
+        renderMembers = (members) => {
+            if (members) for (let i = 0; i < members.length; i++) {
+                let $member = $(`<li>${members[i].name}</li>`).appendTo(this.$members);
+            }
+        }
+
+        renderOptions = (group) => {
+            this.$options.empty();
+
+            this.$leave = $(`<button>Leave this Group</button>`).appendTo(this.$options);
+            this.$leave.click(this.leaveGroup());
+        }
+
+        leaveGroup = () => {
+
+        }
+    }
+
+    const groupManager = new GroupManager();
+
+    base.do("load-groups").then((res) => {
+        console.log(res.data);
+        groupManager.loadGroups(res.data);
+    });
 </script>
