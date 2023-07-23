@@ -1,0 +1,39 @@
+Lobby
+
+<hr>
+
+<div class="join">
+    <h4>Join A Group</h4>
+    <input type="text" id="group-name">
+    <textarea id="request-note" cols="30" rows="10">Notes</textarea>
+    <button id="submit" onclick="sendRequest()">Send Request</button>
+</div>
+
+<hr>
+
+<a class="to" href="/forest/eye/town-hall/management">
+    Enter the Management Office
+</a>
+
+<a class="to" href="/forest/eye/town-hall/conference-room">
+    Enter the Confrence Room
+</a>
+
+<hr>
+
+<a href="/forest/eye/town-hall" class="return">
+    Exit the Town Hall
+</a>
+
+<script>
+    const $name = $("#group-name");
+    const $note = $("#request-note");
+    const $submit = $("#submit");
+
+    const sendRequest = () => {
+        base.do("request-join", {
+            name: $name.val(),
+            note: $note.val()
+        });
+    }
+</script>

@@ -1,0 +1,35 @@
+Management
+
+<div class="browser" id="groups"></div>
+
+<hr>
+
+<a  class="return" href="/forest/eye/town-hall/lobby">
+    Return to the Lobby
+</a>
+
+<script src="/js/util/browser.js"></script>
+<script>
+    const groupBrowser = new Browser("groups", new NBField({
+        name: "group",
+        placeholder: "No Group",
+        label: "Group: "
+    }, [
+        new NBField({
+            name: "name",
+            label: "Name: ",
+            placeholder: "No Name"
+        }, "string"),
+        new NBField({
+            name: "about",
+            label: "About: ",
+            placeholder: "No Info"
+        }, "long-string"),
+        new NBField({
+            name: "members",
+            label: "Members: ",
+            placeholder: "No Members",
+            multiple: true
+        }, "spirit")
+    ]));
+</script>
