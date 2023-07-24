@@ -1,4 +1,8 @@
-Management
+<style>
+    <%- include("./index.css"); %>
+</style>
+
+<p>Management</p>
 
 <div class="group-manager"></div>
 
@@ -18,8 +22,11 @@ Management
         }
 
         render = () => {
+            $("<h5>Groups</h5>").appendTo(this.$div);
             this.$groups = $("<ul></ul>").appendTo(this.$div);
+            $("<h5>Settings</h5>").appendTo(this.$div);
             this.$settings = $(`<div class="settings"></div>`).appendTo(this.$div);
+            $("<h5>Options</h5>").appendTo(this.$div);
             this.$options = $(`<div class="options"></div>`).appendTo(this.$div);
             this.$info = $(`<p></p>`).appendTo(this.$div);
 
@@ -43,7 +50,7 @@ Management
         }
 
         selectGroup = (which = null) => {
-            if (which) {
+            if (which != null && which > -1) {
                 this.selected = which;
                 this.renderSettings(this.groups[which]);
                 this.renderOptions(this.groups[which]);
@@ -58,13 +65,24 @@ Management
         renderSettings = (group = null) => {
             this.$settings.empty();
 
+            $(`<h6>Members</h6>`).appendTo(this.$settings);
             this.$members = $(`<ul></ul>`).appendTo(this.$settings);
             this.renderMembers(group?.members);
+
+            $(`<h6>Requests to Join</h6>`).appendTo(this.$settings);
+            this.$joiners = $(`<ul></ul>`).appendTo(this.$settings);
+            this.renderJoiners(group?.joinRequests);
         }
 
         renderMembers = (members) => {
             if (members) for (let i = 0; i < members.length; i++) {
                 let $member = $(`<li>${members[i].name}</li>`).appendTo(this.$members);
+            }
+        }
+
+        renderJoiners = (joiners) => {
+            if (joiners) for (let i = 0; i < joiners.length; i++) {
+                let $joiner = $(`<li>${joiners[i].name}</li>`).appendTo(this.$joiners);
             }
         }
 

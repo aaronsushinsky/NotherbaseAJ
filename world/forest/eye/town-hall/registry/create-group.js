@@ -7,6 +7,7 @@ export default async function (req, user) {
             user: `${user.id}`,
             auth: [ "Leader" ]
         }],
+        joinRequests: [],
         settings: {
             memberLimit: -1,
             roles:[]
