@@ -171,12 +171,12 @@ class EditBox extends ViewBox {
 
     render = () => {
         if (this.nested) {
-            if (this.fields.settings.multiple) this.$div = $(`<div class="edit nested multiple"></div>`);
-            else this.$div = $(`<div class="edit nested"></div>`);
+            if (this.fields.settings.multiple) this.$div = $(`<div class="edit nested multiple  ${this.fields.settings.name}"></div>`);
+            else this.$div = $(`<div class="edit nested  ${this.fields.settings.name}"></div>`);
             this.$add = $(`<button>Add</button>`).appendTo(this.$div);
             this.$add.click(this.add);
         }
-        else this.$div = $(`<div class="edit"></div>`);
+        else this.$div = $(`<div class="edit  ${this.fields.settings.name}"></div>`);
 
         this.renderHeader();
 
@@ -192,21 +192,21 @@ class EditBox extends ViewBox {
         }
         else if (field.children === "number") {
             let $editItem = null;
-            if (item) $editItem = $(`<input type="number" step="any" value="${item}" placeholder="${field.settings.placeholder}">`).appendTo($parent);
-            else $editItem = $(`<input type="number" step="any" placeholder="${field.settings.placeholder}">`).appendTo($parent);
+            if (item) $editItem = $(`<input class="${field.settings.name}" type="number" step="any" value="${item}" placeholder="${field.settings.placeholder}">`).appendTo($parent);
+            else $editItem = $(`<input class="${field.settings.name}" type="number" step="any" placeholder="${field.settings.placeholder}">`).appendTo($parent);
             $domCapture.push($editItem);
         }
         else if (field.children === "options") {            
-            let $editItem = $(`<select id="pet-select"></select>`).appendTo($parent);
+            let $editItem = $(`<select class="${field.settings.name}" id="pet-select"></select>`).appendTo($parent);
             for (let i = 0; i < field.settings.options.length; i++) {
-                $(`<option value="${field.settings.options[i]}">${field.settings.options[i]}</option>`).appendTo($editItem);
+                $(`<option class="${field.settings.name}" value="${field.settings.options[i]}">${field.settings.options[i]}</option>`).appendTo($editItem);
             }
             if (item) $editItem.find(`option:contains("${item}")`).prop('selected', true);
             else $editItem.find(`option:contains("${field.settings.placeholder}")`).prop('selected', true);
             $domCapture.push($editItem);
         }
         else if (field.children === "boolean") {
-            let $editItem = $(`<input type="checkbox">`).appendTo($parent);
+            let $editItem = $(`<input class="${field.settings.name}" type="checkbox">`).appendTo($parent);
             if (item === null) $editItem.prop('checked', field.settings.placeholder);
             else $editItem.prop('checked', item);
              
@@ -216,11 +216,11 @@ class EditBox extends ViewBox {
             let date = new Date(item);
             let $editItem = null;
             if (item) {
-                $editItem = $(`<input type="datetime-local" value="${date}">`).appendTo($parent);
+                $editItem = $(`<input class="${field.settings.name}" type="datetime-local" value="${date}">`).appendTo($parent);
             }
             else {
                 let placeholder = (new Date(field.settings.placeholder - (new Date()).getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
-                $editItem = $(`<input type="datetime-local" value="${placeholder}">`).appendTo($parent);
+                $editItem = $(`<input class="${field.settings.name}" type="datetime-local" value="${placeholder}">`).appendTo($parent);
             }
             $domCapture.push($editItem);
         }
@@ -231,14 +231,14 @@ class EditBox extends ViewBox {
                 let day = ("0" + date.getDate()).slice(-2);
                 let month = ("0" + (date.getMonth() + 1)).slice(-2);
                 let out = `${date.getFullYear()}-${month}-${day}`;
-                $editItem = $(`<input type="date" value="${out}">`).appendTo($parent);
+                $editItem = $(`<input class="${field.settings.name}" type="date" value="${out}">`).appendTo($parent);
             }
             else {
                 let date = new Date(field.settings.placeholder);
                 let day = ("0" + date.getDate()).slice(-2);
                 let month = ("0" + (date.getMonth() + 1)).slice(-2);
                 let placeholder = `${date.getFullYear()}-${month}-${day}`;
-                $editItem = $(`<input type="date" value="${placeholder}">`).appendTo($parent);
+                $editItem = $(`<input class="${field.settings.name}" type="date" value="${placeholder}">`).appendTo($parent);
             }
             $domCapture.push($editItem);
         }
@@ -250,7 +250,7 @@ class EditBox extends ViewBox {
                 let minutes = ("0" + date.getMinutes()).slice(-2);
                 let seconds = ("0" + date.getSeconds()).slice(-2);
                 let out = `${hours}:${minutes}:${seconds}`;
-                $editItem = $(`<input type="time" value="${out}">`).appendTo($parent);
+                $editItem = $(`<input class="${field.settings.name}" type="time" value="${out}">`).appendTo($parent);
             }
             else {
                 let date = new Date(field.settings.placeholder);
@@ -258,20 +258,20 @@ class EditBox extends ViewBox {
                 let minutes = ("0" + date.getMinutes()).slice(-2);
                 let seconds = ("0" + date.getSeconds()).slice(-2);
                 let placeholder = `${hours}:${minutes}:${seconds}`;
-                $editItem = $(`<input type="time" value="${placeholder}">`).appendTo($parent);
+                $editItem = $(`<input class="${field.settings.name}" type="time" value="${placeholder}">`).appendTo($parent);
             }
             $domCapture.push($editItem);
         }
         else if (field.children === "long-string") {
             let $editItem = null;
-            if (item) $editItem = $(`<textarea rows="4" placeholder="${field.settings.placeholder}">${item}</textarea>`).appendTo($parent);
-            else $editItem = $(`<textarea rows="4" placeholder="${field.settings.placeholder}"></textarea>`).appendTo($parent);
+            if (item) $editItem = $(`<textarea class="${field.settings.name}" rows="4" placeholder="${field.settings.placeholder}">${item}</textarea>`).appendTo($parent);
+            else $editItem = $(`<textarea class="${field.settings.name}" rows="4" placeholder="${field.settings.placeholder}"></textarea>`).appendTo($parent);
             $domCapture.push($editItem);
         }
         else {
             let $editItem = null;
-            if (item) $editItem = $(`<input type="text" placeholder="${field.settings.placeholder}" value="${item}">`).appendTo($parent);
-            else $editItem = $(`<input type="text" placeholder="${field.settings.placeholder}">`).appendTo($parent);
+            if (item) $editItem = $(`<input class="${field.settings.name}" type="text" placeholder="${field.settings.placeholder}" value="${item}">`).appendTo($parent);
+            else $editItem = $(`<input class="${field.settings.name}" type="text" placeholder="${field.settings.placeholder}">`).appendTo($parent);
             $domCapture.push($editItem);
         }
     }
@@ -379,7 +379,7 @@ class EditBox extends ViewBox {
     add = (item = null) => {
         this.$items.push([]);
         let $domCapture = this.$items[this.$items.length - 1];
-        let $newLI = $(`<li id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
+        let $newLI = $(`<li class="${this.fields.settings.name}" id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
 
         if (Array.isArray(this.fields.children)) {
             for (let i = 0; i < this.fields.children.length; i++) {

@@ -57,7 +57,7 @@
 }
 
 .browser h6 {
-    background: var(--bgColor);
+    background: none;
     width: 30%;
     padding: var(--padding);
 }
@@ -94,7 +94,7 @@
 }
 
 .browser .read p {
-    background: var(--bgColor);
+    background: none;
     width: 70%;
 }
 
