@@ -19,7 +19,8 @@ export default async function (req, user) {
 
                     groupInfo.members[j] = {
                         id: spirit.memory[i].data.members[j].id,
-                        name: findUser.memory.data.username
+                        name: findUser.memory.data.username,
+                        auth: spirit.memory[i].data.members[j].auth
                     }
                     
                     if (spirit.memory[i].data.members[j].id == `${user.id}`) userFound = true;

@@ -19,9 +19,4 @@
 <script>
     <%- include("./groupManager.js") %>    
     const groupManager = new GroupManager();
-
-    base.do("load-groups").then((res) => {
-        //console.log(res);
-        groupManager.load(res.data);
-    });
 </script>

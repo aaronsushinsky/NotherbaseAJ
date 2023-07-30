@@ -163,8 +163,10 @@ class ReadBox extends ViewBox {
 }
 
 class EditBox extends ViewBox {
-    constructor(fields, nested = false) {
+    constructor(fields, nested = false, loadOverride = null, extraData = null) {
         super(fields, nested);
+        this.loadOverride = loadOverride;
+        this.extraData = extraData;
     }
 
     render = () => {
@@ -354,21 +356,24 @@ class EditBox extends ViewBox {
         this.$div.empty();
         this.$items = [];
 
-        this.renderHeader();
-
-        if (this.fields.settings.multiple && this.nested) {
-            this.$add = $(`<button>Add</button>`).appendTo(this.$div);
-            this.$add.click(() => { this.add(); });
-
-            if (Array.isArray(item)) {
-                for (let i = 0; i < item.length; i++) {
-                    this.add(item[i]);
+        if (this.loadOverride) this.loadOverride(item);
+        else {
+            this.renderHeader();
+    
+            if (this.fields.settings.multiple && this.nested) {
+                this.$add = $(`<button>Add</button>`).appendTo(this.$div);
+                this.$add.click(() => { this.add(); });
+    
+                if (Array.isArray(item)) {
+                    for (let i = 0; i < item.length; i++) {
+                        this.add(item[i]);
+                    }
                 }
+    
+                this.add();
             }
-
-            this.add();
+            else this.set(item);
         }
-        else this.set(item);
     }
 
     add = (item = null) => {
@@ -381,7 +386,7 @@ class EditBox extends ViewBox {
                 let toLoad = null;
                 if (item) toLoad = item[this.fields.children[i].settings.name];
 
-                let newBox = new EditBox(this.fields.children[i], true);
+                let newBox = new EditBox(this.fields.children[i], true, this.loadOverride);
                 newBox.render().appendTo($newLI);
                 newBox.load(toLoad);
                 $domCapture.push(newBox);
@@ -400,7 +405,7 @@ class EditBox extends ViewBox {
                 let toLoad = null;
                 if (item) toLoad = item[this.fields.children[i].settings.name];
 
-                let newBox = new EditBox(this.fields.children[i], true);
+                let newBox = new EditBox(this.fields.children[i], true, this.loadOverride);
                 newBox.render().appendTo(this.$div);
                 newBox.load(toLoad);
                 this.$items.push(newBox);
@@ -457,11 +462,15 @@ class Browser {
             onRefresh: null,
             onSaveOne: null,
             onDeleteOne: null,
+            editBoxLoadOverride: null,
+            disableCreate: false,
+            disableSave: false,
+            disableDelete: false,
             ...otherSettings
         };
 
         this.readBox = new ReadBox(this.fields);
-        this.editBox = new EditBox(this.fields);
+        this.editBox = new EditBox(this.fields, false, this.otherSettings.editBoxLoadOverride);
         this.filtersBox = new FiltersBox(this.fields, this.renderSearchResults);
 
         this.render();
@@ -476,8 +485,10 @@ class Browser {
             this.$toFilter.click(this.toggleFilters);
             this.$searchList = $(`<ul class="selector"></ul>`).appendTo(this.$searchBox);
 
-            this.$create = $(`<button class="create">+</button>`).appendTo(this.$div);
-            this.$create.click(this.create);
+            if (!this.otherSettings.disableCreate) {
+                this.$create = $(`<button class="create">+</button>`).appendTo(this.$div);
+                this.$create.click(this.create);
+            }
 
             let $filters = this.filtersBox.render();
             this.filtersBox.hide();
@@ -494,12 +505,14 @@ class Browser {
             this.editBox.hide();
             $edit.appendTo(this.$div);
     
-            this.$save = $(`<button class="save invisible">Save</button>`).appendTo(this.$div);
-            this.$save.click(this.save);
+            if (!this.otherSettings.disableSave) {
+                this.$save = $(`<button class="save invisible">Save</button>`).appendTo(this.$div);
+                this.$save.click(this.save);
+            }
             this.$cancel = $(`<button class="cancel invisible">Cancel</button>`).appendTo(this.$div);
             this.$cancel.click(this.cancel);  
 
-            if (this.fields.settings.multiple) {
+            if (this.fields.settings.multiple && !this.otherSettings.disableDelete) {
                 this.$delete = $(`<button class="delete invisible">Delete</button>`).appendTo(this.$div);
                 this.$delete.click(this.delete);
             }
@@ -613,12 +626,12 @@ class Browser {
     edit = () => {
         this.readBox.hide();
         this.$toEdit.addClass("invisible");
-        this.$create.addClass("invisible");
+        if (!this.otherSettings.disableCreate) this.$create.addClass("invisible");
 
         this.editBox.show();
         this.$cancel.removeClass("invisible");
-        this.$save.removeClass("invisible");
-        this.$delete.removeClass("invisible");
+        if (!this.otherSettings.disableSave) this.$save.removeClass("invisible");
+        if (!this.otherSettings.disableDelete) this.$delete.removeClass("invisible");
 
         if (this.fields.settings.multiple) {
             let item = null;
@@ -636,10 +649,10 @@ class Browser {
         if (this.editable) {
             this.editBox.hide();
             this.$cancel.addClass("invisible");
-            this.$save.addClass("invisible");
-            this.$delete.addClass("invisible");
+            if (!this.otherSettings.disableSave) this.$save.addClass("invisible");
+            if (!this.otherSettings.disableDelete) this.$delete.addClass("invisible");
             this.$toEdit.removeClass("invisible");
-            this.$create.removeClass("invisible");
+            if (!this.otherSettings.disableCreate) this.$create.removeClass("invisible");
         }
 
         this.readBox.show();
@@ -688,6 +701,7 @@ class Browser {
         $searchResults.removeClass("selected");
 
         if (which > -1) {
+            if (which >= $searchResults.length) which = $searchResults.length;
             if ($searchResults.length > 1) $($searchResults[which]).addClass("selected");
             else $searchResults.addClass("selected");
         }

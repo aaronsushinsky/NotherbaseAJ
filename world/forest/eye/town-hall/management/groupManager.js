@@ -1,46 +1,67 @@
-console.log(EditBox.prototype.load);
-// EditBox.prototype.load = function load(item = null) {
-//     this.$div.empty();
-//     this.$items = [];
+editBoxLoadOverride = function(item = null) {
+    this.renderHeader();
 
-//     this.renderHeader();
+    switch (this.fields.settings.name) {
+        case "memberLimit":
+        case "settings":
+        case "note":
+        case "description":
+        case "group":
+            this.set(item);
+            break;
+        case "name":
+            if (this.fields.settings.readOnly) ReadBox.renderFieldTo(this.fields, this.$div, item, this.$items);
+            else this.set(item);
+            break;
+        case "members":
+            if (Array.isArray(item)) {
+                for (let i = 0; i < item.length; i++) {
+                    this.$items.push([]);
+                    let $domCapture = this.$items[this.$items.length - 1];
+                    let $newLI = $(`<li id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
+    
+                    for (let j = 0; j < this.fields.children.length; j++) {
+                        let toLoad = null;
+                        if (item[i]) toLoad = item[i][this.fields.children[j].settings.name];
+    
+                        let newBox = new EditBox(this.fields.children[j], true, this.loadOverride, { member: i });
+                        newBox.render().appendTo($newLI);
+                        newBox.load(toLoad);
+                        $domCapture.push(newBox);
+                    }
+    
+                    let $remove = $(`<button>Remove Member</button>`).appendTo($newLI);
+                    //let which = this.$items.length - 1;
+                    $remove.click(() => { groupManager.removeMember(i); });
+                }
+            }
+            break;
+        case "joinRequests":
+            if (Array.isArray(item)) {
+                for (let i = 0; i < item.length; i++) {
+                    this.add(item[i]);
+                }
+            }
+            break;
+        case "auth":
+            if (Array.isArray(item)) {
+                for (let i = 0; i < item.length; i++) {
+                    this.$items.push([]);
+                    let $domCapture = this.$items[this.$items.length - 1];
+                    let $newLI = $(`<li id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
 
-//     console.log("dscdhjn");
+                    EditBox.renderFieldTo(this.fields, $newLI, item[i], $domCapture);
 
-//     if (this.fields.settings.name === "name") {
-//         if (this.fields.settings.readOnly) ReadBox.renderFieldTo(this.fields, this.$div, item, this.$items);
-//         else this.set(item);
-//     }
-//     else if (this.fields.settings.name === "group") {
-//         this.set(item);
-//     }
-//     else if (this.fields.settings.name === "description") {
-//         this.set(item);
-//     }
-//     else if (this.fields.settings.name === "members") {
-//         if (Array.isArray(item)) {
-//             for (let i = 0; i < item.length; i++) {
-//                 this.add(item[i]);
-//             }
-//         }
-//     }
-//     else if (this.fields.settings.name === "joinRequests") {
-//         if (Array.isArray(item)) {
-//             for (let i = 0; i < item.length; i++) {
-//                 this.add(item[i]);
-//             }
-//         }
-//     }
-//     else if (this.fields.settings.name === "note") {
-//         this.set(item);
-//     }
-//     else if (this.fields.settings.name === "settings") {
-//         this.set(item);
-//     }
-//     else if (this.fields.settings.name === "memberLimit") {
-//         this.set(item);
-//     }
-// }
+                    let $remove = $(`<button>X</button>`).appendTo($newLI);
+                    $remove.click(() => { groupManager.demote(this.extraData.member, item[i]); });
+                }
+            }
+            this.$newAuth = $(`<input type="text" placeHolder="New Auth"></input>`).appendTo(this.$div);
+            this.$add = $(`<button>Promote</button>`).appendTo(this.$div);
+            this.$add.click(() => { groupManager.promote(this.extraData.member, this.$newAuth.val()); });
+            break;
+    }
+}
 
 class GroupManager extends Browser {
     constructor() {
@@ -71,6 +92,12 @@ class GroupManager extends Browser {
                     label: "Name: ",
                     placeholder: "No Name",
                     readOnly: true
+                }, "string"),
+                new NBField({
+                    name: "auth",
+                    label: "Auth: ",
+                    placeholder: "No Auth",
+                    multiple: true
                 }, "string")
             ]),
             new NBField({
@@ -102,7 +129,17 @@ class GroupManager extends Browser {
                 }, "number")
             ])
         ]);
-        super("groups", fields, true);
+        super("groups", fields, true, null, {
+            editBoxLoadOverride: editBoxLoadOverride,
+            disableCreate: true,
+            disableSave: true,
+            disableDelete: true
+        });
+
+        this.$toEdit.text("Unlock");
+        this.$cancel.text("Lock");
+
+        this.load();
     }
 
     static getUserName(id) {
@@ -113,5 +150,63 @@ class GroupManager extends Browser {
         }
 
         return null;
+    }
+
+    load = async () => {
+        await base.do("load-groups").then((res) => {
+            console.log(res);
+
+            this.items = res.data;
+    
+            if (!Array.isArray(this.items)) {
+                this.items = [];
+                console.log("items overridden due to multiple");
+            }
+
+            this.renderSearchResults();
+            this.select(this.selected);
+        });
+    }
+
+    removeMember = (which) => {
+        base.do("remove-member", {
+            userID: this.items[this.selected].members[which].id,
+            groupID: this.items[this.selected].id
+        }).then((res) => {
+
+        });
+    }
+
+    promote = async (which, level) => {
+        console.log(this);
+        let auth = this.items[this.selected].members[which].auth;
+        if (!Array.isArray(auth)) auth = [];
+        if (!auth.includes(level)) auth.push(level);
+
+        await base.do("save-auth", {
+            userID: this.items[this.selected].members[which].id,
+            auth: auth,
+            groupID: this.items[this.selected].id
+        });
+
+        this.cancel();
+        await this.load();
+    }
+
+    demote = async (which, level) => {
+        let auth = this.items[this.selected].members[which].auth;
+        if (!Array.isArray(auth)) auth = [];
+        for (let i = 0; i < auth.length; i++) {
+            while (auth[i] === level) auth.splice(i, 1);
+        }
+
+        await base.do("save-auth", {
+            userID: this.items[this.selected].members[which].id,
+            auth: auth,
+            groupID: this.items[this.selected].id
+        });
+
+        this.cancel();
+        await this.load();
     }
 }
