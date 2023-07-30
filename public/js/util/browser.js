@@ -518,6 +518,10 @@ class Browser {
             }
         }
 
+        this.$alert = $(`<p id="alert"></p>`).appendTo(this.$div);
+        this.$hideAlert = $(`<button id="hide">X</button>`).appendTo(this.$alert);
+        this.$hideAlert.click(this.hideAlert);
+        this.hideAlert();
     }
 
     renderSearchResults = () => {
@@ -711,5 +715,17 @@ class Browser {
 
     getSelectedItem = () => {
         return this.items[this.selected];
+    }
+
+    alert = (msg) => {
+        this.$alert.text(msg);
+        this.$hideAlert = $(`<button id="hide">X</button>`).appendTo(this.$alert);
+        this.$hideAlert.click(this.hideAlert);
+        this.$alert.removeClass("invisible");
+    }
+
+    hideAlert = () => {
+        this.$alert.addClass("invisible");
+        this.$alert.text("");
     }
 }

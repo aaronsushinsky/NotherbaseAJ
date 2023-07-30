@@ -191,3 +191,27 @@
     border-top: var(--standardBorder);
     margin: var(--margin);
 }
+
+.browser #alert {
+    position: absolute;
+    bottom: 5px;
+    height: 10vh;
+    width: var(--fillFromMargin);
+    left: var(--margin);
+    background-color: var(--bgColor);
+    border: var(--standardBorder);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.browser #alert #hide {
+    position: absolute;
+    top: 5px;
+    height: 30px;
+    width: 30px;
+    right: var(--margin);
+    background-color: var(--bgColor);
+    border: var(--standardBorder);
+    text-align: center;
+}

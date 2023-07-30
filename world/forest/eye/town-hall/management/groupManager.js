@@ -39,7 +39,24 @@ editBoxLoadOverride = function(item = null) {
         case "joinRequests":
             if (Array.isArray(item)) {
                 for (let i = 0; i < item.length; i++) {
-                    this.add(item[i]);
+                    this.$items.push([]);
+                    let $domCapture = this.$items[this.$items.length - 1];
+                    let $newLI = $(`<li id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
+    
+                    for (let j = 0; j < this.fields.children.length; j++) {
+                        let toLoad = null;
+                        if (item[i]) toLoad = item[i][this.fields.children[j].settings.name];
+    
+                        let newBox = new EditBox(this.fields.children[j], true, this.loadOverride, { member: i });
+                        newBox.render().appendTo($newLI);
+                        newBox.load(toLoad);
+                        $domCapture.push(newBox);
+                    }
+    
+                    let $accept = $(`<button>Accept</button>`).appendTo($newLI);
+                    $accept.click(() => { groupManager.acceptJoin(i); });
+                    let $remove = $(`<button>Decline</button>`).appendTo($newLI);
+                    $remove.click(() => { groupManager.declineJoin(i); });
                 }
             }
             break;
@@ -109,12 +126,14 @@ class GroupManager extends Browser {
                 new NBField({
                     name: "name",
                     label: "Name: ",
-                    placeholder: "No Name"
+                    placeholder: "No Name",
+                    readOnly: true
                 }, "string"),
                 new NBField({
                     name: "note",
                     label: "Note: ",
-                    placeholder: "No Note"
+                    placeholder: "No Note",
+                    readOnly: true
                 }, "long-string")
             ]),
             new NBField({
@@ -173,7 +192,22 @@ class GroupManager extends Browser {
             userID: this.items[this.selected].members[which].id,
             groupID: this.items[this.selected].id
         }).then((res) => {
-
+            if (res.status == "success") {
+                if (res.data == "removed") {
+                    this.cancel();
+                    this.load();
+                }
+                else if (res.data == "self-error") {
+                    this.alert("Cannot remove self.");
+                }
+                else if (res.data == "auth-error") {
+                    this.alert("You are not authorized.");
+                }
+                else {
+                    this.alert("Unknown server error.");
+                }
+            }
+            else console.log(res);
         });
     }
 
@@ -208,5 +242,48 @@ class GroupManager extends Browser {
 
         this.cancel();
         await this.load();
+    }
+
+    acceptJoin = (which) => {
+        base.do("accept-join", {
+            userID: this.items[this.selected].joinRequests[which].id,
+            groupID: this.items[this.selected].id
+        }).then((res) => {
+            if (res.status == "success") {
+                if (res.data == "accepted") {
+                    this.cancel();
+                    this.load();
+                }
+                else if (res.data == "not-found-error") {
+                    this.alert("Error: Request not found.");
+                }
+                else {
+                    this.alert("Unknown server error.");
+                }
+            }
+            else console.log(res);
+        });
+    }
+
+    declineJoin = (which) => {
+        base.do("decline-join", {
+            userID: this.items[this.selected].joinRequests[which].id,
+            groupID: this.items[this.selected].id
+        }).then((res) => {
+            if (res.status == "success") {
+                if (res.data == "declined") {
+                    this.cancel();
+                    this.load();
+                }
+                else if (res.data == "not-found-error") {
+                    this.alert("Error: Request not found.");
+                }
+                else {
+                    console.log(res.data);
+                    this.alert("Unknown server error.");
+                }
+            }
+            else console.log(res);
+        });
     }
 }
