@@ -4,6 +4,7 @@
     border: var(--standardBorder);
     display: flex;
     flex-wrap: wrap;
+    height: 70vh;
 }
 
 .browser .search {
@@ -11,6 +12,10 @@
     position: relative;
     overflow: auto;
     padding-bottom: 40px;
+    height: 100%;
+}
+
+.browser .search .selector {
     height: 100%;
 }
 
@@ -27,11 +32,16 @@
 }
 
 .browser div.edit {
-    width: 70%;
-    height: 100%;
+    width: calc(70% - (2 * var(--margin)));
+    height: calc(100% - (2 * var(--margin)));
     overflow: auto;
     padding-bottom: 40px;
     background: var(--bgColor);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    margin: var(--margin);
 }
 
 .browser .nested {
@@ -39,23 +49,48 @@
     height: auto !important;
     padding: 0 !important;
     width: 100% !important;
+    margin-left: 0 !important;
+}
+
+.browser h4 {
+    font-size: clamp(var(--littleP), var(--pSize), var(--littleP) * 2);
+}
+
+.browser h6 {
+    background: var(--bgColor);
+    width: 30%;
+    padding: var(--padding);
+}
+
+.browser h6.long-string {
+    width: 100% !important;
+}
+
+.browser p.long-string {
+    width: 100% !important;
+}
+
+.browser h6.image {
+    width: 100% !important;
+}
+
+.browser img.image {
+    width: var(--fillFromMargin);
+    height: auto;
+    max-height: 30vh;
 }
 
 .browser .read {
-    width: 70%;
-    height: 100%;
+    width: calc(70% - (2 * var(--margin)));
+    height: calc(100% - (2 * var(--margin)));
     padding-bottom: 40px;
     overflow: auto;
-    padding-bottom: 40px;
     background: var(--bgColor);
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
-}
-
-.browser .read h6 {
-    background: var(--bgColor);
-    width: 30%;
+    justify-content: center;
+    margin: var(--margin);
 }
 
 .browser .read p {
@@ -63,11 +98,7 @@
     width: 70%;
 }
 
-.browser .multiple h6 {
-    width: 100%;
-}
-
-.browser .multiple p {
+.browser .multiple>h6 {
     width: 100%;
 }
 
@@ -146,8 +177,17 @@
     margin: 0;
 }
 
+.browser .multiple {
+    border: 1px dotted var(--textColor);
+    max-height: 40vh;
+}
+
 .browser li {
     width: 100%;
     display: flex;
     padding: 0;
+    flex-wrap: wrap;
+    border: none;
+    border-top: var(--standardBorder);
+    margin: var(--margin);
 }

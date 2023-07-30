@@ -50,10 +50,10 @@ class ReadBox extends ViewBox {
 
     render = () => {
         if (this.nested) {
-            if (this.fields.settings.multiple) this.$div = $(`<div class="read nested multiple"></div>`);
-            else this.$div = $(`<div class="read nested"></div>`);
+            if (this.fields.settings.multiple) this.$div = $(`<div class="read nested multiple ${this.fields.settings.name}"></div>`);
+            else this.$div = $(`<div class="read nested ${this.fields.settings.name}"></div>`);
         }
-        else this.$div = $(`<div class="read"></div>`);
+        else this.$div = $(`<div class="read ${this.fields.settings.name}"></div>`);
 
         this.renderHeader();
 
@@ -63,43 +63,56 @@ class ReadBox extends ViewBox {
     }
 
     renderHeader = () => {
+        let mods = "";
+        if (this.fields.children === "long-string") mods += "long-string ";
+        if (this.fields.children === "image") mods += "image ";
+
         if (this.fields.settings.label) {
             if (this.nested) {
-                if (this.multiple) this.$header = $(`<h6>${this.fields.settings.label}</h6>`).appendTo(this.$div);
-                else this.$header = $(`<h6>${this.fields.settings.label}</h6>`).appendTo(this.$div);
+                if (this.multiple) this.$header = $(`<h5 class="${mods}${this.fields.settings.name}">${this.fields.settings.label}</h5>`).appendTo(this.$div);
+                else this.$header = $(`<h6 class="${mods}${this.fields.settings.name}">${this.fields.settings.label}</h6>`).appendTo(this.$div);
             } 
-            else this.$header = $(`<h4>${this.fields.settings.label}</h4>`).appendTo(this.$div);
+            else this.$header = $(`<h4 class="${mods}${this.fields.settings.name}">${this.fields.settings.label}</h4>`).appendTo(this.$div);
         }
     }
 
-    renderFieldTo = (field, $parent = this.$div, item = null) => {
+    static renderFieldTo = function renderFieldTo(field, $parent = this.$div, item = null) {
+        let $rendered = null;
+
         if (field.children === "image") {
-            if (item) $(`<img src="${item}">`).appendTo($parent);
-            else $(`<img src="${field.settings.placeholder}">`).appendTo($parent);
+            if (item) $rendered = $(`<img class="image ${field.settings.name}" src="${item}">`).appendTo($parent);
+            else $rendered = $(`<img class="image ${field.settings.name}" src="${field.settings.placeholder}">`).appendTo($parent);
         }
         else if (field.children === "date-time") {
-            if (item) $(`<time datetime="${item}">${(new Date(item)).toLocaleString()}</time>`).appendTo($parent);
-            else $(`<time></time>`).appendTo($parent);
+            if (item) $rendered = $(`<time class="${field.settings.name}" datetime="${item}">${(new Date(item)).toLocaleString()}</time>`).appendTo($parent);
+            else $rendered = $(`<time class="${field.settings.name}"></time>`).appendTo($parent);
         }
         else if (field.children === "date") {
-            if (item) $(`<time datetime="${item}">${(new Date(item)).toLocaleDateString()}</time>`).appendTo($parent);
-            else $(`<time></time>`).appendTo($parent);
+            if (item) $rendered = $(`<time class="${field.settings.name}" datetime="${item}">${(new Date(item)).toLocaleDateString()}</time>`).appendTo($parent);
+            else $rendered = $(`<time class="${field.settings.name}"></time>`).appendTo($parent);
         }
         else if (field.children === "time") {
-            if (item) $(`<time">${(new Date(item)).toLocaleTimeString()}</time>`).appendTo($parent);
-            else $(`<time></time>`).appendTo($parent);
+            if (item) $rendered = $(`<time class="${field.settings.name}">${(new Date(item)).toLocaleTimeString()}</time>`).appendTo($parent);
+            else $rendered = $(`<time class="${field.settings.name}"></time>`).appendTo($parent);
         }
         else if (field.children === "number") {
-            if (item) $(`<p>${item}</p>`).appendTo($parent);
-            else $(`<p></p>`).appendTo($parent);
+            if (item) $rendered = $(`<p class="${field.settings.name}">${item}</p>`).appendTo($parent);
+            else $rendered = $(`<p class="${field.settings.name}"></p>`).appendTo($parent);
         }
         else if (field.children === "boolean") {
-            $(`<p>${item}</p>`).appendTo($parent);
+            $rendered = $(`<p class="${field.settings.name}">${item}</p>`).appendTo($parent);
+        }
+        else if (field.children === "long-string") {
+            if (item) $rendered = $(`<p class="long-string ${field.settings.name}">${item.replace(/(?:\r\n|\r|\n)/g, '<br />')}</p>`).appendTo($parent);
+            else $rendered = $(`<p class="long-string ${field.settings.name}"></p>`).appendTo($parent);
         }
         else {
-            if (item) $(`<p>${item.replace(/(?:\r\n|\r|\n)/g, '<br />')}</p>`).appendTo($parent);
-            else $(`<p></p>`).appendTo($parent);
+            //console.log(item, $parent);
+            if (item) $rendered = $(`<p class="${field.settings.name}">${item.replace(/(?:\r\n|\r|\n)/g, '<br />')}</p>`).appendTo($parent);
+            else $rendered = $(`<p class="${field.settings.name}"></p>`).appendTo($parent);
         }
+
+        return $rendered;
     }
 
     load = (item = null) => {
@@ -115,11 +128,11 @@ class ReadBox extends ViewBox {
             }
             else this.set(item);
         }
-        else this.renderFieldTo(this.fields, this.$div, item);
+        else ReadBox.renderFieldTo(this.fields, this.$div, item);
     }
 
     add = (item = null) => {
-        let $newLI = $(`<li id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
+        let $newLI = $(`<li id="${this.$items.length}"></li>`).appendTo(this.$div);
 
         if (Array.isArray(this.fields.children)) {
             for (let i = 0; i < this.fields.children.length; i++) {
@@ -131,7 +144,7 @@ class ReadBox extends ViewBox {
                 newBox.load(toLoad);
             }
         }
-        else this.renderFieldTo(this.fields, $newLI, item);
+        else ReadBox.renderFieldTo(this.fields, $newLI, item);
     }
 
     set = (item) => {
@@ -145,7 +158,7 @@ class ReadBox extends ViewBox {
                 newBox.load(toLoad);
             }
         }
-        else this.renderFieldTo(this.fields, this.$div, item);
+        else ReadBox.renderFieldTo(this.fields, this.$div, item);
     }
 }
 
@@ -170,8 +183,12 @@ class EditBox extends ViewBox {
         return this.$div;
     }
 
-    renderFieldTo = (field, $parent = this.$div, item = null, $domCapture = this.$items) => {
-        if (field.children === "number") {
+    static renderFieldTo = function renderFieldTo(field, $parent = this.$div, item = null, $domCapture = this.$items) {
+        if (field.settings.readOnly) {
+            let $rendered = ReadBox.renderFieldTo(field, $parent, item);
+            $domCapture.push($rendered);
+        }
+        else if (field.children === "number") {
             let $editItem = null;
             if (item) $editItem = $(`<input type="number" step="any" value="${item}" placeholder="${field.settings.placeholder}">`).appendTo($parent);
             else $editItem = $(`<input type="number" step="any" placeholder="${field.settings.placeholder}">`).appendTo($parent);
@@ -370,7 +387,7 @@ class EditBox extends ViewBox {
                 $domCapture.push(newBox);
             }
         }
-        else this.renderFieldTo(this.fields, $newLI, item, $domCapture);
+        else EditBox.renderFieldTo(this.fields, $newLI, item, $domCapture);
 
         let $remove = $(`<button>X</button>`).appendTo($newLI);
         let which = this.$items.length - 1;
@@ -389,7 +406,7 @@ class EditBox extends ViewBox {
                 this.$items.push(newBox);
             }
         }
-        else this.renderFieldTo(this.fields, this.$div, item, this.$items);
+        else EditBox.renderFieldTo(this.fields, this.$div, item, this.$items);
     }
 
     remove = (which) => {
@@ -516,8 +533,9 @@ class Browser {
         }
     }
 
-    load = (res) => {
-        this.items = res;
+    load = (items) => {
+        this.items = items;
+
         if (this.fields.settings.multiple && !Array.isArray(this.items)) {
             this.items = [];
             console.log("items overridden due to multiple");
@@ -675,5 +693,9 @@ class Browser {
         }
         
         this.read();
+    }
+
+    getSelectedItem = () => {
+        return this.items[this.selected];
     }
 }

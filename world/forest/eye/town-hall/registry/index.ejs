@@ -22,10 +22,15 @@
         base.do("create-group", {
             name: $name.val(),
             description: $description.val()
+        }).then((res) => {
+            if (res.data) {
+                $name.val("");
+                $description.val("");
+                $info.text("Group created!");
+            }
+            else {
+                $info.text("Error: Group already exists!");
+            }
         });
-
-        $name.val("");
-        $description.val("");
-        $info.text("Group created!");
     }
 </script>

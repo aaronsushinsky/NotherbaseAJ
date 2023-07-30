@@ -1,10 +1,13 @@
+<link rel="stylesheet" href="/styles/browser.css">
 <style>
     <%- include("./index.css"); %>
 </style>
 
-<p>Management</p>
+<p>Group Management</p>
 
-<div class="group-manager"></div>
+<hr>
+
+<div class="browser" id="groups"></div>
 
 <hr>
 
@@ -14,94 +17,11 @@
 
 <script src="/js/util/browser.js"></script>
 <script>
-    class GroupManager {
-        constructor() {
-            this.$div = $(".group-manager");
-
-            this.render();
-        }
-
-        render = () => {
-            $("<h5>Groups</h5>").appendTo(this.$div);
-            this.$groups = $("<ul></ul>").appendTo(this.$div);
-            $("<h5>Settings</h5>").appendTo(this.$div);
-            this.$settings = $(`<div class="settings"></div>`).appendTo(this.$div);
-            $("<h5>Options</h5>").appendTo(this.$div);
-            this.$options = $(`<div class="options"></div>`).appendTo(this.$div);
-            this.$info = $(`<p></p>`).appendTo(this.$div);
-
-            this.renderGroups();
-            this.selectGroup();
-        }
-
-        loadGroups = (groups) => {
-            this.groups = groups;
-            this.renderGroups(groups);
-        }
-
-        renderGroups = (groups = []) => {
-            for (let i = 0; i < groups.length; i++) {
-                let $group = $(`<li id="${i}">${groups[i].name}</li>`)
-                this.$groups.append($group);
-                $group.click(() => {
-                    this.selectGroup(i);
-                });
-            }
-        }
-
-        selectGroup = (which = null) => {
-            if (which != null && which > -1) {
-                this.selected = which;
-                this.renderSettings(this.groups[which]);
-                this.renderOptions(this.groups[which]);
-            }
-            else {
-                this.selected = -1;
-                this.renderSettings();
-                this.renderOptions();
-            }
-        }
-
-        renderSettings = (group = null) => {
-            this.$settings.empty();
-
-            $(`<h6>Members</h6>`).appendTo(this.$settings);
-            this.$members = $(`<ul></ul>`).appendTo(this.$settings);
-            this.renderMembers(group?.members);
-
-            $(`<h6>Requests to Join</h6>`).appendTo(this.$settings);
-            this.$joiners = $(`<ul></ul>`).appendTo(this.$settings);
-            this.renderJoiners(group?.joinRequests);
-        }
-
-        renderMembers = (members) => {
-            if (members) for (let i = 0; i < members.length; i++) {
-                let $member = $(`<li>${members[i].name}</li>`).appendTo(this.$members);
-            }
-        }
-
-        renderJoiners = (joiners) => {
-            if (joiners) for (let i = 0; i < joiners.length; i++) {
-                let $joiner = $(`<li>${joiners[i].name}</li>`).appendTo(this.$joiners);
-            }
-        }
-
-        renderOptions = (group) => {
-            this.$options.empty();
-
-            this.$leave = $(`<button>Leave this Group</button>`).appendTo(this.$options);
-            this.$leave.click(this.leaveGroup());
-        }
-
-        leaveGroup = () => {
-
-        }
-    }
-
+    <%- include("./groupManager.js") %>    
     const groupManager = new GroupManager();
 
     base.do("load-groups").then((res) => {
-        console.log(res.data);
-        groupManager.loadGroups(res.data);
+        //console.log(res);
+        groupManager.load(res.data);
     });
 </script>
