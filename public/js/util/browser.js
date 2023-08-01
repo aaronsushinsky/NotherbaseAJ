@@ -5,6 +5,8 @@ class NBField {
             label: "",
             placeholder: "",
             multiple: false,
+            lockLength: false,
+            readOnly: false,
             ...settings
         }
 
@@ -361,8 +363,10 @@ class EditBox extends ViewBox {
             this.renderHeader();
     
             if (this.fields.settings.multiple && this.nested) {
-                this.$add = $(`<button>Add</button>`).appendTo(this.$div);
-                this.$add.click(() => { this.add(); });
+                if (!this.fields.settings.lockLength) {
+                    this.$add = $(`<button>Add</button>`).appendTo(this.$div);
+                    this.$add.click(() => { this.add(); });
+                }
     
                 if (Array.isArray(item)) {
                     for (let i = 0; i < item.length; i++) {
@@ -370,7 +374,7 @@ class EditBox extends ViewBox {
                     }
                 }
     
-                this.add();
+                if (!this.fields.settings.lockLength) this.add();
             }
             else this.set(item);
         }
@@ -394,9 +398,11 @@ class EditBox extends ViewBox {
         }
         else EditBox.renderFieldTo(this.fields, $newLI, item, $domCapture);
 
-        let $remove = $(`<button class="remove">X</button>`).appendTo($newLI);
-        let which = this.$items.length - 1;
-        $remove.click(() => { this.remove(which); });
+        if (!this.fields.settings.lockLength) {
+            let $remove = $(`<button class="remove">X</button>`).appendTo($newLI);
+            let which = this.$items.length - 1;
+            $remove.click(() => { this.remove(which); });
+        }
     }
 
     set = (item) => {

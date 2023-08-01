@@ -41,7 +41,26 @@ class Scheduler extends Browser {
                 name: "description",
                 label: "Description: ",
                 placeholder: "Description"
-            }, "long-string")
+            }, "long-string"),
+            new NBField({
+                name: "sharing",
+                label: "Sharing: ",
+                placeholder: "None",
+                multiple: true,
+                lockLength: true
+            }, [
+                new NBField({
+                    name: "name",
+                    label: "Group: ",
+                    placeholder: "No Group",
+                    readOnly: true
+                }, "string"),
+                new NBField({
+                    name: "shared",
+                    label: "Share this Task: ",
+                    placeholder: false
+                }, "boolean")
+            ])
         ]);
         super(id, fields, true, "save-schedule");
     }

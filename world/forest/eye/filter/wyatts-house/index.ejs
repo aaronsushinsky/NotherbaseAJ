@@ -167,12 +167,13 @@
 
     <%- include("./scheduler.js"); %>
     let scheduler = new Scheduler("scheduler");
-    base.load("schedule").then((res) => {
+    base.do("load-schedule").then((res) => {
         scheduler.otherSettings.onRefresh = (tasks) => {
             upstairsAgenda.load(tasks);
             laylaCalendar.load(tasks);
         }
-        scheduler.load(res);
+        scheduler.load(res.data);
+        console.log(res);
     });
 
 
