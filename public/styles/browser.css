@@ -93,7 +93,7 @@
     margin: var(--margin);
 }
 
-.browser .read p {
+.browser .read p, .browser .edit p {
     background: none;
     width: 70%;
 }
