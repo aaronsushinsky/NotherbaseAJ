@@ -69,7 +69,7 @@ editBoxLoadOverride = function(item = null) {
 
                     EditBox.renderFieldTo(this.fields, $newLI, item[i], $domCapture);
 
-                    let $remove = $(`<button>X</button>`).appendTo($newLI);
+                    let $remove = $(`<button class="remove">X</button>`).appendTo($newLI);
                     $remove.click(() => { groupManager.demote(this.extraData.member, item[i]); });
                 }
             }
@@ -173,7 +173,7 @@ class GroupManager extends Browser {
 
     load = async () => {
         await base.do("load-groups").then((res) => {
-            console.log(res);
+            //console.log(res);
 
             this.items = res.data;
     
@@ -212,7 +212,6 @@ class GroupManager extends Browser {
     }
 
     promote = async (which, level) => {
-        console.log(this);
         let auth = this.items[this.selected].members[which].auth;
         if (!Array.isArray(auth)) auth = [];
         if (!auth.includes(level)) auth.push(level);

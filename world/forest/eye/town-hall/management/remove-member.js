@@ -16,10 +16,15 @@ export default async function(req, user) {
     if (leader.auth.includes("Leader")) {
         if (removal.id == leader.id) return "self-error";
         else {
-            spirit.memory.data.members.splice(i, 1);
+            spirit.memory.data.members.splice(which, 1);
             await spirit.commit();
             return "removed";
         }
+    }
+    else if (removal.id == leader.id) {
+        spirit.memory.data.members.splice(which, 1);
+        await spirit.commit();
+        return "removed";
     }
     else return "auth-error";
 }

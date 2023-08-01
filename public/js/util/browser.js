@@ -394,7 +394,7 @@ class EditBox extends ViewBox {
         }
         else EditBox.renderFieldTo(this.fields, $newLI, item, $domCapture);
 
-        let $remove = $(`<button>X</button>`).appendTo($newLI);
+        let $remove = $(`<button class="remove">X</button>`).appendTo($newLI);
         let which = this.$items.length - 1;
         $remove.click(() => { this.remove(which); });
     }

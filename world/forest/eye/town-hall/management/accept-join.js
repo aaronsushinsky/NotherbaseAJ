@@ -16,7 +16,7 @@ export default async function(req, user) {
             for (let i = 0; i < spirit.memory.data.joinRequests.length; i++) {
                 if (spirit.memory.data.joinRequests[i].id == req.body.userID) {
                     spirit.memory.data.members.push({
-                        id: spirit.memory.data.joinRequests[i].id,
+                        id: `${spirit.memory.data.joinRequests[i].id}`,
                         auth: []
                     });
                     spirit.memory.data.joinRequests.splice(i, 1);

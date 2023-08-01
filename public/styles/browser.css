@@ -182,6 +182,17 @@
     max-height: 40vh;
 }
 
+.browser .multiple li>input {
+    width: 90%;
+    margin: 0;
+}
+
+.browser li>button.remove {
+    width: 10%;
+    margin: 0;
+    border-radius: none;
+}
+
 .browser li {
     width: 100%;
     display: flex;
