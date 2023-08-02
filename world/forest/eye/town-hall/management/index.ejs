@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="/styles/browser.css">
+<style>
+    <%- include("./index.css"); %>
+</style>
+
+<p>Group Management</p>
+
+<hr>
+
+<div class="browser" id="groups"></div>
+
+<hr>
+
+<a  class="return" href="/forest/eye/town-hall/lobby">
+    Return to the Lobby
+</a>
+
+<script src="/js/util/browser.js"></script>
+<script>
+    <%- include("./groupManager.js") %>    
+    const groupManager = new GroupManager();
+</script>

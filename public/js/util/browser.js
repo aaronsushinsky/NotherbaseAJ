@@ -5,6 +5,9 @@ class NBField {
             label: "",
             placeholder: "",
             multiple: false,
+            lockLength: false,
+            readOnly: false,
+            hidden: false,
             ...settings
         }
 
@@ -49,77 +52,94 @@ class ReadBox extends ViewBox {
     }
 
     render = () => {
-        if (this.nested) {
-            if (this.fields.settings.multiple) this.$div = $(`<div class="read nested multiple"></div>`);
-            else this.$div = $(`<div class="read nested"></div>`);
+        if (!this.fields.settings.hidden) {
+            if (this.nested) {
+                if (this.fields.settings.multiple) this.$div = $(`<div class="read nested multiple ${this.fields.settings.name}"></div>`);
+                else this.$div = $(`<div class="read nested ${this.fields.settings.name}"></div>`);
+            }
+            else this.$div = $(`<div class="read ${this.fields.settings.name}"></div>`);
+
+            this.renderHeader();
+
+            this.load(null);
+
+            return this.$div;
         }
-        else this.$div = $(`<div class="read"></div>`);
-
-        this.renderHeader();
-
-        this.load(null);
-
-        return this.$div;
+        else return null;
     }
 
     renderHeader = () => {
+        let mods = "";
+        if (this.fields.children === "long-string") mods += "long-string ";
+        if (this.fields.children === "image") mods += "image ";
+
         if (this.fields.settings.label) {
             if (this.nested) {
-                if (this.multiple) this.$header = $(`<h6>${this.fields.settings.label}</h6>`).appendTo(this.$div);
-                else this.$header = $(`<h6>${this.fields.settings.label}</h6>`).appendTo(this.$div);
+                if (this.multiple) this.$header = $(`<h5 class="${mods}${this.fields.settings.name}">${this.fields.settings.label}</h5>`).appendTo(this.$div);
+                else this.$header = $(`<h6 class="${mods}${this.fields.settings.name}">${this.fields.settings.label}</h6>`).appendTo(this.$div);
             } 
-            else this.$header = $(`<h4>${this.fields.settings.label}</h4>`).appendTo(this.$div);
+            else this.$header = $(`<h4 class="${mods}${this.fields.settings.name}">${this.fields.settings.label}</h4>`).appendTo(this.$div);
         }
     }
 
-    renderFieldTo = (field, $parent = this.$div, item = null) => {
+    static renderFieldTo = function renderFieldTo(field, $parent = this.$div, item = null) {
+        let $rendered = null;
+
         if (field.children === "image") {
-            if (item) $(`<img src="${item}">`).appendTo($parent);
-            else $(`<img src="${field.settings.placeholder}">`).appendTo($parent);
+            if (item) $rendered = $(`<img class="image ${field.settings.name}" src="${item}">`).appendTo($parent);
+            else $rendered = $(`<img class="image ${field.settings.name}" src="${field.settings.placeholder}">`).appendTo($parent);
         }
         else if (field.children === "date-time") {
-            if (item) $(`<time datetime="${item}">${(new Date(item)).toLocaleString()}</time>`).appendTo($parent);
-            else $(`<time></time>`).appendTo($parent);
+            if (item) $rendered = $(`<time class="${field.settings.name}" datetime="${item}">${(new Date(item)).toLocaleString()}</time>`).appendTo($parent);
+            else $rendered = $(`<time class="${field.settings.name}"></time>`).appendTo($parent);
         }
         else if (field.children === "date") {
-            if (item) $(`<time datetime="${item}">${(new Date(item)).toLocaleDateString()}</time>`).appendTo($parent);
-            else $(`<time></time>`).appendTo($parent);
+            if (item) $rendered = $(`<time class="${field.settings.name}" datetime="${item}">${(new Date(item)).toLocaleDateString()}</time>`).appendTo($parent);
+            else $rendered = $(`<time class="${field.settings.name}"></time>`).appendTo($parent);
         }
         else if (field.children === "time") {
-            if (item) $(`<time">${(new Date(item)).toLocaleTimeString()}</time>`).appendTo($parent);
-            else $(`<time></time>`).appendTo($parent);
+            if (item) $rendered = $(`<time class="${field.settings.name}">${(new Date(item)).toLocaleTimeString()}</time>`).appendTo($parent);
+            else $rendered = $(`<time class="${field.settings.name}"></time>`).appendTo($parent);
         }
         else if (field.children === "number") {
-            if (item) $(`<p>${item}</p>`).appendTo($parent);
-            else $(`<p></p>`).appendTo($parent);
+            if (item) $rendered = $(`<p class="${field.settings.name}">${item}</p>`).appendTo($parent);
+            else $rendered = $(`<p class="${field.settings.name}"></p>`).appendTo($parent);
         }
         else if (field.children === "boolean") {
-            $(`<p>${item}</p>`).appendTo($parent);
+            $rendered = $(`<p class="${field.settings.name}">${item}</p>`).appendTo($parent);
+        }
+        else if (field.children === "long-string") {
+            if (item) $rendered = $(`<p class="long-string ${field.settings.name}">${item.replace(/(?:\r\n|\r|\n)/g, '<br />')}</p>`).appendTo($parent);
+            else $rendered = $(`<p class="long-string ${field.settings.name}"></p>`).appendTo($parent);
         }
         else {
-            if (item) $(`<p>${item.replace(/(?:\r\n|\r|\n)/g, '<br />')}</p>`).appendTo($parent);
-            else $(`<p></p>`).appendTo($parent);
+            //console.log(item, $parent);
+            if (item) $rendered = $(`<p class="${field.settings.name}">${item.replace(/(?:\r\n|\r|\n)/g, '<br />')}</p>`).appendTo($parent);
+            else $rendered = $(`<p class="${field.settings.name}"></p>`).appendTo($parent);
         }
+
+        return $rendered;
     }
 
     load = (item = null) => {
-        this.$div.empty();
-        
-        this.renderHeader();
+        if (!this.fields.settings.hidden) {
+            this.$div.empty();  
+            this.renderHeader();
 
-        if (item) {
-            if (this.fields.settings.multiple && this.nested) {
-                if (Array.isArray(item)) for (let i = 0; i < item.length; i++) {
-                    this.add(item[i]);
+            if (item) {
+                if (this.fields.settings.multiple && this.nested) {
+                    if (Array.isArray(item)) for (let i = 0; i < item.length; i++) {
+                        this.add(item[i]);
+                    }
                 }
+                else this.set(item);
             }
-            else this.set(item);
+            else ReadBox.renderFieldTo(this.fields, this.$div, item);
         }
-        else this.renderFieldTo(this.fields, this.$div, item);
     }
 
     add = (item = null) => {
-        let $newLI = $(`<li id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
+        let $newLI = $(`<li id="${this.$items.length}"></li>`).appendTo(this.$div);
 
         if (Array.isArray(this.fields.children)) {
             for (let i = 0; i < this.fields.children.length; i++) {
@@ -127,11 +147,16 @@ class ReadBox extends ViewBox {
                 if (item) toLoad = item[this.fields.children[i].settings.name];
 
                 let newBox = new ReadBox(this.fields.children[i], true);
-                newBox.render().appendTo($newLI);
-                newBox.load(toLoad);
+                if (newBox) {
+                    let $newBox = newBox.render();
+                    if ($newBox) {
+                        $newBox.appendTo($newLI);
+                        newBox.load(toLoad);
+                    }
+                }
             }
         }
-        else this.renderFieldTo(this.fields, $newLI, item);
+        else ReadBox.renderFieldTo(this.fields, $newLI, item);
     }
 
     set = (item) => {
@@ -141,53 +166,66 @@ class ReadBox extends ViewBox {
                 if (item) toLoad = item[this.fields.children[i].settings.name];
 
                 let newBox = new ReadBox(this.fields.children[i], true);
-                newBox.render().appendTo(this.$div);
-                newBox.load(toLoad);
+                if (newBox) {
+                    let $newBox = newBox.render();
+                    if ($newBox) {
+                        $newBox.appendTo(this.$div);
+                        newBox.load(toLoad);
+                    }
+                }
             }
         }
-        else this.renderFieldTo(this.fields, this.$div, item);
+        else ReadBox.renderFieldTo(this.fields, this.$div, item);
     }
 }
 
 class EditBox extends ViewBox {
-    constructor(fields, nested = false) {
+    constructor(fields, nested = false, loadOverride = null, extraData = null) {
         super(fields, nested);
+        this.loadOverride = loadOverride;
+        this.extraData = extraData;
     }
 
     render = () => {
-        if (this.nested) {
-            if (this.fields.settings.multiple) this.$div = $(`<div class="edit nested multiple"></div>`);
-            else this.$div = $(`<div class="edit nested"></div>`);
-            this.$add = $(`<button>Add</button>`).appendTo(this.$div);
-            this.$add.click(this.add);
+        if (!this.fields.settings.hidden) {
+            if (this.nested) {
+                if (this.fields.settings.multiple) this.$div = $(`<div class="edit nested multiple  ${this.fields.settings.name}"></div>`);
+                else this.$div = $(`<div class="edit nested  ${this.fields.settings.name}"></div>`);
+                this.$add = $(`<button>Add</button>`).appendTo(this.$div);
+                this.$add.click(this.add);
+            }
+            else this.$div = $(`<div class="edit  ${this.fields.settings.name}"></div>`);
+    
+            this.renderHeader();
+    
+            this.load(null);
+    
+            return this.$div;
         }
-        else this.$div = $(`<div class="edit"></div>`);
-
-        this.renderHeader();
-
-        this.load(null);
-
-        return this.$div;
     }
 
-    renderFieldTo = (field, $parent = this.$div, item = null, $domCapture = this.$items) => {
-        if (field.children === "number") {
+    static renderFieldTo = function renderFieldTo(field, $parent = this.$div, item = null, $domCapture = this.$items) {
+        if (field.settings.readOnly) {
+            let $rendered = ReadBox.renderFieldTo(field, $parent, item);
+            $domCapture.push($rendered);
+        }
+        else if (field.children === "number") {
             let $editItem = null;
-            if (item) $editItem = $(`<input type="number" step="any" value="${item}" placeholder="${field.settings.placeholder}">`).appendTo($parent);
-            else $editItem = $(`<input type="number" step="any" placeholder="${field.settings.placeholder}">`).appendTo($parent);
+            if (item) $editItem = $(`<input class="${field.settings.name}" type="number" step="any" value="${item}" placeholder="${field.settings.placeholder}">`).appendTo($parent);
+            else $editItem = $(`<input class="${field.settings.name}" type="number" step="any" placeholder="${field.settings.placeholder}">`).appendTo($parent);
             $domCapture.push($editItem);
         }
         else if (field.children === "options") {            
-            let $editItem = $(`<select id="pet-select"></select>`).appendTo($parent);
+            let $editItem = $(`<select class="${field.settings.name}" id="pet-select"></select>`).appendTo($parent);
             for (let i = 0; i < field.settings.options.length; i++) {
-                $(`<option value="${field.settings.options[i]}">${field.settings.options[i]}</option>`).appendTo($editItem);
+                $(`<option class="${field.settings.name}" value="${field.settings.options[i]}">${field.settings.options[i]}</option>`).appendTo($editItem);
             }
             if (item) $editItem.find(`option:contains("${item}")`).prop('selected', true);
             else $editItem.find(`option:contains("${field.settings.placeholder}")`).prop('selected', true);
             $domCapture.push($editItem);
         }
         else if (field.children === "boolean") {
-            let $editItem = $(`<input type="checkbox">`).appendTo($parent);
+            let $editItem = $(`<input class="${field.settings.name}" type="checkbox">`).appendTo($parent);
             if (item === null) $editItem.prop('checked', field.settings.placeholder);
             else $editItem.prop('checked', item);
              
@@ -197,11 +235,11 @@ class EditBox extends ViewBox {
             let date = new Date(item);
             let $editItem = null;
             if (item) {
-                $editItem = $(`<input type="datetime-local" value="${date}">`).appendTo($parent);
+                $editItem = $(`<input class="${field.settings.name}" type="datetime-local" value="${date}">`).appendTo($parent);
             }
             else {
                 let placeholder = (new Date(field.settings.placeholder - (new Date()).getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
-                $editItem = $(`<input type="datetime-local" value="${placeholder}">`).appendTo($parent);
+                $editItem = $(`<input class="${field.settings.name}" type="datetime-local" value="${placeholder}">`).appendTo($parent);
             }
             $domCapture.push($editItem);
         }
@@ -212,14 +250,14 @@ class EditBox extends ViewBox {
                 let day = ("0" + date.getDate()).slice(-2);
                 let month = ("0" + (date.getMonth() + 1)).slice(-2);
                 let out = `${date.getFullYear()}-${month}-${day}`;
-                $editItem = $(`<input type="date" value="${out}">`).appendTo($parent);
+                $editItem = $(`<input class="${field.settings.name}" type="date" value="${out}">`).appendTo($parent);
             }
             else {
                 let date = new Date(field.settings.placeholder);
                 let day = ("0" + date.getDate()).slice(-2);
                 let month = ("0" + (date.getMonth() + 1)).slice(-2);
                 let placeholder = `${date.getFullYear()}-${month}-${day}`;
-                $editItem = $(`<input type="date" value="${placeholder}">`).appendTo($parent);
+                $editItem = $(`<input class="${field.settings.name}" type="date" value="${placeholder}">`).appendTo($parent);
             }
             $domCapture.push($editItem);
         }
@@ -231,7 +269,7 @@ class EditBox extends ViewBox {
                 let minutes = ("0" + date.getMinutes()).slice(-2);
                 let seconds = ("0" + date.getSeconds()).slice(-2);
                 let out = `${hours}:${minutes}:${seconds}`;
-                $editItem = $(`<input type="time" value="${out}">`).appendTo($parent);
+                $editItem = $(`<input class="${field.settings.name}" type="time" value="${out}">`).appendTo($parent);
             }
             else {
                 let date = new Date(field.settings.placeholder);
@@ -239,20 +277,20 @@ class EditBox extends ViewBox {
                 let minutes = ("0" + date.getMinutes()).slice(-2);
                 let seconds = ("0" + date.getSeconds()).slice(-2);
                 let placeholder = `${hours}:${minutes}:${seconds}`;
-                $editItem = $(`<input type="time" value="${placeholder}">`).appendTo($parent);
+                $editItem = $(`<input class="${field.settings.name}" type="time" value="${placeholder}">`).appendTo($parent);
             }
             $domCapture.push($editItem);
         }
         else if (field.children === "long-string") {
             let $editItem = null;
-            if (item) $editItem = $(`<textarea rows="4" placeholder="${field.settings.placeholder}">${item}</textarea>`).appendTo($parent);
-            else $editItem = $(`<textarea rows="4" placeholder="${field.settings.placeholder}"></textarea>`).appendTo($parent);
+            if (item) $editItem = $(`<textarea class="${field.settings.name}" rows="4" placeholder="${field.settings.placeholder}">${item}</textarea>`).appendTo($parent);
+            else $editItem = $(`<textarea class="${field.settings.name}" rows="4" placeholder="${field.settings.placeholder}"></textarea>`).appendTo($parent);
             $domCapture.push($editItem);
         }
         else {
             let $editItem = null;
-            if (item) $editItem = $(`<input type="text" placeholder="${field.settings.placeholder}" value="${item}">`).appendTo($parent);
-            else $editItem = $(`<input type="text" placeholder="${field.settings.placeholder}">`).appendTo($parent);
+            if (item) $editItem = $(`<input class="${field.settings.name}" type="text" placeholder="${field.settings.placeholder}" value="${item}">`).appendTo($parent);
+            else $editItem = $(`<input class="${field.settings.name}" type="text" placeholder="${field.settings.placeholder}">`).appendTo($parent);
             $domCapture.push($editItem);
         }
     }
@@ -270,29 +308,45 @@ class EditBox extends ViewBox {
     save = () => {
         let toGo = [];
 
-        if (this.fields.settings.multiple && this.nested) {
-            for (let i = 0; i < this.$items.length; i++) {
-                if (this.$items[i]) {
-                    let saved = this.saveFields(this.$items[i]);
-                    toGo.push(saved);
+        if (!this.fields.settings.hidden && !this.fields.settings.readOnly) {
+            if (this.fields.settings.multiple && this.nested) {
+                for (let i = 0; i < this.$items.length; i++) {
+                    if (this.$items[i]) {
+                        let og = null;
+                        if (this.item[i]) og = this.item[i]; 
+                        let saved = this.saveFields(this.$items[i], og);
+                        toGo.push(saved);
+                    }
                 }
             }
+            else toGo = this.saveFields();
         }
-        else toGo = this.saveFields();
+        else toGo = this.item;
 
         return toGo;
     }
 
-    saveFields = ($items = this.$items) => {
+    saveFields = ($items = this.$items, originalItem = null) => {
         let toGo = {};
 
         if (Array.isArray(this.fields.children)) {
+            let offset = 0;
+
             for (let i = 0; i < this.fields.children.length; i++) {
-                let saved = $items[i].save();
-                toGo[this.fields.children[i].settings.name] = saved;
+                if (!this.fields.children[i].settings.hidden && !this.fields.children[i].settings.readOnly) {
+                    let saved = $items[i - offset].save();
+                    toGo[this.fields.children[i].settings.name] = saved;
+                }
+                else {
+                    if (originalItem[this.fields.children[i].settings.name]) {
+                        toGo[this.fields.children[i].settings.name] = originalItem[this.fields.children[i].settings.name];
+                    }
+                    else toGo[this.fields.children[i].settings.name] = null;
+                    if (this.fields.children[i].settings.hidden) offset++;
+                }
             }
         }
-        else toGo = this.saveField(this.fields.children, $items[0]);
+        else toGo = this.saveField(this.fields.children, $items[0]);   
 
         return toGo;
     }
@@ -336,45 +390,60 @@ class EditBox extends ViewBox {
     load = (item = null) => {
         this.$div.empty();
         this.$items = [];
+        this.item = item;
 
-        this.renderHeader();
-
-        if (this.fields.settings.multiple && this.nested) {
-            this.$add = $(`<button>Add</button>`).appendTo(this.$div);
-            this.$add.click(() => { this.add(); });
-
-            if (Array.isArray(item)) {
-                for (let i = 0; i < item.length; i++) {
-                    this.add(item[i]);
+        if (!this.fields.settings.hidden) {
+            if (this.loadOverride) this.loadOverride(item);
+            else {
+                this.renderHeader();
+        
+                if (this.fields.settings.multiple && this.nested) {
+                    if (!this.fields.settings.lockLength) {
+                        this.$add = $(`<button>Add</button>`).appendTo(this.$div);
+                        this.$add.click(() => { this.add(); });
+                    }
+        
+                    if (Array.isArray(item)) {
+                        for (let i = 0; i < item.length; i++) {
+                            this.add(item[i]);
+                        }
+                    }
+        
+                    if (!this.fields.settings.lockLength) this.add();
                 }
+                else this.set(item);
             }
-
-            this.add();
         }
-        else this.set(item);
     }
 
     add = (item = null) => {
         this.$items.push([]);
         let $domCapture = this.$items[this.$items.length - 1];
-        let $newLI = $(`<li id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
+        let $newLI = $(`<li class="${this.fields.settings.name}" id="${this.$items.length - 1}"></li>`).appendTo(this.$div);
 
         if (Array.isArray(this.fields.children)) {
             for (let i = 0; i < this.fields.children.length; i++) {
                 let toLoad = null;
                 if (item) toLoad = item[this.fields.children[i].settings.name];
 
-                let newBox = new EditBox(this.fields.children[i], true);
-                newBox.render().appendTo($newLI);
-                newBox.load(toLoad);
-                $domCapture.push(newBox);
+                let newBox = new EditBox(this.fields.children[i], true, this.loadOverride);
+                if (newBox) {
+                    let $newBox = newBox.render();
+                    if ($newBox) {
+                        $newBox.appendTo($newLI);
+                        newBox.load(toLoad);
+                        $domCapture.push(newBox);
+                    }
+                }
             }
         }
-        else this.renderFieldTo(this.fields, $newLI, item, $domCapture);
+        else EditBox.renderFieldTo(this.fields, $newLI, item, $domCapture);
 
-        let $remove = $(`<button>X</button>`).appendTo($newLI);
-        let which = this.$items.length - 1;
-        $remove.click(() => { this.remove(which); });
+        if (!this.fields.settings.lockLength) {
+            let $remove = $(`<button class="remove">X</button>`).appendTo($newLI);
+            let which = this.$items.length - 1;
+            $remove.click(() => { this.remove(which); });
+        }
     }
 
     set = (item) => {
@@ -383,13 +452,18 @@ class EditBox extends ViewBox {
                 let toLoad = null;
                 if (item) toLoad = item[this.fields.children[i].settings.name];
 
-                let newBox = new EditBox(this.fields.children[i], true);
-                newBox.render().appendTo(this.$div);
-                newBox.load(toLoad);
-                this.$items.push(newBox);
+                let newBox = new EditBox(this.fields.children[i], true, this.loadOverride);
+                if (newBox) {
+                    let $newBox = newBox.render();
+                    if ($newBox) {
+                        $newBox.appendTo(this.$div);
+                        newBox.load(toLoad);
+                        this.$items.push(newBox);
+                    }
+                }
             }
         }
-        else this.renderFieldTo(this.fields, this.$div, item, this.$items);
+        else EditBox.renderFieldTo(this.fields, this.$div, item, this.$items);
     }
 
     remove = (which) => {
@@ -440,11 +514,15 @@ class Browser {
             onRefresh: null,
             onSaveOne: null,
             onDeleteOne: null,
+            editBoxLoadOverride: null,
+            disableCreate: false,
+            disableSave: false,
+            disableDelete: false,
             ...otherSettings
         };
 
         this.readBox = new ReadBox(this.fields);
-        this.editBox = new EditBox(this.fields);
+        this.editBox = new EditBox(this.fields, false, this.otherSettings.editBoxLoadOverride);
         this.filtersBox = new FiltersBox(this.fields, this.renderSearchResults);
 
         this.render();
@@ -459,8 +537,10 @@ class Browser {
             this.$toFilter.click(this.toggleFilters);
             this.$searchList = $(`<ul class="selector"></ul>`).appendTo(this.$searchBox);
 
-            this.$create = $(`<button class="create">+</button>`).appendTo(this.$div);
-            this.$create.click(this.create);
+            if (!this.otherSettings.disableCreate && this.editable) {
+                this.$create = $(`<button class="create">+</button>`).appendTo(this.$div);
+                this.$create.click(this.create);
+            }
 
             let $filters = this.filtersBox.render();
             this.filtersBox.hide();
@@ -477,17 +557,23 @@ class Browser {
             this.editBox.hide();
             $edit.appendTo(this.$div);
     
-            this.$save = $(`<button class="save invisible">Save</button>`).appendTo(this.$div);
-            this.$save.click(this.save);
+            if (!this.otherSettings.disableSave) {
+                this.$save = $(`<button class="save invisible">Save</button>`).appendTo(this.$div);
+                this.$save.click(this.save);
+            }
             this.$cancel = $(`<button class="cancel invisible">Cancel</button>`).appendTo(this.$div);
             this.$cancel.click(this.cancel);  
 
-            if (this.fields.settings.multiple) {
+            if (this.fields.settings.multiple && !this.otherSettings.disableDelete) {
                 this.$delete = $(`<button class="delete invisible">Delete</button>`).appendTo(this.$div);
                 this.$delete.click(this.delete);
             }
         }
 
+        this.$alert = $(`<p id="alert"></p>`).appendTo(this.$div);
+        this.$hideAlert = $(`<button id="hide">X</button>`).appendTo(this.$alert);
+        this.$hideAlert.click(this.hideAlert);
+        this.hideAlert();
     }
 
     renderSearchResults = () => {
@@ -516,8 +602,9 @@ class Browser {
         }
     }
 
-    load = (res) => {
-        this.items = res;
+    load = (items) => {
+        this.items = items;
+
         if (this.fields.settings.multiple && !Array.isArray(this.items)) {
             this.items = [];
             console.log("items overridden due to multiple");
@@ -595,12 +682,12 @@ class Browser {
     edit = () => {
         this.readBox.hide();
         this.$toEdit.addClass("invisible");
-        this.$create.addClass("invisible");
+        if (!this.otherSettings.disableCreate) this.$create.addClass("invisible");
 
         this.editBox.show();
         this.$cancel.removeClass("invisible");
-        this.$save.removeClass("invisible");
-        this.$delete.removeClass("invisible");
+        if (!this.otherSettings.disableSave) this.$save.removeClass("invisible");
+        if (!this.otherSettings.disableDelete) this.$delete.removeClass("invisible");
 
         if (this.fields.settings.multiple) {
             let item = null;
@@ -618,10 +705,10 @@ class Browser {
         if (this.editable) {
             this.editBox.hide();
             this.$cancel.addClass("invisible");
-            this.$save.addClass("invisible");
-            this.$delete.addClass("invisible");
+            if (!this.otherSettings.disableSave) this.$save.addClass("invisible");
+            if (!this.otherSettings.disableDelete) this.$delete.addClass("invisible");
             this.$toEdit.removeClass("invisible");
-            this.$create.removeClass("invisible");
+            if (!this.otherSettings.disableCreate) this.$create.removeClass("invisible");
         }
 
         this.readBox.show();
@@ -670,10 +757,27 @@ class Browser {
         $searchResults.removeClass("selected");
 
         if (which > -1) {
+            if (which >= $searchResults.length) which = $searchResults.length;
             if ($searchResults.length > 1) $($searchResults[which]).addClass("selected");
             else $searchResults.addClass("selected");
         }
         
         this.read();
+    }
+
+    getSelectedItem = () => {
+        return this.items[this.selected];
+    }
+
+    alert = (msg) => {
+        this.$alert.text(msg);
+        this.$hideAlert = $(`<button id="hide">X</button>`).appendTo(this.$alert);
+        this.$hideAlert.click(this.hideAlert);
+        this.$alert.removeClass("invisible");
+    }
+
+    hideAlert = () => {
+        this.$alert.addClass("invisible");
+        this.$alert.text("");
     }
 }

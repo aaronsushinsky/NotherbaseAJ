@@ -53,7 +53,10 @@
     <section class="office">
         <h4>Office</h4>
         <button class="folder" onclick="office.toggle(this)">v</button>
-        <article class="browser" id="scheduler"></article>
+        <article>
+            <div class="browser" id="scheduler"></div>
+            <div class="browser" id="shared-scheduler"></div>
+        </article>
     </section>
 
     <section class="livingroom">
@@ -137,8 +140,8 @@
     Go to the Tower
 </a>
 
-<a class="to" href="/forest/eye/keep">
-    Go to the Keep
+<a class="to" href="/forest/eye/town-hall">
+    Go to the Town Hall
 </a>
 
 <hr>
@@ -167,12 +170,19 @@
 
     <%- include("./scheduler.js"); %>
     let scheduler = new Scheduler("scheduler");
-    base.load("schedule").then((res) => {
+    let sharedScheduler = new SharedScheduler("shared-scheduler");
+    base.do("load-schedule").then((res) => {
+        console.log(res);
         scheduler.otherSettings.onRefresh = (tasks) => {
             upstairsAgenda.load(tasks);
             laylaCalendar.load(tasks);
         }
-        scheduler.load(res);
+        scheduler.load(res.data.userTasks);
+        sharedScheduler.otherSettings.onRefresh = (tasks) => {
+            upstairsAgenda.loadShared(tasks);
+            laylaCalendar.loadShared(tasks);
+        }
+        sharedScheduler.load(res.data.sharedTasks);
     });
 
 
