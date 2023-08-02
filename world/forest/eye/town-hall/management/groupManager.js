@@ -173,7 +173,7 @@ class GroupManager extends Browser {
 
     load = async () => {
         await base.do("load-groups").then((res) => {
-            //console.log(res);
+            console.log(res);
 
             this.items = res.data;
     

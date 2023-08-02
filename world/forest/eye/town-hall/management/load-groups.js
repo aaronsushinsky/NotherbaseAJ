@@ -68,12 +68,10 @@ export default async function (req, user) {
     }
 
     let inGroups = await getInGroups({
-        getMembers: false,
+        getMembers: true,
         getJoinRequests: true,
         getSettings: true
     });
-
-    await spirit.commit();
 
     return inGroups;
 }
