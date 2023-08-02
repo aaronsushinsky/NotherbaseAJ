@@ -7,6 +7,7 @@ class NBField {
             multiple: false,
             lockLength: false,
             readOnly: false,
+            hidden: false,
             ...settings
         }
 
@@ -51,17 +52,20 @@ class ReadBox extends ViewBox {
     }
 
     render = () => {
-        if (this.nested) {
-            if (this.fields.settings.multiple) this.$div = $(`<div class="read nested multiple ${this.fields.settings.name}"></div>`);
-            else this.$div = $(`<div class="read nested ${this.fields.settings.name}"></div>`);
+        if (!this.fields.settings.hidden) {
+            if (this.nested) {
+                if (this.fields.settings.multiple) this.$div = $(`<div class="read nested multiple ${this.fields.settings.name}"></div>`);
+                else this.$div = $(`<div class="read nested ${this.fields.settings.name}"></div>`);
+            }
+            else this.$div = $(`<div class="read ${this.fields.settings.name}"></div>`);
+
+            this.renderHeader();
+
+            this.load(null);
+
+            return this.$div;
         }
-        else this.$div = $(`<div class="read ${this.fields.settings.name}"></div>`);
-
-        this.renderHeader();
-
-        this.load(null);
-
-        return this.$div;
+        else return null;
     }
 
     renderHeader = () => {
@@ -118,19 +122,20 @@ class ReadBox extends ViewBox {
     }
 
     load = (item = null) => {
-        this.$div.empty();
-        
-        this.renderHeader();
+        if (!this.fields.settings.hidden) {
+            this.$div.empty();  
+            this.renderHeader();
 
-        if (item) {
-            if (this.fields.settings.multiple && this.nested) {
-                if (Array.isArray(item)) for (let i = 0; i < item.length; i++) {
-                    this.add(item[i]);
+            if (item) {
+                if (this.fields.settings.multiple && this.nested) {
+                    if (Array.isArray(item)) for (let i = 0; i < item.length; i++) {
+                        this.add(item[i]);
+                    }
                 }
+                else this.set(item);
             }
-            else this.set(item);
+            else ReadBox.renderFieldTo(this.fields, this.$div, item);
         }
-        else ReadBox.renderFieldTo(this.fields, this.$div, item);
     }
 
     add = (item = null) => {
@@ -142,8 +147,13 @@ class ReadBox extends ViewBox {
                 if (item) toLoad = item[this.fields.children[i].settings.name];
 
                 let newBox = new ReadBox(this.fields.children[i], true);
-                newBox.render().appendTo($newLI);
-                newBox.load(toLoad);
+                if (newBox) {
+                    let $newBox = newBox.render();
+                    if ($newBox) {
+                        $newBox.appendTo($newLI);
+                        newBox.load(toLoad);
+                    }
+                }
             }
         }
         else ReadBox.renderFieldTo(this.fields, $newLI, item);
@@ -156,8 +166,13 @@ class ReadBox extends ViewBox {
                 if (item) toLoad = item[this.fields.children[i].settings.name];
 
                 let newBox = new ReadBox(this.fields.children[i], true);
-                newBox.render().appendTo(this.$div);
-                newBox.load(toLoad);
+                if (newBox) {
+                    let $newBox = newBox.render();
+                    if ($newBox) {
+                        $newBox.appendTo(this.$div);
+                        newBox.load(toLoad);
+                    }
+                }
             }
         }
         else ReadBox.renderFieldTo(this.fields, this.$div, item);
@@ -172,19 +187,21 @@ class EditBox extends ViewBox {
     }
 
     render = () => {
-        if (this.nested) {
-            if (this.fields.settings.multiple) this.$div = $(`<div class="edit nested multiple  ${this.fields.settings.name}"></div>`);
-            else this.$div = $(`<div class="edit nested  ${this.fields.settings.name}"></div>`);
-            this.$add = $(`<button>Add</button>`).appendTo(this.$div);
-            this.$add.click(this.add);
+        if (!this.fields.settings.hidden) {
+            if (this.nested) {
+                if (this.fields.settings.multiple) this.$div = $(`<div class="edit nested multiple  ${this.fields.settings.name}"></div>`);
+                else this.$div = $(`<div class="edit nested  ${this.fields.settings.name}"></div>`);
+                this.$add = $(`<button>Add</button>`).appendTo(this.$div);
+                this.$add.click(this.add);
+            }
+            else this.$div = $(`<div class="edit  ${this.fields.settings.name}"></div>`);
+    
+            this.renderHeader();
+    
+            this.load(null);
+    
+            return this.$div;
         }
-        else this.$div = $(`<div class="edit  ${this.fields.settings.name}"></div>`);
-
-        this.renderHeader();
-
-        this.load(null);
-
-        return this.$div;
     }
 
     static renderFieldTo = function renderFieldTo(field, $parent = this.$div, item = null, $domCapture = this.$items) {
@@ -291,29 +308,45 @@ class EditBox extends ViewBox {
     save = () => {
         let toGo = [];
 
-        if (this.fields.settings.multiple && this.nested) {
-            for (let i = 0; i < this.$items.length; i++) {
-                if (this.$items[i]) {
-                    let saved = this.saveFields(this.$items[i]);
-                    toGo.push(saved);
+        if (!this.fields.settings.hidden && !this.fields.settings.readOnly) {
+            if (this.fields.settings.multiple && this.nested) {
+                for (let i = 0; i < this.$items.length; i++) {
+                    if (this.$items[i]) {
+                        let og = null;
+                        if (this.item[i]) og = this.item[i]; 
+                        let saved = this.saveFields(this.$items[i], og);
+                        toGo.push(saved);
+                    }
                 }
             }
+            else toGo = this.saveFields();
         }
-        else toGo = this.saveFields();
+        else toGo = this.item;
 
         return toGo;
     }
 
-    saveFields = ($items = this.$items) => {
+    saveFields = ($items = this.$items, originalItem = null) => {
         let toGo = {};
 
         if (Array.isArray(this.fields.children)) {
+            let offset = 0;
+
             for (let i = 0; i < this.fields.children.length; i++) {
-                let saved = $items[i].save();
-                toGo[this.fields.children[i].settings.name] = saved;
+                if (!this.fields.children[i].settings.hidden && !this.fields.children[i].settings.readOnly) {
+                    let saved = $items[i - offset].save();
+                    toGo[this.fields.children[i].settings.name] = saved;
+                }
+                else {
+                    if (originalItem[this.fields.children[i].settings.name]) {
+                        toGo[this.fields.children[i].settings.name] = originalItem[this.fields.children[i].settings.name];
+                    }
+                    else toGo[this.fields.children[i].settings.name] = null;
+                    if (this.fields.children[i].settings.hidden) offset++;
+                }
             }
         }
-        else toGo = this.saveField(this.fields.children, $items[0]);
+        else toGo = this.saveField(this.fields.children, $items[0]);   
 
         return toGo;
     }
@@ -357,26 +390,29 @@ class EditBox extends ViewBox {
     load = (item = null) => {
         this.$div.empty();
         this.$items = [];
+        this.item = item;
 
-        if (this.loadOverride) this.loadOverride(item);
-        else {
-            this.renderHeader();
-    
-            if (this.fields.settings.multiple && this.nested) {
-                if (!this.fields.settings.lockLength) {
-                    this.$add = $(`<button>Add</button>`).appendTo(this.$div);
-                    this.$add.click(() => { this.add(); });
-                }
-    
-                if (Array.isArray(item)) {
-                    for (let i = 0; i < item.length; i++) {
-                        this.add(item[i]);
+        if (!this.fields.settings.hidden) {
+            if (this.loadOverride) this.loadOverride(item);
+            else {
+                this.renderHeader();
+        
+                if (this.fields.settings.multiple && this.nested) {
+                    if (!this.fields.settings.lockLength) {
+                        this.$add = $(`<button>Add</button>`).appendTo(this.$div);
+                        this.$add.click(() => { this.add(); });
                     }
+        
+                    if (Array.isArray(item)) {
+                        for (let i = 0; i < item.length; i++) {
+                            this.add(item[i]);
+                        }
+                    }
+        
+                    if (!this.fields.settings.lockLength) this.add();
                 }
-    
-                if (!this.fields.settings.lockLength) this.add();
+                else this.set(item);
             }
-            else this.set(item);
         }
     }
 
@@ -391,9 +427,14 @@ class EditBox extends ViewBox {
                 if (item) toLoad = item[this.fields.children[i].settings.name];
 
                 let newBox = new EditBox(this.fields.children[i], true, this.loadOverride);
-                newBox.render().appendTo($newLI);
-                newBox.load(toLoad);
-                $domCapture.push(newBox);
+                if (newBox) {
+                    let $newBox = newBox.render();
+                    if ($newBox) {
+                        $newBox.appendTo($newLI);
+                        newBox.load(toLoad);
+                        $domCapture.push(newBox);
+                    }
+                }
             }
         }
         else EditBox.renderFieldTo(this.fields, $newLI, item, $domCapture);
@@ -412,9 +453,14 @@ class EditBox extends ViewBox {
                 if (item) toLoad = item[this.fields.children[i].settings.name];
 
                 let newBox = new EditBox(this.fields.children[i], true, this.loadOverride);
-                newBox.render().appendTo(this.$div);
-                newBox.load(toLoad);
-                this.$items.push(newBox);
+                if (newBox) {
+                    let $newBox = newBox.render();
+                    if ($newBox) {
+                        $newBox.appendTo(this.$div);
+                        newBox.load(toLoad);
+                        this.$items.push(newBox);
+                    }
+                }
             }
         }
         else EditBox.renderFieldTo(this.fields, this.$div, item, this.$items);
@@ -491,7 +537,7 @@ class Browser {
             this.$toFilter.click(this.toggleFilters);
             this.$searchList = $(`<ul class="selector"></ul>`).appendTo(this.$searchBox);
 
-            if (!this.otherSettings.disableCreate) {
+            if (!this.otherSettings.disableCreate && this.editable) {
                 this.$create = $(`<button class="create">+</button>`).appendTo(this.$div);
                 this.$create.click(this.create);
             }
