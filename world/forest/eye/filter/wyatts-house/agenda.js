@@ -5,6 +5,9 @@ class Agenda {
         this.id = id;
         this.days = [];
         this.date = new Date();
+        this.userTasks = [];
+        this.sharedTasks = [];
+        this.allTasks = [];
         
         this.render();
     }
@@ -19,10 +22,20 @@ class Agenda {
     }
 
     load = (tasks) => {
-        this.tasks = tasks;
+        this.userTasks = tasks;
+        this.allTasks = [ ...this.userTasks, ...this.sharedTasks];
 
         for (let i = 0; i < 7; i++) {
-            this.days[i].load(this.tasks);        
+            this.days[i].load(this.allTasks);        
+        }
+    }
+
+    loadShared = (tasks) => {
+        this.sharedTasks = tasks;
+        this.allTasks = [ ...this.userTasks, ...this.sharedTasks];
+
+        for (let i = 0; i < 7; i++) {
+            this.days[i].load(this.allTasks);        
         }
     }
 }

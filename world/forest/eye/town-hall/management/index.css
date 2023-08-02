@@ -1,0 +1,31 @@
+.browser h6.auth {
+    padding: 1px;
+}
+
+.browser .read.name {
+    background: none;
+}
+
+.browser .read.members {
+    background: var(--darkBgColor);
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.browser .edit.members {
+    background: var(--darkBgColor);
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.browser .read.joinRequests {
+    background: var(--darkBgColor);
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.browser .edit.joinRequests {
+    background: var(--darkBgColor);
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}

@@ -488,9 +488,12 @@ input[type=checkbox] {
 }
 
 ul.selector li {
-    width: 100%;
+    width: var(--fillFromMargin);
     overflow: hidden;
     font-size: clamp(var(--littleP), var(--pSize), var(--littleP) * 2);
+    border: none;
+    border-bottom: var(--standardBorder);
+    min-height: 5px;
 }
 
 ul.selector li:hover {

@@ -1,0 +1,36 @@
+<div class="create">
+    <h4>Create A Group</h4>
+    <input type="text" id="group-name" placeholder="Name">
+    <textarea id="description" cols="30" rows="10">Description</textarea>
+    <button id="submit" onclick="create()">Create Group</button>
+</div>
+
+<p class="info"></p>
+
+<hr>
+
+<a  class="return" href="/forest/eye/town-hall/lobby">
+    Return to the Lobby
+</a>
+
+<script>
+    const $name = $("#group-name");
+    const $description = $("#description");
+    const $info = $(".info");
+
+    const create = () => {
+        base.do("create-group", {
+            name: $name.val(),
+            description: $description.val()
+        }).then((res) => {
+            if (res.data) {
+                $name.val("");
+                $description.val("");
+                $info.text("Group created!");
+            }
+            else {
+                $info.text("Error: Group already exists!");
+            }
+        });
+    }
+</script>
