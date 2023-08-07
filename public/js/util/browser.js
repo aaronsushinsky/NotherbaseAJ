@@ -189,10 +189,12 @@ class EditBox extends ViewBox {
     render = () => {
         if (!this.fields.settings.hidden) {
             if (this.nested) {
-                if (this.fields.settings.multiple) this.$div = $(`<div class="edit nested multiple  ${this.fields.settings.name}"></div>`);
-                else this.$div = $(`<div class="edit nested  ${this.fields.settings.name}"></div>`);
-                this.$add = $(`<button>Add</button>`).appendTo(this.$div);
-                this.$add.click(this.add);
+                if (this.fields.settings.multiple) {
+                    this.$div = $(`<div class="edit nested multiple  ${this.fields.settings.name}"></div>`);
+                    this.$add = $(`<button>Add</button>`).appendTo(this.$div);
+                    this.$add.click(this.add);
+                }
+                else this.$div = $(`<div class="edit nested ${this.fields.settings.name}"></div>`);
             }
             else this.$div = $(`<div class="edit  ${this.fields.settings.name}"></div>`);
     
@@ -313,7 +315,7 @@ class EditBox extends ViewBox {
                 for (let i = 0; i < this.$items.length; i++) {
                     if (this.$items[i]) {
                         let og = null;
-                        if (this.item[i]) og = this.item[i]; 
+                        if (this.item && this.item[i]) og = this.item[i]; 
                         let saved = this.saveFields(this.$items[i], og);
                         toGo.push(saved);
                     }
@@ -409,7 +411,7 @@ class EditBox extends ViewBox {
                         }
                     }
         
-                    if (!this.fields.settings.lockLength) this.add();
+                    if (!this.fields.settings.lockLength && this.$items.length < 1) this.add();
                 }
                 else this.set(item);
             }
