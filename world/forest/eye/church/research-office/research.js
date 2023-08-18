@@ -121,6 +121,7 @@ class BibleResearch {
         
                 let text = "";
                 for (let i = 0; i < res.data.verses.length; i++) {
+                    text += `${i + 1}: `;
                     text += res.data.verses[i].text;
                     text += '<br /><br />';
                 }
