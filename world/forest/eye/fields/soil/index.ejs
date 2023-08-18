@@ -1,0 +1,52 @@
+<p>There is a great patch of soil here.</p>
+
+<hr>
+
+<div class="flower-game"></div>
+
+<hr>
+
+<a href="/forest/eye/fields" class="return">
+    Return to the Fields
+</a>
+
+<script>
+    class FlowerGame {
+        constructor() {
+            this.UI = class UI {
+                constructor() {
+
+                }
+            }
+            
+            this.$div = $(".flower-game");
+
+            base.load("flower-game").then((res) => {
+                this.start(res);
+            });
+        }
+
+        start = (loaded) => {
+            if (!loaded) {
+                this.seeds = 10;
+                this.flowers = 0;
+                this.gardens = 0;
+                this.fields = 0;
+                this.farms = 0;
+            }
+            else {
+                this.seeds = loaded.seeds;
+                this.flowers = loaded.flowers;
+                this.gardens = loaded.gardens;
+                this.fields = loaded.fields;
+                this.farms = loaded.farms;
+            }
+        }
+
+        render = () => {
+            
+        }
+    }
+
+    const flowerGame = new FlowerGame();
+</script>
