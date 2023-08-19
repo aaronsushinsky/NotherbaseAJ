@@ -1,5 +1,7 @@
 class BibleResearch {
     constructor() {
+        this.$div = $(".bible-research");
+
         this.Reader = class Reader {
             constructor() {
                 this.$div = null;
@@ -134,8 +136,74 @@ class BibleResearch {
             }
         }
         this.reader = new this.Reader();
-
-        this.$div = $(".bible-research");
         this.$div.append(this.reader.render());
+
+        this.Persons = class Persons extends Browser {
+            constructor() {
+                const fields = new NBField({
+                    name: "persons",
+                    multiple: true,
+                    label: "Person: ",
+                    placeholder: "No Persons"
+                }, [
+                    new NBField({
+                        name: "name",
+                        label: "Person: ",
+                        placeholder: "No Persons"
+                    }, "string"),
+                    new NBField({
+                        name: "aliases",
+                        multiple: true,
+                        label: "Aliases: ",
+                        placeholder: "No Aliases"
+                    }, "string"),
+                    new NBField({
+                        name: "description",
+                        label: "Description: ",
+                        placeholder: "No Description"
+                    }, "long-string"),
+                ]);
+                super("persons", fields, true, "save-persons");
+            }
+        }
+        this.$div.append(`<div class="browser" id="persons"></div>`);
+        this.persons = new this.Persons();
+        base.load("bible-research-persons").then((res) => {
+            this.persons.load(res);
+        });
+
+        this.Themes = class Themes extends Browser {
+            constructor() {
+                const fields = new NBField({
+                    name: "themes",
+                    multiple: true,
+                    label: "Themes: ",
+                    placeholder: "No Themes"
+                }, [
+                    new NBField({
+                        name: "name",
+                        label: "Theme: ",
+                        placeholder: "No Theme"
+                    }, "string"),
+                    new NBField({
+                        name: "aliases",
+                        multiple: true,
+                        label: "Aliases: ",
+                        placeholder: "No Aliases"
+                    }, "string"),
+                    new NBField({
+                        name: "description",
+                        label: "Description: ",
+                        placeholder: "No Description"
+                    }, "long-string"),
+                ]);
+                super("themes", fields, true, "save-themes");
+            }
+        }
+        this.$div.append(`<div class="browser" id="themes"></div>`);
+        this.themes = new this.Themes();
+        base.load("bible-research-themes").then((res) => {
+            this.themes.load(res);
+        });
     }
 }

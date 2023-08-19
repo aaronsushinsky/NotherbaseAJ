@@ -1,0 +1,54 @@
+
+.livingroom {
+    background: var(--houseColor);
+}
+
+.livingroom article {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-around;
+    align-content: flex-end;
+}
+
+.closet {
+    width: calc(25vh * 36 / 80);
+    height: 25vh;
+    overflow: auto;
+    position: relative;
+    background: var(--veryDarkBgColor);;
+}
+
+.closet .door {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: var(--woodColor);
+    margin: 0;
+}
+
+.closet .door .knob {
+    cursor: pointer;
+}
+
+.bookshelf {
+    width: 10vh;
+    height: 15vh;
+    border: 5px solid var(--darkWoodColor);
+    background-color: var(--woodColor);
+}
+
+.bookshelf hr {
+    margin: 0;
+    width: 100%;
+    border: none;
+    border-bottom: 5px solid var(--darkWoodColor);
+}
+
+.shelf {
+    width: 100%;
+    height: 33%;
+}

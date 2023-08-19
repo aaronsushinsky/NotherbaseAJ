@@ -28,7 +28,6 @@ class Billboard {
         let saving = null;
 
         if (this.settings.onSave) {
-            console.log(this.items);
             saving = base.do(this.settings.onSave, {
                 id: this.id,
                 items: this.items
