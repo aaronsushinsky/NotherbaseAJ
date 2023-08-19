@@ -1,0 +1,26 @@
+<div class="browser" id="scheduler"></div>
+
+<hr>
+
+<div class="browser" id="shared-scheduler"></div>
+
+<hr>
+
+<a class="return" href="/forest/eye/filter/yard">
+    Exit the Office
+</a>
+
+<script src="/js/util/weather.js"></script>
+<script src="/js/util/browser.js"></script>
+<script>
+    const weather = new WeatherSystem();
+
+    <%- include("./scheduler.js"); %>
+
+    let scheduler = new Scheduler("scheduler");
+    let sharedScheduler = new SharedScheduler("shared-scheduler");
+    base.do("load-schedule").then((res) => {
+        scheduler.load(res.data.userTasks);
+        sharedScheduler.load(res.data.sharedTasks);
+    });
+</script>

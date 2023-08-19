@@ -5,11 +5,13 @@ class Agenda {
         this.id = id;
         this.days = [];
         this.date = new Date();
-        this.userTasks = [];
-        this.sharedTasks = [];
-        this.allTasks = [];
+        this.tasks = [];
         
         this.render();
+
+        base.do("load-schedule", { route: "/forest/eye/filter/office" }).then((res) => {
+            this.load(res.data);
+        });
     }
 
     render = () => {
@@ -22,20 +24,10 @@ class Agenda {
     }
 
     load = (tasks) => {
-        this.userTasks = tasks;
-        this.allTasks = [ ...this.userTasks, ...this.sharedTasks];
+        this.tasks = [...tasks.userTasks, ...tasks.sharedTasks];
 
         for (let i = 0; i < 7; i++) {
-            this.days[i].load(this.allTasks);        
-        }
-    }
-
-    loadShared = (tasks) => {
-        this.sharedTasks = tasks;
-        this.allTasks = [ ...this.userTasks, ...this.sharedTasks];
-
-        for (let i = 0; i < 7; i++) {
-            this.days[i].load(this.allTasks);        
+            this.days[i].load(this.tasks);        
         }
     }
 }

@@ -1,97 +1,12 @@
 <style>
-    <%- include("./backyard.css"); %>
     <%- include("./index.css"); %>
     <%- include("./wallet.css"); %>
     <%- include("./agenda.css"); %>
-    <%- include("./calendar.css"); %>
 </style>
 <link rel="stylesheet" href="/styles/browser.css">
 <link rel="stylesheet" href="/styles/billboard.css">
 
-<article>
-    <section class="upstairs">
-        <h4>Upstairs</h4>
-        <button class="folder" onclick="upstairs.toggle(this)">v</button>
-        <article class="agenda" id="upstairs"></article>
-    </section>
-
-    <section class="laylas-room">
-        <h4>Layla's Room</h4>
-        <button class="folder" onclick="laylasRoom.toggle(this)">v</button>
-
-        <article>    
-            <article class="calendar" id="layla"></article>
-        
-            <article class="toy-box">
-                <h3>Toy Box</h3>
-                <button class="folder" onclick="toyBox.toggle()">O</button>
-                <hr>
-                <article>
-                    <div class="toy">
-                        <img class="cat-idle" src="/img/misc/cat.png">
-                        <div class="pocket"></div>
-                    </div>
-                
-                    <div class="toy background-changer">
-                        <img src="/img/the-front/logo.png">
-                    </div>
-                
-                    <div class="toy">
-                        <img class="rotato" src="/img/the-front/logo.png">
-                    </div>
-                
-                    <div class="toy beautiful-button">
-                        <div class="beautiful-background"></div>
-                        <img class="beautiful-border" src="/img/the-front/logo-border.png">
-                        <img class="beautiful-icon" src="/img/the-front/logo.png">
-                    </div>
-                </article>
-            </article>
-        </article>
-    </section>
-
-    <section class="office">
-        <h4>Office</h4>
-        <button class="folder" onclick="office.toggle(this)">v</button>
-        <article>
-            <div class="browser" id="scheduler"></div>
-            <div class="browser" id="shared-scheduler"></div>
-        </article>
-    </section>
-
-    <section class="livingroom">
-        <h4>Livingroom</h4>
-        <button class="folder" onclick="livingroom.toggle(this)">v</button>
-
-        <article>
-            <div class="closet">
-                <div class="door">
-                    <div class="knob" onclick="openCloset()"></div>
-                </div>
-            </div>
-    
-            <div class="bookshelf">
-                <div class="shelf">
-            
-                </div>
-                <hr>
-                <div class="shelf">
-                    
-                </div>
-                <hr>
-                <div class="shelf">
-                    
-                </div>
-            </div>
-    
-            <img class="painting" src="/img/misc/stake.png">
-    
-            <div class="basic end-table">
-                A small table.
-            </div>
-        </article>
-    </section>
-</article>
+<section class="agenda" id="upstairs"></section>
 
 <section class="porch">
     <div class="basic mailbox">
@@ -99,120 +14,18 @@
     </div>
 </section>
 
-<div class="yard">
-    <div class="sky">
-        <h4>The Yard</h4>
-        
-        <div class="ray"></div>
-        <div class="ray"></div>
-        <div class="ray"></div>
-        <div class="ray"></div>
-        <div class="ray"></div>
-        <div class="sun"></div>
-    </div>
-
-    <div class="ground">
-        <div class="tree">
-            <div class="leaves"></div>
-            <div class="trunk"></div>
-        </div>
-        <div class="weed">
-            <div class="leaf"></div>
-            <div class="leaf"></div>
-            <div class="leaf"></div>
-        </div>
-    </div>
-</div>
-
 <hr>
 
-<a class="go" href="/forest/eye/filter/tree-house">
-    Climb up the nearby Tree House
-</a>
-
-<hr>
-
-<a class="to" href="/forest/eye/filter/cave">
-    Go to Cave
-</a>
-
-<a class="to" href="/forest/eye/filter/tower">
-    Go to the Tower
-</a>
-
-<a class="to" href="/forest/eye/town-hall">
-    Go to the Town Hall
-</a>
-
-<hr>
-
-<a class="return" href="/forest/eye/library">
-    Return to the Library
-</a>
-
-<a class="return" href="/forest/eye/church">
-    Return to the Church
+<a class="return" href="/forest/eye/filter/yard">
+    Exit Wyatt's House
 </a>
 
 <script src="/js/dialogue.js"></script>
 <script src="/js/billboard.js"></script>
-<script src="/js/util/foldable.js"></script>
 <script src="/js/util/browser.js"></script>
+<script src="/js/util/weather.js"></script>
 <script>
-    //yard
-    <%- include("./harvest.js"); %>
-    let harvestGame = new HarvestGame();
-
-
-
-    //office
-    let office = new Foldable($(".office>article"));
-
-    <%- include("./scheduler.js"); %>
-    let scheduler = new Scheduler("scheduler");
-    let sharedScheduler = new SharedScheduler("shared-scheduler");
-    base.do("load-schedule").then((res) => {
-        console.log(res);
-        scheduler.otherSettings.onRefresh = (tasks) => {
-            upstairsAgenda.load(tasks);
-            laylaCalendar.load(tasks);
-        }
-        scheduler.load(res.data.userTasks);
-        sharedScheduler.otherSettings.onRefresh = (tasks) => {
-            upstairsAgenda.loadShared(tasks);
-            laylaCalendar.loadShared(tasks);
-        }
-        sharedScheduler.load(res.data.sharedTasks);
-    });
-
-
-
-    //livingroom
-    let livingroom = new Foldable($(".livingroom>article"));
-    const openCloset = function openCloset() {
-        $(".closet .door").addClass("invisible");
-    };
-
-
-
-    //layla widgets
-    let lSkills, lToDo, lRecipes = null;
-    let toyBox = new Foldable($(".toy-box article"));
-    let laylasRoom = new Foldable($(".laylas-room>article"));
-
-    <%- include("./calendar.js"); %>
-    const laylaCalendar = new Calendar("layla");
-
-    $(".pocket").on("click", function() { $(".pocket").toggleClass("pocket-down"); });
-    $(".background-changer").hover(function() { $(".background-changer").toggleClass("red-bg"); });
-    $(".beautiful-button").hover(function() { $(".beautiful-background").toggleClass("red-bg"); });
-    $(".beautiful-button").on("mousedown", function() { $(".beautiful-icon").addClass("beautiful-icon-pressed"); });
-    $(".beautiful-button").on("mouseup", function() { $(".beautiful-icon").removeClass("beautiful-icon-pressed"); });
-
-
-
-    //upstairs widgets
-    let upstairs = new Foldable($(".upstairs>article"));
+    const weather = new WeatherSystem();
 
     <%- include("./agenda.js"); %>
     const upstairsAgenda = new Agenda("upstairs");

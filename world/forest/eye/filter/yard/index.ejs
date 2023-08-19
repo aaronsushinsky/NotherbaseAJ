@@ -1,0 +1,83 @@
+<style>
+    <%- include("./backyard.css"); %>
+</style>
+
+<div class="yard">
+    <div class="sky">
+        <h4>The Yard</h4>
+        
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="sun"></div>
+    </div>
+
+    <div class="ground">
+        <div class="tree">
+            <div class="leaves"></div>
+            <div class="trunk"></div>
+        </div>
+        <div class="weed">
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<a class="go" href="/forest/eye/filter/wyatts-house">
+    Go to Wyatt's House
+</a>
+
+<a class="go" href="/forest/eye/filter/laylas-house">
+    Go to Layla's House
+</a>
+
+<a class="go" href="/forest/eye/filter/office">
+    Go to the Office
+</a>
+
+<a class="go" href="/forest/eye/filter/commons">
+    Go to the Commons
+</a>
+
+<a class="go" href="/forest/eye/filter/tree-house">
+    Climb up the nearby Tree House
+</a>
+
+<hr>
+
+<a class="to" href="/forest/eye/filter/cave">
+    Go to Cave
+</a>
+
+<a class="to" href="/forest/eye/filter/tower">
+    Go to the Tower
+</a>
+
+<a class="to" href="/forest/eye/town-hall">
+    Go to the Town Hall
+</a>
+
+<hr>
+
+<a class="return" href="/forest/eye/library">
+    Return to the Library
+</a>
+
+<a class="return" href="/forest/eye/church">
+    Return to the Church
+</a>
+
+<script src="/js/util/weather.js"></script>
+<script>
+    const weather = new WeatherSystem();
+
+    //yard
+    <%- include("./harvest.js"); %>
+    let harvestGame = new HarvestGame();
+</script>

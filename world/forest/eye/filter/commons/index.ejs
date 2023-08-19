@@ -1,0 +1,47 @@
+<style>
+    <%- include("./index.css"); %>
+</style>
+
+
+<article>
+    <div class="closet">
+        <div class="door">
+            <div class="knob" onclick="openCloset()"></div>
+        </div>
+    </div>
+
+    <div class="bookshelf">
+        <div class="shelf">
+    
+        </div>
+        <hr>
+        <div class="shelf">
+            
+        </div>
+        <hr>
+        <div class="shelf">
+            
+        </div>
+    </div>
+
+    <img class="painting" src="/img/misc/stake.png">
+
+    <div class="basic end-table">
+        A small table.
+    </div>
+</article>
+
+<hr>
+
+<a class="return" href="/forest/eye/filter/yard">
+    Exit the Commons
+</a>
+
+<script src="/js/util/weather.js"></script>
+<script>
+    const weather = new WeatherSystem();
+
+    const openCloset = function openCloset() {
+        $(".closet .door").addClass("invisible");
+    };
+</script>
