@@ -528,7 +528,14 @@ class Browser {
         this.filtersBox = new FiltersBox(this.fields, this.renderSearchResults);
 
         this.render();
+
+        if (!Browser.styled) {
+            $("head").append(`<link href='/styles/browser.css' rel='stylesheet' />`);
+            Browser.styled = true;
+        }
     }
+
+    static styled = false;
 
     render = () => {
         this.$div = $(`.browser#${this.id}`);
