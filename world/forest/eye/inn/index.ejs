@@ -12,9 +12,9 @@
 
 <div class="stall conchu">
     <h3>Looking for Tundra Explorers!</h3>
-    <div class="stream">
+    
+    <div class="stream"></div>
 
-    </div>
     <p>
         Register here to be part of the next
         expidition into the snowy tundra!
@@ -28,7 +28,7 @@
     <button>Register for this Expidition</button>
 </div>
 
-<div class="billboard conchu" id="inn-ads">
+<div class="billboard" id="inn-ads">
 
 </div>
 
@@ -60,6 +60,7 @@
     let innBB = null;
 
     base.load("eotf-inn-ads", "global").then((res) => {
+        console.log(<%= user.authLevels.includes("eotf-inn-ads") %>);
         innBB = new Billboard("inn-ads", res.items, {
             onSave: "save-ads",
             free: <%= user.authLevels.includes("eotf-inn-ads") %>

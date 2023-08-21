@@ -60,7 +60,7 @@
     --fillQuarterFromMargin: calc(25% - (2 * var(--margin)));
     --fillQuarterFromThickMargin: calc(25% - (2 * var(--thickMargin)));
     --boxShadow: 5px 0px 5px 1px var(--shadowColor);
-    --goHeight: 150px;
+    --goHeight: 100px;
     --returnHeight: 10vh;
 }
 

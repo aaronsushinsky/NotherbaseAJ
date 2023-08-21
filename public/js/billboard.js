@@ -10,7 +10,6 @@ class Billboard {
         this.items = items;
         this.id = id;
         this.$div = $(`.billboard#${id}`);
-        this.$init = this.$div.clone();
         this.currentItem = -1;
 
         this.render();
@@ -78,7 +77,6 @@ class Billboard {
 
     render() {
         this.$div.empty();
-        this.$div.append(this.$init.children().clone());
 
         this.$loading = $(`<div class="loading"><h6>Loading...</h6></div>`).appendTo(this.$div);
         this.$main = $(`<div class="main invisible"></div>`).appendTo(this.$div);

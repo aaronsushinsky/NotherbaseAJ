@@ -540,46 +540,54 @@ class Browser {
     render = () => {
         this.$div = $(`.browser#${this.id}`);
 
+        //filtered items list
         if (this.fields.settings.multiple) {
             this.$searchBox = $(`<div class="search"></div>`).appendTo(this.$div);
-            this.$toFilter = $(`<button class="filter-toggle">Filter</button>`).appendTo(this.$div);
-            this.$toFilter.click(this.toggleFilters);
             this.$searchList = $(`<ul class="selector"></ul>`).appendTo(this.$searchBox);
-
-            if (!this.otherSettings.disableCreate && this.editable) {
-                this.$create = $(`<button class="create">+</button>`).appendTo(this.$div);
-                this.$create.click(this.create);
-            }
 
             let $filters = this.filtersBox.render();
             this.filtersBox.hide();
             $filters.appendTo(this.$div);
         }
 
+        //read box
         this.readBox.render().appendTo(this.$div);
 
+        //edit box
         if (this.editable) {
-            this.$toEdit = $(`<button class="edit">Edit</button>`).appendTo(this.$div);
-            this.$toEdit.click(this.edit);
-    
             let $edit = this.editBox.render();
             this.editBox.hide();
             $edit.appendTo(this.$div);
-    
+        }
+
+        //ui
+        this.$ui = $(`<div class="ui"></div>`).appendTo(this.$div);
+        if (this.fields.settings.multiple) {
+            this.$toFilter = $(`<button class="filter-toggle">Filter</button>`).appendTo(this.$ui);
+            this.$toFilter.click(this.toggleFilters);
+
+            if (!this.otherSettings.disableCreate && this.editable) {
+                this.$create = $(`<button class="create">+</button>`).appendTo(this.$ui);
+                this.$create.click(this.create);
+            }
+        }
+        if (this.editable) {
+            this.$toEdit = $(`<button class="edit">Edit</button>`).appendTo(this.$ui);
+            this.$toEdit.click(this.edit);
+
             if (!this.otherSettings.disableSave) {
-                this.$save = $(`<button class="save invisible">Save</button>`).appendTo(this.$div);
+                this.$save = $(`<button class="save invisible">Save</button>`).appendTo(this.$ui);
                 this.$save.click(this.save);
             }
-            this.$cancel = $(`<button class="cancel invisible">Cancel</button>`).appendTo(this.$div);
+            this.$cancel = $(`<button class="cancel invisible">Cancel</button>`).appendTo(this.$ui);
             this.$cancel.click(this.cancel);  
 
             if (this.fields.settings.multiple && !this.otherSettings.disableDelete) {
-                this.$delete = $(`<button class="delete invisible">Delete</button>`).appendTo(this.$div);
+                this.$delete = $(`<button class="delete invisible">Delete</button>`).appendTo(this.$ui);
                 this.$delete.click(this.delete);
             }
         }
-
-        this.$alert = $(`<p id="alert"></p>`).appendTo(this.$div);
+        this.$alert = $(`<p id="alert"></p>`).appendTo(this.$ui);
         this.$hideAlert = $(`<button id="hide">X</button>`).appendTo(this.$alert);
         this.$hideAlert.click(this.hideAlert);
         this.hideAlert();
