@@ -7,13 +7,13 @@
 .logo {
     border-radius: 50%;
     box-shadow: 15px 15px 5px var(--shadowColor);
-    width: 300px;
-    height: 300px;
-    border-bottom: 150px solid var(--gateColor);
-    border-top: 150px solid var(--notherColor);
+    width: 20vh;
+    height: 20vh;
+    border-bottom: 10vh solid var(--gateColor);
+    border-top: 10vh solid var(--notherColor);
     margin: 30px;
     color: white;
-    font-size: 220px;
+    font-size: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;

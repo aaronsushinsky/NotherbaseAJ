@@ -3,11 +3,6 @@
     --woodDark: rgb(29, 23, 17);
 }
 
-.sign#index {
-    height: 520px;
-    width: 500px;
-}
-
 .sign#index ul {
     position: relative;
 }
@@ -19,7 +14,7 @@
 }
 
 .sign#index li:hover {
-    background: var(--lightBgColor);
+    background: rgba(0, 0, 0, 0.247);
 }
 
 .sign#index .detail {
@@ -32,6 +27,7 @@
     align-items: center;
     justify-content: center;
     padding: 5px;
+    background: rgb(245, 212, 174);
 }
 
 .sign#index button#close {
@@ -44,11 +40,12 @@
     align-items: center;
     justify-content: center;
     padding: 5px;
+    background: rgb(245, 212, 174);
 }
 
 .well {
     background: url("/img/forest/eotf/well.png");
-    background-position: cover;
+    background-size: cover;
     height: 520px;
     display: flex;
     flex-wrap: wrap;
