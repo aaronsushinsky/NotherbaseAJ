@@ -24,7 +24,6 @@
 }
 
 .floor {
-    width: 100%;
     min-height: 50px;
     border: 1px solid var(--shadowColor);
     background-color: var(--bgColor);

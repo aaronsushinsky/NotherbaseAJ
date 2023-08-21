@@ -1,6 +1,5 @@
 <style>
     <%- include("./index.css"); %>
-    <%- include("./mini-library.css"); %>
 </style>
 <link rel="stylesheet" href="/styles/billboard.css">
 
@@ -47,35 +46,13 @@
     <button onclick="base.do('toss-in-well', { amount: parseInt($('.well input').val()) })">Toss</button>
 </div>
 
-<div class="billboard conchu" id="square-bb">
+<div class="billboard" id="square-bb">
     <h5>Community Billboard</h5>
 </div>
 
 <div id="pile">
     <div id="debris">
 
-    </div>
-</div>
-
-
-<div class="mini-library">
-    <div class="stock" id="player">
-        <h5>Books in your Inventory</h5>
-
-        <ul>
-            <li>Example Book</li>
-        </ul>
-    </div>
-    
-    <hr class="plank">
-    <button class="conchu">Transfer</button>
-
-    <div class="stock" id="server">
-        <h5>Books in the Mini-Library</h5>
-
-        <ul>
-            <li>Example Book</li>
-        </ul>
     </div>
 </div>
 
