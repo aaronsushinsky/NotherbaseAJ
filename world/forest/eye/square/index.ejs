@@ -3,13 +3,6 @@
 </style>
 <link rel="stylesheet" href="/styles/billboard.css">
 
-<p>
-    You enter a ghost town. This is the public square,
-    or at least that's what it seemed to be at one point.
-</p>
-
-<hr>
-
 <div class="sign" id="index">
     <h3>The Eye of the Forest</h3>
     <h4>Population: !-0</h4>
@@ -43,12 +36,11 @@
     <h4>Town Well</h4>
     <h5>Toss some gold coins in the well?</h5>
     <input type="number" value=1>
-    <button onclick="base.do('toss-in-well', { amount: parseInt($('.well input').val()) })">Toss</button>
+    <button onclick="/*base.do('toss-in-well', { amount: parseInt($('.well input').val()) })*/">Toss</button>
 </div>
 
-<div class="billboard" id="square-bb">
-    <h5>Community Billboard</h5>
-</div>
+<h5>Community Billboard</h5>
+<div class="billboard" id="square-bb"></div>
 
 <div id="pile">
     <div id="debris">
