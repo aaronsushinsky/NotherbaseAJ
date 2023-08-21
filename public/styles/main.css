@@ -60,7 +60,7 @@
     --fillQuarterFromMargin: calc(25% - (2 * var(--margin)));
     --fillQuarterFromThickMargin: calc(25% - (2 * var(--thickMargin)));
     --boxShadow: 5px 0px 5px 1px var(--shadowColor);
-    --goHeight: 150px;
+    --goHeight: 100px;
     --returnHeight: 10vh;
 }
 
@@ -124,11 +124,11 @@ main {
     width: var(--mainWidth);
     max-width: var(--maxMainWidth);
     min-height: 500px;
-    max-height: calc(100vh - (2 * var(--thickMargin)) - 50px);
+    max-height: calc(100vh - (2 * var(--thickMargin)) - 40px);
     box-shadow: var(--boxShadow);
-    padding: var(--padding);
+    padding: 0;
     border-radius: 5px;
-    top: 2.5vw;
+    top: calc(50px);
     left: 2.5vw;
     display: flex;
     flex-wrap: wrap;
@@ -145,17 +145,25 @@ footer {
     display: flex;
     justify-content: center;
     align-content: center;
-    align-items: flex-start;
-    height: 20px;
+    align-items: center;
+    height: 40px;
     width: var(--mainWidth);
     max-width: var(--maxMainWidth);
     background-color: var(--veryDarkBgColor);
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 0px 0px 5px 5px;
     box-shadow: var(--boxShadow);
-    padding: var(--padding);
+    padding: 0;
     border: none;
-    bottom: 0;
+    top: 0;
     left: 2.5vw;
+}
+
+footer button {
+    margin: 0;
+    height: 100%;
+    border-radius: 5px 0 0 5px;
+    border: none;
+    border-left: var(--standardBorder);
 }
 
 footer a {
@@ -239,7 +247,7 @@ hr {
     margin-top: var(--thickMargin);
     margin-bottom: var(--thickMargin);
     width: 100%;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
 p {

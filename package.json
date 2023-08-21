@@ -26,7 +26,7 @@
     "@google-cloud/local-auth": "^2.1.1",
     "@minescope/mineping": "^1.0.4",
     "googleapis": "^118.0.0",
-    "notherbase-fs": "^3.2.5"
+    "notherbase-fs": "^3.2.7"
   },
   "type": "module",
   "engines": {

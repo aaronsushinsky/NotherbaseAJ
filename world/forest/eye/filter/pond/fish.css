@@ -6,13 +6,12 @@ main {
     background-color: rgb(4, 4, 17);
     padding: 0;
     border-radius: 5px 5px 0 0;
-    overflow: hidden;
 }
 
 .game {
     background: rgb(112,207,222);
     background: linear-gradient(173deg, rgb(146, 215, 226) 0%, rgba(4,4,17,1) 55%, rgba(4,4,17,1) 100%);
-    height: 1000px;
+    height: 75vh;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -66,13 +65,13 @@ main {
 
 @keyframes cloud-bob {
     from {
-        left: -150px;
-        top: 50px;
+        left: 0;
+        top: 5%;
         transform: skew(55deg, -10deg) rotate(30deg) scale(1);
     }
     to {
-        left: -250px;
-        top: 0;
+        left: 45%;
+        top: -5%;
         transform: skew(35deg, -10deg) rotate(30deg) scale(.85);
     }
 }
@@ -111,13 +110,13 @@ main {
 }
 
 .ground {
-    width: 130%;
+    width: 200%;
     height: 60%;
     background-color: rgba(51, 40, 22, 0.548);
     background: linear-gradient(200deg, rgba(51, 40, 22, 1) 0%, rgba(4,4,17,1) 55%, rgba(4,4,17,1) 100%);
     position: absolute;
-    bottom: -75px;
-    right: -150px;
+    top: 40%;
+    left: -50%;
     border-radius: 35%;
     transform: skew(5deg, -20deg);
 }
@@ -128,26 +127,26 @@ main {
     background-color: rgba(51, 40, 22, 0.548);
     background: linear-gradient(100deg, rgb(90, 83, 73) 0%, rgb(9, 9, 26) 55%, rgba(4,4,17,1) 100%);
     position: absolute;
-    top: 350px;
-    right: -350px;
+    top: 50px;
+    left: 10px;
     border-radius: 10%;
     transform: rotate(45deg);
 }
 
 .dock {
-    width: 200px;
+    width: 40%;
     height: 5px;
     background: rgb(44,38,30);
     background: linear-gradient(170deg, rgba(44,38,30,1) 0%, rgba(13,12,10,1) 100%);
     position: absolute;
     top: 38%;
-    right: 200px;
+    right: 30%;
     border-radius: 2px;
 }
 
 .dock .pole {
     width: 8px;
-    height: 60px;
+    height: 70vh;
     background: rgb(44,38,30);
     background: linear-gradient(170deg, rgba(44,38,30,1) 0%, rgba(13,12,10,1) 100%);
     position: absolute;
@@ -214,6 +213,6 @@ main {
     position: absolute;
     border-radius: 3px 3px 30px 30px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.67);
-    left: 30%;
+    right: 30%;
     top: -15px;
 }
