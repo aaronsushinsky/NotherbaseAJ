@@ -6,7 +6,7 @@
 .stall {
     width: 47%;
     overflow: hidden;
-    height: 720px;
+    height: 40vh;
     background: var(--woodDark);
     border: 2px solid var(--wood);
 }
