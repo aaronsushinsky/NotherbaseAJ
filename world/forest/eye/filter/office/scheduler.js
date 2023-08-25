@@ -55,13 +55,13 @@ class Scheduler extends Browser {
                 }, "string"),
                 new NBField({
                     name: "name",
-                    label: "Share task with: ",
+                    label: "Group: ",
                     placeholder: "No Group",
                     readOnly: true
                 }, "string"),
                 new NBField({
                     name: "shared",
-                    label: "",
+                    label: "Shared: ",
                     placeholder: false
                 }, "boolean")
             ])
@@ -118,7 +118,25 @@ class SharedScheduler extends Browser {
                 name: "description",
                 label: "Description: ",
                 placeholder: "Description"
-            }, "long-string")
+            }, "long-string"),
+            new NBField({
+                name: "sharing",
+                label: "Sharing: ",
+                placeholder: "None",
+                multiple: true,
+                lockLength: true
+            }, [
+                new NBField({
+                    name: "id",
+                    hidden: true
+                }, "string"),
+                new NBField({
+                    name: "name",
+                    label: "Group: ",
+                    placeholder: "No Group",
+                    readOnly: true
+                }, "string")
+            ])
         ]);
         super(id, fields, false);
     }
