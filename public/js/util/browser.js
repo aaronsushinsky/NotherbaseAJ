@@ -90,16 +90,16 @@ class ReadBox extends ViewBox {
             else $rendered = $(`<img class="image ${field.settings.name}" src="${field.settings.placeholder}">`).appendTo($parent);
         }
         else if (field.children === "date-time") {
-            if (item) $rendered = $(`<time class="${field.settings.name}" datetime="${item}">${(new Date(item)).toLocaleString()}</time>`).appendTo($parent);
-            else $rendered = $(`<time class="${field.settings.name}"></time>`).appendTo($parent);
+            if (item) $rendered = $(`<p class="${field.settings.name}">${(new Date(item)).toLocaleString()}</p>`).appendTo($parent);
+            else $rendered = $(`<p class="${field.settings.name}"></p>`).appendTo($parent);
         }
         else if (field.children === "date") {
-            if (item) $rendered = $(`<time class="${field.settings.name}" datetime="${item}">${(new Date(item)).toLocaleDateString()}</time>`).appendTo($parent);
-            else $rendered = $(`<time class="${field.settings.name}"></time>`).appendTo($parent);
+            if (item) $rendered = $(`<p class="${field.settings.name}">${(new Date(item)).toLocaleDateString()}</p>`).appendTo($parent);
+            else $rendered = $(`<p class="${field.settings.name}"></p>`).appendTo($parent);
         }
         else if (field.children === "time") {
-            if (item) $rendered = $(`<time class="${field.settings.name}">${(new Date(item)).toLocaleTimeString()}</time>`).appendTo($parent);
-            else $rendered = $(`<time class="${field.settings.name}"></time>`).appendTo($parent);
+            if (item) $rendered = $(`<p class="${field.settings.name}">${(new Date(item)).toLocaleTimeString()}</p>`).appendTo($parent);
+            else $rendered = $(`<p class="${field.settings.name}"></p>`).appendTo($parent);
         }
         else if (field.children === "number") {
             if (item) $rendered = $(`<p class="${field.settings.name}">${item}</p>`).appendTo($parent);
