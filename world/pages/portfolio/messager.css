@@ -11,9 +11,13 @@
 
 #nav-message {
     background: none;
-    padding: 0;
+    padding: var(--padding);
     border-radius: 5px;
-    border: none;
+    border: 1px solid black;
+}
+
+#nav-message:hover {
+    border: 1px solid var(--hoverTextColor);
 }
 
 .messager {
