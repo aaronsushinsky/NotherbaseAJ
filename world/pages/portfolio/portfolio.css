@@ -68,8 +68,8 @@ header {
 
 header h2 {
     position: absolute;
-    left: 100px;
-    top: 35%;
+    left: 5%;
+    top: 40%;
     background-color: var(--bgColor);
     padding: 15px;
     border-radius: 5px;
@@ -78,8 +78,8 @@ header h2 {
 
 header h3 {
     position: absolute;
-    left: 100px;
-    top: calc(35% + var(--h2Size) + 30px);
+    left: 5%;
+    top: calc(40% + var(--h2Size) + 30px);
     background-color: var(--bgColor);
     padding: 15px;
     border-radius: 5px;
@@ -88,14 +88,14 @@ header h3 {
 
 .external-links {
     position: absolute;
-    left: 100px;
-    top: calc(35% + var(--h2Size) + var(--h3Size) + 60px);
+    left: 5%;
+    top: calc(40% + var(--h2Size) + var(--h3Size) + 60px);
     font-size: var(--h5Size);
     background-color: var(--bgColor);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 5px;
+    padding: 15px;
     border-radius: 5px;
     height: 60px;
 }
@@ -104,8 +104,9 @@ header h3 {
     font-size: var(--h5Size);
 }
 
-header a {
-    margin: 5px;
+header a.subtle {
+    padding: 5px;
+    margin: 1px;
 }
 
 header i:hover {
