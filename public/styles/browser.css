@@ -25,6 +25,7 @@
 
 .browser .search .selector {
     height: 100%;
+    overflow: auto;
 }
 
 .browser div.edit {
