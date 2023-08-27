@@ -1,68 +1,30 @@
+<link rel="stylesheet" href="/styles/billboard.css">
 <style>
     <%- include("./fridge.css") %>
 </style>
 
-<p>
-    Ignoring the smell is not enough. You plug your
-    nose. You can't stay here long.
-</p>
+<h4>Pantry</h4>
+<div class="billboard" id="pantry"></div>
 
-<hr>
-
-<div class="pantry conchu">
-    <ul>
-        <li>
-            <input type="number" placeholder="amount">
-            <input type="text" placeholder="measure">
-            <input type="text" placeholder="item">
-            <input type="date" id="exp">
-        </li>
-    </ul>
-</div>
-
-<div class="fridge conchu">
-    <div class="tablet">
-
-    </div>
-    <div class="items">
-        <div class="tabs">
-            <button id="all">All</button>
-            <button id="leftovers">Leftovers</button>
-            <button id="premades">Premades</button>
-            <button id="meats">Meats</button>
-            <button id="vegetables">Vegetables</button>
-            <button id="misc">Misc</button>
-            <button id="exp">Exp</button>
-        </div>
-        <ul>
-            <li>
-                <input type="number" placeholder="amount" id="amount">
-                <input type="text" placeholder="measure" id="measure">
-                <input type="text" placeholder="item" id="item">
-                <input type="date" id="exp">
-            </li>
-        </ul>
-    </div>
-    <ul class="condiments">
-        <li>
-            <input type="checkbox" id="buy-more">
-            <input type="text" placeholder="item">
-            <input type="date" id="exp">
-        </li>
-    </ul>
-    <ul class="freezer">
-        <li>
-            <input type="number" placeholder="amount" id="amount">
-            <input type="text" placeholder="measure" id="measure">
-            <input type="text" placeholder="item" id="item">
-            <input type="date" id="exp">
-        </li>
-    </ul>
-    <div class="buttons">
-
-    </div>
-    <div id="left-foot"></div>
-    <div id="right-foot"></div>
+<h4>Fridge</h4>
+<div class="fridge">
+    <h4>Freezer</h4>
+    <div class="billboard" id="freezer"></div>
+    <hr>
+    <h4>Meats</h4>
+    <div class="billboard" id="meats"></div>
+    <hr>
+    <h4>Veggies</h4>
+    <div class="billboard" id="veggies"></div>
+    <hr>
+    <h4>Drinks</h4>
+    <div class="billboard" id="drinks"></div>
+    <hr>
+    <h4>Snacks</h4>
+    <div class="billboard" id="snacks"></div>
+    <hr>
+    <h4>Other</h4>
+    <div class="billboard" id="other"></div>
 </div>
 
 <hr>
@@ -70,3 +32,52 @@
 <a href="/forest/eye/inn/bar">
     Return to the Bar
 </a>
+
+<script src="/js/billboard.js"></script>
+<script>
+    const pantry = new Billboard("pantry", null, {
+        onSave: "save-pantry"
+    });
+
+    const freezer = new Billboard("freezer", null, {
+        onSave: "save-freezer"
+    });
+    const meats = new Billboard("meats", null, {
+        onSave: "save-meats"
+    });
+    const veggies = new Billboard("veggies", null, {
+        onSave: "save-veggies"
+    });
+    const drinks = new Billboard("drinks", null, {
+        onSave: "save-drinks"
+    });
+    const snacks = new Billboard("snacks", null, {
+        onSave: "save-snacks"
+    });
+    const other = new Billboard("other", null, {
+        onSave: "save-other"
+    });
+
+    base.load("pantry").then((res) => {
+        pantry.load(res);
+    });
+
+    base.load("fridge-freezer").then((res) => {
+        freezer.load(res);
+    });
+    base.load("fridge-meats").then((res) => {
+        meats.load(res);
+    });
+    base.load("fridge-veggies").then((res) => {
+        veggies.load(res);
+    });
+    base.load("fridge-drinks").then((res) => {
+        drinks.load(res);
+    });
+    base.load("fridge-snacks").then((res) => {
+        snacks.load(res);
+    });
+    base.load("fridge-other").then((res) => {
+        other.load(res);
+    });
+</script>
