@@ -31,7 +31,7 @@ ul {
 .fridge {
     background-color: var(--fridge);
     border-radius: 10px;
-    height: 1000px;
+    height: 70vh;
     width: 100%;
     position: relative;
     margin-bottom: 25px;
@@ -41,6 +41,7 @@ ul {
     padding: 10px;
     justify-content: space-around;
     align-items: center;
+    overflow: auto;
 }
 
 .fridge .tablet {
