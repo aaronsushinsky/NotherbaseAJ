@@ -56,6 +56,15 @@ class Day {
         dayEnd.setSeconds(59);
         dayEnd.setMilliseconds(999);
 
+        let monthEnd = new Date(this.offsetDate.getTime());
+        monthEnd.setDate(15);
+        monthEnd.setMonth(monthEnd.getMonth() + 1);
+        monthEnd.setDate(0);
+        monthEnd.setHours(23);
+        monthEnd.setMinutes(59);
+        monthEnd.setSeconds(59);
+        monthEnd.setMilliseconds(999);
+
         this.$schedule.empty();
         if (this.day === 0) this.$schedule.append(`<h4>Schedule</h4>`);
 
@@ -64,19 +73,26 @@ class Day {
 
             if (this.tasks[i].recurring) {
                 let newDate = new Date(testDate);
+
                 if (this.tasks[i].frequency === "weekly") while (newDate.getTime() < dayStart.getTime()) {
                     newDate.setDate(newDate.getDate() + 7);
                 }
-                else if (this.tasks[i].frequency === "monthly") while (newDate.getTime() < dayStart.getTime()) {
-                    newDate.setMonth(newDate.getMonth() + 1);
+                else if (this.tasks[i].frequency === "monthly") {
+                    if (monthEnd.getDate() < newDate.getDate()) {
+                        newDate.setDate(monthEnd.getDate());
+                    }
+                    newDate.setFullYear(dayEnd.getFullYear());
+                    newDate.setMonth(dayEnd.getMonth());
+                    console.log(newDate, dayStart, dayEnd, monthEnd);
                 }
                 else if (this.tasks[i].frequency === "yearly") while (newDate.getTime() < dayStart.getTime()) {
                     newDate.setFullYear(newDate.getFullYear() + 1);
                 }
+
                 testDate = newDate.getTime();
             }
             
-            if (testDate >= dayStart.getTime() && testDate < dayEnd.getTime()) {
+            if (testDate >= dayStart.getTime() && testDate <= dayEnd.getTime()) {
                 this.$schedule.append(`<p>${this.tasks[i].name}</p>`);
             }
         }
