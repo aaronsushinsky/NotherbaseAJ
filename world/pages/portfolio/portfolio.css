@@ -151,7 +151,7 @@ nav .buttons {
 }
 
 .text {
-    min-width: 30vw;
+    width: 100%;
     min-height: 10vh;
     padding: 5px;
     display: flex;

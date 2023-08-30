@@ -16,7 +16,7 @@ class Month {
         this.$grid.empty();
         this.$days = [];
 
-        let daysInMonth = new Date(1900 + this.date.getYear(), this.date.getMonth() + this.month - 1, 0).getDate();
+        let daysInMonth = new Date(1900 + this.date.getYear(), this.date.getMonth() + this.month, 0).getDate();
         let startDay = new Date(1900 + this.date.getYear(), this.date.getMonth() + this.month, 1).getDay();
 
         for (let i = 0; i < startDay; i++) {
@@ -84,21 +84,30 @@ class Month {
 
         for (let i = 0; i < this.tasks.length; i++) {
             let testDate = this.tasks[i].date;
+            let newDate = new Date(testDate);
 
             if (this.tasks[i].recurring) {
-                let newDate = new Date(testDate);
-
                 if (this.tasks[i].frequency === "yearly") while (newDate.getTime() < monthStart.getTime()) {
                     newDate.setFullYear(newDate.getFullYear() + 1);
                     testDate = newDate.getTime();
                 }
+                else if (this.tasks[i].frequency === "monthly") {
+                    if (monthEnd.getDate() < newDate.getDate()) {
+                        newDate.setDate(monthEnd.getDate());
+                    }
+                    newDate.setFullYear(monthStart.getFullYear());
+                    newDate.setMonth(monthStart.getMonth());
+                    testDate = newDate.getTime();
+                }
             }
 
-            if (testDate >= monthStart.getTime() && testDate < monthEnd.getTime()) {
+            if (testDate >= monthStart.getTime() && testDate <= monthEnd.getTime()) {
                 if (this.month === 0) {
-                    this.$days[(new Date(testDate)).getDate() - 1].append(`<p>${this.tasks[i].name}</p>`);
+                    this.$days[newDate.getDate() - 1].append(`<p>${this.tasks[i].name}</p>`);
                 }
-                else this.$schedule.append(`<p>${this.tasks[i].name}</p>`);
+                else if (this.tasks[i].frequency != "monthly" && this.tasks[i].frequency != "weekly") {
+                    this.$schedule.append(`<p>${this.tasks[i].name}</p>`);
+                }
             }
         }
     }
