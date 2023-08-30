@@ -11,12 +11,10 @@
 }
 
 .agenda .day.small {
-    width: 33%;
+    width: 50%;
 }
 
 .agenda .day.small h4, .agenda .month.small h4 {
-    font-size: var(--pSize);
-    min-height: var(--h4Size);
     margin: 0;
     width: 100%;
 }

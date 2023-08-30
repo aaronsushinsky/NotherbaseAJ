@@ -30,18 +30,12 @@
     --darkBorder: 2px solid var(--veryDarkBgColorTransparent);
     --borderRadius: .5vh;
     /* font */
-    --h1Size: 7vh;
-    --littleH1: 30px;
-    --h2Size: 5vh;
-    --littleH2: 26px;
-    --h3Size: 4vh;
-    --littleH3: 24px;
-    --h4Size: 4vh;
-    --littleH4: 24px;
-    --h5Size: 3vh;
-    --littleH5: 22px;
-    --littleP: 15px;
-    --pSize: 1.5vh;
+    --h1Size: 30px;
+    --h2Size: 24px;
+    --h3Size: 22px;
+    --h4Size: 20px;
+    --h5Size: 18px;
+    --pSize: 16px;
     --tinyText: 2vh;
     --inputHeight: 4vh;
     /* boxes */
@@ -216,29 +210,29 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: clamp(var(--littleH1), var(--h1Size), var(--littleH1) * 2);
+    font-size: var(--h1Size);
     border-bottom: var(--standardBorder);
 }
 
 h2 {
-    font-size: clamp(var(--littleH2), var(--h2Size), var(--littleH2) * 2);
+    font-size: var(--h2Size);
 }
 
 h3 {
-    font-size: clamp(var(--littleH3), var(--h3Size), var(--littleH3) * 2);
+    font-size: var(--h3Size);
 }
 
 h4 {
-    font-size: clamp(var(--littleH4), var(--h4Size), var(--littleH4) * 2);
+    font-size: var(--h4Size);
     border-bottom: var(--standardBorder);
 }
 
 h5 {
-    font-size: clamp(var(--littleH5), var(--h5Size), var(--littleH5) * 2);
+    font-size: var(--h5Size);
 }
 
 h6 {
-    font-size: clamp(var(--littleP), var(--pSize), var(--littleP) * 2);
+    font-size: var(--pSize);
 }
 
 hr {
@@ -254,7 +248,7 @@ p {
     color: var(--textColor);
     width: 100%;
     padding: var(--padding);
-    font-size: clamp(var(--littleP), var(--pSize), var(--littleP) * 2);
+    font-size: var(--pSize);
 }
 
 ul {

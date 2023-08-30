@@ -68,8 +68,8 @@ header {
 
 header h2 {
     position: absolute;
-    left: 100px;
-    top: 35%;
+    left: 5%;
+    top: 40%;
     background-color: var(--bgColor);
     padding: 15px;
     border-radius: 5px;
@@ -78,8 +78,8 @@ header h2 {
 
 header h3 {
     position: absolute;
-    left: 100px;
-    top: calc(35% + clamp(var(--littleH2), var(--h2Size), var(--littleH2) * 2) + 30px);
+    left: 5%;
+    top: calc(40% + var(--h2Size) + 30px);
     background-color: var(--bgColor);
     padding: 15px;
     border-radius: 5px;
@@ -88,24 +88,25 @@ header h3 {
 
 .external-links {
     position: absolute;
-    left: 100px;
-    top: calc(35% + clamp(var(--littleH2), var(--h2Size), var(--littleH2) * 2) + clamp(var(--littleH3), var(--h3Size), var(--littleH3) * 2) + 60px);
-    font-size: clamp(var(--littleH5), var(--h5Size), var(--littleH5) * 2);
+    left: 5%;
+    top: calc(40% + var(--h2Size) + var(--h3Size) + 60px);
+    font-size: var(--h5Size);
     background-color: var(--bgColor);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 5px;
+    padding: 15px;
     border-radius: 5px;
     height: 60px;
 }
 
 .external-links i {
-    font-size: clamp(var(--littleH5), var(--h5Size), var(--littleH5) * 2);
+    font-size: var(--h5Size);
 }
 
-header a {
-    margin: 5px;
+header a.subtle {
+    padding: 5px;
+    margin: 1px;
 }
 
 header i:hover {
@@ -172,7 +173,7 @@ nav .buttons {
     padding: 10px;
     border: 5% solid var(--bgColor);
     border-radius: 0% 0% 50px 50px;
-    width: 95%;
+    width: 90%;
     flex-direction: row-reverse;
 }
 
@@ -194,7 +195,7 @@ nav .buttons {
         height: 100vh;
     }
 
-    header h2 {
+    /* header h2 {
         left: 35px;
         font-size: 30px;
         top: 65%;
@@ -211,28 +212,16 @@ nav .buttons {
         font-size: 30px;
         top: calc(65% + 105px);
         height: 45px;
-    }
+    } */
 
     section {
         flex-wrap: wrap;
         padding: 40px 10px;
     }
 
-    #cpd, #won-ventures {
-        flex-direction: row;
-    }
-
     .text, section img, section iframe {
         width: 100%;
         padding: 5px;
-    }
-
-    .watch {
-        width: 100%;
-    }
-
-    #notherbase-fs {
-        width: 90%;
     }
 
     main {

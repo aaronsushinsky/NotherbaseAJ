@@ -1,0 +1,25 @@
+.browser .nested.measure {
+    width: 75% !important;
+    margin-left: 0 !important;
+}
+
+.browser .nested.amount {
+    width: 20% !important;
+    margin-right: 1px !important;
+}
+
+.browser p.measure {
+    width: 100% !important;
+}
+
+.browser p.amount {
+    width: 100% !important;
+}
+
+.browser p.ingredient {
+    width: 100% !important;
+}
+
+.ingredients li {
+    display: flex;
+}

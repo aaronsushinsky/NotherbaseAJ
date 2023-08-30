@@ -17,7 +17,8 @@ class Billboard {
     }
 
     load = (items = []) => {
-        this.items = items;
+        if (!Array.isArray(items)) this.items = [];
+        else this.items = items;
 
         this.renderItems();
         this.flipToMain();
