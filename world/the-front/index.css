@@ -37,6 +37,16 @@
     min-width: 45%;
 }
 
+.sign .default, .sign .about {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
 .line {
     width: var(--fillFromMargin);
     background-color: var(--bgColor);

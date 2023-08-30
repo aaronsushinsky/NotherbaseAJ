@@ -8,21 +8,24 @@
 <div class="logo">N</div>
 
 <div class="sign">
-    <h4>NotherBase</h4>
-    <h5>Est '21</h5>
-    <h5>By Nother</h5>
-</div>
-
-<div class="basic what">
-    <h4>About NotherBase</h4>
-    <p>
-        Welcome to NotherBase! This base is an online world
-        with a variety of mini web apps, games and widgets.
-    </p>
-    <p>
-        Visit the shack nearby to submit an application for
-        an account. 
-    </p>
+    <div class="default">
+        <h1>NotherBase</h1>
+        <h2>Est '21</h2>
+        <h3>By Nother</h3>
+        <button onclick="$('.sign .default').addClass('invisible'); $('.sign .about').removeClass('invisible');">About</button>
+    </div>
+    <div class="about invisible">
+        <h4>About NotherBase</h4>
+        <p>
+            Welcome to NotherBase! This base is an online world
+            with a variety of mini web apps, games and widgets.
+        </p>
+        <p>
+            Visit the shack nearby to submit an application for
+            an account. 
+        </p>
+        <button onclick="$('.sign .about').addClass('invisible'); $('.sign .default').removeClass('invisible');">Back</button>
+    </div>
 </div>
 
 <div class="line">
