@@ -38,7 +38,7 @@
 }
 
 .line {
-    width: var(--fillHalfFromMargin);
+    width: var(--fillFromMargin);
     background-color: var(--bgColor);
     border: var(--thickBorder);
     padding: 0;
@@ -102,10 +102,4 @@
 #pac:hover, #pac2:hover, #pac3:hover, #pac4:hover {
     scale: 1.05;
     cursor: pointer;
-}
-
-@media only screen and (max-width: 800px) {
-    .line {
-        width: var(--fillFromMargin);
-    }
 }
