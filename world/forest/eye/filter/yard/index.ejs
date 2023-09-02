@@ -15,15 +15,6 @@
     </div>
 
     <div class="ground">
-        <div class="tree">
-            <div class="leaves"></div>
-            <div class="trunk"></div>
-        </div>
-        <div class="weed">
-            <div class="leaf"></div>
-            <div class="leaf"></div>
-            <div class="leaf"></div>
-        </div>
     </div>
 </div>
 
@@ -68,10 +59,12 @@
 </a>
 
 <script src="/js/util/weather.js"></script>
+<script src="/js/entity.js"></script>
+<script src="/js/plants/part.js"></script>
 <script>
     const weather = new WeatherSystem();
 
     //yard
-    <%- include("./harvest.js"); %>
-    let harvestGame = new HarvestGame();
+    <%- include("./yard.js"); %>
+    let yard = new Yard();
 </script>
