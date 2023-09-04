@@ -16,7 +16,7 @@ class Projector {
 
     save = async (url = this.$urlInput.val()) => {
         if (this.onSave) {
-            this.$iframe.attr("src", url);
+            this.$iframe.attr("src", url + "&origin=https://www.notherbase.com");
             await base.do(this.onSave, {
                 id: this.id,
                 url: url
@@ -25,9 +25,7 @@ class Projector {
     }
 
     render = () => {
-        this.$iframe = $(`<iframe src="" title="Church Stream" frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; 
-                        picture-in-picture; web-share" allowfullscreen></iframe>`).appendTo(this.$div);
+        this.$iframe = $(`<iframe src="" title="Church Stream" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`).appendTo(this.$div);
 
         if (this.onSave) {
             this.$controls = $(`<div class="controls"></div>`).appendTo(this.$div);
