@@ -1,6 +1,6 @@
-<p>
-    You enter the church and see pew after pew.
-</p>
+<link rel="stylesheet" href="/styles/projector.css">
+
+<div class="projector" id="sanctuary"></div>
 
 <hr>
 
@@ -23,10 +23,14 @@
 </a>
 
 <script src="/js/dialogue.js"></script>
+<script src="/js/projector.js"></script>
 <script>
     let pastorDialogue = new Dialogue("pastor", 2000, function () {
         return [
             Dialogue.textSlide("Welcome to the church.")
         ];
     });
+
+    
+    const projector = new Projector("sanctuary", <%= user.authLevels.includes("Creator") %> ? "save-projector" : null);
 </script>
