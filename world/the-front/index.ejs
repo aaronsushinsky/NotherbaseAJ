@@ -28,6 +28,8 @@
     </div>
 </div>
 
+<div class="ground" id="lawn"></div>
+
 <div class="line">
     <h4>Apply Here To Exist:</h4>
     <ul>
@@ -88,6 +90,9 @@
 <script src="/js/dialogue.js"></script>
 <script src="/js/chat-box.js"></script>
 <script src="/js/util/weather.js"></script>
+<script src="/js/entity.js"></script>
+<script src="/js/plants/part.js"></script>
+<script src="/js/plants/lawn.js"></script>
 <script>
     const weather = new WeatherSystem("random");
 
@@ -137,4 +142,6 @@
         ];
     };
     let unkielDialogue = new Dialogue("unkiel", 3500, unkielTree, "/img/npcs/unkiel.png");
+
+    const lawn = new Lawn();
 </script>

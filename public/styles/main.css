@@ -710,3 +710,9 @@ iframe {
     padding: 5px 10px;
     margin: 0;
 }
+
+.ground {
+    width: 100%;
+    min-height: 10px;
+    position: relative;
+}
