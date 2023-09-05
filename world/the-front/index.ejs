@@ -16,8 +16,9 @@
 <div class="basic what">
     <h4>About NotherBase</h4>
     <p>
-        Welcome to NotherBase! This base is an online portal
-        with a variety of mini web apps, games and widgets.
+        Welcome to NotherBase! This base is an online world
+        with a variety of web apps, games, widgets and secrets
+        to find.
     </p>
     <p>
         Visit the shack nearby to submit an application for
@@ -84,8 +85,10 @@
 
 <script src="/js/dialogue.js"></script>
 <script src="/js/chat-box.js"></script>
-
+<script src="/js/util/weather.js"></script>
 <script>
+    const weather = new WeatherSystem("random");
+
     let color = 0;
     let brightness = 15;
 

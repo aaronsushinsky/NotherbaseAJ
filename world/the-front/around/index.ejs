@@ -65,7 +65,10 @@
 
 <script src="/js/chat-box.js"></script>
 <script src="/js/pond.js"></script>
+<script src="/js/util/weather.js"></script>
 <script>
+    const weather = new WeatherSystem("random");
+    
     <% if (user) { %>
         let chat = new ChatBox("<%= user.username %>", "the-front-park-bench");
     <% } else { %>
