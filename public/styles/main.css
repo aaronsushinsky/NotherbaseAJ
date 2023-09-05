@@ -28,9 +28,9 @@
     --thickBorder: 5px solid var(--textColor);
     --brightBorder: 1px solid var(--textColorBright);
     --darkBorder: 2px solid var(--veryDarkBgColorTransparent);
-    --borderRadius: .5vh;
+    --borderRadius: 3px;
     /* font */
-    --h1Size: 30px;
+    --h1Size: 32px;
     --h2Size: 24px;
     --h3Size: 22px;
     --h4Size: 20px;
@@ -390,6 +390,7 @@ input[type=checkbox] {
     margin: var(--margin);
     background: url("/img/signs/wooden-board.jpg");
     background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -400,6 +401,7 @@ input[type=checkbox] {
 .sign * {
     color: var(--darkWoodColor);
     text-shadow: 1px 1px 2px var(--shadowColor);
+    background: none;
 }
 
 .form {
@@ -599,9 +601,9 @@ iframe {
 }
 
 .dialogue .portrait {
-    width: 75px;
+    width: 7vh;
     height: 100%;
-    border-radius: var(--borderRadius);
+    border-radius: 2px;
     object-fit: cover;
 }
 

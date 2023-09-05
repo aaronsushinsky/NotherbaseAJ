@@ -1,6 +1,10 @@
 :root {
 }
 
+body {
+    background: url("/img/forest/bgs/cave_lit.jpg");
+}
+
 .nono-spirit {
     width: 100%;
     height: 200px;
