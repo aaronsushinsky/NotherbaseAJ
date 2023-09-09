@@ -1,5 +1,5 @@
 class Lawn extends Ground {
-    constructor(maxGrass = 25) {
+    constructor(maxGrass = 50) {
         super($(".ground#lawn"));
         this.maxGrass = maxGrass;
 
@@ -28,10 +28,10 @@ class Lawn extends Ground {
                 imgs: [ "/img/textures/substance.png" ],
                 spawns: [{
                     position: { minX: 0, minY: 90, maxX: 75, maxY: 99 },
-                    rotation: { minAngle: -5, maxAngle: 5 }
+                    rotation: { minAngle: -15, maxAngle: 15 }
                 }],
-                growth: { minTime: 100, spawnTime: 110, maxTime: 200 },
-                size: { minX: 15, minY: 50, maxX: 30, maxY: 100 },
+                growth: { minTime: 1000, spawnTime: 110, maxTime: 2000 },
+                size: { minX: 10, minY: 30, maxX: 5, maxY: 50 },
                 children: {},
                 max: 6,
                 spawnRate: { cooldown: 100, potentialDelay: 100 },
