@@ -18,7 +18,7 @@
         <h4>About NotherBase</h4>
         <p>
             Welcome to NotherBase! This base is an online world
-            with a variety of mini web apps, games and widgets.
+            with a variety of web apps, games, widgets and secrets to discover.
         </p>
         <p>
             Visit the shack nearby to submit an application for
@@ -27,6 +27,8 @@
         <button onclick="$('.sign .about').addClass('invisible'); $('.sign .default').removeClass('invisible');">Back</button>
     </div>
 </div>
+
+<div class="ground" id="lawn"></div>
 
 <div class="line">
     <h4>Apply Here To Exist:</h4>
@@ -87,8 +89,13 @@
 
 <script src="/js/dialogue.js"></script>
 <script src="/js/chat-box.js"></script>
-
+<script src="/js/util/weather.js"></script>
+<script src="/js/entity.js"></script>
+<script src="/js/plants/part.js"></script>
+<script src="/js/plants/lawn.js"></script>
 <script>
+    const weather = new WeatherSystem("random");
+
     let color = 0;
     let brightness = 15;
 
@@ -135,4 +142,6 @@
         ];
     };
     let unkielDialogue = new Dialogue("unkiel", 3500, unkielTree, "/img/npcs/unkiel.png");
+
+    const lawn = new Lawn();
 </script>
