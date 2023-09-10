@@ -75,7 +75,6 @@
     height: calc(100% - var(--uiSize));
     overflow: auto;
     padding: var(--thickPadding);
-    background: var(--nonoBG);
 }
 
 .nono-field .bar {
