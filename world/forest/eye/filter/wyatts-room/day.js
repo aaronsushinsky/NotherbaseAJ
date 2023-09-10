@@ -11,8 +11,8 @@ class Day {
     }
 
     render = () => {
-        if (this.day === 0) this.$div = $(`<article class="day" id="${this.day}"></article>`).appendTo(this.$parent);
-        else this.$div = $(`<article class="day small" id="${this.day}"></article>`).appendTo(this.$parent);
+        if (this.day === 0) this.$div = $(`<article class="floatable day" id="${this.day}"></article>`).appendTo(this.$parent);
+        else this.$div = $(`<article class="floatable small day" id="${this.day}"></article>`).appendTo(this.$parent);
 
         const weekday = ["Sun", "Mon"," Tue", "Wed", "Thu", "Fri", "Sat"];
         //const weekday = ["Wednesday", "Wednesday"," Wednesday", "Wednesday", "Wednesday", "Wednesday", "Wednesday"];

@@ -9,11 +9,11 @@
 
 <hr>
 
-<div class="nono-spirit">
+<div class="floatable nono-spirit">
     <img id="move-nono-spirit" src="/img/nono/nono_spirit.png" alt="Nono Spirit">
 </div>
 
-<div class="nono-board"></div>
+<div class="floatable nono-board"></div>
 
 <hr>
 
@@ -39,6 +39,8 @@
     Return to the Fields
 </a>
 
+<script src="/js/entity.js"></script>
+<script src="/js/floatable.js"></script>
 <script>
     <%- include("./nono.js"); %>
 
@@ -63,4 +65,6 @@
     base.load("filter-cave-nono").then((res) => {
         nonoGame.startNew(res.level, res.difficulty);
     });
+
+    const floatBoard = new FloatBoard();
 </script>
