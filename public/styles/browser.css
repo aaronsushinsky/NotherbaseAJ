@@ -4,7 +4,8 @@
     border: var(--standardBorder);
     display: flex;
     flex-wrap: wrap;
-    height: 75vh;
+    height: 100%;
+    max-height: 75vh;
 }
 
 .browser .ui {

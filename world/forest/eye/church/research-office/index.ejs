@@ -3,12 +3,6 @@
     <%- include("./bible-research.css"); %>
 </style>
 
-<p>
-    You enter the office.
-</p>
-
-<hr>
-
 <div class="bible-research"></div>
 
 <hr>
@@ -18,8 +12,12 @@
 </a>
 
 <script src="/js/util/browser.js"></script>
+<script src="/js/entity.js"></script>
+<script src="/js/floatable.js"></script>
 <script>
     <%- include("./research.js"); %>
 
-    const bibleResearch = new BibleResearch();
+    const bibleResearch = new BibleResearch(true);
+
+    const floatBoard = new FloatBoard();
 </script>

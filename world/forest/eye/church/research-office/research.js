@@ -1,5 +1,5 @@
 class BibleResearch {
-    constructor() {
+    constructor(enableFloat = false) {
         this.$div = $(".bible-research");
 
         this.Reader = class Reader {
@@ -205,5 +205,13 @@ class BibleResearch {
         base.load("bible-research-themes").then((res) => {
             this.themes.load(res);
         });
+
+        if (enableFloat) this.enableFloat();
+    }
+
+    enableFloat = () => {
+        this.reader.$div.addClass("floatable");
+        this.persons.$div.addClass("floatable");
+        this.themes.$div.addClass("floatable");
     }
 }
