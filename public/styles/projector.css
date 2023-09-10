@@ -1,0 +1,9 @@
+.projector {
+    width: 100%;
+    height: auto;
+}
+
+.projector iframe {
+    width: 100%;
+    height: 30vh;
+}

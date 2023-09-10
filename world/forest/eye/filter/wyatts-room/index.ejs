@@ -18,6 +18,8 @@
 <script src="/js/billboard.js"></script>
 <script src="/js/util/browser.js"></script>
 <script src="/js/util/weather.js"></script>
+<script src="/js/entity.js"></script>
+<script src="/js/floatable.js"></script>
 <script>
     const weather = new WeatherSystem();
 
@@ -25,4 +27,6 @@
     const upstairsAgenda = new Agenda("upstairs");
 
     <%- include("./wallet.js") %>
+
+    const floatBoard = new FloatBoard();
 </script>
