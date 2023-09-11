@@ -7,73 +7,77 @@
 
 <div class="logo">N</div>
 
-<div class="sign">
-    <div class="default">
-        <h1>NotherBase</h1>
-        <h2>Est '21</h2>
-        <h3>By Nother</h3>
-        <button onclick="$('.sign .default').addClass('invisible'); $('.sign .about').removeClass('invisible');">About</button>
-    </div>
-    <div class="about invisible">
-        <h4>About NotherBase</h4>
-        <p>
-            Welcome to NotherBase! This base is an online world
-            with a variety of web apps, games, widgets and secrets to discover.
-        </p>
-        <p>
-            Visit the shack nearby to submit an application for
-            an account. 
-        </p>
-        <button onclick="$('.sign .about').addClass('invisible'); $('.sign .default').removeClass('invisible');">Back</button>
+<div class="floatables" id="mhm">
+    <div class="sign">
+        <div class="default">
+            <h1>NotherBase</h1>
+            <h2>Est '21</h2>
+            <h3>By Nother</h3>
+            <button onclick="$('.sign .default').addClass('invisible'); $('.sign .about').removeClass('invisible');">About</button>
+        </div>
+        <div class="about invisible">
+            <h4>About NotherBase</h4>
+            <p>
+                Welcome to NotherBase! This base is an online world
+                with a variety of web apps, games, widgets and secrets to discover.
+            </p>
+            <p>
+                Visit the shack nearby to submit an application for
+                an account. 
+            </p>
+            <button onclick="$('.sign .about').addClass('invisible'); $('.sign .default').removeClass('invisible');">Back</button>
+        </div>
     </div>
 </div>
 
 <div class="ground" id="lawn"></div>
 
-<div class="line">
-    <h4>Apply Here To Exist:</h4>
-    <ul>
-        <li>
-            <img src="/img/npcs/humphrey.png">
-            <p>Humphrey</p>
-        </li>
-        <li>
-            <img src="/img/npcs/sleepe.png">
-            <p>Sleepe</p>
-        </li>
-        <li>
-            <img src="/img/npcs/crictic.png">
-            <p>Crictic</p>
-        </li>
-        <li>
-            <img src="/img/npcs/steve.png">
-            <p>Steve</p>
-        </li>
-        <li>
-            <img src="/img/npcs/vetcul.png">
-            <p>Vetcul</p>
-        </li>
-    </ul>
-    <h5>This Line For NPCs Only!</h5>
+<div class="floatables">
+    <div class="line">
+        <h4>Apply Here To Exist:</h4>
+        <ul>
+            <li>
+                <img src="/img/npcs/humphrey.png">
+                <p>Humphrey</p>
+            </li>
+            <li>
+                <img src="/img/npcs/sleepe.png">
+                <p>Sleepe</p>
+            </li>
+            <li>
+                <img src="/img/npcs/crictic.png">
+                <p>Crictic</p>
+            </li>
+            <li>
+                <img src="/img/npcs/steve.png">
+                <p>Steve</p>
+            </li>
+            <li>
+                <img src="/img/npcs/vetcul.png">
+                <p>Vetcul</p>
+            </li>
+        </ul>
+        <h5>This Line For NPCs Only!</h5>
+    </div>
+    
+    <div class="toy">
+        <img src="/img/misc/pac.png" id="pac" draggable="false">
+    </div>
+    
+    <div class="toy">
+        <img src="/img/misc/pac.png" id="pac2" draggable="false">
+    </div>
+    
+    <div class="toy">
+        <img src="/img/misc/pac.png" id="pac3" draggable="false">
+    </div>
+    
+    <div class="toy">
+        <img src="/img/misc/pac.png" id="pac4" draggable="false">
+    </div>
+    
+    <div class="dialogue" id="unkiel"></div>
 </div>
-
-<div class="toy">
-    <img src="/img/misc/pac.png" id="pac" draggable="false">
-</div>
-
-<div class="toy">
-    <img src="/img/misc/pac.png" id="pac2" draggable="false">
-</div>
-
-<div class="toy">
-    <img src="/img/misc/pac.png" id="pac3" draggable="false">
-</div>
-
-<div class="toy">
-    <img src="/img/misc/pac.png" id="pac4" draggable="false">
-</div>
-
-<div class="dialogue" id="unkiel"></div>
 
 <hr>
 
@@ -93,6 +97,7 @@
 <script src="/js/entity.js"></script>
 <script src="/js/plants/part.js"></script>
 <script src="/js/plants/lawn.js"></script>
+<script src="/js/floatable.js"></script>
 <script>
     const weather = new WeatherSystem("random");
 
@@ -144,4 +149,6 @@
     let unkielDialogue = new Dialogue("unkiel", 3500, unkielTree, "/img/npcs/unkiel.png");
 
     const lawn = new Lawn();
+
+    const floatBoard = new FloatBoard();
 </script>
