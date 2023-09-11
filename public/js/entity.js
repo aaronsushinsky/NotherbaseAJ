@@ -11,6 +11,7 @@ class Entity {
         this.position = [0, 0];
         this.angle = 0;
         this.animation = "linear";
+        this.size = [0, 0];
 
         this.render();
     }
@@ -23,11 +24,17 @@ class Entity {
         if (this.$div) this.$div.css(prop, val);
     }
 
-    moveTo(x, y) {
+    moveTo(x, y, measure = "%", measure2 = null) {
         this.position = [x, y];
-        this.css("left", `${x}%`);
-        if (!this.invertYAxis) this.css("bottom", `${y}%`);
-        else this.css("top", `${y}%`);
+        this.css("left", `${x}` + measure);
+        if (!this.invertYAxis) this.css("bottom", `${y}` + (measure2 ? measure2 : measure));
+        else this.css("top", `${y}` + (measure2 ? measure2 : measure));
+    }
+
+    setSize(w, h, measure = "px", measure2 = null) {
+        this.size = [w, h];
+        this.css("width", `${w}` + measure);
+        this.css("height", `${h}` + (measure2 ? measure2 : measure));
     }
 
     rotateTo(angle) {
