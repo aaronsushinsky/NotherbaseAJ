@@ -3,9 +3,9 @@
     <%- include("./calendar.css"); %>
 </style>
 
-<article class="calendar" id="layla"></article>
+<article class="floatables calendar" id="layla"></article>
     
-<article class="toy-box">
+<article class="floatables toy-box">
     <div class="toy">
         <img class="cat-idle" src="/img/misc/cat.png">
         <div class="pocket"></div>
@@ -33,6 +33,8 @@
 </a>
 
 <script src="/js/util/weather.js"></script>
+<script src="/js/entity.js"></script>
+<script src="/js/floatable.js"></script>
 <script>
     const weather = new WeatherSystem();
 
@@ -47,4 +49,6 @@
     $(".beautiful-button").hover(function() { $(".beautiful-background").toggleClass("red-bg"); });
     $(".beautiful-button").on("mousedown", function() { $(".beautiful-icon").addClass("beautiful-icon-pressed"); });
     $(".beautiful-button").on("mouseup", function() { $(".beautiful-icon").removeClass("beautiful-icon-pressed"); });
+
+    const floatBoard = new FloatBoard();
 </script>

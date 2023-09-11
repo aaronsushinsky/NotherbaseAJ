@@ -17,9 +17,8 @@ class Agenda {
     render = () => {
         this.$div = $(`.agenda#${this.id}`);
 
-        this.$week = $(`<section class="week"></section>`).appendTo(this.$div);
         for (let i = 0; i < 7; i++) {
-            this.days.push(new Day(this.$week, this.date, i));       
+            this.days.push(new Day(this.$div, this.date, i));       
         }
     }
 

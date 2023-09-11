@@ -20,6 +20,11 @@ class Floatable extends Entity {
         this.$div.on("mouseup", () => { this.endResize(); this.endMove(); });
 
         this.board = board;
+        // this.futureMouse = [this.board.mousePosition[0], this.board.mousePosition[1]];
+        // this.oldMouse = [this.board.mousePosition[0], this.board.mousePosition[1]];
+        // this.oldPosition = [-1, -1];
+        // this.oldSize = [parseFloat(this.$div.css("width").slice(0, -2)), parseFloat(this.$div.css("height").slice(0, -2))];
+        // console.log(this.futureMouse, this.oldMouse, this.oldPosition, this.oldSize);
     }
 
     lock = () => {
@@ -46,6 +51,7 @@ class Floatable extends Entity {
     endMove = () => {
         this.moving = false;
         this.$div.removeClass("unselectable");
+        this.board.attemptSave();
     }
 
     startResize = () => {
@@ -60,40 +66,53 @@ class Floatable extends Entity {
     endResize = () => {
         this.resizing = false;
         this.$div.removeClass("unselectable");
+        this.board.attemptSave();
     }
 
     onUpdate = (interval, context) => {
         if (this.resizing) {
             this.futureMouse = [this.board.mousePosition[0], this.board.mousePosition[1]];
-            this.css("width", `${this.oldSize[0] + (this.futureMouse[0] - this.oldMouse[0])}px`);
-            this.css("height", `${this.oldSize[1] + (this.futureMouse[1] - this.oldMouse[1])}px`);
+            this.setSize(this.oldSize[0] + (this.futureMouse[0] - this.oldMouse[0]), this.oldSize[1] + (this.futureMouse[1] - this.oldMouse[1]), "px");
         }
         if (this.moving) {
             this.futureMouse = [this.board.mousePosition[0], this.board.mousePosition[1]];
-            this.css("left", `${this.oldPosition[0] + (this.futureMouse[0] - this.oldMouse[0])}px`);
-            this.css("top", `${this.oldPosition[1] + (this.futureMouse[1] - this.oldMouse[1])}px`);
+            this.moveTo(this.oldPosition[0] + (this.futureMouse[0] - this.oldMouse[0]), this.oldPosition[1] + (this.futureMouse[1] - this.oldMouse[1]), "px");
         }
+    }
+
+    pluck = () => {
+        return this.$inputContents.detach();
     }
 }
 
 class FloatBoard extends Ground{
-    constructor(id = null) {
+    constructor() {
         super($(`<div class="float-board"></div>`).appendTo($("body")), 33, { invertYAxis: true });
-        if (this.id) this.$div.attr("id", this.id);
 
         this.$div.on("mousemove", (e) => { this.updateMouse(e); });
         this.$div.on("mouseup", () => { this.clickUp(); });
 
+        this.$floatables = $(".floatables");
+
         this.floating = false;
         this.locked = false;
-        this.$floatables = $(".floatable");
 
         this.$start = $(`<button class="float-elements">^</button>`).appendTo($("body"));
         this.$start.click(() => { this.toggleFloat(); });
         this.$lock = $(`<button class="invisible lock-elements">Unlocked</button>`).appendTo($("body"));
         this.$lock.click(() => { this.toggleLock(); });
+        this.$default = $(`<button class="invisible default-elements">Default</button>`).appendTo($("body"));
+        this.$default.click(() => { 
+            this.defaultPositions(); 
+            this.save();
+        });
 
         this.mousePosition = [0, 0];
+        this.lastSaveAttempt = 0;
+        this.saving = false;
+        this.items = {};
+
+        this.load();
     }
 
     updateMouse = (event) => {
@@ -115,15 +134,38 @@ class FloatBoard extends Ground{
     float = () => {
         this.floating = true;
 
+        //get floatables
+        let iterator = 0;
         for (let i = 0; i < this.$floatables.length; i++) {
-            let $floatable = $(this.$floatables[i]).detach();
-            console.log($floatable);
-            this.spawn(new Floatable($floatable, $floatable.attr("id"), this.$div, this));
+            let id = this.$floatables[i].id;
+            if (!id) {
+                id = `default${iterator}`;
+                $(this.$floatables[i]).attr("id", id);
+                iterator++;
+            }
+            if (!Array.isArray(this.items[id])) this.items[id] = [];
+
+            //spawn floating divs
+            let total = this.$floatables[i].children.length;
+            if (this.items[id].length > total) this.items[id] = this.items[id].slice(0, total);
+            for (let j = 0; j < total; j++) {
+                let $floatable = $(this.$floatables[i].children[0]).detach();
+                this.spawn(new Floatable($floatable, $floatable.attr("id"), this.$div, this));
+
+                if (!this.items[id][j] || typeof this.items[id][j] != 'object') this.items[id][j] = {
+                    position: [],
+                    size: []
+                };
+            }
         }
 
+        //position and size
         this.defaultPositions();
+        this.updatePositions();
 
+        //ui
         this.$lock.removeClass("invisible");
+        this.$default.removeClass("invisible");
         this.$start.text('v');
     }
 
@@ -131,9 +173,24 @@ class FloatBoard extends Ground{
         this.floating = false;
         this.unlock();
 
+        let iterator = 0;
+        for (let i = 0; i < this.$floatables.length; i++) {
+            let id = this.$floatables[i].id;
+            let $floatableContainer = $(this.$floatables[i]);
+
+            for (let j = 0; j < this.items[id].length; j++) {
+                if (this.entities[iterator]) {
+                    let $return = this.entities[iterator].pluck();
+                    $floatableContainer.append($return);
+                    iterator++;
+                }
+            }
+        }
+
         this.despawnAll();
 
         this.$lock.addClass("invisible");
+        this.$default.addClass("invisible");
         this.$start.text('^');
     }
 
@@ -162,14 +219,78 @@ class FloatBoard extends Ground{
     }
 
     defaultPositions = () => {
+        let divWidth = parseFloat(this.$div.css("width").slice(0, -2));
+        let divHeight = parseFloat(this.$div.css("height").slice(0, -2));
         let rowSize = Math.ceil(this.entities.length / 2);
 
         for (let i = 0; i < this.entities.length; i++) {
             let row = Math.floor(i / rowSize);
 
-            this.entities[i].moveTo((100 / rowSize) * (i % rowSize) + 5, 50 * row + 10);
-            this.entities[i].css("width", `calc(50vw / (${rowSize} + 1))`);
-            this.entities[i].css("height", `25vh`);
+            this.entities[i].moveTo((divWidth / rowSize) * (i % rowSize) + 5, (divHeight / 2) * row + 10, "px");
+            this.entities[i].setSize(divWidth / (rowSize + 1), divHeight / 4);
+        }
+    }
+
+    updatePositions = () => {
+        let iterator = 0;
+
+        for (let i = 0; i < this.$floatables.length; i++) {
+            let id = this.$floatables[i].id;
+
+            for (let j = 0; j < this.items[id].length; j++) {
+                if (this.entities[iterator]) {
+                    this.entities[iterator].moveTo(this.items[id][j].position[0], this.items[id][j].position[1], "px");
+                    this.entities[iterator].setSize(this.items[id][j].size[0], this.items[id][j].size[1], "px");
+    
+                    iterator++;
+                }
+            }
+        }
+    }
+
+    attemptSave = () => {
+        this.saving = true;
+        this.lastSaveAttempt = Date.now() + 2000;
+    }
+
+    save = async () => {
+        this.saving = false;
+
+        let iterator = 0;
+        for (let i = 0; i < this.$floatables.length; i++) {
+            let id = this.$floatables[i].id;
+
+            for (let j = 0; j < this.items[id].length; j++) {
+                this.items[id][j] = {
+                    position: this.entities[iterator].position,
+                    size: this.entities[iterator].size
+                };
+
+                iterator++;
+            }
+        }
+
+        let res = await base.do("save-float-board", {
+            route: "/pages/util",
+            items: this.items,
+            location: location.pathname
+        });
+    }
+
+    load = async () => {
+        let res = await base.do("load-float-board", {
+            route: "/pages/util",
+            location: location.pathname
+        });
+
+        this.items = res.data;
+
+        if (!this.items || typeof this.items != 'object') this.items = {};
+    }
+
+    onUpdate = (interval = this.updateInterval) => {
+        if (this.saving && this.lastSaveAttempt < Date.now()) {
+            this.save();
         }
     }
 }

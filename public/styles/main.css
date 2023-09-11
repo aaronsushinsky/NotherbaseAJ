@@ -723,16 +723,32 @@ iframe {
     margin-top: 50px;
 }
 
+.floatables {
+    width: 100%;
+}
+
 .float-elements {
     position: absolute;
     top: 2px;
     right: 2px;
+    background: rgba(0, 0, 0, 0.274);
+    min-width: 40px;
 }
 
 .lock-elements {
     position: absolute;
     top: 2px;
     right: 50px;
+    background: rgba(0, 0, 0, 0.274);
+    min-width: 40px;
+}
+
+.default-elements {
+    position: absolute;
+    top: 2px;
+    right: 140px;
+    background: rgba(0, 0, 0, 0.274);
+    min-width: 40px;
 }
 
 .float-board {

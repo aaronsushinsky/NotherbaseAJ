@@ -1,8 +1,12 @@
-<div class="browser" id="scheduler"></div>
+<div class="floatables">
+    <div class="browser" id="scheduler"></div>
+</div>
 
 <hr>
 
-<div class="browser" id="shared-scheduler"></div>
+<div class="floatables">
+    <div class="browser" id="shared-scheduler"></div>
+</div>
 
 <hr>
 
@@ -12,6 +16,8 @@
 
 <script src="/js/util/weather.js"></script>
 <script src="/js/util/browser.js"></script>
+<script src="/js/entity.js"></script>
+<script src="/js/floatable.js"></script>
 <script>
     const weather = new WeatherSystem();
 
@@ -23,4 +29,6 @@
         scheduler.load(res.data.userTasks);
         sharedScheduler.load(res.data.sharedTasks);
     });
+
+    const floatBoard = new FloatBoard();
 </script>
