@@ -83,7 +83,6 @@ class Day {
                     }
                     newDate.setFullYear(dayEnd.getFullYear());
                     newDate.setMonth(dayEnd.getMonth());
-                    console.log(newDate, dayStart, dayEnd, monthEnd);
                 }
                 else if (this.tasks[i].frequency === "yearly") while (newDate.getTime() < dayStart.getTime()) {
                     newDate.setFullYear(newDate.getFullYear() + 1);

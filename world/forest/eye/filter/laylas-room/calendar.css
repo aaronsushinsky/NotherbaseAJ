@@ -1,24 +1,24 @@
-.calendar .day.small h4, .calendar .month.small h4 {
+.day.small h4, .month.small h4 {
     font-size: var(--pSize);
     min-height: var(--h4Size);
     margin: 0;
     width: 100%;
 }
 
-.calendar .schedule {
+.schedule {
     border: none;
 }
 
-.calendar .year>.month {
+.year>.month {
     border-radius: 3px;
     position: relative;
 }
 
-.calendar .month.small {
+.month.small {
     width: 50%;
 }
 
-.calendar .month .grid {
+.month .grid {
     width: 100%;
     height: auto;
     background: var(--darkBgColor);
@@ -26,7 +26,7 @@
     flex-wrap: wrap;
 }
 
-.calendar .month .calendummy {
+.month .calendummy {
     width: calc(100% / 7);
     height: 80px;
     background: none;
@@ -34,7 +34,7 @@
     border-right: 1px dashed rgba(255, 255, 186, 0.12);
 }
 
-.calendar .month .calenday {
+.month .calenday {
     width: calc(100% / 7);
     height: 80px;
     background: var(--bgColor);
@@ -44,17 +44,17 @@
     overflow: hidden;
 }
 
-.calendar .month .calenday p {
+.month .calenday p {
     font-size: 10px;
     padding: 0;
 }
 
-.calendar .month .calenday.current {
+.month .calenday.current {
     background: var(--hoverColor);
     border: var(--standardBorder);
 }
 
-.calendar .month .ui {
+.month .ui {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -62,19 +62,19 @@
     top: 0;
 }
 
-.calendar .month .ui #toggler {
+.month .ui #toggler {
     position: absolute;
     right: 5px;
     bottom: 5px;
 }
 
-.calendar .legend {
+.legend {
     width: 100%;
     height: 30px;
     display: flex;
 }
 
-.calendar .legend p {
+.legend p {
     width: calc(100% / 7);
     height: 30px;
     text-align: center;

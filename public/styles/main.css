@@ -723,6 +723,10 @@ iframe {
     margin-top: 50px;
 }
 
+.floatables {
+    width: 100%;
+}
+
 .float-elements {
     position: absolute;
     top: 2px;

@@ -152,7 +152,7 @@ class FloatBoard extends Ground{
                 let $floatable = $(this.$floatables[i].children[0]).detach();
                 this.spawn(new Floatable($floatable, $floatable.attr("id"), this.$div, this));
 
-                if (typeof this.items[id][j] != 'object') this.items[id][j] = {
+                if (!this.items[id][j] || typeof this.items[id][j] != 'object') this.items[id][j] = {
                     position: [],
                     size: []
                 };
@@ -232,14 +232,15 @@ class FloatBoard extends Ground{
     }
 
     updatePositions = () => {
-        let itemKeys = Object.keys(this.items);
         let iterator = 0;
 
-        for (let i = 0; i < itemKeys.length; i++) {
-            for (let j = 0; j < this.items[itemKeys[i]].length; j++) {
+        for (let i = 0; i < this.$floatables.length; i++) {
+            let id = this.$floatables[i].id;
+
+            for (let j = 0; j < this.items[id].length; j++) {
                 if (this.entities[iterator]) {
-                    this.entities[iterator].moveTo(this.items[itemKeys[i]][j].position[0], this.items[itemKeys[i]][j].position[1], "px");
-                    this.entities[iterator].setSize(this.items[itemKeys[i]][j].size[0], this.items[itemKeys[i]][j].size[1], "px");
+                    this.entities[iterator].moveTo(this.items[id][j].position[0], this.items[id][j].position[1], "px");
+                    this.entities[iterator].setSize(this.items[id][j].size[0], this.items[id][j].size[1], "px");
     
                     iterator++;
                 }
@@ -254,12 +255,13 @@ class FloatBoard extends Ground{
 
     save = async () => {
         this.saving = false;
-        let itemKeys = Object.keys(this.items);
 
         let iterator = 0;
-        for (let i = 0; i < itemKeys.length; i++) {
-            for (let j = 0; j < this.items[itemKeys[i]].length; j++) {
-                this.items[itemKeys[i]][j] = {
+        for (let i = 0; i < this.$floatables.length; i++) {
+            let id = this.$floatables[i].id;
+
+            for (let j = 0; j < this.items[id].length; j++) {
+                this.items[id][j] = {
                     position: this.entities[iterator].position,
                     size: this.entities[iterator].size
                 };
@@ -283,7 +285,7 @@ class FloatBoard extends Ground{
 
         this.items = res.data;
 
-        if (typeof this.items != 'object') this.items = {};
+        if (!this.items || typeof this.items != 'object') this.items = {};
     }
 
     onUpdate = (interval = this.updateInterval) => {
