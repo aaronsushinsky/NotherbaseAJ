@@ -3,8 +3,11 @@
 </style>
 <link rel="stylesheet" href="/styles/browser.css">
 
-<h2>Notes</h2>
-<div class="browser" id="notes"></div>
+<div class="floatables">
+    <div class="browser" id="notes"></div>
+    <div class="search-box" id="notes"></div>
+    <div class="meta buttons" id="notes"></div>
+</div>
 
 <hr>
 
@@ -12,12 +15,13 @@
     Return to the Lobby
 </a>
 
+<script src="/js/util/buttons.js"></script>
+<script src="/js/util/search-box.js"></script>
 <script src="/js/util/browser.js"></script>
+<script src="/js/entity.js"></script>
+<script src="/js/floatable.js"></script>
 <script>
     <%- include("./note-browser.js"); %>
 
-    let noteBrowser = new NoteBrowser("notes");
-    base.load("notes").then((res) => {
-        noteBrowser.load(res);
-    });
+    const floatBoard = new FloatBoard();
 </script>
