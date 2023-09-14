@@ -1,0 +1,5 @@
+.buttons {
+    width: var(--fillFromMargin);
+    min-height: 40px;
+    margin: var(--margin);
+}

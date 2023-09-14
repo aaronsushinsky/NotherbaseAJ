@@ -1,0 +1,42 @@
+.search-box {
+    position: relative;
+    height: 200px;
+    width: var(--fillFromMargin);
+    margin: var(--margin);
+    border: var(--standardBorder);
+    background: rgb(25, 25, 25);
+    align-content: flex-start;
+    gap: 0;
+    padding: 1px;
+    margin-bottom: var(--tabMargin);
+}
+
+.search input {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    border-bottom: var(--standardBorder);
+}
+
+.search-box .selector {
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    align-content: flex-start;
+    border: 1px dotted var(--textColor);
+}
+
+.search-box .filters {
+    width: var(--fillFromMargin);
+    height: var(--fillFromMargin);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--bgColor);
+    overflow: auto;
+    z-index: 6;
+    margin: var(--margin);
+}

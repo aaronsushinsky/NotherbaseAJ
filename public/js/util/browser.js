@@ -1,3 +1,24 @@
+class BrowserButtons extends Buttons {
+    constructor(id, browser) {
+        super(id, [
+            new Button("edit", {
+                onClick: browser.edit,
+                label: "Edit"
+            }),
+            new Button("save", {
+                onClick: browser.save,
+                label: "Save"
+            }),
+            new Button("cancel", {
+                onClick: browser.cancel,
+                label: "Cancel"
+            })
+        ], {
+            isTabs: true
+        });
+    }
+}
+
 class NBField {
     constructor(settings, children) {
         this.settings = {
@@ -52,20 +73,17 @@ class ReadBox extends ViewBox {
     }
 
     render = () => {
-        if (!this.fields.settings.hidden) {
-            if (this.nested) {
-                if (this.fields.settings.multiple) this.$div = $(`<div class="read nested multiple ${this.fields.settings.name}"></div>`);
-                else this.$div = $(`<div class="read nested ${this.fields.settings.name}"></div>`);
-            }
-            else this.$div = $(`<div class="read ${this.fields.settings.name}"></div>`);
+        this.$div = $(`<div class="read ${this.fields.settings.name}"></div>`);
 
-            this.renderHeader();
+        if (this.fields.settings.hidden) this.$div.addClass("invisible");
+        if (this.nested) this.$div.addClass("nested");
+        if (this.fields.settings.multiple) this.$div.addClass("multiple");
 
-            this.load(null);
+        this.renderHeader();
 
-            return this.$div;
-        }
-        else return null;
+        //this.load(null);
+        
+        return this.$div;
     }
 
     renderHeader = () => {
@@ -121,20 +139,25 @@ class ReadBox extends ViewBox {
         return $rendered;
     }
 
-    load = (item = null) => {
-        if (!this.fields.settings.hidden) {
-            this.$div.empty();  
-            this.renderHeader();
-
-            if (item) {
-                if (this.fields.settings.multiple && this.nested) {
-                    if (Array.isArray(item)) for (let i = 0; i < item.length; i++) {
-                        this.add(item[i]);
+    load = (item = null, fields = this.fields) => {
+        if (this.item != item || this.fields != fields) {
+            this.fields = fields;
+            this.item = item;
+    
+            if (!this.fields.settings.hidden) {
+                this.$div.empty();  
+                this.renderHeader();
+    
+                if (item) {
+                    if (this.fields.settings.multiple && this.nested) {
+                        if (Array.isArray(item)) for (let i = 0; i < item.length; i++) {
+                            this.add(item[i]);
+                        }
                     }
+                    else this.set(item);
                 }
-                else this.set(item);
+                else ReadBox.renderFieldTo(this.fields, this.$div, item);
             }
-            else ReadBox.renderFieldTo(this.fields, this.$div, item);
         }
     }
 
@@ -389,7 +412,8 @@ class EditBox extends ViewBox {
         }
     }
 
-    load = (item = null) => {
+    load = (item = null, fields = this.fields) => {
+        this.fields = fields;
         this.$div.empty();
         this.$items = [];
         this.item = item;
@@ -474,327 +498,214 @@ class EditBox extends ViewBox {
     }
 }
 
-class FiltersBox extends ViewBox {
-    constructor(fields, onFilterChange) {
-        super();
-        this.filter = "";
-        this.onFilterChange = onFilterChange;
-    }
-
-    render = () => {
-        if (this.nested) this.$div = $(`<div class="filters nested"></div>`);
-        else this.$div = $(`<div class="filters"></div>`);
-        
-        this.$search = $(`<input type="text" placeholder="search">`).appendTo(this.$div);
-        this.$search.on("input", (e) => { return this.setFilter(e.currentTarget.value); });
-        
-        return this.$div;
-    }
-
-    setFilter = (filter) => {
-        this.filter = filter;
-        this.onFilterChange();
-    }
-
-    getFilter = () => {
-        return this.filter.toLowerCase();
-    }
-}
-
 class Browser {
-    constructor(id, fields, editable = true, onSave = null, otherSettings) {
+    constructor(id, fields = new NBField(), settings = {}) {
         this.id = id;
-        this.items = [];
-        this.filter = "";
-        this.selected = -1;
         this.fields = fields;
-        this.onSave = onSave;
-        this.mode = "single";
-        this.editable = editable;
-        this.otherSettings = {
-            onSaveRoute: null,
-            onRefresh: null,
-            onSaveOne: null,
-            onDeleteOne: null,
-            editBoxLoadOverride: null,
-            disableCreate: false,
+        this.editable = false;
+        this.settings = {
+            onSave: null,
             disableSave: false,
-            disableDelete: false,
-            ...otherSettings
+            ...settings
         };
 
         this.readBox = new ReadBox(this.fields);
-        this.editBox = new EditBox(this.fields, false, this.otherSettings.editBoxLoadOverride);
-        this.filtersBox = new FiltersBox(this.fields, this.renderSearchResults);
+        this.editBox = new EditBox(this.fields, false);
+        this.buttons = new BrowserButtons(id, this);
+        this.buttons.hide();
 
         this.render();
+        Browser.attemptStyle();
+    }
 
+    static styled = false;
+
+    static attemptStyle() {
         if (!Browser.styled) {
             $("head").append(`<link href='/styles/browser.css' rel='stylesheet' />`);
             Browser.styled = true;
         }
     }
 
-    static styled = false;
-
     render = () => {
         this.$div = $(`.browser#${this.id}`);
-
-        //filtered items list
-        if (this.fields.settings.multiple) {
-            this.$searchBox = $(`<div class="search"></div>`).appendTo(this.$div);
-            this.$searchList = $(`<ul class="selector"></ul>`).appendTo(this.$searchBox);
-
-            let $filters = this.filtersBox.render();
-            this.filtersBox.hide();
-            $filters.appendTo(this.$div);
-        }
 
         //read box
         this.readBox.render().appendTo(this.$div);
 
         //edit box
-        if (this.editable) {
-            let $edit = this.editBox.render();
-            this.editBox.hide();
-            $edit.appendTo(this.$div);
-        }
+        let $edit = this.editBox.render();
+        this.editBox.hide();
+        $edit.appendTo(this.$div);
 
-        //ui
-        this.$ui = $(`<div class="ui"></div>`).appendTo(this.$div);
-        if (this.fields.settings.multiple) {
-            this.$toFilter = $(`<button class="filter-toggle">Filter</button>`).appendTo(this.$ui);
-            this.$toFilter.click(this.toggleFilters);
-
-            if (!this.otherSettings.disableCreate && this.editable) {
-                this.$create = $(`<button class="create">+</button>`).appendTo(this.$ui);
-                this.$create.click(this.create);
-            }
-        }
-        if (this.editable) {
-            this.$toEdit = $(`<button class="edit">Edit</button>`).appendTo(this.$ui);
-            this.$toEdit.click(this.edit);
-
-            if (!this.otherSettings.disableSave) {
-                this.$save = $(`<button class="save invisible">Save</button>`).appendTo(this.$ui);
-                this.$save.click(this.save);
-            }
-            this.$cancel = $(`<button class="cancel invisible">Cancel</button>`).appendTo(this.$ui);
-            this.$cancel.click(this.cancel);  
-
-            if (this.fields.settings.multiple && !this.otherSettings.disableDelete) {
-                this.$delete = $(`<button class="delete invisible">Delete</button>`).appendTo(this.$ui);
-                this.$delete.click(this.delete);
-            }
-        }
-        this.$alert = $(`<p id="alert"></p>`).appendTo(this.$ui);
-        this.$hideAlert = $(`<button id="hide">X</button>`).appendTo(this.$alert);
-        this.$hideAlert.click(this.hideAlert);
-        this.hideAlert();
-    }
-
-    renderSearchResults = () => {
-        this.$searchList.empty();
-
-        for (let i = 0; i < this.items.length; i++) {
-            let label = this.items[i].name || this.items[i].title || this.items[i].header || this.items[i].whenSearched || Object.values(this.items[i])[0];
-
-            if (label?.toLowerCase) {
-                if (label.toLowerCase().includes(this.filtersBox.getFilter())) {
-                    let $result = $(`<li id="${i}">${label}</li>`).appendTo(this.$searchList);
-                    $result.on("click", (e) => { 
-                        this.select(i);
-                    });
-                }
-            }
-            else {
-                if (("Name Error").includes(this.filtersBox.getFilter())) {
-                    let $result = $(`<li id="${i}">Name Error</li>`).appendTo(this.$searchList);
-                    $result.on("click", () => { this.select(i); });
-                }
-            }
-        };
-        if (this.items.length < 1) {
-            this.$searchList.append(`<p>No Items</p>`);
-        }
-    }
-
-    load = (items) => {
-        this.items = items;
-
-        if (this.fields.settings.multiple && !Array.isArray(this.items)) {
-            this.items = [];
-            console.log("items overridden due to multiple");
-        }
-
-        if (this.otherSettings.onRefresh) {
-            this.otherSettings.onRefresh(this.items);
-        }
-
-        if (this.fields.settings.multiple) this.renderSearchResults();
-        else this.read();
+        this.$div.append(this.buttons.$div);
     }
 
     save = async () => {
-        let newItem = this.editBox.save();
-
-        if (this.fields.settings.multiple) {
-            if (this.selected < 0) {
-                this.selected = this.items.length;
-                this.items.push(newItem);
-            }
-            else this.items[this.selected] = {
-                ...this.items[this.selected],
-                ...newItem
-            };
-            newItem = this.items[this.selected];
-        }
-        else {
-            this.items = {
-                ...this.items,
-                ...newItem
-            };
-            newItem = this.items;
-        }
+        this.item = this.editBox.save();
         
-        if (this.onSave) {
-            let toGo = {
-                id: this.id,
-                items: this.items
-            };
-            if (this.otherSettings.onSaveRoute) toGo.route = this.otherSettings.onSaveRoute;
-            
-            await base.do(this.onSave, toGo);
-        }
-        else if (this.otherSettings.onSaveOne) {
-            let toGo = {
-                id: this.id,
-                item: newItem
-            };
-            if (this.otherSettings.onSaveRoute) toGo.route = this.otherSettings.onSaveRoute;
-            
-            await base.do(this.otherSettings.onSaveOne, toGo);
+        if (this.settings.onSave) {
+            this.settings.onSave(this.item);
         }
 
-        if (this.otherSettings.onRefresh) {
-            this.otherSettings.onRefresh(this.items);
-        }
-        
-        this.cancel();
-        this.renderSearchResults();
-        this.select(this.selected);
-    }
-
-    read = () => {
-        this.cancel();
-
-        if (this.fields.settings.multiple) {
-            let item = null;
-            if (this.selected > -1 && this.selected < this.items.length) item = this.items[this.selected];
-            this.readBox.load(item);
-        }
-        else this.readBox.load(this.items);
-    }
-
-    edit = () => {
-        this.readBox.hide();
-        this.$toEdit.addClass("invisible");
-        if (!this.otherSettings.disableCreate) this.$create.addClass("invisible");
-
-        this.editBox.show();
-        this.$cancel.removeClass("invisible");
-        if (!this.otherSettings.disableSave) this.$save.removeClass("invisible");
-        if (!this.otherSettings.disableDelete) this.$delete.removeClass("invisible");
-
-        if (this.fields.settings.multiple) {
-            let item = null;
-            if (this.selected > -1 && this.selected < this.items.length) item = this.items[this.selected];
-            this.editBox.load(item);
-        }
-        else this.editBox.load(this.items);
-    }
-
-    toggleFilters = () => {
-        this.filtersBox.toggle();
-    }
-
-    cancel = () => {
-        if (this.editable) {
-            this.editBox.hide();
-            this.$cancel.addClass("invisible");
-            if (!this.otherSettings.disableSave) this.$save.addClass("invisible");
-            if (!this.otherSettings.disableDelete) this.$delete.addClass("invisible");
-            this.$toEdit.removeClass("invisible");
-            if (!this.otherSettings.disableCreate) this.$create.removeClass("invisible");
-        }
-
-        this.readBox.show();
-    }
-
-    delete = async () => {
-        if (this.selected > -1 && this.selected < this.items.length) {
-            let deleted = this.items.splice(this.selected, 1)[0];
-    
-            if (this.onSave) {
-                let toGo = {
-                    id: this.id,
-                    items: this.items
-                };
-                if (this.otherSettings.onSaveRoute) toGo.route = this.otherSettings.onSaveRoute;
-                await base.do(this.onSave, toGo);
-            }
-            else if (this.otherSettings.onDeleteOne) {
-                let toGo = {
-                    id: this.id,
-                    item: deleted
-                };
-                if (this.otherSettings.onSaveRoute) toGo.route = this.otherSettings.onSaveRoute;
-                await base.do(this.otherSettings.onDeleteOne, toGo);
-            }
-        }
-
-        if (this.otherSettings.onRefresh) {
-            this.otherSettings.onRefresh(this.items);
-        }
-        
-
-        this.renderSearchResults();
-        this.cancel();
-        this.select(-1);
-    }
-
-    create = () => {
-        this.select(-1);
-        this.edit();
-    }
-
-    select = (which) => {
-        this.selected = which;
-        let $searchResults = this.$searchList.find("li");
-        $searchResults.removeClass("selected");
-
-        if (which > -1) {
-            if (which >= $searchResults.length) which = $searchResults.length;
-            if ($searchResults.length > 1) $($searchResults[which]).addClass("selected");
-            else $searchResults.addClass("selected");
-        }
-        
         this.read();
     }
 
-    getSelectedItem = () => {
-        return this.items[this.selected];
+    read = (item = this.item, parent = this.parent, fields = this.fields, editable = this.editable) => {
+        this.item = item;
+        this.parent = parent;
+        this.fields = fields;
+        this.editable = editable;
+
+        this.cancel();
+
+        this.readBox.load(this.item, this.fields);
     }
 
-    alert = (msg) => {
-        this.$alert.text(msg);
-        this.$hideAlert = $(`<button id="hide">X</button>`).appendTo(this.$alert);
-        this.$hideAlert.click(this.hideAlert);
-        this.$alert.removeClass("invisible");
+    edit = (item = this.item, parent = this.parent, fields = this.fields, editable = this.editable) => {
+        this.editable = editable;
+
+        if (this.editable) {
+            this.item = item;
+            this.parent = parent;
+            this.fields = fields;
+    
+            this.readBox.hide();
+
+            this.buttons.hide("edit");
+            this.buttons.show("save");
+            this.buttons.show("cancel");
+            this.editBox.show();
+    
+            this.editBox.load(item, this.fields);
+        }
     }
 
-    hideAlert = () => {
-        this.$alert.addClass("invisible");
-        this.$alert.text("");
+    cancel = () => {
+        this.editBox.hide();
+
+        this.buttons.hide("save");
+        this.buttons.hide("cancel");
+
+        if (this.editable) this.buttons.show("edit");
+        else this.buttons.hide("edit");
+
+        this.readBox.show();
+    }
+}
+
+//
+
+class MetaBrowser extends Buttons {
+    constructor(service, browser, fields, settings = {}) {
+        super(service, {}, {
+            $origin: null,
+            label: settings.label,
+            ...settings
+        });
+
+        this.service = service;
+        this.fields = fields;
+
+        this.settings = {
+            ...this.settings,
+            editable: false,
+            multiple: false,
+            searchBox: null,
+            toLoad: null, //async () => { return null; },
+            toSave: null, //async (items, which) => { },
+            ...settings
+        };
+
+        this.browser = browser;
+        this.browser.settings.onSave = this.save;
+        
+        this.selected = 0;
+
+        //buttons
+        if (this.settings.editable) {
+            if (this.settings.multiple) {
+                this.addButton(new Button("new", {
+                    onClick: this.new,
+                    label: "New"
+                }));
+            }
+
+            this.addButton(new Button("delete", {
+                onClick: this.delete,
+                label: "Delete"
+            }));
+        }
+
+        this.data = null;
+        if (this.settings.multiple) this.data = [];
+
+        //load
+        this.loaded = false;
+        this.updateStatus();
+        if (this.settings.toLoad) this.settings.toLoad().then((res) => {
+            this.data = res;
+            //console.log(res);
+
+            if (!Array.isArray(this.data)) this.data = [ this.data ];
+
+            if (this.settings.searchBox) this.settings.searchBox.load(this.data, this);
+            this.select();
+
+            this.loaded = true;
+            this.updateStatus();
+        });
+    }
+
+    new = () => {
+        if (this.settings.editable) {
+            if (this.settings.multiple) this.selected = this.data.length;
+    
+            this.browser.edit(null, this, this.fields, true);
+
+            //if (this.settings.searchBox) this.settings.searchBox.select();
+        }
+    }
+
+    delete = async (which = this.selected) => {
+        if (this.settings.editable) {
+            if (this.settings.multiple) this.data.splice(which, 1);
+            else this.data = null;
+
+            this.updateSearch();
+
+            if (this.settings.toSave) await this.settings.toSave(null, this.selected);
+
+            this.select();
+        }
+    }
+
+    save = async (item) => {
+        if (this.settings.editable) {
+            if (this.settings.multiple) this.data[this.selected] = item;
+            else this.data = item;
+
+            this.updateSearch();
+    
+            if (this.settings.toSave) await this.settings.toSave(item, this.selected);
+        }
+    }
+
+    select = (which = 0) => {
+        this.selected = which;
+        this.browser.read(this.data[which], this, this.fields, this.settings.editable);
+    }
+
+    updateStatus = () => {
+        if (!this.$status) this.$status = $(`<p></p>`).appendTo(this.$div);
+        
+        this.$status.text(`Loaded: ${this.loaded}${this.focused ? ", In Focus" : ""}`).appendTo(this.$div);
+    }
+
+    updateSearch = () => {
+        if (this.settings.searchBox) {
+            if (this.settings.multiple) this.settings.searchBox.load(this.data, this);
+            else this.settings.searchBox.load([ this.data ], this);
+        }
     }
 }

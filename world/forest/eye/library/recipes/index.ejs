@@ -3,9 +3,11 @@
     <%- include("./recipes.css"); %>
 </style>
 
-<h3>Recipes for Food</h3>
-
-<div class="browser" id="recipes"></div>
+<div class="floatables">
+    <div class="browser" id="recipes"></div>
+    <div class="search-box" id="recipes"></div>
+    <div class="meta buttons" id="recipes"></div>
+</div>
 
 <hr>
 
@@ -13,12 +15,13 @@
     Return to the Lobby
 </a>
 
+<script src="/js/util/buttons.js"></script>
+<script src="/js/util/search-box.js"></script>
 <script src="/js/util/browser.js"></script>
+<script src="/js/entity.js"></script>
+<script src="/js/floatable.js"></script>
 <script>
     <%- include("./recipe-browser.js"); %>
-    let recipeBrowser = new RecipeBrowser("recipes");
 
-    base.load("recipes").then((res) => {
-        recipeBrowser.load(res);
-    });
+    const floatBoard = new FloatBoard();
 </script>
