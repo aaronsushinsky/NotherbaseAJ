@@ -667,30 +667,25 @@ class MetaBrowser extends Buttons {
         }
     }
 
-    delete = async (which = 0) => {
+    delete = async (which = this.selected) => {
         if (this.settings.editable) {
-            if (this.settings.multiple) {
-                this.data.splice(which, 1);
-                this.select();
-                await this.save();
-            }
-            else {
-                await this.save(null);
-                this.select();
-            }
+            if (this.settings.multiple) this.data.splice(which, 1);
+            else this.data = null;
+
+            this.updateSearch();
+
+            if (this.settings.toSave) await this.settings.toSave(null, this.selected);
+
+            this.select();
         }
     }
 
     save = async (item) => {
         if (this.settings.editable) {
-            if (this.settings.multiple) {
-                this.data[this.selected] = item;
-                if (this.settings.searchBox) this.settings.searchBox.load(this.data, this);
-            }
-            else {
-                this.data = item;
-                if (this.settings.searchBox) this.settings.searchBox.load([ this.data ], this);
-            }
+            if (this.settings.multiple) this.data[this.selected] = item;
+            else this.data = item;
+
+            this.updateSearch();
     
             if (this.settings.toSave) await this.settings.toSave(item, this.selected);
         }
@@ -705,5 +700,12 @@ class MetaBrowser extends Buttons {
         if (!this.$status) this.$status = $(`<p></p>`).appendTo(this.$div);
         
         this.$status.text(`Loaded: ${this.loaded}${this.focused ? ", In Focus" : ""}`).appendTo(this.$div);
+    }
+
+    updateSearch = () => {
+        if (this.settings.searchBox) {
+            if (this.settings.multiple) this.settings.searchBox.load(this.data, this);
+            else this.settings.searchBox.load([ this.data ], this);
+        }
     }
 }
