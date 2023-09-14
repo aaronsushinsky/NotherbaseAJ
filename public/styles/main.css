@@ -43,6 +43,7 @@
     --thickPadding: 20px;
     --margin: 5px;
     --thickMargin: 20px;
+    --tabMargin: 50px;
     --mainWidth: 95vw;
     --maxMainWidth: 500px;
     --fillFromMargin: calc(100% - (2 * var(--margin)));
@@ -480,31 +481,6 @@ input[type=checkbox] {
     margin: var(--margin);
 }
 
-.search {
-    width: var(--fillFromMargin);
-    border: var(--standardBorder);
-    height: 300px;
-    background: rgb(25, 25, 25);
-    align-content: flex-start;
-    gap: 0;
-}
-
-.search input {
-    width: 100%;
-    margin: 0;
-    border-radius: 0;
-    border: none;
-    border-bottom: var(--standardBorder);
-}
-
-.search ul {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    align-content: flex-start;
-    border: 1px dotted var(--textColor);
-}
-
 ul.selector li {
     width: var(--fillFromMargin);
     overflow: hidden;
@@ -760,6 +736,8 @@ iframe {
     background: rgba(0, 0, 0, 0.021);
     backdrop-filter: blur(2px);
     overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.336);
+    border-radius: 3px;
 }
 
 .floating {
@@ -794,6 +772,14 @@ iframe {
     height: 15px;
     background: var(--textColor);
     cursor: move;
+}
+
+.tabs {
+    position: absolute;
+    bottom: calc(-1 * var(--tabMargin));
+    width: 100%;
+    height: var(--tabMargin);
+    left: 0;
 }
 
 @media screen and (max-width: 1000px) {

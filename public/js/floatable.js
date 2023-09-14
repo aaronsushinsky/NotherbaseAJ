@@ -256,17 +256,19 @@ class FloatBoard extends Ground{
     save = async () => {
         this.saving = false;
 
-        let iterator = 0;
-        for (let i = 0; i < this.$floatables.length; i++) {
-            let id = this.$floatables[i].id;
-
-            for (let j = 0; j < this.items[id].length; j++) {
-                this.items[id][j] = {
-                    position: this.entities[iterator].position,
-                    size: this.entities[iterator].size
-                };
-
-                iterator++;
+        if (this.floating) {
+            let iterator = 0;
+            for (let i = 0; i < this.$floatables.length; i++) {
+                let id = this.$floatables[i].id;
+    
+                for (let j = 0; j < this.items[id].length; j++) {
+                    this.items[id][j] = {
+                        position: this.entities[iterator].position,
+                        size: this.entities[iterator].size
+                    };
+    
+                    iterator++;
+                }
             }
         }
 
