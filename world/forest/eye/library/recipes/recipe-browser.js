@@ -1,5 +1,4 @@
 const recipeBrowser = new Browser("recipes");
-
 const recipeSearch = new SearchBox("recipes");
 
 const fields = new NBField({
@@ -52,7 +51,6 @@ const fields = new NBField({
         multiple: true
     }, "long-string") 
 ]);
-
 const metaRecipes = new MetaBrowser("recipes", recipeBrowser, fields, {
     $origin: $(".meta.buttons#recipes"),
     label: "Recipes Controls",

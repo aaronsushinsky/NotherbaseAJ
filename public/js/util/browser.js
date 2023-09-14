@@ -597,64 +597,29 @@ class Browser {
 //
 
 class MetaBrowser extends Buttons {
-    constructor(service, browser, fields, settings = {}) {
-        super(service, {}, {
+    constructor(id, browser) {
+        super(id, {}, {
             $origin: null,
             label: settings.label,
             ...settings
         });
 
-        this.service = service;
-        this.fields = fields;
-
-        this.settings = {
-            ...this.settings,
-            editable: false,
-            multiple: false,
-            searchBox: null,
-            toLoad: null, //async () => { return null; },
-            toSave: null, //async (items, which) => { },
-            ...settings
-        };
-
+        this.services = {};
         this.browser = browser;
         this.browser.settings.onSave = this.save;
-        
-        this.selected = 0;
+        this.selectedService = "";
 
-        //buttons
-        if (this.settings.editable) {
-            if (this.settings.multiple) {
-                this.addButton(new Button("new", {
-                    onClick: this.new,
-                    label: "New"
-                }));
-            }
+        this.addButton(new Button("new", {
+            onClick: this.new,
+            label: "New"
+        }));
+        this.buttons.new.hide();
 
-            this.addButton(new Button("delete", {
-                onClick: this.delete,
-                label: "Delete"
-            }));
-        }
-
-        this.data = null;
-        if (this.settings.multiple) this.data = [];
-
-        //load
-        this.loaded = false;
-        this.updateStatus();
-        if (this.settings.toLoad) this.settings.toLoad().then((res) => {
-            this.data = res;
-            //console.log(res);
-
-            if (!Array.isArray(this.data)) this.data = [ this.data ];
-
-            if (this.settings.searchBox) this.settings.searchBox.load(this.data, this);
-            this.select();
-
-            this.loaded = true;
-            this.updateStatus();
-        });
+        this.addButton(new Button("delete", {
+            onClick: this.delete,
+            label: "Delete"
+        }));
+        this.buttons.delete.hide();
     }
 
     new = () => {
@@ -696,10 +661,10 @@ class MetaBrowser extends Buttons {
         this.browser.read(this.data[which], this, this.fields, this.settings.editable);
     }
 
-    updateStatus = () => {
+    updateStatus = (text) => {
         if (!this.$status) this.$status = $(`<p></p>`).appendTo(this.$div);
         
-        this.$status.text(`Loaded: ${this.loaded}${this.focused ? ", In Focus" : ""}`).appendTo(this.$div);
+        this.$status.text(text);
     }
 
     updateSearch = () => {
@@ -707,5 +672,50 @@ class MetaBrowser extends Buttons {
             if (this.settings.multiple) this.settings.searchBox.load(this.data, this);
             else this.settings.searchBox.load([ this.data ], this);
         }
+    }
+
+    addService = (service, settings) => {
+        this.services[service] = {
+            selected: 0,
+            state: "reading",
+            data: null,
+            fields: fields,
+            editable: false,
+            multiple: false,
+            searchBox: null,
+            toLoad: null, //async () => { return null; },
+            toSave: null, //async (items, which) => { },
+            ...settings
+        };
+
+        let service = this.services[service];
+
+        if (service.settings.multiple) service.data = [];
+
+        if (service.settings.toLoad) service.settings.toLoad().then((res) => {
+            service.data = res;
+            //console.log(res);
+
+            if (!Array.isArray(service.data)) service.data = [ service.data ];
+
+            if (service.settings.searchBox) service.settings.searchBox.load(service.data, this);
+            this.select();
+        });
+
+        if (Object.keys(this.services).length < 2) this.selectService(service);
+    }
+
+    selectService = (service) => {
+        this.selectedService = service;
+
+        if (this.services[service].settings.editable) {
+            if (this.services[service].settings.multiple) {
+                this.buttons.new.show();
+            }
+
+            this.buttons.delete.show();
+        }
+
+        this.updateSearch();
     }
 }
