@@ -647,6 +647,8 @@ class MetaBrowser extends Buttons {
 
     delete = async (which = this.serving.selected) => {
         if (this.serving.editable) {
+            this.$confirm.off();
+            
             if (this.serving.multiple) {
                 if (this.serving.selected < this.serving.data.length && this.serving.selected >= 0) this.serving.data.splice(which, 1);
             }
@@ -754,9 +756,10 @@ class MetaBrowser extends Buttons {
 
         if (serving.toLoad) serving.toLoad().then((res) => {
             serving.data = res;
-            //console.log(res);
+            console.log(res);
 
-            if (serving.multiple && !Array.isArray(serving.data)) serving.data = [ serving.data ];
+            if (serving.multiple && !Array.isArray(serving.data)) serving.data = [];
+            console.log(serving.data);
 
             this.addButton(new Button(service, {
                 onClick: () => {
