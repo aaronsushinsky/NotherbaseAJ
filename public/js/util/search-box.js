@@ -9,7 +9,7 @@ class SearchBox {
 
         this.$div = $(`.search-box#${id}`);
         this.$searchList = $(`<ul class="selector"></ul>`).appendTo(this.$div);
-        this.filters = new SearchBox.Filters();
+        this.filters = new SearchBox.Filters(this.renderSearchResults);
         this.$div.append(this.filters.$div);
         this.buttons = new SearchBox.SearchButtons(id, this);
         
@@ -46,6 +46,7 @@ class SearchBox {
     
         setFilter = (filter) => {
             this.filter = filter;
+            this.$search.val(filter);
             if (this.onFilterChange) this.onFilterChange();
         }
     
@@ -62,7 +63,6 @@ class SearchBox {
         }
 
         toggle = () => {
-            console.log("adfh");
             this.$div.toggleClass("invisible");
         }
     }
@@ -92,14 +92,17 @@ class SearchBox {
                         let $result = $(`<li id="${i}">${label}</li>`).appendTo(this.$searchList);
                         $result.on("click", (e) => { 
                             this.select(e.currentTarget);
-                            if (this.settings.parent) this.settings.parent.select(i);
+                            if (this.settings.parent) this.settings.parent.select(i, "read");
                         });
                     }
                 }
                 else {
                     if (("Name Error").includes(this.filters.getFilter())) {
                         let $result = $(`<li id="${i}">Name Error</li>`).appendTo(this.$searchList);
-                        $result.on("click", () => { this.select(i); });
+                        $result.on("click", (e) => { 
+                            this.select(e.currentTarget);
+                            if (this.settings.parent) this.settings.parent.select(i, "read");
+                        });
                     }
                 }
             }
@@ -110,15 +113,19 @@ class SearchBox {
         }
     }
 
-    load = (data, parent = null) => {
+    load = (data, parent = null, which = null, filter = null) => {
         this.settings.parent = parent;
         this.items = data;
         this.renderSearchResults();
+        if (which) this.select(null, which);
+        if (filter) this.filters.setFilter(filter);
+        else this.filters.setFilter("");
     }
 
-    select = (target = null) => {
+    select = (target = null, which = null) => {
         this.$searchList.children().removeClass("selected");
         if (target) $(target).addClass("selected");
+        else if (which != null) $(this.$searchList.children()[which]).addClass("selected");
     }
 }
 

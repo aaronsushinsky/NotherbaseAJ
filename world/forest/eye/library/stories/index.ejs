@@ -3,9 +3,11 @@
 </style>
 <link rel="stylesheet" href="/styles/browser.css">
 
-<h2>Stories</h2>
-
-<div class="browser" id="stories"></div>
+<div class="floatables">
+    <div class="browser" id="stories"></div>
+    <div class="search-box" id="stories"></div>
+    <div class="meta buttons" id="stories"></div>
+</div>
 
 <hr>
 
@@ -13,12 +15,13 @@
     Return to the Lobby
 </a>
 
+<script src="/js/util/buttons.js"></script>
+<script src="/js/util/search-box.js"></script>
 <script src="/js/util/browser.js"></script>
+<script src="/js/entity.js"></script>
+<script src="/js/floatable.js"></script>
 <script>
     <%- include("./story-browser.js"); %>
-    let storyBrowser = new StoryBrowser("stories");
-
-    base.load("stories").then((res) => {
-        storyBrowser.load(res);
-    });
+    
+    const floatBoard = new FloatBoard();
 </script>

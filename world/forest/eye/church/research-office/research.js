@@ -1,5 +1,5 @@
 class BibleResearch {
-    constructor(enableFloat = false) {
+    constructor() {
         this.$div = $(".bible-research");
 
         this.Reader = class Reader {
@@ -138,80 +138,91 @@ class BibleResearch {
         this.reader = new this.Reader();
         this.$div.append(this.reader.render());
 
-        this.Persons = class Persons extends Browser {
-            constructor() {
-                const fields = new NBField({
-                    name: "persons",
-                    multiple: true,
+        this.$div.append(`<div class="browser" id="research"></div>`);
+        this.browser = new Browser("research");
+
+        this.$div.append(`<div class="search-box" id="research"></div>`);
+        this.searchBox = new SearchBox("research");
+
+        this.$div.append(`<div class="meta buttons" id="bible-research"></div>`);
+        this.metaResearch = new MetaBrowser("bible-research", this.browser, this.searchBox, "Bible Research");
+        this.metaResearch.addService("bible-research-persons", {
+            fields: new NBField({
+                name: "persons",
+                multiple: true,
+                label: "Person: ",
+                placeholder: "No Persons"
+            }, [
+                new NBField({
+                    name: "name",
                     label: "Person: ",
                     placeholder: "No Persons"
-                }, [
-                    new NBField({
-                        name: "name",
-                        label: "Person: ",
-                        placeholder: "No Persons"
-                    }, "string"),
-                    new NBField({
-                        name: "aliases",
-                        multiple: true,
-                        label: "Aliases: ",
-                        placeholder: "No Aliases"
-                    }, "string"),
-                    new NBField({
-                        name: "description",
-                        label: "Description: ",
-                        placeholder: "No Description"
-                    }, "long-string"),
-                ]);
-                super("persons", fields, true, "save-persons");
-            }
-        }
-        this.$div.append(`<div class="browser" id="persons"></div>`);
-        this.persons = new this.Persons();
-        base.load("bible-research-persons").then((res) => {
-            this.persons.load(res);
-        });
-
-        this.Themes = class Themes extends Browser {
-            constructor() {
-                const fields = new NBField({
-                    name: "themes",
+                }, "string"),
+                new NBField({
+                    name: "aliases",
                     multiple: true,
-                    label: "Themes: ",
-                    placeholder: "No Themes"
-                }, [
-                    new NBField({
-                        name: "name",
-                        label: "Theme: ",
-                        placeholder: "No Theme"
-                    }, "string"),
-                    new NBField({
-                        name: "aliases",
-                        multiple: true,
-                        label: "Aliases: ",
-                        placeholder: "No Aliases"
-                    }, "string"),
-                    new NBField({
-                        name: "description",
-                        label: "Description: ",
-                        placeholder: "No Description"
-                    }, "long-string"),
-                ]);
-                super("themes", fields, true, "save-themes");
+                    label: "Aliases: ",
+                    placeholder: "No Aliases"
+                }, "string"),
+                new NBField({
+                    name: "description",
+                    label: "Description: ",
+                    placeholder: "No Description"
+                }, "long-string"),
+            ]),
+            label: "Persons",
+            editable: true,
+            multiple: true,
+            toLoad: async () => {
+                let res = await base.load("bible-research-persons");
+                return res;
+            },
+            toSave: async (item, which) => {
+                await base.do("save-person", {
+                    item,
+                    which
+                });
             }
-        }
-        this.$div.append(`<div class="browser" id="themes"></div>`);
-        this.themes = new this.Themes();
-        base.load("bible-research-themes").then((res) => {
-            this.themes.load(res);
         });
-
-        if (enableFloat) this.enableFloat();
-    }
-
-    enableFloat = () => {
-        this.reader.$div.addClass("floatable");
-        this.persons.$div.addClass("floatable");
-        this.themes.$div.addClass("floatable");
+        this.metaResearch.addService("bible-research-themes", {
+            fields: new NBField({
+                name: "themes",
+                multiple: true,
+                label: "Themes: ",
+                placeholder: "No Themes"
+            }, [
+                new NBField({
+                    name: "name",
+                    label: "Theme: ",
+                    placeholder: "No Theme"
+                }, "string"),
+                new NBField({
+                    name: "aliases",
+                    multiple: true,
+                    label: "Aliases: ",
+                    placeholder: "No Aliases"
+                }, "string"),
+                new NBField({
+                    name: "description",
+                    label: "Description: ",
+                    placeholder: "No Description"
+                }, "long-string"),
+            ]),
+            label: "Themes",
+            editable: true,
+            multiple: true,
+            toLoad: async () => {
+                let res = await base.load("bible-research-themes");
+                return res;
+            },
+            toSave: async (item, which) => {
+                await base.do("save-theme", {
+                    item,
+                    which
+                });
+            }
+        });
     }
 }
+
+const bibleResearch = new BibleResearch();

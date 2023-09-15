@@ -67,8 +67,6 @@ export default async (req, user) => {
         return inGroups;
     }
 
-    let schedule = await req.db.Spirit.recallOne("schedule", user.id);
-
     // find groups the user is in
     let inGroups = await getInGroups({
         getMembers: true
@@ -91,34 +89,30 @@ export default async (req, user) => {
             }
         }
     }
-    
-    // update groups in task sharing
-    if (!Array.isArray(schedule.memory.data)) schedule.memory.data = [];
-    for (let i = 0; i < schedule.memory.data.length; i++) {
-        //default
-        let old = schedule.memory.data[i].sharing;
-        if (!Array.isArray(old)) old = [];
-        schedule.memory.data[i].sharing = [];
 
-        // see if keep old 
-        let which = -1;
-        for (let j = 0; j < inGroups.length; j++) {
-            let last = schedule.memory.data[i].sharing.push({
-                id: inGroups[j].id,
-                name: inGroups[j].name,
-                shared: false
-            });
+    // get tasks shared with user
+    let sharedTasks = [];
+    for (let i = 0; i < relatedMembers.length; i++) {
+        let relatedSchedule = await req.db.Spirit.recallOne("schedule", relatedMembers[i].id);
 
-            for (let k = 0; k < old.length; k++) {
-                if (old[k].id == inGroups[j].id) {
-                    schedule.memory.data[i].sharing[last - 1].shared = old[k].shared;
-                    old.splice(k, 1);
-                    break;
-                };
+        for (let j = 0; j < relatedSchedule.memory.data.length; j++) {
+            let shared = false;
+            for (let k = 0; k < relatedSchedule.memory.data[j].sharing.length; k++) {
+                for (let l = 0; l < inGroups.length; l++) {
+                    if (relatedSchedule.memory.data[j].sharing[k].shared && relatedSchedule.memory.data[j].sharing[k].id == inGroups[l].id) {
+                        shared = true;
+                        break;
+                    }
+                }
+                if (shared) break;
             }
+
+            if (shared) sharedTasks.push({
+                from: relatedMembers[i].name,
+                ...relatedSchedule.memory.data[j]
+            });
         }
     }
-    await schedule.commit();
 
-    return schedule.memory.data;
+    return sharedTasks;
 }

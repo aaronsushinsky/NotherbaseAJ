@@ -505,6 +505,8 @@ class Browser {
         this.editable = false;
         this.settings = {
             onSave: null,
+            onEdit: null,
+            onCancel: null,
             disableSave: false,
             ...settings
         };
@@ -544,9 +546,7 @@ class Browser {
     save = async () => {
         this.item = this.editBox.save();
         
-        if (this.settings.onSave) {
-            this.settings.onSave(this.item);
-        }
+        if (this.settings.onSave) this.settings.onSave(this.item);
 
         this.read();
     }
@@ -557,7 +557,15 @@ class Browser {
         this.fields = fields;
         this.editable = editable;
 
-        this.cancel();
+        this.editBox.hide();
+
+        this.buttons.hide("save");
+        this.buttons.hide("cancel");
+
+        if (this.editable) this.buttons.show("edit");
+        else this.buttons.hide("edit");
+
+        this.readBox.show();
 
         this.readBox.load(this.item, this.fields);
     }
@@ -578,6 +586,8 @@ class Browser {
             this.editBox.show();
     
             this.editBox.load(item, this.fields);
+
+            if (this.settings.onEdit) this.settings.onEdit();
         }
     }
 
@@ -591,121 +601,205 @@ class Browser {
         else this.buttons.hide("edit");
 
         this.readBox.show();
+
+        if (this.settings.onCancel) this.settings.onCancel();
     }
 }
 
 //
 
 class MetaBrowser extends Buttons {
-    constructor(service, browser, fields, settings = {}) {
-        super(service, {}, {
-            $origin: null,
-            label: settings.label,
-            ...settings
+    constructor(id, browser, searchBox, label = "Browse") {
+        super(id, {}, {
+            $origin: $(`.meta.buttons#${id}`),
+            label: label
         });
 
-        this.service = service;
-        this.fields = fields;
+        this.services = {};
+        this.browser = browser;
+        this.browser.settings.onSave = this.save;
+        this.browser.settings.onEdit = this.edit;
+        this.browser.settings.onCancel = this.cancel;
+        this.searchBox = searchBox;
+        this.selectedService = "";
 
-        this.settings = {
-            ...this.settings,
+        this.addButton(new Button("new", {
+            onClick: this.new,
+            label: "New"
+        }));
+        this.buttons.new.hide();
+
+        this.addButton(new Button("delete", {
+            onClick: this.attemptDelete,
+            label: "Delete"
+        }));
+        this.buttons.delete.hide();
+    }
+
+    new = () => {
+        if (this.serving.editable) {
+            if (this.serving.multiple) this.serving.selected = this.serving.data.length;
+    
+            this.searchBox.select();
+            this.browser.edit(null, this, this.serving.fields, this.serving.editable);
+        }
+    }
+
+    delete = async (which = this.serving.selected) => {
+        if (this.serving.editable) {
+            this.$confirm.off();
+            
+            if (this.serving.multiple) {
+                if (this.serving.selected < this.serving.data.length && this.serving.selected >= 0) this.serving.data.splice(which, 1);
+            }
+            else this.serving.data = null;
+
+            this.updateSearch();
+
+            if (this.serving.toSave) await this.serving.toSave(null, this.serving.selected);
+
+            this.cancelDelete();
+
+            this.serving.state = "read";
+            this.select();
+        }
+    }
+
+    attemptDelete = () => {
+        this.buttons.delete.$div.empty();
+        this.buttons.delete.disable();
+
+        this.serving.lastAttempt = Date.now();
+
+        this.$cancel = $(`<button id="cancel-delete">Cancel</button>`).appendTo(this.buttons.delete.$div);
+        this.$cancel.on("click", (e) => {
+            this.cancelDelete();
+            e.stopPropagation();
+        });
+
+        this.$confirm = $(`<button id="confirm-delete">Confirm Delete</button>`).appendTo(this.buttons.delete.$div);
+        this.$confirm.on("click", (e) => {
+            if (Date.now() - this.serving.lastAttempt > 1000) {
+                this.delete();
+                e.stopPropagation();
+            }
+        });
+    }
+
+    cancelDelete = () => {
+        this.buttons.delete.$div.empty();
+        this.buttons.delete.$div.text("Delete");
+        this.buttons.delete.enable();
+    }
+
+    save = async (item) => {
+        if (this.serving.editable) {
+            if (this.serving.multiple) this.serving.data[this.serving.selected] = item;
+            else this.serving.data = item;
+
+            this.updateSearch();
+    
+            if (this.serving.toSave) await this.serving.toSave(item, this.serving.selected);
+
+            this.serving.state = "read";
+        }
+    }
+
+    edit = async () => {
+        this.serving.state = "edit";
+    }
+
+    cancel = async () => {
+        this.select(this.serving.selected, "read");
+    }
+
+    select = (which = 0, state = this.serving.state) => {
+        this.serving.selected = which;
+        this.serving.state = state;
+        if (state === "read") this.browser.read(this.serving.data[which], this, this.serving.fields, this.serving.editable);
+        else if (state === "edit") this.browser.edit(this.serving.lastEdit, this, this.serving.fields, this.serving.editable);
+        this.searchBox.select(null, this.serving.selected);
+    }
+
+    updateStatus = (text) => {
+        if (!this.$status) this.$status = $(`<p></p>`).appendTo(this.$div);
+        
+        this.$status.text(text);
+    }
+
+    updateSearch = () => {
+        if (this.searchBox) {
+            if (this.serving.multiple) this.searchBox.load(this.serving.data, this, this.serving.selected, this.serving.lastFilter);
+            else this.searchBox.load([ this.serving.data ], this, this.serving.lastFilter);
+        }
+    }
+
+    addService = (service, settings) => {
+        this.services[service] = {
+            selected: 0,
+            state: "read",
+            lastFilter: "",
+            lastEdit: {},
+            label: null,
+            data: null,
+            fields: new NBField(),
             editable: false,
             multiple: false,
-            searchBox: null,
             toLoad: null, //async () => { return null; },
             toSave: null, //async (items, which) => { },
             ...settings
         };
 
-        this.browser = browser;
-        this.browser.settings.onSave = this.save;
-        
-        this.selected = 0;
+        let serving = this.services[service];
 
-        //buttons
-        if (this.settings.editable) {
-            if (this.settings.multiple) {
-                this.addButton(new Button("new", {
-                    onClick: this.new,
-                    label: "New"
-                }));
-            }
+        if (serving.multiple) serving.data = [];
 
-            this.addButton(new Button("delete", {
-                onClick: this.delete,
-                label: "Delete"
+        if (serving.toLoad) serving.toLoad().then((res) => {
+            serving.data = res;
+            console.log(res);
+
+            if (serving.multiple && !Array.isArray(serving.data)) serving.data = [];
+            console.log(serving.data);
+
+            this.addButton(new Button(service, {
+                onClick: () => {
+                    this.selectService(service);
+                },
+                label: `Switch to ${serving.label ? serving.label : service}`
             }));
-        }
-
-        this.data = null;
-        if (this.settings.multiple) this.data = [];
-
-        //load
-        this.loaded = false;
-        this.updateStatus();
-        if (this.settings.toLoad) this.settings.toLoad().then((res) => {
-            this.data = res;
-            //console.log(res);
-
-            if (!Array.isArray(this.data)) this.data = [ this.data ];
-
-            if (this.settings.searchBox) this.settings.searchBox.load(this.data, this);
-            this.select();
-
-            this.loaded = true;
-            this.updateStatus();
+    
+            if (Object.keys(this.services)[0] === service) {
+                this.selectedService = service;
+                this.serving = this.services[this.selectedService];
+                this.selectService(service);
+            }
         });
     }
 
-    new = () => {
-        if (this.settings.editable) {
-            if (this.settings.multiple) this.selected = this.data.length;
-    
-            this.browser.edit(null, this, this.fields, true);
+    selectService = (service) => {
+        if (this.serving.state === "edit") this.serving.lastEdit = this.browser.editBox.save();
+        if (this.serving.multiple) this.serving.lastFilter = this.searchBox.filters.getFilter();
 
-            //if (this.settings.searchBox) this.settings.searchBox.select();
+        this.buttons[this.selectedService].show();
+
+        this.selectedService = service;
+        this.serving = this.services[this.selectedService];
+
+        if (this.serving.editable) {
+            if (this.serving.multiple) {
+                this.buttons.new.show();
+            }
+
+            this.buttons.delete.show();
         }
-    }
-
-    delete = async (which = this.selected) => {
-        if (this.settings.editable) {
-            if (this.settings.multiple) this.data.splice(which, 1);
-            else this.data = null;
-
-            this.updateSearch();
-
-            if (this.settings.toSave) await this.settings.toSave(null, this.selected);
-
-            this.select();
+        else {
+            this.buttons.new.hide();
+            this.buttons.delete.hide();
         }
-    }
 
-    save = async (item) => {
-        if (this.settings.editable) {
-            if (this.settings.multiple) this.data[this.selected] = item;
-            else this.data = item;
+        this.buttons[service].hide();
 
-            this.updateSearch();
-    
-            if (this.settings.toSave) await this.settings.toSave(item, this.selected);
-        }
-    }
-
-    select = (which = 0) => {
-        this.selected = which;
-        this.browser.read(this.data[which], this, this.fields, this.settings.editable);
-    }
-
-    updateStatus = () => {
-        if (!this.$status) this.$status = $(`<p></p>`).appendTo(this.$div);
-        
-        this.$status.text(`Loaded: ${this.loaded}${this.focused ? ", In Focus" : ""}`).appendTo(this.$div);
-    }
-
-    updateSearch = () => {
-        if (this.settings.searchBox) {
-            if (this.settings.multiple) this.settings.searchBox.load(this.data, this);
-            else this.settings.searchBox.load([ this.data ], this);
-        }
+        this.updateSearch();
+        this.select(this.serving.selected);
     }
 }

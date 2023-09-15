@@ -121,7 +121,9 @@
 
         <section class="showcase" id="notherbase-examples">
             <div class="chat-box" id="example-chat"></div>
-            <div class="browser" id="example"></div>
+            <div class="browser" id="portfolio-examples"></div>
+            <div class="search-box" id="portfolio-examples"></div>
+            <div class="meta buttons" id="portfolio-examples"></div>
         </section>
 
         <section class="alt showcase" id="tamago-watch">
@@ -641,8 +643,10 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/base.js"></script>
-    <script src="/js/util/browser.js"></script>
     <script src="/js/chat-box.js"></script>
+    <script src="/js/util/buttons.js"></script>
+    <script src="/js/util/search-box.js"></script>
+    <script src="/js/util/browser.js"></script>
     <script>
         const base = new Base();
 
@@ -736,30 +740,41 @@
 
         const messager = new Messager();
 
-        const fields = new NBField({
+        const exampleBrowser = new Browser("portfolio-examples");
+        const exampleSearch = new SearchBox("portfolio-examples");
+
+        const metaRecipes = new MetaBrowser("portfolio-examples", exampleBrowser, exampleSearch, "Examples");
+        metaRecipes.addService("portfolio-examples", {
+            fields: new NBField({
             name: "example",
             multiple: true,
             placeholder: "No Example",
             label: "Example:"
         }, [
-            new NBField({
-                name: "title",
-                placeholder: "No Title",
-                label: "Title:"
-            }, "string"),
-            new NBField({
-                name: "content",
-                placeholder: "No Content",
-                label: "Content:"
-            }, "long-string")
-        ]);
-        const exampleBrowser = new Browser("example", fields, true, "save-examples", {
-            onSaveRoute: "/pages/portfolio"
+                new NBField({
+                    name: "title",
+                    placeholder: "No Title",
+                    label: "Title:"
+                }, "string"),
+                new NBField({
+                    name: "content",
+                    placeholder: "No Content",
+                    label: "Content:"
+                }, "long-string")
+            ]),
+            editable: true,
+            multiple: true,
+            toLoad: async () => {
+                return await base.load("portfolio-examples");
+            },
+            toSave: async (item, which) => {
+                await base.do("save-example", { 
+                    item, 
+                    which,
+                    route: "/pages/portfolio"
+                });
+            }
         });
-
-        base.load("portfolio-examples", "global").then((res) => {
-            exampleBrowser.load(res);
-        });        
     </script>
 </body>
 </html>
