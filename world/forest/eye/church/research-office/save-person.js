@@ -1,5 +1,5 @@
 export default async (req, user) => {
-    let spirit = await req.db.Spirit.recallOne("recipes", user.id);
+    let spirit = await req.db.Spirit.recallOne("bible-research-persons", user.id);
 
     if (!Array.isArray(spirit.memory.data)) spirit.memory.data = [];
 

@@ -1,5 +1,5 @@
 class BibleResearch {
-    constructor(enableFloat = false) {
+    constructor() {
         this.$div = $(".bible-research");
 
         this.Reader = class Reader {
@@ -140,39 +140,39 @@ class BibleResearch {
 
         this.$div.append(`<div class="browser" id="research"></div>`);
         this.browser = new Browser("research");
+
         this.$div.append(`<div class="search-box" id="research"></div>`);
         this.searchBox = new SearchBox("research");
 
-        this.$div.append(`<div class="meta buttons" id="research"></div>`);
-        this.personFields = new NBField({
-            name: "persons",
-            multiple: true,
-            label: "Person: ",
-            placeholder: "No Persons"
-        }, [
-            new NBField({
-                name: "name",
+        this.$div.append(`<div class="meta buttons" id="bible-research"></div>`);
+        this.metaResearch = new MetaBrowser("bible-research", this.browser, this.searchBox, "Bible Research");
+        this.metaResearch.addService("bible-research-persons", {
+            fields: new NBField({
+                name: "persons",
+                multiple: true,
                 label: "Person: ",
                 placeholder: "No Persons"
-            }, "string"),
-            new NBField({
-                name: "aliases",
-                multiple: true,
-                label: "Aliases: ",
-                placeholder: "No Aliases"
-            }, "string"),
-            new NBField({
-                name: "description",
-                label: "Description: ",
-                placeholder: "No Description"
-            }, "long-string"),
-        ]);
-        this.persons = new MetaBrowser("bible-research-persons", this.browser, this.personFields, {
-            $origin: $(".meta.buttons#persons"),
-            label: "Persons Controls",
+            }, [
+                new NBField({
+                    name: "name",
+                    label: "Person: ",
+                    placeholder: "No Persons"
+                }, "string"),
+                new NBField({
+                    name: "aliases",
+                    multiple: true,
+                    label: "Aliases: ",
+                    placeholder: "No Aliases"
+                }, "string"),
+                new NBField({
+                    name: "description",
+                    label: "Description: ",
+                    placeholder: "No Description"
+                }, "long-string"),
+            ]),
+            label: "Persons",
             editable: true,
             multiple: true,
-            searchBox: this.searchBox,
             toLoad: async () => {
                 let res = await base.load("bible-research-persons");
                 return res;
@@ -184,37 +184,33 @@ class BibleResearch {
                 });
             }
         });
-
-        this.$div.append(`<div class="meta buttons" id="themes"></div>`);
-        this.themeFields = new NBField({
-            name: "themes",
-            multiple: true,
-            label: "Themes: ",
-            placeholder: "No Themes"
-        }, [
-            new NBField({
-                name: "name",
-                label: "Theme: ",
-                placeholder: "No Theme"
-            }, "string"),
-            new NBField({
-                name: "aliases",
+        this.metaResearch.addService("bible-research-themes", {
+            fields: new NBField({
+                name: "themes",
                 multiple: true,
-                label: "Aliases: ",
-                placeholder: "No Aliases"
-            }, "string"),
-            new NBField({
-                name: "description",
-                label: "Description: ",
-                placeholder: "No Description"
-            }, "long-string"),
-        ]);        
-        this.themes = new MetaBrowser("themes", this.browser, this.themeFields, {
-            $origin: $(".meta.buttons#themes"),
-            label: "Themes Controls",
+                label: "Themes: ",
+                placeholder: "No Themes"
+            }, [
+                new NBField({
+                    name: "name",
+                    label: "Theme: ",
+                    placeholder: "No Theme"
+                }, "string"),
+                new NBField({
+                    name: "aliases",
+                    multiple: true,
+                    label: "Aliases: ",
+                    placeholder: "No Aliases"
+                }, "string"),
+                new NBField({
+                    name: "description",
+                    label: "Description: ",
+                    placeholder: "No Description"
+                }, "long-string"),
+            ]),
+            label: "Themes",
             editable: true,
             multiple: true,
-            searchBox: this.searchBox,
             toLoad: async () => {
                 let res = await base.load("bible-research-themes");
                 return res;
@@ -226,42 +222,7 @@ class BibleResearch {
                 });
             }
         });
-
-
-        // this.metaResearch = new MetaBrowser("bible-research-persons", this.browser, this.personFields, {
-        //     $origin: $(".meta.buttons#persons"),
-        //     label: "Persons Controls",
-        //     editable: true,
-        //     multiple: true,
-        //     searchBox: this.searchBox,
-        //     toLoad: async () => {
-        //         let res = await base.load("bible-research-persons");
-        //         return res;
-        //     },
-        //     toSave: async (item, which) => {
-        //         await base.do("save-person", {
-        //             item,
-        //             which
-        //         });
-        //     }
-        // });
-    
-        // metaResearch.addButton(new Button("new", {
-        //     onClick: this.new,
-        //     label: "New"
-        // }));
-
-
-
-
-        if (enableFloat) this.enableFloat();
-    }
-
-    
-
-    enableFloat = () => {
-        this.reader.$div.addClass("floatable");
-        this.persons.$div.addClass("floatable");
-        this.themes.$div.addClass("floatable");
     }
 }
+
+const bibleResearch = new BibleResearch();
