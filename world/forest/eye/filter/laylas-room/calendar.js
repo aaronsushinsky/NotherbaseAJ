@@ -10,7 +10,13 @@ class Calendar {
         this.render();
         
         base.do("load-schedule", { route: "/forest/eye/filter/office" }).then((res) => {
-            this.load(res.data);
+            this.userTasks = res.data;
+
+            base.do("load-shared-schedule", { route: "/forest/eye/filter/office" }).then((resp) => {
+                this.sharedTasks = resp.data;
+                console.log(this.userTasks, this.sharedTasks);
+                this.load();
+            });
         });
     }
 
@@ -24,11 +30,12 @@ class Calendar {
         }
     }
 
-    load = (tasks) => {
-        this.tasks = [...tasks.userTasks, ...tasks.sharedTasks];
+    load = (tasks = this.userTasks, shared = this.sharedTasks) => {
+        this.userTasks = this.userTasks;
+        this.sharedTasks = this.sharedTasks
 
         for (let i = 0; i < 12; i++) {
-            this.months[i].load(this.tasks);        
+            this.months[i].load([...this.userTasks, ...this.sharedTasks]);        
         }
     }
 }

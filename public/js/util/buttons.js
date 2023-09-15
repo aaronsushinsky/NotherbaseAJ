@@ -9,9 +9,7 @@ class Button {
         this.id = id;
 
         this.$div = $(`<button id=${id}>${this.settings.label ? this.settings.label : "="}</button>`);
-        if (this.settings.onClick) this.$div.click(() => {
-            this.settings.onClick();
-        });
+        this.enable();
     }
 
     hide = () => {
@@ -20,6 +18,18 @@ class Button {
 
     show = () => {
         this.$div.removeClass("invisible");
+    }
+
+    disable = () => {
+        this.enabled = false;
+        this.$div.off();
+    }
+
+    enable = () => {
+        this.enabled = true;
+        if (this.settings.onClick) this.$div.on("click", () => {
+            this.settings.onClick();
+        });
     }
 }
 
@@ -41,6 +51,8 @@ class Buttons {
 
         if (!this.settings.$origin) this.$div = $(`<div class="buttons ${this.settings.isTabs ? "tabs" : ""}" id="${id}"></div>`);
         else this.$div = this.settings.$origin;
+
+        this.$div.click(this.click);
 
         this.render();
     }
