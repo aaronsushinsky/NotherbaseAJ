@@ -1,6 +1,6 @@
 .search-box {
     position: relative;
-    height: 200px;
+    height: 300px;
     width: var(--fillFromMargin);
     margin: var(--margin);
     border: var(--standardBorder);
@@ -9,6 +9,10 @@
     gap: 0;
     padding: 1px;
     margin-bottom: var(--tabMargin);
+}
+
+.floating .search-box {
+    height: calc(100% - 50px);
 }
 
 .search input {

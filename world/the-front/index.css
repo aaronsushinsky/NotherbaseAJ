@@ -88,11 +88,6 @@
     text-align: right;
 }
 
-.toy {
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-
 #pac2 {
     transform: rotate(90deg);
 }
@@ -112,4 +107,10 @@
 #pac:hover, #pac2:hover, #pac3:hover, #pac4:hover {
     scale: 1.05;
     cursor: pointer;
+}
+
+.toy {
+    overflow: hidden;
+    max-width: 200px;
+    max-height: 200px;
 }

@@ -8,23 +8,11 @@
 </p>
 
 <div class="tower">
-    <section class="floor" id="items">
-        <h4>Items</h4>
-        <button id="toggle">Toggle</button>
-    
-        <div class="content invisible">
-            <div class="browser" id="items"></div>
-        </div>
-    </section>
-    
-    <section class="floor" id="users">
-        <h4>Users</h4>
-        <button id="toggle">Toggle</button>
-    
-        <div class="content invisible">
-            <div class="browser" id="users"></div>
-        </div>
-    </section>
+    <div class="floatables">
+        <div class="browser" id="tower"></div>
+        <div class="search-box" id="tower"></div>
+        <div class="meta buttons" id="tower"></div>
+    </div>
 
     <div id="cover"></div>
 </div>
@@ -68,7 +56,11 @@
     Return to the Inn
 </a>
 
+<script src="/js/util/buttons.js"></script>
+<script src="/js/util/search-box.js"></script>
 <script src="/js/util/browser.js"></script>
+<script src="/js/entity.js"></script>
+<script src="/js/floatable.js"></script>
 <script>
     $("#knock").on("click", function knock() {
         $("#extra").text("You knocked on the tower's door. Surely you've been heard.");
@@ -81,68 +73,90 @@
         $(".floor button#toggle").on("click", function (e) {
             $(e.target.parentElement).find(".content").toggleClass("invisible");
         });
-        
-        let itemFields = new NBField({
-            name: "item",
-            label: "Item: ",
-            placeholder: "No item",
-            multiple: true
-        }, [
-            new NBField({
-                name: "name",
-                label: "Name: ",
-                placeholder: "Name"
-            }, "string"),
-            new NBField({
-                name: "short",
-                label: "Short Description: ",
-                placeholder: "No Description"
-            }, "string"),
-            new NBField({
-                name: "long",
-                label: "Long Description: ",
-                placeholder: "No Description"
-            }, "long-string")
-        ]);
-        const itemBrowser = new Browser("items", itemFields, true, null, {
-            onSaveOne: "save-item",
-            onDeleteOne: "delete-item"
-        });
 
-        let userFields = new NBField({
-            name: "user",
-            label: "User: ",
-            placeholder: "No user",
-            multiple: true
-        }, [
-            new NBField({
-                name: "username",
-                label: "Username: ",
-                placeholder: "No Username"
-            }, "string"),
-            new NBField({
-                name: "authLevels",
-                label: "Auth Levels: ",
-                placeholder: "No Auth",
+        const browser = new Browser("tower");
+        const search = new SearchBox("tower");
+
+        const metaTower = new MetaBrowser("tower", browser, search, "Tower");
+        metaTower.addService("items", {
+            fields: new NBField({
+                name: "item",
+                label: "Item: ",
+                placeholder: "No item",
                 multiple: true
-            }, "string"),
-            new NBField({
-                name: "email",
-                label: "Email: ",
-                placeholder: "No Email"
-            }, "string")
-        ]);
-        const userBrowser = new Browser("users", userFields, true, null, {
-            onSaveOne: "save-user",
-            onDeleteOne: "delete-user"
+            }, [
+                new NBField({
+                    name: "name",
+                    label: "Name: ",
+                    placeholder: "Name"
+                }, "string"),
+                new NBField({
+                    name: "short",
+                    label: "Short Description: ",
+                    placeholder: "No Description"
+                }, "string"),
+                new NBField({
+                    name: "long",
+                    label: "Long Description: ",
+                    placeholder: "No Description"
+                }, "long-string"),
+                new NBField({
+                    name: "id",
+                    placeholder: null,
+                    hidden: true
+                }, "string")
+            ]),
+            label: "Items",
+            editable: true,
+            multiple: true,
+            toLoad: async () => {
+                let res = await base.do("get-items");
+                console.log(res);
+                return res.data;
+            },
+            toSave: async (item, which, settings = { delete: false }) => {
+                await base.do("save-item", { item, which, delete: settings.delete  });
+            }
         });
-
-        base.do("get-items").then((res) => {
-            itemBrowser.load(res.data);
-        });
-
-        base.do("get-users").then((res) => {
-            userBrowser.load(res.data);
+        metaTower.addService("users", {
+            fields: new NBField({
+                name: "user",
+                label: "User: ",
+                placeholder: "No user",
+                multiple: true
+            }, [
+                new NBField({
+                    name: "username",
+                    label: "Username: ",
+                    placeholder: "No Username"
+                }, "string"),
+                new NBField({
+                    name: "authLevels",
+                    label: "Auth Levels: ",
+                    placeholder: "No Auth",
+                    multiple: true
+                }, "string"),
+                new NBField({
+                    name: "email",
+                    label: "Email: ",
+                    placeholder: "No Email"
+                }, "string"),
+                new NBField({
+                    name: "id",
+                    placeholder: null,
+                    hidden: true
+                }, "string")
+            ]),
+            label: "Users",
+            editable: true,
+            multiple: true,
+            toLoad: async () => {
+                let res = await base.do("get-users");
+                return res.data;
+            },
+            toSave: async (item, which, settings = { delete: false }) => {
+                await base.do("save-user", { item, which, delete: settings.delete });
+            }
         });
     <% } %>
 </script>
