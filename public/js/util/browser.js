@@ -38,11 +38,21 @@ class NBField {
 
 class ViewBox {
     constructor(fields, nested = false) {
+        ViewBox.attemptStyle();
         this.$div = null;
         this.hidden = false;
         this.fields = fields;
         this.$items = [];
         this.nested = nested;
+    }
+
+    static styled = false;
+
+    static attemptStyle() {
+        if (!ViewBox.styled) {
+            $("head").append(`<link href='/styles/browser.css' rel='stylesheet' />`);
+            ViewBox.styled = true;
+        }
     }
 
     render = () => { /* override this */ }
@@ -80,8 +90,7 @@ class ReadBox extends ViewBox {
         if (this.fields.settings.multiple) this.$div.addClass("multiple");
 
         this.renderHeader();
-
-        //this.load(null);
+        this.renderButtons();
         
         return this.$div;
     }
@@ -97,6 +106,15 @@ class ReadBox extends ViewBox {
                 else this.$header = $(`<h6 class="${mods}${this.fields.settings.name}">${this.fields.settings.label}</h6>`).appendTo(this.$div);
             } 
             else this.$header = $(`<h4 class="${mods}${this.fields.settings.name}">${this.fields.settings.label}</h4>`).appendTo(this.$div);
+        }
+    }
+
+    renderButtons = () => {
+        if (Array.isArray(this.fields.settings.buttons)) {
+            for (let i = 0; i < this.fields.settings.buttons.length; i++) {
+                this.fields.settings.buttons[i].render();
+                this.$div.append(this.fields.settings.buttons[i].$div.clone(true));
+            }
         }
     }
 
@@ -136,6 +154,8 @@ class ReadBox extends ViewBox {
             else $rendered = $(`<p class="${field.settings.name}"></p>`).appendTo($parent);
         }
 
+        if (field.settings.hidden) $rendered.addClass("invisible");
+
         return $rendered;
     }
 
@@ -144,20 +164,19 @@ class ReadBox extends ViewBox {
             this.fields = fields;
             this.item = item;
     
-            if (!this.fields.settings.hidden) {
-                this.$div.empty();  
-                this.renderHeader();
-    
-                if (item) {
-                    if (this.fields.settings.multiple && this.nested) {
-                        if (Array.isArray(item)) for (let i = 0; i < item.length; i++) {
-                            this.add(item[i]);
-                        }
+            this.$div.empty();  
+            this.renderHeader();
+            this.renderButtons();
+
+            if (item) {
+                if (this.fields.settings.multiple && this.nested) {
+                    if (Array.isArray(item)) for (let i = 0; i < item.length; i++) {
+                        this.add(item[i]);
                     }
-                    else this.set(item);
                 }
-                else ReadBox.renderFieldTo(this.fields, this.$div, item);
+                else this.set(item);
             }
+            else ReadBox.renderFieldTo(this.fields, this.$div, item);
         }
     }
 
@@ -175,6 +194,7 @@ class ReadBox extends ViewBox {
                     if ($newBox) {
                         $newBox.appendTo($newLI);
                         newBox.load(toLoad);
+                        this.$items.push($newBox);
                     }
                 }
             }
@@ -338,7 +358,7 @@ class EditBox extends ViewBox {
                 for (let i = 0; i < this.$items.length; i++) {
                     if (this.$items[i]) {
                         let og = null;
-                        if (this.item && this.item[i]) og = this.item[i]; 
+                        if (this.item && this.item[i]) og = this.item[i];
                         let saved = this.saveFields(this.$items[i], og);
                         toGo.push(saved);
                     }
@@ -351,7 +371,7 @@ class EditBox extends ViewBox {
         return toGo;
     }
 
-    saveFields = ($items = this.$items, originalItem = null) => {
+    saveFields = ($items = this.$items, originalItem = this.item) => {
         let toGo = {};
 
         if (Array.isArray(this.fields.children)) {
@@ -363,7 +383,7 @@ class EditBox extends ViewBox {
                     toGo[this.fields.children[i].settings.name] = saved;
                 }
                 else {
-                    if (originalItem[this.fields.children[i].settings.name]) {
+                    if (originalItem && originalItem[this.fields.children[i].settings.name]) {
                         toGo[this.fields.children[i].settings.name] = originalItem[this.fields.children[i].settings.name];
                     }
                     else toGo[this.fields.children[i].settings.name] = null;
@@ -650,14 +670,15 @@ class MetaBrowser extends Buttons {
             this.$confirm.off();
             
             if (this.serving.multiple) {
+                if (this.serving.toSave) await this.serving.toSave(this.serving.data[this.serving.selected], this.serving.selected, { delete: true });
                 if (this.serving.selected < this.serving.data.length && this.serving.selected >= 0) this.serving.data.splice(which, 1);
             }
-            else this.serving.data = null;
+            else {
+                if (this.serving.toSave) await this.serving.toSave(this.serving.data, this.serving.selected, { delete: true });
+                this.serving.data = null;
+            }
 
             this.updateSearch();
-
-            if (this.serving.toSave) await this.serving.toSave(null, this.serving.selected);
-
             this.cancelDelete();
 
             this.serving.state = "read";
@@ -756,10 +777,8 @@ class MetaBrowser extends Buttons {
 
         if (serving.toLoad) serving.toLoad().then((res) => {
             serving.data = res;
-            console.log(res);
 
             if (serving.multiple && !Array.isArray(serving.data)) serving.data = [];
-            console.log(serving.data);
 
             this.addButton(new Button(service, {
                 onClick: () => {
@@ -773,6 +792,16 @@ class MetaBrowser extends Buttons {
                 this.serving = this.services[this.selectedService];
                 this.selectService(service);
             }
+        });
+    }
+
+    reload = (service = this.selectedService) => {
+        let serving = this.services[service];
+
+        if (serving.toLoad) serving.toLoad().then((res) => {
+            serving.data = res;
+            if (serving.multiple && !Array.isArray(serving.data)) serving.data = [];
+            this.selectService(service);
         });
     }
 

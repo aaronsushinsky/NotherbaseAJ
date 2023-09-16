@@ -1,7 +1,7 @@
-const recipeBrowser = new Browser("recipes");
-const recipeSearch = new SearchBox("recipes");
+const browser = new Browser("recipes");
+const search = new SearchBox("recipes");
 
-const metaRecipes = new MetaBrowser("recipes", recipeBrowser, recipeSearch, "Your Recipes");
+const metaRecipes = new MetaBrowser("recipes", browser, search, "Your Recipes");
 metaRecipes.addService("recipes", {
     fields: new NBField({
         name: "recipe",
