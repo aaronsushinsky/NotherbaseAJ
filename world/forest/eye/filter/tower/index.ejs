@@ -154,8 +154,8 @@
                 let res = await base.do("get-users");
                 return res.data;
             },
-            toSave: async (item, which, settings = { delete: false }) => {
-                await base.do("save-user", { item, which, delete: settings.delete });
+            toSave: async (item, which, del) => {
+                await base.do("save-user", { item, which, delete: del });
             }
         });
     <% } %>

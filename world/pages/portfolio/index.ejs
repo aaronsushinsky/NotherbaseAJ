@@ -765,9 +765,9 @@
             editable: true,
             multiple: true,
             toLoad: async () => {
-                return await base.load("portfolio-examples");
+                return await base.load("portfolio-examples", "global");
             },
-            toSave: async (item, which) => {
+            toSave: async (item, which, ) => {
                 await base.do("save-example", { 
                     item, 
                     which,

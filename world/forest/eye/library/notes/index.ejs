@@ -1,12 +1,11 @@
 <style>
     <%- include("./index.css") %>
 </style>
-<link rel="stylesheet" href="/styles/browser.css">
 
 <div class="floatables">
-    <div class="browser" id="notes"></div>
-    <div class="search-box" id="notes"></div>
-    <div class="meta buttons" id="notes"></div>
+    <div class="browser"></div>
+    <div class="search-box"></div>
+    <div class="meta buttons"></div>
 </div>
 
 <hr>
@@ -21,7 +20,37 @@
 <script src="/js/entity.js"></script>
 <script src="/js/floatable.js"></script>
 <script>
-    <%- include("./note-browser.js"); %>
+    const browser = new Browser();
+    const search = new SearchBox();
+    const metaBrowser = new MetaBrowser("Your Notes", browser, search);
+    metaBrowser.addService("notes", {
+        fields: new NBField({
+            name: "note",
+            label: "Note: ",
+            placeholder: "No Note",
+            multiple: true
+        }, [
+            new NBField({
+                name: "title",
+                label: "Title: ",
+                placeholder: "No Title",
+            }, "string"),
+            new NBField({
+                name: "content",
+                label: "Content: ",
+                placeholder: "No Content",
+            }, "long-string")
+        ]),
+        label: "Notes",
+        editable: true,
+        multiple: true,
+        toLoad: async () => {
+            return await base.load("notes");
+        },
+        toSave: async (item, which, deleting) => {
+            await base.do("save-note", { item, which, deleting });
+        }
+    });
 
     const floatBoard = new FloatBoard();
 </script>

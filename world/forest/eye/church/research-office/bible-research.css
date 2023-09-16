@@ -3,16 +3,16 @@
     flex-wrap: wrap;
 }
 
-.bible-research .reader .finder {
+.reader .finder {
     display: flex;
 }
 
-.bible-research .reader .open-to {
+.reader .open-to {
     height: 4vh;
     display: flex;
 }
 
-.bible-research .reader .text {
+.reader .text {
     margin: var(--margin);
     height: 40vh;
     overflow: auto;
