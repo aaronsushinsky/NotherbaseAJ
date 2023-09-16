@@ -38,11 +38,21 @@ class NBField {
 
 class ViewBox {
     constructor(fields, nested = false) {
+        ViewBox.attemptStyle();
         this.$div = null;
         this.hidden = false;
         this.fields = fields;
         this.$items = [];
         this.nested = nested;
+    }
+
+    static styled = false;
+
+    static attemptStyle() {
+        if (!ViewBox.styled) {
+            $("head").append(`<link href='/styles/browser.css' rel='stylesheet' />`);
+            ViewBox.styled = true;
+        }
     }
 
     render = () => { /* override this */ }
