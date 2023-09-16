@@ -798,7 +798,6 @@ class MetaBrowser extends Buttons {
     reload = (service = this.selectedService) => {
         let serving = this.services[service];
 
-        console.log(service, serving);
         if (serving.toLoad) serving.toLoad().then((res) => {
             serving.data = res;
             if (serving.multiple && !Array.isArray(serving.data)) serving.data = [];

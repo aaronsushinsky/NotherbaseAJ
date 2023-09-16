@@ -391,7 +391,6 @@ metaGroups.addService("groups", {
 
         for (let i = 0; i < data.length; i++) {
             let members = data[i].members;
-            console.log(data[i]);
             for (let j = 0; j < members.length; j++) {
                 if (members[j].auth.includes("Leader") && members[j].id == "<%= userID %>") {
                     removeButton.show();
