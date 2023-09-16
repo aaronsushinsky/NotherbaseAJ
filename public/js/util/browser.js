@@ -2,15 +2,15 @@ class BrowserButtons extends Buttons {
     constructor(id, browser) {
         super(id, [
             new Button("edit", {
-                onClick: browser.edit,
+                onClick: () => { browser.edit(); },
                 label: "Edit"
             }),
             new Button("save", {
-                onClick: browser.save,
+                onClick: () => { browser.save(); },
                 label: "Save"
             }),
             new Button("cancel", {
-                onClick: browser.cancel,
+                onClick: () => { browser.cancel(); },
                 label: "Cancel"
             })
         ], {
@@ -605,6 +605,7 @@ class Browser {
             this.buttons.show("cancel");
             this.editBox.show();
     
+            console.log(item);
             this.editBox.load(item, this.fields);
 
             if (this.settings.onEdit) this.settings.onEdit();
