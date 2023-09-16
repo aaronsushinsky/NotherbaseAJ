@@ -505,6 +505,12 @@ ul.selector p {
     color: rgb(78, 78, 78);
 }
 
+.click-me {
+    background: var(--selectionColor);
+    color: var(--selectedTextColor);
+    cursor: pointer;
+}
+
 .painting {
     border: 3px solid var(--darkWoodColor);
     background: var(--hoverColor);

@@ -3,20 +3,29 @@ class Button {
         this.settings = {
             onClick: null,
             label: null,
+            hidden: false,
             ...settings
         };
 
         this.id = id;
 
-        this.$div = $(`<button id=${id}>${this.settings.label ? this.settings.label : "="}</button>`);
+        this.$div = null;
+
+        this.render();
+    }
+
+    render = () => {
+        this.$div = $(`<button class="${this.settings.hidden ? "invisible" : ""}" id=${this.id}>${this.settings.label ? this.settings.label : "="}</button>`);
         this.enable();
     }
 
     hide = () => {
+        this.settings.hidden = true;
         this.$div.addClass("invisible");
     }
 
     show = () => {
+        this.settings.hidden = false;
         this.$div.removeClass("invisible");
     }
 
@@ -27,8 +36,8 @@ class Button {
 
     enable = () => {
         this.enabled = true;
-        if (this.settings.onClick) this.$div.on("click", () => {
-            this.settings.onClick();
+        if (this.settings.onClick) this.$div.on("click", (e) => {
+            this.settings.onClick(e);
         });
     }
 }

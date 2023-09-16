@@ -90,8 +90,7 @@ class ReadBox extends ViewBox {
         if (this.fields.settings.multiple) this.$div.addClass("multiple");
 
         this.renderHeader();
-
-        //this.load(null);
+        this.renderButtons();
         
         return this.$div;
     }
@@ -107,6 +106,15 @@ class ReadBox extends ViewBox {
                 else this.$header = $(`<h6 class="${mods}${this.fields.settings.name}">${this.fields.settings.label}</h6>`).appendTo(this.$div);
             } 
             else this.$header = $(`<h4 class="${mods}${this.fields.settings.name}">${this.fields.settings.label}</h4>`).appendTo(this.$div);
+        }
+    }
+
+    renderButtons = () => {
+        if (Array.isArray(this.fields.settings.buttons)) {
+            for (let i = 0; i < this.fields.settings.buttons.length; i++) {
+                this.fields.settings.buttons[i].render();
+                this.$div.append(this.fields.settings.buttons[i].$div.clone(true));
+            }
         }
     }
 
@@ -146,6 +154,8 @@ class ReadBox extends ViewBox {
             else $rendered = $(`<p class="${field.settings.name}"></p>`).appendTo($parent);
         }
 
+        if (field.settings.hidden) $rendered.addClass("invisible");
+
         return $rendered;
     }
 
@@ -154,20 +164,19 @@ class ReadBox extends ViewBox {
             this.fields = fields;
             this.item = item;
     
-            if (!this.fields.settings.hidden) {
-                this.$div.empty();  
-                this.renderHeader();
-    
-                if (item) {
-                    if (this.fields.settings.multiple && this.nested) {
-                        if (Array.isArray(item)) for (let i = 0; i < item.length; i++) {
-                            this.add(item[i]);
-                        }
+            this.$div.empty();  
+            this.renderHeader();
+            this.renderButtons();
+
+            if (item) {
+                if (this.fields.settings.multiple && this.nested) {
+                    if (Array.isArray(item)) for (let i = 0; i < item.length; i++) {
+                        this.add(item[i]);
                     }
-                    else this.set(item);
                 }
-                else ReadBox.renderFieldTo(this.fields, this.$div, item);
+                else this.set(item);
             }
+            else ReadBox.renderFieldTo(this.fields, this.$div, item);
         }
     }
 
@@ -185,6 +194,7 @@ class ReadBox extends ViewBox {
                     if ($newBox) {
                         $newBox.appendTo($newLI);
                         newBox.load(toLoad);
+                        this.$items.push($newBox);
                     }
                 }
             }
@@ -782,6 +792,17 @@ class MetaBrowser extends Buttons {
                 this.serving = this.services[this.selectedService];
                 this.selectService(service);
             }
+        });
+    }
+
+    reload = (service = this.selectedService) => {
+        let serving = this.services[service];
+
+        console.log(service, serving);
+        if (serving.toLoad) serving.toLoad().then((res) => {
+            serving.data = res;
+            if (serving.multiple && !Array.isArray(serving.data)) serving.data = [];
+            this.selectService(service);
         });
     }
 
