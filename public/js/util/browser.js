@@ -338,7 +338,7 @@ class EditBox extends ViewBox {
                 for (let i = 0; i < this.$items.length; i++) {
                     if (this.$items[i]) {
                         let og = null;
-                        if (this.item && this.item[i]) og = this.item[i]; 
+                        if (this.item && this.item[i]) og = this.item[i];
                         let saved = this.saveFields(this.$items[i], og);
                         toGo.push(saved);
                     }
@@ -351,7 +351,7 @@ class EditBox extends ViewBox {
         return toGo;
     }
 
-    saveFields = ($items = this.$items, originalItem = null) => {
+    saveFields = ($items = this.$items, originalItem = this.item) => {
         let toGo = {};
 
         if (Array.isArray(this.fields.children)) {
@@ -363,7 +363,7 @@ class EditBox extends ViewBox {
                     toGo[this.fields.children[i].settings.name] = saved;
                 }
                 else {
-                    if (originalItem[this.fields.children[i].settings.name]) {
+                    if (originalItem && originalItem[this.fields.children[i].settings.name]) {
                         toGo[this.fields.children[i].settings.name] = originalItem[this.fields.children[i].settings.name];
                     }
                     else toGo[this.fields.children[i].settings.name] = null;
@@ -650,14 +650,15 @@ class MetaBrowser extends Buttons {
             this.$confirm.off();
             
             if (this.serving.multiple) {
+                if (this.serving.toSave) await this.serving.toSave(this.serving.data[this.serving.selected], this.serving.selected, { delete: true });
                 if (this.serving.selected < this.serving.data.length && this.serving.selected >= 0) this.serving.data.splice(which, 1);
             }
-            else this.serving.data = null;
+            else {
+                if (this.serving.toSave) await this.serving.toSave(this.serving.data, this.serving.selected, { delete: true });
+                this.serving.data = null;
+            }
 
             this.updateSearch();
-
-            if (this.serving.toSave) await this.serving.toSave(null, this.serving.selected);
-
             this.cancelDelete();
 
             this.serving.state = "read";
@@ -756,10 +757,8 @@ class MetaBrowser extends Buttons {
 
         if (serving.toLoad) serving.toLoad().then((res) => {
             serving.data = res;
-            console.log(res);
 
             if (serving.multiple && !Array.isArray(serving.data)) serving.data = [];
-            console.log(serving.data);
 
             this.addButton(new Button(service, {
                 onClick: () => {

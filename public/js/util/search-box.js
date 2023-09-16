@@ -85,7 +85,7 @@ class SearchBox {
 
         for (let i = 0; i < this.items.length; i++) {
             if (this.items[i]) {
-                let label = this.items[i].name || this.items[i].title || this.items[i].header || this.items[i].whenSearched || Object.values(this.items[i])[0];
+                let label = this.items[i].name || this.items[i].username || this.items[i].title || this.items[i].header || this.items[i].whenSearched || Object.values(this.items[i])[0];
     
                 if (label?.toLowerCase) {
                     if (label.toLowerCase().includes(this.filters.getFilter())) {

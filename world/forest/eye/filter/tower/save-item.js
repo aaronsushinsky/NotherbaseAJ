@@ -1,9 +1,27 @@
 export default async (req, user) => {
     if (user.memory.data.authLevels.includes("Creator")) {
-        let item = await req.db.Item.recallOne(req.body.item.name);
-        if (item) {
-            await item.commit(req.body.item);
+        if (req.body.delete) {
+            if (req.body.item.id) {
+                await req.db.Spirit.delete("items", null, null, req.body.item.id);
+            }
         }
-        else await req.db.Item.create(req.body.item.name, req.body.item.short, req.body.item.long);
+        else {
+            let spirit = null;
+
+            if (req.body.item.id) {
+                spirit = await req.db.Spirit.recallOne("items", null, null, req.body.item.id);
+
+                if (spirit) {
+                    let keys = Object.keys(req.body.item);
+                    for (let k = 0; k < keys.length; k++) {
+                        spirit.memory.data[keys[k]] = req.body.item[keys[k]];
+                    }
+    
+                    await spirit.commit();
+                }
+            }
+            
+            if (!spirit) spirit = await req.db.Item.create(req.body.item.name, req.body.item.short, req.body.item.long);
+        }
     }
 }
