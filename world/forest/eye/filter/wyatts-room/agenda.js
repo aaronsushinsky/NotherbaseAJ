@@ -10,7 +10,9 @@ class Agenda {
         this.render();
 
         base.do("load-schedule", { route: "/forest/eye/filter/office" }).then((res) => {
-            this.load(res.data);
+            base.do("load-shared-schedule", { route: "/forest/eye/filter/office" }).then((response) => {
+                this.load([...res.data, ...response.data]);
+            });
         });
     }
 
@@ -23,7 +25,7 @@ class Agenda {
     }
 
     load = (tasks) => {
-        this.tasks = [...tasks.userTasks, ...tasks.sharedTasks];
+        this.tasks = tasks;
 
         for (let i = 0; i < 7; i++) {
             this.days[i].load(this.tasks);        
