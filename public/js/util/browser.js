@@ -550,7 +550,7 @@ class Browser {
     }
 
     render = () => {
-        this.$div = $(`.browser#${this.id}`);
+        this.$div = $(`.browser${this.id ? `#${this.id}` : ""}`);
 
         //read box
         this.readBox.render().appendTo(this.$div);
@@ -605,7 +605,6 @@ class Browser {
             this.buttons.show("cancel");
             this.editBox.show();
     
-            console.log(item);
             this.editBox.load(item, this.fields);
 
             if (this.settings.onEdit) this.settings.onEdit();
@@ -630,9 +629,9 @@ class Browser {
 //
 
 class MetaBrowser extends Buttons {
-    constructor(id, browser, searchBox, label = "Browse") {
+    constructor(label = "Browse", browser = null, searchBox = null, id = null) {
         super(id, {}, {
-            $origin: $(`.meta.buttons#${id}`),
+            $origin: $(`.meta.buttons${id ? `#${id}` : ""}`),
             label: label
         });
 
@@ -655,14 +654,20 @@ class MetaBrowser extends Buttons {
             label: "Delete"
         }));
         this.buttons.delete.hide();
+
+        this.$alert = $(`<p class="alert invisible"></p>`).appendTo(this.$div);
+    }
+
+    setAlert = (msg) => {
+        this.$alert.text(msg);
+        this.$alert.removeClass("invisible");
     }
 
     new = () => {
         if (this.serving.editable) {
-            if (this.serving.multiple) this.serving.selected = this.serving.data.length;
+            this.select(this.serving.data.length, "edit", true, true);
     
-            this.searchBox.select();
-            this.browser.edit(null, this, this.serving.fields, this.serving.editable);
+            
         }
     }
 
@@ -671,19 +676,18 @@ class MetaBrowser extends Buttons {
             this.$confirm.off();
             
             if (this.serving.multiple) {
-                if (this.serving.toSave) await this.serving.toSave(this.serving.data[this.serving.selected], this.serving.selected, { delete: true });
+                if (this.serving.toSave) await this.serving.toSave(this.serving.data[this.serving.selected], this.serving.selected, true);
                 if (this.serving.selected < this.serving.data.length && this.serving.selected >= 0) this.serving.data.splice(which, 1);
             }
             else {
-                if (this.serving.toSave) await this.serving.toSave(this.serving.data, this.serving.selected, { delete: true });
+                if (this.serving.toSave) await this.serving.toSave(this.serving.data, this.serving.selected, true);
                 this.serving.data = null;
             }
 
             this.updateSearch();
             this.cancelDelete();
 
-            this.serving.state = "read";
-            this.select();
+            this.select(0, "read", true, true);
         }
     }
 
@@ -735,12 +739,22 @@ class MetaBrowser extends Buttons {
         this.select(this.serving.selected, "read");
     }
 
-    select = (which = 0, state = this.serving.state) => {
+    select = (which = 0, state = this.serving.state, passToBrowser = false, passToSearch = false) => {
         this.serving.selected = which;
         this.serving.state = state;
-        if (state === "read") this.browser.read(this.serving.data[which], this, this.serving.fields, this.serving.editable);
-        else if (state === "edit") this.browser.edit(this.serving.lastEdit, this, this.serving.fields, this.serving.editable);
-        this.searchBox.select(null, this.serving.selected);
+        if (passToBrowser) this.updateBrowser(which, state);
+        if (passToSearch) this.searchBox.select(null, this.serving.selected);
+    }
+
+    updateBrowser = (which = 0, state = this.serving.state) => {
+        if (this.serving.multiple) {
+            if (which >= 0 && which < this.serving.data.length) {
+                if (state === "read") this.browser.read(this.serving.data[which], this, this.serving.fields, this.serving.editable);
+                else if (state === "edit") this.browser.edit(this.serving.lastEdit, this, this.serving.fields, this.serving.editable);
+            }
+            else this.browser.edit(null, this, this.serving.fields, this.serving.editable);
+        }
+        else this.browser.edit(null, this, this.serving.fields, this.serving.editable);
     }
 
     updateStatus = (text) => {
@@ -753,6 +767,7 @@ class MetaBrowser extends Buttons {
         if (this.searchBox) {
             if (this.serving.multiple) this.searchBox.load(this.serving.data, this, this.serving.selected, this.serving.lastFilter);
             else this.searchBox.load([ this.serving.data ], this, this.serving.lastFilter);
+            this.serving.lastFilter = "";
         }
     }
 
@@ -830,6 +845,6 @@ class MetaBrowser extends Buttons {
         this.buttons[service].hide();
 
         this.updateSearch();
-        this.select(this.serving.selected);
+        this.select(this.serving.selected, this.serving.state, true, true);
     }
 }

@@ -1,5 +1,5 @@
 export default async function(req, user) {
-    if (req.body.groupID) {
+    if (user.id) {
         let spirit = await req.db.Spirit.recallOne("group", null, null, req.body.groupID);
     
         let leader = null;
@@ -12,8 +12,7 @@ export default async function(req, user) {
     
         if (leader.auth.includes("Leader")) {
             if (!req.body.reject) {
-                if (req.body.userID == leader.id) return "self-error";
-                else if (joiner) return "redundant-error";
+                if (joiner?.id == req.body.userID) return "redundant";
                 else {
                     for (let i = 0; i < spirit.memory.data.joinRequests.length; i++) {
                         if (spirit.memory.data.joinRequests[i].id == req.body.userID) {
@@ -40,8 +39,11 @@ export default async function(req, user) {
                         return "rejected";
                     }
                 }
+
+                return "not-found-error";
             }
         }
         else return "auth-error";
     }
+    else return "login-error";
 }

@@ -43,7 +43,23 @@ const promote = (e, $input) => {
         title: $input.val(), 
         userID, 
         groupID: metaGroups.serving.data[metaGroups.serving.selected].id 
-    }).then(() => { metaGroups.reload(); });
+    }).then((res) => { 
+        metaGroups.reload(); 
+        switch (res.data) {
+            case "auth-error":
+                metaGroups.setAlert("You are unauthorized to promote members!")
+                break;
+            case "login-error":
+                metaGroups.setAlert("You are not logged in!")
+                break;
+            case "promoted":
+                metaGroups.setAlert("Promoted!")
+                break;
+            case "redundant":
+                metaGroups.setAlert("Promotion already given!")
+                break;
+        }
+    });
 }
 
 const startDemote = (e) => {
@@ -94,7 +110,26 @@ const demote = (e) => {
         userID, 
         demote: true, 
         groupID: metaGroups.serving.data[metaGroups.serving.selected].id 
-    }).then(() => { metaGroups.reload(); });
+    }).then((res) => { 
+        metaGroups.reload(); 
+        switch (res.data) {
+            case "auth-error":
+                metaGroups.setAlert("You are unauthorized to demote members!")
+                break;
+            case "login-error":
+                metaGroups.setAlert("You are not logged in!")
+                break;
+            case "self-error":
+                metaGroups.setAlert("You cannot demote yourself unless there are other Leaders!")
+                break;
+            case "leader-count-error":
+                metaGroups.setAlert("You cannot demote another Leader unless there are other Leaders!")
+                break;
+            case "demoted":
+                metaGroups.setAlert("Demoted!")
+                break;
+        }
+    });
 }
 
 const startRemove = (e) => {
@@ -133,7 +168,23 @@ const remove = (e) => {
     base.do("remove-member", {
         userID,
         groupID: metaGroups.serving.data[metaGroups.serving.selected].id
-    }).then(() => { metaGroups.reload(); });
+    }).then((res) => { 
+        metaGroups.reload(); 
+        switch (res.data) {
+            case "auth-error":
+                metaGroups.setAlert("You are unauthorized to remove members!")
+                break;
+            case "login-error":
+                metaGroups.setAlert("You are not logged in!")
+                break;
+            case "self-error":
+                metaGroups.setAlert("You cannot remove yourself if you are a Leader!")
+                break;
+            case "removed":
+                metaGroups.setAlert("Removed!")
+                break;
+        }
+    });
 }
 
 const startAccept = (e) => {
@@ -182,7 +233,26 @@ const accept = (e) => {
     base.do("save-joins", {
         userID,
         groupID: metaGroups.serving.data[metaGroups.serving.selected].id 
-    }).then(() => { metaGroups.reload(); });
+    }).then((res) => { 
+        metaGroups.reload(); 
+        switch (res.data) {
+            case "auth-error":
+                metaGroups.setAlert("You are unauthorized to accept join requests!")
+                break;
+            case "login-error":
+                metaGroups.setAlert("You are not logged in!")
+                break;
+            case "accepted":
+                metaGroups.setAlert("Accepted!")
+                break;
+            case "redundant":
+                metaGroups.setAlert("User already joined!")
+                break;
+            case "not-found-error":
+                metaGroups.setAlert("Join request not found!")
+                break;
+        }
+    });
 }
 
 const startReject = (e) => {
@@ -232,16 +302,31 @@ const reject = (e) => {
         userID,
         groupID: metaGroups.serving.data[metaGroups.serving.selected].id,
         reject: true
-    }).then(() => { metaGroups.reload(); });
+    }).then((res) => { 
+        metaGroups.reload(); 
+        switch (res.data) {
+            case "auth-error":
+                metaGroups.setAlert("You are unauthorized to reject join requests!")
+                break;
+            case "login-error":
+                metaGroups.setAlert("You are not logged in!")
+                break;
+            case "rejected":
+                metaGroups.setAlert("Rejected!")
+                break;
+            case "not-found-error":
+                metaGroups.setAlert("Join request not found!")
+                break;
+        }
+    });
 }
 
-const groupsBrowser = new Browser("groups");
-const groupsSearch = new SearchBox("groups");
+const groupsBrowser = new Browser();
+const groupsSearch = new SearchBox();
 
 let removeButton = new Button("remove", {
     onClick: startRemove,
-    label: "Remove",
-    hidden: true
+    label: "Remove"
 });
 
 let cancelRemoveButton = new Button("cancel-remove", {
@@ -252,8 +337,7 @@ let cancelRemoveButton = new Button("cancel-remove", {
 
 let demoteButton = new Button("demote", {
     onClick: startDemote,
-    label: "Demote",
-    hidden: true
+    label: "Demote"
 });
 
 let cancelDemoteButton = new Button("cancel-demote", {
@@ -264,8 +348,7 @@ let cancelDemoteButton = new Button("cancel-demote", {
 
 let promoteButton = new Button("promote", {
     onClick: startPromote,
-    label: "Promote",
-    hidden: true
+    label: "Promote"
 });
 
 let cancelPromoteButton = new Button("cancel-promote", {
@@ -276,8 +359,7 @@ let cancelPromoteButton = new Button("cancel-promote", {
 
 let acceptButton = new Button("accept", {
     onClick: startAccept,
-    label: "Accept",
-    hidden: true
+    label: "Accept"
 });
 
 let cancelAcceptButton = new Button("cancel-accept", {
@@ -288,8 +370,7 @@ let cancelAcceptButton = new Button("cancel-accept", {
 
 let rejectButton = new Button("reject", {
     onClick: startReject,
-    label: "Reject",
-    hidden: true
+    label: "Reject"
 });
 
 let cancelRejectButton = new Button("cancel-reject", {
@@ -298,7 +379,7 @@ let cancelRejectButton = new Button("cancel-reject", {
     hidden: true
 })
 
-const metaGroups = new MetaBrowser("groups", groupsBrowser, groupsSearch, "Your Groups");
+const metaGroups = new MetaBrowser("Your Groups", groupsBrowser, groupsSearch);
 metaGroups.addService("groups", {
     fields: new NBField({
         name: "group",
@@ -388,20 +469,6 @@ metaGroups.addService("groups", {
     multiple: true,
     toLoad: async () => {
         let data = (await base.do("load-groups")).data;
-
-        for (let i = 0; i < data.length; i++) {
-            let members = data[i].members;
-            for (let j = 0; j < members.length; j++) {
-                if (members[j].auth.includes("Leader") && members[j].id == "<%= userID %>") {
-                    removeButton.show();
-                    demoteButton.show();
-                    promoteButton.show();
-                    acceptButton.show();
-                    rejectButton.show();
-                }
-            }
-        }
-        
         return data;
     }
 });

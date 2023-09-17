@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/styles/browser.css">
 <style>
     <%- include("./wizard-tower.css"); %>
 </style>
@@ -9,9 +8,9 @@
 
 <div class="tower">
     <div class="floatables">
-        <div class="browser" id="tower"></div>
-        <div class="search-box" id="tower"></div>
-        <div class="meta buttons" id="tower"></div>
+        <div class="browser"></div>
+        <div class="search-box"></div>
+        <div class="meta buttons"></div>
     </div>
 
     <div id="cover"></div>
@@ -74,10 +73,10 @@
             $(e.target.parentElement).find(".content").toggleClass("invisible");
         });
 
-        const browser = new Browser("tower");
-        const search = new SearchBox("tower");
+        const browser = new Browser();
+        const search = new SearchBox();
 
-        const metaTower = new MetaBrowser("tower", browser, search, "Tower");
+        const metaTower = new MetaBrowser("Tower", browser, search);
         metaTower.addService("items", {
             fields: new NBField({
                 name: "item",
@@ -111,11 +110,10 @@
             multiple: true,
             toLoad: async () => {
                 let res = await base.do("get-items");
-                console.log(res);
                 return res.data;
             },
-            toSave: async (item, which, settings = { delete: false }) => {
-                await base.do("save-item", { item, which, delete: settings.delete  });
+            toSave: async (item, which, deleting) => {
+                await base.do("save-item", { item, which, deleting });
             }
         });
         metaTower.addService("users", {
@@ -154,8 +152,8 @@
                 let res = await base.do("get-users");
                 return res.data;
             },
-            toSave: async (item, which, settings = { delete: false }) => {
-                await base.do("save-user", { item, which, delete: settings.delete });
+            toSave: async (item, which, deleting) => {
+                await base.do("save-user", { item, which, deleting });
             }
         });
     <% } %>

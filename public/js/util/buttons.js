@@ -58,7 +58,7 @@ class Buttons {
             this.buttons[buttons[i].id] = buttons[i];
         }
 
-        if (!this.settings.$origin) this.$div = $(`<div class="buttons ${this.settings.isTabs ? "tabs" : ""}" id="${id}"></div>`);
+        if (!this.settings.$origin) this.$div = $(`<div class="buttons ${this.settings.isTabs ? "tabs" : ""}" id="${id ? id : ""}"></div>`);
         else this.$div = this.settings.$origin;
 
         this.$div.click(this.click);
