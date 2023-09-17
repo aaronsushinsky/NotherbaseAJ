@@ -1,7 +1,7 @@
 <div class="floatables">
-    <div class="browser" id="scheduler"></div>
-    <div class="search-box" id="scheduler"></div>
-    <div class="meta buttons" id="scheduler"></div>
+    <div class="browser"></div>
+    <div class="search-box"></div>
+    <div class="meta buttons"></div>
 </div>
 
 <hr>
@@ -19,7 +19,159 @@
 <script>
     const weather = new WeatherSystem();
 
-    <%- include("./scheduler.js"); %>
+    const browser = new Browser();
+    const search = new SearchBox();
+    const metaBrowser = new MetaBrowser("Your Schedule", browser, search);
+    metaBrowser.addService("schedule", {
+        fields: new NBField({
+        name: "task",
+        label: "Task: ",
+        placeholder: "No task",
+        multiple: true
+    }, [
+            new NBField({
+                name: "name",
+                label: "Name: ",
+                placeholder: "Name"
+            }, "string"),
+            new NBField({
+                name: "date",
+                label: "Date: ",
+                placeholder: Date.now()
+            }, "date"),
+            new NBField({
+                name: "time",
+                label: "Time: ",
+                placeholder: Date.now()
+            }, "time"),
+            new NBField({
+                name: "recurring",
+                label: "Recurring: ",
+                placeholder: false
+            }, "boolean"),
+            new NBField({
+                name: "frequency",
+                label: "Recurs: ",
+                placeholder: " ",
+                options: [
+                    " ",
+                    "weekly",
+                    "monthly",
+                    "yearly"
+                ]
+            }, "options"),
+            new NBField({
+                name: "description",
+                label: "Description: ",
+                placeholder: "Description"
+            }, "long-string"),
+            new NBField({
+                name: "sharing",
+                label: "Sharing: ",
+                placeholder: "None",
+                multiple: true,
+                lockLength: true
+            }, [
+                new NBField({
+                    name: "id",
+                    hidden: true
+                }, "string"),
+                new NBField({
+                    name: "name",
+                    label: "Group: ",
+                    placeholder: "No Group",
+                    readOnly: true
+                }, "string"),
+                new NBField({
+                    name: "shared",
+                    label: "Shared: ",
+                    placeholder: false
+                }, "boolean")
+            ])
+        ]),
+        label: "Your Tasks",
+        editable: true,
+        multiple: true,
+        toLoad: async () => {
+            return (await base.do("load-schedule")).data;
+        },
+        toSave: async (item, which, deleting) => {
+            await base.do("save-task", { item, which, deleting });
+        }
+    });
+    metaBrowser.addService("shared-schedule", {
+        fields: new NBField({
+            name: "task",
+            label: "Task Shared with You: ",
+            placeholder: "No task",
+            multiple: true
+        }, [
+            new NBField({
+                name: "name",
+                label: "Name: ",
+                placeholder: "Name"
+            }, "string"),
+            new NBField({
+                name: "from",
+                label: "From: ",
+                placeholder: "other"
+            }, "string"),
+            new NBField({
+                name: "date",
+                label: "Date: ",
+                placeholder: Date.now()
+            }, "date"),
+            new NBField({
+                name: "time",
+                label: "Time: ",
+                placeholder: Date.now()
+            }, "time"),
+            new NBField({
+                name: "recurring",
+                label: "Recurring: ",
+                placeholder: false
+            }, "boolean"),
+            new NBField({
+                name: "frequency",
+                label: "Recurs: ",
+                placeholder: " ",
+                options: [
+                    " ",
+                    "weekly",
+                    "monthly",
+                    "yearly"
+                ]
+            }, "options"),
+            new NBField({
+                name: "description",
+                label: "Description: ",
+                placeholder: "Description"
+            }, "long-string"),
+            new NBField({
+                name: "sharing",
+                label: "Sharing: ",
+                placeholder: "None",
+                multiple: true,
+                lockLength: true
+            }, [
+                new NBField({
+                    name: "id",
+                    hidden: true
+                }, "string"),
+                new NBField({
+                    name: "name",
+                    label: "Group: ",
+                    placeholder: "No Group",
+                    readOnly: true
+                }, "string")
+            ])
+        ]),
+        label: "Tasks Shared with You",
+        multiple: true,
+        toLoad: async () => {
+            return (await base.do("load-shared-schedule")).data;
+        }
+    });
 
     const floatBoard = new FloatBoard();
 </script>

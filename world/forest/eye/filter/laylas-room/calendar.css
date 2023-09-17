@@ -9,26 +9,48 @@
     border: none;
 }
 
-.year>.month {
+.month {
     border-radius: 3px;
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    height: 400px;
+}
+
+.month h4 {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .month.small {
-    width: 50%;
+    width: 100%;
+    min-height: 100px;
+}
+
+.floating .month.small {
+    height: 100%;
 }
 
 .month .grid {
     width: 100%;
-    height: auto;
+    height: calc(100% - 70px);
     background: var(--darkBgColor);
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.floating .month {
+    height: 100%;
 }
 
 .month .calendummy {
     width: calc(100% / 7);
-    height: 80px;
+    height: calc(100% / 6);
     background: none;
     border-bottom: 1px dashed rgba(255, 255, 186, 0.12);
     border-right: 1px dashed rgba(255, 255, 186, 0.12);
@@ -36,7 +58,7 @@
 
 .month .calenday {
     width: calc(100% / 7);
-    height: 80px;
+    height: calc(100% / 6);
     background: var(--bgColor);
     border-bottom: 1px dashed rgba(255, 255, 186, 0.12);
     border-right: 1px dashed rgba(255, 255, 186, 0.12);

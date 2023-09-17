@@ -95,22 +95,24 @@ export default async (req, user) => {
     for (let i = 0; i < relatedMembers.length; i++) {
         let relatedSchedule = await req.db.Spirit.recallOne("schedule", relatedMembers[i].id);
 
-        for (let j = 0; j < relatedSchedule.memory.data.length; j++) {
-            let shared = false;
-            for (let k = 0; k < relatedSchedule.memory.data[j].sharing.length; k++) {
-                for (let l = 0; l < inGroups.length; l++) {
-                    if (relatedSchedule.memory.data[j].sharing[k].shared && relatedSchedule.memory.data[j].sharing[k].id == inGroups[l].id) {
-                        shared = true;
-                        break;
+        if (relatedSchedule?.memory?.data) {
+            for (let j = 0; j < relatedSchedule.memory.data.length; j++) {
+                let shared = false;
+                for (let k = 0; k < relatedSchedule.memory.data[j].sharing.length; k++) {
+                    for (let l = 0; l < inGroups.length; l++) {
+                        if (relatedSchedule.memory.data[j].sharing[k].shared && relatedSchedule.memory.data[j].sharing[k].id == inGroups[l].id) {
+                            shared = true;
+                            break;
+                        }
                     }
+                    if (shared) break;
                 }
-                if (shared) break;
+    
+                if (shared) sharedTasks.push({
+                    from: relatedMembers[i].name,
+                    ...relatedSchedule.memory.data[j]
+                });
             }
-
-            if (shared) sharedTasks.push({
-                from: relatedMembers[i].name,
-                ...relatedSchedule.memory.data[j]
-            });
         }
     }
 

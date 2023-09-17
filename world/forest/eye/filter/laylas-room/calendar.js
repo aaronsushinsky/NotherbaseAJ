@@ -23,10 +23,8 @@ class Calendar {
     render = () => {
         this.$div = $(`.calendar#${this.id}`);
 
-        this.$year = $(`<section class="year"></section>`).appendTo(this.$div);
-
         for (let i = 0; i < 12; i++) {
-            this.months.push(new Month(this.$year, this.date, i));       
+            this.months.push(new Month(this.$div, this.date, i));       
         }
     }
 

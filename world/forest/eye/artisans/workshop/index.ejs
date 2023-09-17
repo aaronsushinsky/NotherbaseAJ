@@ -1,6 +1,8 @@
-<link rel="stylesheet" href="/styles/browser.css">
-
-<div class="browser" id="projects"></div>
+<div class="floatables">
+    <div class="browser"></div>
+    <div class="search-box"></div>
+    <div class="meta buttons"></div>
+</div>
 
 <hr>
 
@@ -8,34 +10,26 @@
     Exit the Workshop
 </a>
 
+<script src="/js/util/buttons.js"></script>
+<script src="/js/util/search-box.js"></script>
 <script src="/js/util/browser.js"></script>
+<script src="/js/entity.js"></script>
+<script src="/js/floatable.js"></script>
 <script>
-    const fields = new NBField({
-        name: "projects",
-        multiple: true,
-        placeholder: "No Projects",
-        label: "Project: "
-    }, [
-        new NBField({
-            name: "name",
-            placeholder: "No Name",
-            label: "Name: "
-        }, "string"),
-        new NBField({
-            name: "description",
-            placeholder: "No Description",
-            label: "Description: "
-        }, "long-string"),
-        new NBField({
-            name: "task",
-            placeholder: "No Tasks",
-            label: "Tasks: ",
-            multiple: true
+    const browser = new Browser();
+    const search = new SearchBox();
+    const metaBrowser = new MetaBrowser("Your Projects", browser, search);
+    metaBrowser.addService("projects", {
+        fields: new NBField({
+            name: "projects",
+            multiple: true,
+            placeholder: "No Projects",
+            label: "Project: "
         }, [
             new NBField({
                 name: "name",
-                placeholder: "No Task Name",
-                label: "Task: "
+                placeholder: "No Name",
+                label: "Name: "
             }, "string"),
             new NBField({
                 name: "description",
@@ -43,27 +37,49 @@
                 label: "Description: "
             }, "long-string"),
             new NBField({
-                name: "completed",
-                placeholder: false,
-                label: "Completed: "
-            }, "boolean")
+                name: "task",
+                placeholder: "No Tasks",
+                label: "Tasks: ",
+                multiple: true
+            }, [
+                new NBField({
+                    name: "name",
+                    placeholder: "No Task Name",
+                    label: "Task: "
+                }, "string"),
+                new NBField({
+                    name: "description",
+                    placeholder: "No Description",
+                    label: "Description: "
+                }, "long-string"),
+                new NBField({
+                    name: "completed",
+                    placeholder: false,
+                    label: "Completed: "
+                }, "boolean")
+            ]),
+            new NBField({
+                name: "resources",
+                placeholder: "No External Resources",
+                label: "External Resources: ",
+                multiple: true
+            }, "string"),
+            new NBField({
+                name: "notes",
+                placeholder: "No Notes",
+                label: "Notes: "
+            }, "long-string"),
         ]),
-        new NBField({
-            name: "resources",
-            placeholder: "No External Resources",
-            label: "External Resources: ",
-            multiple: true
-        }, "string"),
-        new NBField({
-            name: "notes",
-            placeholder: "No Notes",
-            label: "Notes: "
-        }, "long-string"),
-    ]);
-
-    const projectsBrowser = new Browser("projects", fields, true, "save-projects");
-
-    base.load("projects").then((res) => {
-        projectsBrowser.load(res);
+        label: "Project:",
+        editable: true,
+        multiple: true,
+        toLoad: async () => {
+            return await base.load("projects");
+        },
+        toSave: async (item, which, deleting) => {
+            await base.do("save-project", { item, which, deleting });
+        }
     });
+
+    const floatBoard = new FloatBoard();
 </script>
