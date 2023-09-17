@@ -121,9 +121,9 @@
 
         <section class="showcase" id="notherbase-examples">
             <div class="chat-box" id="example-chat"></div>
-            <div class="browser" id="portfolio-examples"></div>
-            <div class="search-box" id="portfolio-examples"></div>
-            <div class="meta buttons" id="portfolio-examples"></div>
+            <div class="browser"></div>
+            <div class="search-box"></div>
+            <div class="meta buttons"></div>
         </section>
 
         <section class="alt showcase" id="tamago-watch">
@@ -740,11 +740,10 @@
 
         const messager = new Messager();
 
-        const exampleBrowser = new Browser("portfolio-examples");
-        const exampleSearch = new SearchBox("portfolio-examples");
-
-        const metaRecipes = new MetaBrowser("portfolio-examples", exampleBrowser, exampleSearch, "Examples");
-        metaRecipes.addService("portfolio-examples", {
+        const browser = new Browser();
+        const search = new SearchBox();
+        const metaBrowser = new MetaBrowser("Examples", browser, search);
+        metaBrowser.addService("portfolio-examples", {
             fields: new NBField({
             name: "example",
             multiple: true,
@@ -765,13 +764,14 @@
             editable: true,
             multiple: true,
             toLoad: async () => {
-                return await base.load("portfolio-examples");
+                return await base.load("portfolio-examples", "global");
             },
-            toSave: async (item, which) => {
+            toSave: async (item, which, deleting) => {
                 await base.do("save-example", { 
                     item, 
                     which,
-                    route: "/pages/portfolio"
+                    route: "/pages/portfolio",
+                    deleting
                 });
             }
         });

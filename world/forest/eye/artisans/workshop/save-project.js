@@ -2,7 +2,7 @@ export default async (req, user) => {
     //check if logged in
     if (user.id) {
         //get the document in the database
-        let spirit = await req.db.Spirit.recallOne("portfolio-examples");
+        let spirit = await req.db.Spirit.recallOne("projects", user.id);
 
         //normalize the document's data
         if (!Array.isArray(spirit.memory.data)) spirit.memory.data = [];

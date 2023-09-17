@@ -7,7 +7,7 @@ class SearchBox {
 
         SearchBox.attemptStyle();
 
-        this.$div = $(`.search-box#${id}`);
+        this.$div = $(`.search-box${id ? `#${id}` : ""}`);
         this.$searchList = $(`<ul class="selector"></ul>`).appendTo(this.$div);
         this.filters = new SearchBox.Filters(this.renderSearchResults);
         this.$div.append(this.filters.$div);
@@ -92,7 +92,7 @@ class SearchBox {
                         let $result = $(`<li id="${i}">${label}</li>`).appendTo(this.$searchList);
                         $result.on("click", (e) => { 
                             this.select(e.currentTarget);
-                            if (this.settings.parent) this.settings.parent.select(i, "read");
+                            if (this.settings.parent) this.settings.parent.select(i, "read", true);
                         });
                     }
                 }
@@ -101,7 +101,7 @@ class SearchBox {
                         let $result = $(`<li id="${i}">Name Error</li>`).appendTo(this.$searchList);
                         $result.on("click", (e) => { 
                             this.select(e.currentTarget);
-                            if (this.settings.parent) this.settings.parent.select(i, "read");
+                            if (this.settings.parent) this.settings.parent.select(i, "read", true);
                         });
                     }
                 }
