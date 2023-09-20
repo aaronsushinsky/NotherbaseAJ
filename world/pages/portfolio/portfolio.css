@@ -148,6 +148,7 @@ nav i {
 nav .buttons {
     display: flex;
     gap: var(--padding);
+    width: initial;
 }
 
 .text {

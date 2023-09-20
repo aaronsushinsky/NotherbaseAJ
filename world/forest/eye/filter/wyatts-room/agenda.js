@@ -9,10 +9,20 @@ class Agenda {
         
         this.render();
 
+        this.loaded = null;
+
         base.do("load-schedule", { route: "/forest/eye/filter/office" }).then((res) => {
-            base.do("load-shared-schedule", { route: "/forest/eye/filter/office" }).then((response) => {
-                this.load([...res.data, ...response.data]);
-            });
+            if (this.loaded) {
+                this.load([...res.data, ...this.loaded]);
+            }
+            else this.loaded = res.data;
+        });
+
+        base.do("load-shared-schedule", { route: "/forest/eye/filter/office" }).then((res) => {
+            if (this.loaded) {
+                this.load([...res.data, ...this.loaded]);
+            }
+            else this.loaded = res.data;
         });
     }
 

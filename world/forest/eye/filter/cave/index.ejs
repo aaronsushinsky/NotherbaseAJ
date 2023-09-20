@@ -47,7 +47,6 @@
     <%- include("./nono.js"); %>
 
     let lastPos = [0, 0];
-
     let moveNono = function moveNono() {
         let focus = $("#move-nono-spirit");
         let newPos = [Math.floor(Math.random() * 200), Math.floor(Math.random() * 100)];
@@ -59,14 +58,8 @@
 
         lastPos = newPos;
     };
-
     moveNono();
     setInterval(moveNono, 2000);
-
-    //base.do("reset-nono");
-    base.load("filter-cave-nono").then((res) => {
-        nonoGame.startNew(res.level, res.difficulty);
-    });
 
     const floatBoard = new FloatBoard();
 </script>
