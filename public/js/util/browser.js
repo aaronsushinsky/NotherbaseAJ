@@ -792,7 +792,7 @@ class MetaBrowser extends Buttons {
         if (serving.multiple) serving.data = [];
 
         if (serving.toLoad) serving.toLoad().then((res) => {
-            serving.data = res.data;
+            serving.data = res;
             
             if (serving.multiple && !Array.isArray(serving.data)) serving.data = [];
 
