@@ -105,10 +105,10 @@
                 editable: true,
                 multiple: true,
                 toLoad: async () => {
-                    return await base.do("load-it", {
+                    return (await base.do("load-it", {
                         which: filter,
                         route: "/pages/it-admin"
-                    });
+                    })).data;
                 },
                 toSave: async (item, which, deleting) => {
                     console.log(item, which, deleting);
