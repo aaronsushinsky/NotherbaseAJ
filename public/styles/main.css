@@ -160,9 +160,14 @@ footer {
 footer button {
     margin: 0;
     height: 100%;
-    border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 5px 5px;
     border: none;
     border-left: var(--standardBorder);
+}
+
+footer button:hover {
+    border: none;
+    border-left: 1px solid var(--hoverTextColor);
 }
 
 footer a {
