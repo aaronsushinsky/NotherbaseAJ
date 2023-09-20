@@ -160,9 +160,14 @@ footer {
 footer button {
     margin: 0;
     height: 100%;
-    border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 5px 5px;
     border: none;
     border-left: var(--standardBorder);
+}
+
+footer button:hover {
+    border: none;
+    border-left: 1px solid var(--hoverTextColor);
 }
 
 footer a {
@@ -211,7 +216,7 @@ article {
 h1, h2, h3, h4, h5, h6 {
     width: var(--fillFromMargin);
     text-align: center;
-    text-shadow: 1px 1px var(--shadowColor);
+    text-shadow: 1px 1px 1px var(--shadowColor);
 }
 
 h1 {

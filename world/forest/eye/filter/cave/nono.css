@@ -74,7 +74,7 @@
     width: calc(100% - var(--uiSize));
     height: calc(100% - var(--uiSize));
     overflow: auto;
-    padding: var(--thickPadding);
+    padding: 0;
 }
 
 .nono-field .bar {

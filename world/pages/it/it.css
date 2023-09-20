@@ -10,23 +10,27 @@
     --shadowColor: rgb(82, 82, 82);
 }
 
-* {
-    font-family: "Chakra Petch", sans-serif;
-}
-
 main {
     align-content: flex-start;
     box-shadow: 5px 5px var(--shadowColor);
-    min-height: 380px;
-    max-width: 95%;
+    width: 100%;
+    max-width: 900px;
+    position: initial;
+    padding: var(--padding);
+    z-index: 0;
+    border-radius: 5px 5px 0 0;
 }
 
 footer {
     color: var(--footerTextColor);
     justify-content: flex-end;
     flex-wrap: wrap;
-    position: relative;
+    position: initial;
     box-shadow: 5px 5px var(--shadowColor);
+    width: 100%;
+    max-width: 900px;
+    padding: var(--padding);
+    z-index: 1;
 }
 
 footer input, footer p {
@@ -44,6 +48,7 @@ footer a, footer a:hover {
     color: var(--footerTextColor);
     border: none;
     font-size: small;
+    height: auto;
 }
 
 .form {
@@ -55,7 +60,7 @@ footer a, footer a:hover {
 }
 
 #desc-label {
-    width: 90%;
+    width: 100%;
 }
 
 #att-label {
@@ -91,6 +96,10 @@ footer a, footer a:hover {
     padding: 10px;
 }
 
+.tickets li h4 {
+    width: 100%;
+}
+
 .tickets li.selectable {
     cursor: pointer;
 }
@@ -121,6 +130,14 @@ footer a, footer a:hover {
     margin: 10px;
 }
 
-.search {
+.search-box {
     background: none;
+}
+
+.selector {
+    background: none;
+}
+
+.selector li {
+    background: none !important;
 }
