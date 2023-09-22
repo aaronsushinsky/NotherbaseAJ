@@ -20,7 +20,7 @@
 
     <main>
         <h1>NotherBase Documentation</h1>
-        <h2>notherbase-fs Version: 3.1.2</h2>
+        <h2>notherbase-fs Version: 3.2.14</h2>
 
         <details open>
             <summary><h3>notherbase-fs</h3></summary>
@@ -70,12 +70,15 @@ const notherBaseFS = new NotherBaseFS(__dirname);
                     The PORT variable is needed for testing. Hosting platforms like Heroku
                     may provide their own. The MONGODB_URI and SECRET variables are 
                     needed to connect to a MongoDB database, which is needed for the 
-                    server to start.
+                    server to start. The NOREPLY and EMAILPW variables allow the server to
+                    send emails out.
                 </p>
 <pre class="code">
 PORT=4567
 MONGODB_URI="mongodb+srv://user:password@examplebase.compd.mongodb.net/examplebase?retryWrites=true&w=majority"
 SECRET="somesecret"
+NOREPLY="e@mail.com"
+EMAILPW="dendfsmdy!dtut"
 </pre>
             </details>
 
@@ -234,38 +237,6 @@ await user.offsetItem("Item Name", 1);
                             </details>
     
                             <details>
-                                <summary>closeMenu = () => {}</summary>
-                                <article>
-                                    <div class="purpose">Closes the player's menu.</div>
-                                </article>
-                            </details>
-    
-                            <details>
-                                <summary>openMenu = () => {}</summary>
-                                <article>
-                                    <div class="purpose">Opens the player's menu.</div>
-                                </article>
-                            </details>
-
-                            <details>
-                                <summary>switchTab = function switchTab(id) {}</summary>
-                                <article>
-                                    <div class="purpose">
-                                        Switches between the menu's various tabs.
-                                    </div>
-                                    <div class="input">
-                                        id: The id of the tab to switch to.
-                                        <ul>
-                                            <li>"inventory"</li>
-                                            <li>"player"</li>
-                                            <li>"account"</li>
-                                            <li>"more"</li>
-                                        </ul>
-                                    </div>
-                                </article>
-                            </details>
-    
-                            <details>
                                 <summary>logout = async () => {}</summary>
                                 <article>
                                     <div class="purpose">Communes with the spirit world to compel the user to logout.</div>
@@ -377,50 +348,6 @@ await user.offsetItem("Item Name", 1);
                     </details>
 
                     <details>
-                        <summary>#Inventory = class Inventory {}</summary>
-
-                        <article>
-                            <details>
-                                <summary>Properties</summary>
-                                this.items = [];
-                                this.lastUpdate = 0;
-                            </details>
-
-                            <details>
-                                <summary>async refresh() {}</summary>
-                            </details>
-    
-                            <details>
-                                <summary>clearError() {}</summary>
-                            </details>
-    
-                            <details>
-                                <summary>setError(text) {}</summary>
-                            </details>
-                        </article>
-                    </details>
-
-                    <details>
-                        <summary>#PlayerAttributes = class PlayerAttributes {}</summary>
-
-                        <article>
-                            <details>
-                                <summary>Properties</summary>
-                                this.attributes = [];
-                                this.lastUpdate = 0;
-                            </details>
-    
-                            <details>
-                                <summary>async refresh() {}</summary>
-                            </details>
-    
-                            <details>
-                                <summary>render() {}</summary>
-                            </details>
-                        </article>
-                    </details>
-
-                    <details>
                         <summary>#AccountServices = class AccountServices {}</summary>
 
                         <article>
@@ -432,32 +359,7 @@ await user.offsetItem("Item Name", 1);
                             </details>
 
                             <details>
-                                <summary>async refresh() {}</summary>
-                                
-                            </details>
-
-                            <details>
-                                <summary>editEmail() {}</summary>
-                                
-                            </details>
-
-                            <details>
-                                <summary>cancelEmail() {}</summary>
-                                
-                            </details>
-
-                            <details>
                                 <summary>async updateEmail() {}</summary>
-                                
-                            </details>
-
-                            <details>
-                                <summary>editUsername() {}</summary>
-                                
-                            </details>
-
-                            <details>
-                                <summary>cancelUsername() {}</summary>
                                 
                             </details>
 
@@ -475,12 +377,7 @@ await user.offsetItem("Item Name", 1);
 
                 <h6>What are Spirits?</h6>
                 <p>
-                    Technically, a spirit in NotherBase is a document in the database. In practice,
-                    commune (use the notherbase-fs API) with a spirit (a Mongoose model) to receive 
-                    its word (document data) and manifest it (process and render).
-                </p>
-                <p>
-                    Access spirits via "req.db.Spirit", "req.db.User", etc in your spirit world scripts.
+                    A spirit in NotherBase is a document in the database.
                 </p>
 
                 <article>
@@ -590,6 +487,24 @@ static db = mongoose.model('spirits', new mongoose.Schema({
                             </details>
 
                             <details>
+                                <summary>static commit = async (data = this.memory.data, which = -1) => {}</summary>
+                                <article>
+                                    <div class="purpose">
+                                        Saves a document's updated data to the database.
+                                    </div>
+                                    <div class="input">
+                                        data (Object): The data to overrride with.
+                                    </div>
+                                    <div class="input">
+                                        which (Integer): Data to match.
+                                    </div>
+                                    <div class="output">
+                                        Returns: "Updated"
+                                    </div>
+                                </article>
+                            </details>
+
+                            <details>
                                 <summary>static delete = async (service, data = {}, id = null) => {}</summary>
                                 <article>
                                     <div class="purpose">
@@ -675,81 +590,6 @@ static db = mongoose.model('spirits', new mongoose.Schema({
                                     </div>
                                     <div class="output">
                                         Returns: the number of spirits deleted.
-                                    </div>
-                                </article>
-                            </details>
-
-                            <details>
-                                <summary>offsetItem = async (name, offset) => {}</summary>
-                                <article>
-                                    <div class="purpose">
-                                        Offsets an item in the user's inventory.
-                                    </div>
-                                    <div class="input">
-                                        name (String): The name of the item.
-                                    </div>
-                                    <div class="input">
-                                        offset (Number): The amount to offset by.
-                                    </div>
-                                    <div class="output">
-                                        Returns: true if the offset was successful or false.
-                                    </div>
-                                </article>
-                            </details>
-
-                            <details>
-                                <summary>checkAttribute = async (check, against) => {}</summary>
-                                <article>
-                                    <div class="purpose">
-                                        Checks if a user's attribute is greater than or equal
-                                        to the given test.
-                                    </div>
-                                    <div class="input">
-                                        check (String): The name of the attribute to check.
-                                    </div>
-                                    <div class="input">
-                                        against (Number): The test.
-                                    </div>
-                                    <div class="output">
-                                        Returns: true if the attribute is greater than or equal
-                                        to the given test.
-                                    </div>
-                                </article>
-                            </details>
-
-                            <details>
-                                <summary>setAttribute = async (change, to) => {}</summary>
-                                <article>
-                                    <div class="purpose">
-                                        Sets a user's attribute.
-                                    </div>
-                                    <div class="input">
-                                        change (String): The name of the attribute to set.
-                                    </div>
-                                    <div class="input">
-                                        to (Number): The number to set the attribute to.
-                                    </div>
-                                    <div class="output">
-                                        Returns: confirmation.
-                                    </div>
-                                </article>
-                            </details>
-
-                            <details>
-                                <summary>incrementAttribute = async (change, max) => {}</summary>
-                                <article>
-                                    <div class="purpose">
-                                        Increase a user's attribute by one.
-                                    </div>
-                                    <div class="input">
-                                        change (String): The name of the attribute to increase.
-                                    </div>
-                                    <div class="input">
-                                        max (Number): The increment will only happen if the user's 
-                                        attribute is less than this number.
-                                    </div>
-                                    <div class="output">
-                                        Returns: new attribute value.
                                     </div>
                                 </article>
                             </details>
