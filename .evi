@@ -1,0 +1,5 @@
+MONGODB_URI="mongodb+srv://wyatt:somethingElse1@notherbase.compd.mongodb.net/notherbase-test?retryWrites=true&w=majority"
+PORT=4337
+SECRET="1235"
+NOREPLY="wyatt@notherbase.com"
+EMAILPW=""
